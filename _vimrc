@@ -1,13 +1,15 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let $PYTHON_DLL="/System/Library/Frameworks/Python.framework/Versions/2.6/Python"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible
+filetype off
+
+" vundleのディレクトリ
 set rtp+=~/.vim/vundle.git
 call vundle#rc()
 
+" Plugin
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " git.vim
 Bundle 'motemen/git-vim'
 " neocomplcache.vim
@@ -25,15 +27,10 @@ Bundle 'mattn/zencoding-vim'
 " css3.vim
 Bundle 'css3'
 " remote php debugger
-Bundle 'DBGp-Remote-Debugger-Interface'
+"Bundle 'DBGp-Remote-Debugger-Interface'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" debuggerのpythonファイル
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"pyfile ~/.vim/bundle/remote-PHP-debugger/plugin/debugger.py
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-".vimrc設定
+" 基本設定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " .swap ファイルの出力先
 set directory=~/tmp/vim
@@ -56,6 +53,7 @@ set noexpandtab
 "この幅を超えない様に空白の後で改行される。
 "値を0に設定すると無効になる。
 set textwidth=0
+
 "新しい行を開始したとき(Insertモードで<CR>を打ち込むか、コマンド"o"や"0"を使った時)
 "新しい行のインデントを現在の行と同じくする。
 "(有効:autoindent/無効:noautoindent)
@@ -71,6 +69,7 @@ set wrap
 "検索がファイル末尾まで進んだら、ファイル先頭から再び検索する。
 "(有効:wrapscan/無効:nowrapscan)
 set wrapscan
+
 "オンのとき、コマンドライン補完が拡張モードで行われる。
 "(有効:wildmenu/無効:nowildmenu)
 set wildmenu
@@ -82,12 +81,15 @@ set showmatch
 "毎行の前に行番号を表示する。
 "(有効:number/無効:nonumber)
 set number
+
 "カーソルが何行目の何列目に置かれているかを表示する。
 "(有効:ruler/無効:noruler)
 set ruler
+
 "タブ文字をCTRL-Iで表示し、行末に$で表示する。
 "(有効:list/無効:nolist)
 set nolist
+
 "Listモード(訳注:オプション'list'がオンのとき)に使われる文字を設定する。
 ":set listchars=tab:>-,extends:<,trail:-,eol:<
 
@@ -104,6 +106,7 @@ set showcmd
 "書き込みが成功してバックアップはそのまま取っておく。
 "(有効:backup/無効:nobackup)
 set nobackup
+
 "ファイルの上書きの前にバックアップを作る。
 "オプション'backup'がオンでない限り、バックアップは上書きに成功した後削除される。
 "(有効:writebackup/無効nowritebackup)
@@ -118,10 +121,12 @@ set ffs=unix,dos,mac " 改行文字
 "適当な文字コード判別
 set termencoding=utf-8
 set encoding=utf-8
+
 " MacVimの場合 gauche_guess により、自動的に文字コードの判別を行うので不要
 "set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
 
 "UTF-8の□や○でカーソル位置がずれないようにする
+"Terminal.appはどっちにしてもダメ，PrivatePortsのiTermでやる
 if exists("&ambiwidth")
   set ambiwidth=double
 endif
@@ -129,9 +134,6 @@ endif
 "改行コードの自動認識
 set fileformats=unix,dos,mac
 
-"UTF-8の□や○でカーソル位置がずれないようにする
-"Terminal.appはどっちにしてもダメ，PrivatePortsのiTermでやる
-set ambiwidth=double
 "シンタックスカラーリングオン
 syntax on 
 
@@ -146,12 +148,10 @@ function! SetUTF8Xattr(file)
 	endif
 endfunction
 
-
-
-"
-"neocomplcache
-"参考：http://vim-users.jp/2010/10/hack177/
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" neocomplcache
+" 参考：http://vim-users.jp/2010/10/hack177/
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "AutoComplepop OFF
 let g:acp_enableAtStartup = 0
 "let g:AutoComplPop_NotEnableAtStartup = 1
@@ -179,7 +179,7 @@ let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 let g:neocomplcache_snippets_dir = $HOME . '/.vim/snippets'
 
 " neocon keybindings
-"------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " <TAB> completion.
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 " snippets expand key
@@ -215,32 +215,14 @@ highlight PmenuSel ctermbg=blue ctermfg=black
 highlight PmenuSbar ctermbg=darkgray
 highlight PmenuThumb ctermbg=lightgray
 
-"
-"NERDtree
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NERDtree
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 
-"
-"Call Processing Apple Script
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"imap <C-G> <ESC>:w<CR>:call system('osascript /Users/satoru/bin/run_processing.scpt')<CR><CR>a
-"nmap <C-G> :w<CR>:call system('osascript /Users/satoru/bin/run_processing.scpt')<CR><CR>
-
-"
-"Actionscript Syntax
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-au BufNewFile,BufRead *.as set filetype=actionscript
-au BufNewFile,BufRead *.mxml set filetype=mxml
-
-"
-"Align
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"日本語でちょうど良く整形系させるために
-let g:Align_xstrlen = 3
-
-"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Zen-Cording.vim
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:usr_zen_expandword_key = '<c-e>'
 
 
