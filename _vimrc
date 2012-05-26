@@ -61,8 +61,8 @@ NeoBundle 'smartword'
 NeoBundle 'git://github.com/mattn/webapi-vim'
 " vimplenote.vim
 NeoBundle 'git://github.com/mattn/vimplenote-vim'
-" vital.vim
-NeoBundle 'git://github.com/ujihisa/vital.vim'
+" surround.vim
+NeoBundle 'surround.vim'
 
 "ファイルタイプ インデント プラグイン使用する
 filetype plugin indent on
