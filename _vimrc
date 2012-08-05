@@ -29,8 +29,8 @@ NeoBundle 'git://github.com/Shougo/vimshell'
 NeoBundle 'git://github.com/h1mesuke/unite-outline'
 " unite-help
 NeoBundle 'git://github.com/tsukkee/unite-help'
-" unite-grep
-NeoBundle 'git://github.com/Sixeight/unite-grep'
+" unite-tag
+NeoBundle 'git://github.com/tsukkee/unite-tag'
 " quickrun.vim
 NeoBundle 'git://github.com/thinca/vim-quickrun'
 " open-browser.vim
@@ -47,8 +47,6 @@ NeoBundle 'git://github.com/hail2u/vim-css3-syntax'
 NeoBundle 'git://github.com/altercation/vim-colors-solarized'
 " vim powerline
 NeoBundle 'git://github.com/Lokaltog/vim-powerline'
-" jslint.vim
-NeoBundle 'git://github.com/hallettj/jslint.vim'
 " phplint.vim
 NeoBundle 'git://github.com/Jonty/phplint.vim'
 " smartword
