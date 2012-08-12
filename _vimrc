@@ -63,7 +63,7 @@ NeoBundle 'git://github.com/mattn/vimplenote-vim'
 NeoBundle 'surround.vim'
 " scrooloose/syntastic.vim
 NeoBundle 'scrooloose/syntastic'
-"Tagbar
+" Tagbar
 NeoBundle 'git://github.com/majutsushi/tagbar'
 
 "ファイルタイプ インデント プラグイン使用する
@@ -353,6 +353,8 @@ nnoremap <silent> [unite]l :<C-u>Unite line<CR>
 nnoremap <silent> [unite]ol :<C-u>Unite outline<CR>
 " grep
 nnoremap <silent> [unite]g :<C-u>Unite grep<CR>
+" tag
+nnoremap <silent> [unite]t :<C-u>Unite tag<CR>
 "uniteを開いている間のキーマッピング
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()"{{{
@@ -416,6 +418,7 @@ function! g:my_vimfiler_settings()
   nmap     <buffer><expr><Cr> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
   nnoremap <buffer>s          :call vimfiler#mappings#do_action('my_split')<Cr>
   nnoremap <buffer>v          :call vimfiler#mappings#do_action('my_vsplit')<Cr>
+  nnoremap <buffer>E          :call vimfiler#mappings#do_action('my_tabopen')<Cr>
 endfunction
 
 let my_action = { 'is_selectable' : 1 }
@@ -431,6 +434,12 @@ function! my_action.func(candidates)
   exec 'vsplit '. a:candidates[0].action__path
 endfunction
 call unite#custom_action('file', 'my_vsplit', my_action)
+
+let my_action = { 'is_selectable' : 1 }                     
+function! my_action.func(candidates)
+  exec 'tabedit '. a:candidates[0].action__path
+endfunction
+call unite#custom_action('file', 'my_tabopen', my_action)
 
 "
 "quickrun.vim
