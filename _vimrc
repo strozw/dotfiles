@@ -11,8 +11,8 @@ endif
 
 " sudo.vim
 NeoBundle 'sudo.vim'
-" git.vim
-NeoBundle 'git://github.com/motemen/git-vim'
+" vim-fugitive
+NeoBundle 'git://github.com/tpope/vim-fugitive'
 " neocomplcache.vim
 NeoBundle 'git://github.com/Shougo/neocomplcache'
 " neocomplcache snippet
@@ -63,6 +63,8 @@ NeoBundle 'git://github.com/mattn/vimplenote-vim'
 NeoBundle 'surround.vim'
 " scrooloose/syntastic.vim
 NeoBundle 'scrooloose/syntastic'
+"Tagbar
+NeoBundle 'git://github.com/majutsushi/tagbar'
 
 "ファイルタイプ インデント プラグイン使用する
 filetype plugin indent on
@@ -370,7 +372,16 @@ endfunction"}}}
 syntax enable
 
 "
-"vimfiler.vim
+" Unite-tag
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" C-] にマッピング
+autocmd BufEnter *
+\   if empty(&buftype)
+\|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+\|  endif
+
+"
+" vimfiler.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Default File Explorer
 let g:vimfiler_as_default_explorer = 1
@@ -394,6 +405,33 @@ let g:vimfiler_min_filename_width = 30
 " filename column max size
 let g:vimfiler_max_filename_width = 60
 
+" vim current dir を vimfilerに追従させる
+let g:vimfiler_enable_auto_cd = 1
+
+" VimFiler をNERDTreeっぽく使う方法
+" 参考: http://d.hatena.ne.jp/hrsh7th/20120229/1330525683
+nnoremap <F2> :VimFiler -buffer-name=explorer -split -winwidth=45 -toggle -no-quit -auto-cd<Cr>
+autocmd! FileType vimfiler call g:my_vimfiler_settings()
+function! g:my_vimfiler_settings()
+  nmap     <buffer><expr><Cr> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
+  nnoremap <buffer>s          :call vimfiler#mappings#do_action('my_split')<Cr>
+  nnoremap <buffer>v          :call vimfiler#mappings#do_action('my_vsplit')<Cr>
+endfunction
+
+let my_action = { 'is_selectable' : 1 }
+function! my_action.func(candidates)
+  wincmd p
+  exec 'split '. a:candidates[0].action__path
+endfunction
+call unite#custom_action('file', 'my_split', my_action)
+
+let my_action = { 'is_selectable' : 1 }                     
+function! my_action.func(candidates)
+  wincmd p
+  exec 'vsplit '. a:candidates[0].action__path
+endfunction
+call unite#custom_action('file', 'my_vsplit', my_action)
+
 "
 "quickrun.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -408,4 +446,17 @@ let g:quickrun_config['markdown'] = {
 "vim-powerline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:Powerline_symbols = 'compatible'
+
+"
+" syntastic
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:syntastic_check_on_open=1
+let g:syntastic_auto_jump=1
+
+"
+" TagBar
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" タグバーの開閉を<F8>にマッピング
+nmap <F8> :TagbarToggle<CR>
+
 
