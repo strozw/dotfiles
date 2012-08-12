@@ -191,6 +191,9 @@ endfunction
 " grep
 set grepprg=internal
 
+" 新しいウィンドウを右に開く
+set splitright
+
 "
 "neocomplcache
 "参考：http://vim-users.jp/2010/10/hack177/
@@ -390,7 +393,7 @@ let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_safe_mode_by_default = 0
 
 " Edit file by tabedit.
-let g:vimfiler_edit_action = 'tabopen'
+"let g:vimfiler_edit_action = 'tabopen'
 
 " Like Textmate icons.
 let g:vimfiler_tree_leaf_icon = ' '
@@ -405,12 +408,9 @@ let g:vimfiler_min_filename_width = 30
 " filename column max size
 let g:vimfiler_max_filename_width = 60
 
-" vim current dir を vimfilerに追従させる
-let g:vimfiler_enable_auto_cd = 1
-
 " VimFiler をNERDTreeっぽく使う方法
 " 参考: http://d.hatena.ne.jp/hrsh7th/20120229/1330525683
-nnoremap <F2> :VimFiler -buffer-name=explorer -split -winwidth=45 -toggle -no-quit -auto-cd<Cr>
+nnoremap <F2> :VimFiler -buffer-name=explorer -split -winwidth=45 -toggle -no-quit<Cr>
 autocmd! FileType vimfiler call g:my_vimfiler_settings()
 function! g:my_vimfiler_settings()
   nmap     <buffer><expr><Cr> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
