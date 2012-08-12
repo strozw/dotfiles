@@ -61,6 +61,8 @@ NeoBundle 'git://github.com/mattn/webapi-vim'
 NeoBundle 'git://github.com/mattn/vimplenote-vim'
 " surround.vim
 NeoBundle 'surround.vim'
+" scrooloose/syntastic.vim
+NeoBundle 'scrooloose/syntastic'
 
 "ファイルタイプ インデント プラグイン使用する
 filetype plugin indent on
@@ -281,6 +283,23 @@ au BufNewFile,BufRead *.as set filetype=actionscript
 au BufNewFile,BufRead *.mxml set filetype=mxml
 au BufNewFile,BufRead *.mkd setfiletype markdown
 au BufNewFile,BufRead *.md setfiletype markdown 
+
+"
+" 相対行切り替え
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if version >= 703
+  nnoremap  <silent> <Space>n :<C-u>ToggleNumber<CR>
+  vnoremap  <silent> <Space>n :<C-u>ToggleNumber<CR> gv
+  command! -nargs=0 ToggleNumber call ToggleNumberOption()
+
+  function! ToggleNumberOption()
+    if &number
+      set relativenumber
+    else
+      set number
+    endif
+  endfunction
+endif
 
 "
 "Align
