@@ -303,8 +303,9 @@ highlight PmenuThumb ctermbg=lightgray
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 au BufNewFile,BufRead *.as set filetype=actionscript
 au BufNewFile,BufRead *.mxml set filetype=mxml
-au BufNewFile,BufRead *.mkd setfiletype markdown
-au BufNewFile,BufRead *.md setfiletype markdown 
+au BufNewFile,BufRead *.mkd set filetype=markdown
+au BufNewFile,BufRead *.md set filetype=markdown 
+au BufNewFile,BufRead *.html.erb set filetype=eruby.html
 
 "
 " 相対行切り替え
@@ -350,6 +351,25 @@ let g:Align_xstrlen = 3
 "Zen-Cording.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let g:user_zen_leader_key = '<c-e>'
+
+"ファイルタイプ
+let g:user_zen_settings = {
+\  'lang' : 'ja',
+\  'html' : {
+\    'filters' : 'html',
+\    'indentation' : ' '
+\  },
+\  'php' : {
+\    'extends' : 'html',
+\    'filters' : 'html,c',
+\  },
+\  'css' : {
+\    'filters' : 'fc',
+\  },
+\  'eruby' : {
+\    'extends' : 'html',
+\  },
+\}
 
 "
 "unite.vim
