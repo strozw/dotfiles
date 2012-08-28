@@ -167,7 +167,7 @@ set writebackup
 set termencoding=utf-8
 set encoding=utf-8
 " MacVimの場合 gauche_guess により、自動的に文字コードの判別を行うので不要
-set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
+" set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
 
 "UTF-8の□や○でカーソル位置がずれないようにする
 if exists("&ambiwidth")
@@ -188,10 +188,10 @@ function! SetUTF8Xattr(file)
 	endif
 endfunction
 
-" grep
+" grepは外部コマンドを使用する
 set grepprg=internal
 
-" 新しいウィンドウを右に開く
+" ウィンドウを分割で開く際に、右側に表示する。
 set splitright
 
 "
@@ -300,7 +300,9 @@ if version >= 703
   function! ToggleNumberOption()
     if &number
       set relativenumber
+	  set cursorline
     else
+	  set nocursorline
       set number
     endif
   endfunction
@@ -413,6 +415,7 @@ let g:vimfiler_max_filename_width = 60
 " VimFiler をNERDTreeっぽく使う方法
 " 参考: http://d.hatena.ne.jp/hrsh7th/20120229/1330525683
 nnoremap <F2> :VimFiler -buffer-name=explorer -split -winwidth=45 -toggle -no-quit<Cr>
+autocmd VimEnter * if !argc() | VimFiler | endif
 autocmd! FileType vimfiler call g:my_vimfiler_settings()
 function! g:my_vimfiler_settings()
   nmap     <buffer><expr><Cr> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
