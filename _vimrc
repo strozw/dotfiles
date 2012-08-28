@@ -65,6 +65,16 @@ NeoBundle 'surround.vim'
 NeoBundle 'scrooloose/syntastic'
 " Tagbar
 NeoBundle 'git://github.com/majutsushi/tagbar'
+" unite-vcs
+NeoBundle 'git://github.com/hrsh7th/vim-unite-vcs.git'
+" vcscommand.vim
+NeoBundle 'vcscommand.vim'
+" rails.vim
+NeoBundle 'rails.vim'
+" autoclose.vim
+NeoBundle 'autoclose.vim'
+" vim-quickhl
+NeoBundle 'git://github.com/t9md/vim-quickhl.git'
 
 "ファイルタイプ インデント プラグイン使用する
 filetype plugin indent on
@@ -309,6 +319,21 @@ if version >= 703
 endif
 
 "
+" 検索設定
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 検索内容をハイライト
+set hlsearch
+" 検索ハイライトを解除
+nmap <Esc><Esc> :nohlsearch<CR><Esc>
+
+"
+" ビジュアルモード範囲内検索
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 範囲内検索をデフォルトに
+vnoremap / <ESC>/\%V
+vnoremap ? <ESC>?\%V
+
+"
 "Align
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "日本語でちょうど良く整形系させるために
@@ -377,6 +402,11 @@ function! s:unite_my_settings()"{{{
 endfunction"}}}
 
 syntax enable
+
+"
+" Unite-line
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <silent> <C-l> :<C-u>UniteWithCursorWord line<CR>
 
 "
 " Unite-tag
@@ -471,4 +501,14 @@ let g:syntastic_auto_jump=1
 " タグバーの開閉を<F8>にマッピング
 nmap <F8> :TagbarToggle<CR>
 
+"
+" TagBar
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ハイライトトグル
+nmap <Space>m <Plug>(quickhl-toggle)
+xmap <Space>m <Plug>(quickhl-toggle)
+" ハイライトリセット
+nmap <Space>M <Plug>(quickhl-reset)
+xmap <Space>M <Plug>(quickhl-reset)
+nmap <Space>j <Plug>(quickhl-match)
 
