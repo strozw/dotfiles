@@ -5,12 +5,17 @@ set nocompatible
 filetype plugin indent off
 
 if has('vim_starting')
-	set runtimepath+=~/.vim/neobundle.vim/
-	call neobundle#rc(expand('~/.vim/bundle/'))
+	if has("win32") || has("win64") || has("win32unix")
+		set runtimepath+=~/vimfiles/neobundle.vim/
+		call neobundle#rc(expand('~/vimfiles/bundle/'))
+	else
+		set runtimepath+=~/.vim/neobundle.vim/
+		call neobundle#rc(expand('~/.vim/bundle/'))
+	endif
 endif
 
 " sudo.vim
-NeoBundle 'sudo.vim'
+NeoBundle 'git://github.com/vim-scripts/sudo.vim.git'
 " vim-fugitive
 NeoBundle 'git://github.com/tpope/vim-fugitive'
 " neocomplcache.vim
@@ -50,7 +55,7 @@ NeoBundle 'git://github.com/Lokaltog/vim-powerline'
 " phplint.vim
 NeoBundle 'git://github.com/Jonty/phplint.vim'
 " smartword
-NeoBundle 'smartword'
+NeoBundle 'git://github.com/kana/vim-smartword.git'
 " remote php debugger
 "NeoBundle 'DBGp-Remote-Debugger-Interface'
 " prefixer
@@ -60,19 +65,17 @@ NeoBundle 'git://github.com/mattn/webapi-vim'
 " vimplenote.vim
 NeoBundle 'git://github.com/mattn/vimplenote-vim'
 " surround.vim
-NeoBundle 'surround.vim'
+NeoBundle 'git://github.com/tpope/vim-surround.git'
 " scrooloose/syntastic.vim
-NeoBundle 'scrooloose/syntastic'
+NeoBundle 'git://github.com/scrooloose/syntastic.git'
 " Tagbar
 NeoBundle 'git://github.com/majutsushi/tagbar'
 " unite-vcs
 NeoBundle 'git://github.com/hrsh7th/vim-unite-vcs.git'
 " vcscommand.vim
-NeoBundle 'vcscommand.vim'
+NeoBundle 'git://github.com/harleypig/vcscommand.vim.git'
 " rails.vim
-NeoBundle 'rails.vim'
-" autoclose.vim
-NeoBundle 'autoclose.vim'
+NeoBundle 'git://github.com/tpope/vim-rails.git'
 " vim-quickhl
 NeoBundle 'git://github.com/t9md/vim-quickhl.git'
 
@@ -115,6 +118,9 @@ set autoindent
 
 "autoindent時のタブの幅半角空白で指定する。
 set shiftwidth=4
+
+" Rubyでインデント幅を2にする
+autocmd FileType ruby set tabstop=2 shiftwidth=2 softtabstop=2
 
 "オンの時は、ウィンドウの幅より長い行は折り返され、次の行に続けて表示される。
 "(有効:wrap/無効:nowrap)
@@ -204,9 +210,10 @@ set grepprg=internal
 " ウィンドウを分割で開く際に、右側に表示する。
 set splitright
 
+
 "
-"neocomplcache
-"参考：http://vim-users.jp/2010/10/hack177/
+" neocomplcache
+" 参考：http://vim-users.jp/2010/10/hack177/
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 "AutoComplepop OFF
 let g:acp_enableAtStartup = 0
