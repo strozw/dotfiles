@@ -1,85 +1,87 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vi との互換モードをOFF
 set nocompatible
+
+" ファイルタイプ:インデント プラグイン使用をOFF
 filetype plugin indent off
 
+" Neobundle のパス設定
 if has('vim_starting')
 	if has("win32") || has("win64") || has("win32unix")
+		" windows
 		set runtimepath+=~/vimfiles/neobundle.vim/
 		call neobundle#rc(expand('~/vimfiles/bundle/'))
 	else
+		" その他
 		set runtimepath+=~/.vim/neobundle.vim/
 		call neobundle#rc(expand('~/.vim/bundle/'))
 	endif
 endif
 
-" sudo.vim
+" sudo.vim (root権限でファイルを編集するなど)
 NeoBundle 'git://github.com/vim-scripts/sudo.vim.git'
-" vim-fugitive
+" vim-fugitive (git コマンド利用)
 NeoBundle 'git://github.com/tpope/vim-fugitive'
-" neocomplcache.vim
+" neocomplcache.vim (キーワード補完)
 NeoBundle 'git://github.com/Shougo/neocomplcache'
-" neocomplcache snippet
+" neocomplcache snippet (スニペット補完)
 NeoBundle 'git://github.com/Shougo/neocomplcache-snippets-complete'
-" vimproc
+" vimproc (非同期通信, unite,vimshellなどで必須)
 NeoBundle 'git://github.com/Shougo/vimproc'
-" unite.vim
+" unite.vim (ランチャー, 統合インターフェース)
 NeoBundle 'git://github.com/Shougo/unite.vim'
-" vimfiler.vim
+" vimfiler.vim (ファイラー)
 NeoBundle 'git://github.com/Shougo/vimfiler'
-" vimshell.vim
+" vimshell.vim (シェル)
 NeoBundle 'git://github.com/Shougo/vimshell'
-" unite-outline
+" unite-outline (Unite:アウトラインソース)
 NeoBundle 'git://github.com/h1mesuke/unite-outline'
-" unite-help
+" unite-help (Unite:ヘルプソース)
 NeoBundle 'git://github.com/tsukkee/unite-help'
-" unite-tag
+" unite-tag (Unite:ctagソース)
 NeoBundle 'git://github.com/tsukkee/unite-tag'
-" quickrun.vim
+" quickrun.vim (格ファイルタイプをvim内で実行)
 NeoBundle 'git://github.com/thinca/vim-quickrun'
-" open-browser.vim
+" open-browser.vim (ブラウザを開く)
 NeoBundle 'git://github.com/tyru/open-browser.vim'
-" zencoding.vim
+" zencoding.vim (zencodingの利用)
 NeoBundle 'git://github.com/mattn/zencoding-vim'
-" mattn/benchvimrc-vim
+" benchvimrc-vim (vimrcのベンチマーク)
 NeoBundle 'git://github.com/mattn/benchvimrc-vim'
-" html5.vim
+" html5.vim (html5シンタックス)
 NeoBundle 'git://github.com/othree/html5.vim'
-" hail2u/vim-css3-syntax
+" hail2u/vim-css3-syntax (css3シンタックス)
 NeoBundle 'git://github.com/hail2u/vim-css3-syntax'
-" vim colors solarized
+" vim colors solarized (color theme:solarized)
 NeoBundle 'git://github.com/altercation/vim-colors-solarized'
-" vim powerline
+" vim powerline (ステータスラインを分かりやすくする)
 NeoBundle 'git://github.com/Lokaltog/vim-powerline'
-" phplint.vim
-NeoBundle 'git://github.com/Jonty/phplint.vim'
-" smartword
+" smartword (全角文字の単語認識)
 NeoBundle 'git://github.com/kana/vim-smartword.git'
-" remote php debugger
+" remote php debugger (xdebugの利用)
 "NeoBundle 'DBGp-Remote-Debugger-Interface'
-" prefixer
-" NeoBundle 'prefixer.vim'
-" webapi.vim
+" webapi.vim (各種web apiをvimから利用)
 NeoBundle 'git://github.com/mattn/webapi-vim'
-" vimplenote.vim
+" vimplenote.vim (simplenoteの利用)
 NeoBundle 'git://github.com/mattn/vimplenote-vim'
-" surround.vim
+" surround.vim (テキストオブジェクトを使いやすく)
 NeoBundle 'git://github.com/tpope/vim-surround.git'
-" scrooloose/syntastic.vim
+" scrooloose/syntastic.vim (各種ファイルタイプのシンタックスエラーの検出・表示)
 NeoBundle 'git://github.com/scrooloose/syntastic.git'
-" Tagbar
+" Tagbar (ctagを見やすく表示)
 NeoBundle 'git://github.com/majutsushi/tagbar'
-" unite-vcs
+" unite-vcs (Unite:git,svnをUniteで利用。)
 NeoBundle 'git://github.com/hrsh7th/vim-unite-vcs.git'
-" vcscommand.vim
+" vcscommand.vim (svnの利用)
 NeoBundle 'git://github.com/harleypig/vcscommand.vim.git'
-" rails.vim
+" rails.vim (railsのシンタックス、MVCの移動、railsコマンドの利用)
 NeoBundle 'git://github.com/tpope/vim-rails.git'
-" vim-quickhl
+" vim-quickhl (選択箇所の複数ハイライト)
 NeoBundle 'git://github.com/t9md/vim-quickhl.git'
 
-"ファイルタイプ インデント プラグイン使用する
+" ファイルタイプ:インデント プラグインをON
 filetype plugin indent on
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -409,6 +411,9 @@ nnoremap <silent> [unite]ol :<C-u>Unite outline<CR>
 nnoremap <silent> [unite]g :<C-u>Unite grep<CR>
 " tag
 nnoremap <silent> [unite]t :<C-u>Unite tag<CR>
+" help
+nnoremap <silent> [unite]h :<C-u>Unite help<CR>
+
 "uniteを開いている間のキーマッピング
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()"{{{
