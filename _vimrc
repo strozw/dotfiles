@@ -98,12 +98,6 @@ set noignorecase
 "(有効:smartcase/無効nosmartcase)
 set nosmartcase
 
-"ファイル内の<tab>が対応する空白の数。
-set tabstop=4
-
-"<Tab>の挿入や<BS>の使用等の編集操作をするときに、<Tab>が対応する空白の数。
-set softtabstop=4
-
 "Insertモードで<tab>を挿入するとき、代わりに適切な数の空白を使う。
 "(有効:expandtab/無効:noexpandtab)
 set noexpandtab
@@ -118,11 +112,14 @@ set textwidth=0
 "(有効:autoindent/無効:noautoindent)
 set autoindent
 
+"ファイル内の<tab>が対応する空白の数。
+set tabstop=4
+
+"<Tab>の挿入や<BS>の使用等の編集操作をするときに、<Tab>が対応する空白の数。
+set softtabstop=4
+
 "autoindent時のタブの幅半角空白で指定する。
 set shiftwidth=4
-
-" Rubyでインデント幅を2にする
-autocmd FileType ruby set tabstop=2 shiftwidth=2 softtabstop=2
 
 "オンの時は、ウィンドウの幅より長い行は折り返され、次の行に続けて表示される。
 "(有効:wrap/無効:nowrap)
@@ -212,80 +209,23 @@ set grepprg=internal
 " ウィンドウを分割で開く際に、右側に表示する。
 set splitright
 
-
 "
-" neocomplcache
-" 参考：http://vim-users.jp/2010/10/hack177/
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"AutoComplepop OFF
-let g:acp_enableAtStartup = 0
-"let g:AutoComplPop_NotEnableAtStartup = 1
-
-"NeoComplCache起動
-let g:neocomplcache_enable_at_startup = 1
-
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-
-" Don't use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 0 
-
-" Use underbar completion.
-let g:neocomplcache_enable_underbar_completion = 1
-
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_keyword_length = 3 
-
- " Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-  \'default':'',
-  \}
-
-" Define keyword.
-if !exists('g:neocomplcache_keyword_patterns')
-	let g:neocomplcache_keyword_patterns = {}
-endif
-
-" 英数字の単語の頭文字
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-" 補完キー
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-inoremap <expr><CR>    pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-
-" Snnipets
-let g:neocomplcache_snippets_dir = $HOME . '/.vim/snippets'
-
-" neoconplecache snippet keybindings
-"------------------
-" snippets expand key
-imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-smap <C-k>     <Plug>(neocomplcache_snippets_expand)
-
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-
-"
-"補完に辞書ファイル追加
+" 補完に辞書ファイル追加
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 set complete =.,b,w,u,k,i,t
 
 "
-"コマンド補完
+" コマンド補完
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""
-"コマンド補完を強化
+" コマンド補完を強化
 "set wildmenu
-"リスト表示、最長マッチ
+" リスト表示、最長マッチ
 "set wildmode=longest,list,full
 
-
 "
-"Omni補完関連
+" Omni補完関連
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""
-"補完表示設定
+" 補完表示設定
 set completeopt=menu,preview,menuone
 
 "ポップアップメニューの色
@@ -295,19 +235,19 @@ highlight PmenuSbar ctermbg=darkgray
 highlight PmenuThumb ctermbg=lightgray
 
 "
-"Call Processing Apple Script
+" ファイル・タイプ別シンタックス
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"imap <C-G> <ESC>:w<CR>:call system('osascript /Users/satoru/bin/run_processing.scpt')<CR><CR>a
-"nmap <C-G> :w<CR>:call system('osascript /Users/satoru/bin/run_processing.scpt')<CR><CR>
-
-"
-" File Syntax
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-au BufNewFile,BufRead *.as set filetype=actionscript
-au BufNewFile,BufRead *.mxml set filetype=mxml
+" markdown 
 au BufNewFile,BufRead *.mkd set filetype=markdown
 au BufNewFile,BufRead *.md set filetype=markdown 
+" html.erb
 au BufNewFile,BufRead *.html.erb set filetype=eruby.html
+
+"
+" ファイル・タイプ別インデント
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Rubyでインデント幅を2にする
+au FileType ruby set tabstop=2 softtabstop=2 shiftwidth=2
 
 "
 " 相対行切り替え
@@ -344,15 +284,61 @@ vnoremap / <ESC>/\%V
 vnoremap ? <ESC>?\%V
 
 "
-"Align
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"日本語でちょうど良く整形系させるために
-let g:Align_xstrlen = 3
+" neocomplcache
+" 参考：http://vim-users.jp/2010/10/hack177/
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"AutoComplepop OFF
+let g:acp_enableAtStartup = 0
+
+"NeoComplCache起動
+let g:neocomplcache_enable_at_startup = 1
+
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+
+" Don't use camel case completion.
+let g:neocomplcache_enable_camel_case_completion = 0 
+
+" Use underbar completion.
+let g:neocomplcache_enable_underbar_completion = 1
+
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_keyword_length = 3 
+
+ " Define dictionary.
+let g:neocomplcache_dictionary_filetype_lists = {
+  \'default':'',
+  \}
+
+" Define keyword.
+if !exists('g:neocomplcache_keyword_patterns')
+	let g:neocomplcache_keyword_patterns = {}
+endif
+
+" 英数字の単語の頭文字
+let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+
+" 補完キー
+inoremap <expr><TAB>	pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB>	pumvisible() ? "\<C-p>" : "\<S-TAB>"
+inoremap <expr><CR>		pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+
+" Snnipets
+let g:neocomplcache_snippets_dir = $HOME . '/.vim/snippets'
+
+" neoconplecache snippet keybindings
+imap <C-k>	<Plug>(neocomplcache_snippets_expand)
+smap <C-k>	<Plug>(neocomplcache_snippets_expand)
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 
 "
-"Zen-Cording.vim
+" Zen-Cording.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:user_zen_leader_key = '<c-e>'
+" let g:user_zen_leader_key = '<c-e>'
 
 "ファイルタイプ
 let g:user_zen_settings = {
@@ -374,8 +360,8 @@ let g:user_zen_settings = {
 \}
 
 "
-"unite.vim
-"参考：http://www.karakaram.com/vim/unite/
+" unite.vim
+" 参考：http://www.karakaram.com/vim/unite/
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "unite prefix key.
 nnoremap [unite] <Nop>
