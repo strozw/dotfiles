@@ -22,64 +22,102 @@ endif
 
 " sudo.vim (root権限でファイルを編集するなど)
 NeoBundle 'git://github.com/vim-scripts/sudo.vim.git'
+
 " vim-fugitive (git コマンド利用)
 NeoBundle 'git://github.com/tpope/vim-fugitive'
+
 " neocomplcache.vim (キーワード補完)
 NeoBundle 'git://github.com/Shougo/neocomplcache'
+
 " neocomplcache snippet (スニペット補完)
 NeoBundle 'git://github.com/Shougo/neocomplcache-snippets-complete'
+
 " vimproc (非同期通信, unite,vimshellなどで必須)
 NeoBundle 'git://github.com/Shougo/vimproc'
+
 " unite.vim (ランチャー, 統合インターフェース)
 NeoBundle 'git://github.com/Shougo/unite.vim'
+
 " vimfiler.vim (ファイラー)
 NeoBundle 'git://github.com/Shougo/vimfiler'
+
 " vimshell.vim (シェル)
 NeoBundle 'git://github.com/Shougo/vimshell'
+
 " unite-outline (Unite:アウトラインソース)
 NeoBundle 'git://github.com/h1mesuke/unite-outline'
+
 " unite-help (Unite:ヘルプソース)
 NeoBundle 'git://github.com/tsukkee/unite-help'
+
 " unite-tag (Unite:ctagソース)
 NeoBundle 'git://github.com/tsukkee/unite-tag'
+
 " quickrun.vim (格ファイルタイプをvim内で実行)
 NeoBundle 'git://github.com/thinca/vim-quickrun'
+
 " open-browser.vim (ブラウザを開く)
 NeoBundle 'git://github.com/tyru/open-browser.vim'
+
 " zencoding.vim (zencodingの利用)
 NeoBundle 'git://github.com/mattn/zencoding-vim'
+
 " benchvimrc-vim (vimrcのベンチマーク)
 NeoBundle 'git://github.com/mattn/benchvimrc-vim'
+
 " html5.vim (html5シンタックス)
 NeoBundle 'git://github.com/othree/html5.vim'
+
 " hail2u/vim-css3-syntax (css3シンタックス)
 NeoBundle 'git://github.com/hail2u/vim-css3-syntax'
+
 " vim colors solarized (color theme:solarized)
 NeoBundle 'git://github.com/altercation/vim-colors-solarized'
+
 " vim powerline (ステータスラインを分かりやすくする)
 NeoBundle 'git://github.com/Lokaltog/vim-powerline'
+
 " smartword (全角文字の単語認識)
 NeoBundle 'git://github.com/kana/vim-smartword.git'
+
 " remote php debugger (xdebugの利用)
 "NeoBundle 'DBGp-Remote-Debugger-Interface'
+
 " webapi.vim (各種web apiをvimから利用)
 NeoBundle 'git://github.com/mattn/webapi-vim'
+
 " vimplenote.vim (simplenoteの利用)
 NeoBundle 'git://github.com/mattn/vimplenote-vim'
+
 " surround.vim (テキストオブジェクトを使いやすく)
 NeoBundle 'git://github.com/tpope/vim-surround.git'
+
 " scrooloose/syntastic.vim (各種ファイルタイプのシンタックスエラーの検出・表示)
 NeoBundle 'git://github.com/scrooloose/syntastic.git'
+
 " Tagbar (ctagを見やすく表示)
 NeoBundle 'git://github.com/majutsushi/tagbar'
+
 " unite-vcs (Unite:git,svnをUniteで利用。)
 NeoBundle 'git://github.com/hrsh7th/vim-unite-vcs.git'
+
 " vcscommand.vim (svnの利用)
 NeoBundle 'git://github.com/harleypig/vcscommand.vim.git'
+
 " rails.vim (railsのシンタックス、MVCの移動、railsコマンドの利用)
 NeoBundle 'git://github.com/tpope/vim-rails.git'
+
 " vim-quickhl (選択箇所の複数ハイライト)
 NeoBundle 'git://github.com/t9md/vim-quickhl.git'
+
+" ref.vim (リファレンス参照)
+NeoBundle 'git://github.com/thinca/vim-ref.git'
+
+" php.vim (php syntax, 補完)
+NeoBundle 'git://github.com/shawncplus/php.vim.git'
+
+" vim-ruby (ruby syntax, 補完)
+NeoBundle 'git://github.com/vim-ruby/vim-ruby.git'
 
 " ファイルタイプ:インデント プラグインをON
 filetype plugin indent on
@@ -250,7 +288,7 @@ au BufNewFile,BufRead *.html.erb set filetype=eruby.html
 au FileType ruby set tabstop=2 softtabstop=2 shiftwidth=2
 
 "
-" 相対行切り替え
+" 相対行切り替え(<Space>n)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if version >= 703
   nnoremap  <silent> <Space>n :<C-u>ToggleNumber<CR>
@@ -503,7 +541,7 @@ let g:quickrun_config['markdown'] = {
 	\ }
 
 "
-"vim-powerline
+" vim-powerline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:Powerline_symbols = 'compatible'
 
@@ -520,13 +558,22 @@ let g:syntastic_auto_jump=1
 nmap <F8> :TagbarToggle<CR>
 
 "
-" TagBar
+" quickhl
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ハイライトトグル
-nmap <Space>m <Plug>(quickhl-toggle)
-xmap <Space>m <Plug>(quickhl-toggle)
-" ハイライトリセット
-nmap <Space>M <Plug>(quickhl-reset)
-xmap <Space>M <Plug>(quickhl-reset)
+" ハイライトトグル <Space>m にマッピング
+nmap <Space>h <Plug>(quickhl-toggle)
+xmap <Space>h <Plug>(quickhl-toggle)
+
+" ハイライトリセット <Space> にマッピング
+nmap <Space>H <Plug>(quickhl-reset)
+xmap <Space>H <Plug>(quickhl-reset)
 nmap <Space>j <Plug>(quickhl-match)
+
+"
+" ref.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" php ref
+let g:ref_phpmanual_path = $HOME . '/Documents/References/php-chunked-xhtml'
+" ruby refe
+let g:ref_refe_cmd = $HOME . "/Documents/References/ruby-refm/ruby-refm-1.9.3-dynamic-snapshot/refe-1_9_3"
 
