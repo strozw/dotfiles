@@ -520,7 +520,7 @@ let g:syntastic_auto_jump=1
 nmap <F8> :TagbarToggle<CR>
 
 "
-" TagBar
+" quickhl
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ハイライトトグル
 nmap <Space>m <Plug>(quickhl-toggle)
