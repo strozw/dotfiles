@@ -19,9 +19,9 @@ set guifont=Ricty:h13
 set guifontwide=Ricty:h13
 
 "画面上の列幅を設定する。
-set columns=110
+"set columns=110
 "画面上の行数。
-set lines=50
+"set lines=50
 
 "コマンドラインに使われる画面上の行数。
 set cmdheight=1
