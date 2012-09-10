@@ -145,6 +145,9 @@ set noexpandtab
 "値を0に設定すると無効になる。
 set textwidth=0
 
+" textwidthが0の時にかってに改行してしまうのを止める
+set formatoptions=q
+
 "新しい行を開始したとき(Insertモードで<CR>を打ち込むか、コマンド"o"や"0"を使った時)
 "新しい行のインデントを現在の行と同じくする。
 "(有効:autoindent/無効:noautoindent)
