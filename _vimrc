@@ -501,7 +501,6 @@ let g:vimfiler_max_filename_width = 60
 " VimFiler をNERDTreeっぽく使う方法
 " 参考: http://d.hatena.ne.jp/hrsh7th/20120229/1330525683
 nnoremap <F2> :VimFiler -buffer-name=explorer -split -winwidth=45 -toggle -no-quit<Cr>
-autocmd VimEnter * if !argc() | VimFiler | endif
 autocmd! FileType vimfiler call g:my_vimfiler_settings()
 function! g:my_vimfiler_settings()
   nmap     <buffer><expr><Cr> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
@@ -526,6 +525,7 @@ call unite#custom_action('file', 'my_vsplit', my_action)
 
 let my_action = { 'is_selectable' : 1 }                     
 function! my_action.func(candidates)
+  wincmd p
   exec 'tabedit '. a:candidates[0].action__path
 endfunction
 call unite#custom_action('file', 'my_tabopen', my_action)
