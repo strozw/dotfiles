@@ -107,6 +107,9 @@ NeoBundle 'git://github.com/harleypig/vcscommand.vim.git'
 " rails.vim (railsのシンタックス、MVCの移動、railsコマンドの利用)
 NeoBundle 'git://github.com/tpope/vim-rails.git'
 
+" ruby の do に対する end を補完
+NeoBundle 'git://github.com/tpope/vim-endwise.git'
+
 " vim-quickhl (選択箇所の複数ハイライト)
 NeoBundle 'git://github.com/t9md/vim-quickhl.git'
 
@@ -360,9 +363,9 @@ endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
 " 補完キー
-inoremap <expr><TAB>	pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB>	pumvisible() ? "\<C-p>" : "\<S-TAB>"
-inoremap <expr><CR>		pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+"inoremap <expr><TAB>	pumvisible() ? "\<C-n>" : "\<TAB>"
+"inoremap <expr><S-TAB>	pumvisible() ? "\<C-p>" : "\<S-TAB>"
+"inoremap <expr><CR>		pumvisible() ? neocomplcache#close_popup() : "\<CR>"
 
 " Snnipets
 let g:neocomplcache_snippets_dir = $HOME . '/.vim/snippets'
