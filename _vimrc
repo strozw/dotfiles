@@ -30,7 +30,7 @@ NeoBundle 'git://github.com/tpope/vim-fugitive'
 NeoBundle 'git://github.com/Shougo/neocomplcache'
 
 " neocomplcache snippet (スニペット補完)
-NeoBundle 'git://github.com/Shougo/neocomplcache-snippets-complete'
+NeoBundle 'git://github.com/Shougo/neosnippet'
 
 " vimproc (非同期通信, unite,vimshellなどで必須)
 NeoBundle 'git://github.com/Shougo/vimproc'
@@ -44,6 +44,9 @@ NeoBundle 'git://github.com/Shougo/vimfiler'
 " vimshell.vim (シェル)
 NeoBundle 'git://github.com/Shougo/vimshell'
 
+" vimshell-ssh.vim (シェル)
+NeoBundle 'vimshell-ssh'
+
 " unite-outline (Unite:アウトラインソース)
 NeoBundle 'git://github.com/h1mesuke/unite-outline'
 
@@ -52,6 +55,9 @@ NeoBundle 'git://github.com/tsukkee/unite-help'
 
 " unite-tag (Unite:ctagソース)
 NeoBundle 'git://github.com/tsukkee/unite-tag'
+
+" unite-ssh (Unite:sshソース)
+NeoBundle 'git://github.com/Shougo/unite-ssh.git'
 
 " quickrun.vim (格ファイルタイプをvim内で実行)
 NeoBundle 'git://github.com/thinca/vim-quickrun'
@@ -121,6 +127,18 @@ NeoBundle 'git://github.com/shawncplus/php.vim.git'
 
 " vim-ruby (ruby syntax, 補完)
 NeoBundle 'git://github.com/vim-ruby/vim-ruby.git'
+
+" Unite todo source
+NeoBundle 'git://github.com/kannokanno/unite-todo.git'
+
+" Source explorer
+NeoBundle 'git://github.com/wesleyche/SrcExpl.git'
+
+" project.vim
+"NeoBundle 'project.vim'
+
+" AutoClose.vim
+"NeoBundle 'git://github.com/vim-scripts/AutoClose.git'
 
 " ファイルタイプ:インデント プラグインをON
 filetype plugin indent on
@@ -253,6 +271,9 @@ set grepprg=internal
 " ウィンドウを分割で開く際に、右側に表示する。
 set splitright
 
+" タグファイルの場所
+"set tags=.tags
+
 "
 " 補完に辞書ファイル追加
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -349,9 +370,14 @@ let g:neocomplcache_enable_underbar_completion = 1
 " Set minimum syntax keyword length.
 let g:neocomplcache_min_keyword_length = 3 
 
- " Define dictionary.
+" Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
   \'default':'',
+  \}
+
+" set tags option
+let g:neocomplcache_member_prefix_patterns = {
+  \'php':'->\|::',
   \}
 
 " Define keyword.
@@ -506,7 +532,7 @@ let g:vimfiler_max_filename_width = 60
 
 " VimFiler をNERDTreeっぽく使う方法
 " 参考: http://d.hatena.ne.jp/hrsh7th/20120229/1330525683
-nnoremap <F2> :VimFiler -buffer-name=explorer -split -winwidth=45 -toggle -no-quit<Cr>
+nnoremap <F2> :VimFilerExplorer<Cr>
 autocmd! FileType vimfiler call g:my_vimfiler_settings()
 function! g:my_vimfiler_settings()
   nmap     <buffer><expr><Cr> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
@@ -555,7 +581,7 @@ let g:Powerline_symbols = 'compatible'
 " syntastic
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:syntastic_check_on_open=1
-let g:syntastic_auto_jump=1
+let g:syntastic_auto_jump=0
 
 "
 " TagBar
@@ -579,7 +605,57 @@ nmap <Space>j <Plug>(quickhl-match)
 " ref.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " php ref
-let g:ref_phpmanual_path = $HOME . '/Documents/References/php-chunked-xhtml'
+let g:ref_phpmanual_path = $HOME . '/References/php-chunked-xhtml'
 " ruby refe
-let g:ref_refe_cmd = $HOME . "/Documents/References/ruby-refm/ruby-refm-1.9.3-dynamic-snapshot/refe-1_9_3"
+let g:ref_refe_cmd = $HOME . "/References/ruby-refm/ruby-refm-1.9.3-dynamic-snapshot/refe-1_9_3"
 
+"
+" SrcExpl.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" // The switch of the Source Explorer 
+nmap <F9> :SrcExplToggle<CR> 
+
+" // Set the height of Source Explorer window 
+let g:SrcExpl_winHeight = 8 
+
+" // Set 100 ms for refreshing the Source Explorer 
+let g:SrcExpl_refreshTime = 100 
+
+" // Set "Enter" key to jump into the exact definition context 
+" let g:SrcExpl_jumpKey = "<ENTER>" 
+
+" // Set "Space" key for back from the definition context 
+let g:SrcExpl_gobackKey = "<SPACE>" 
+
+" // In order to Avoid conflicts, the Source Explorer should know what plugins 
+" // are using buffers. And you need add their bufname into the list below 
+" // according to the command ":buffers!" 
+let g:SrcExpl_pluginList = [ 
+        \ "__Tag_List__", 
+        \ "_NERD_tree_", 
+        \ "Source_Explorer" 
+    \ ] 
+
+" // Enable/Disable the local definition searching, and note that this is not 
+" // guaranteed to work, the Source Explorer doesn't check the syntax for now. 
+" // It only searches for a match with the keyword according to command 'gd' 
+let g:SrcExpl_searchLocalDef = 1 
+
+" // Do not let the Source Explorer update the tags file when opening 
+let g:SrcExpl_isUpdateTags = 0 
+
+" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to 
+" //  create/update a tags file 
+let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
+
+" // Set "<F12>" key for updating the tags file artificially 
+let g:SrcExpl_updateTagsKey = "<F12>"
+
+"
+" project.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"if getcwd() != $HOME
+"	if filereadable(getcwd() . '/.vimprojects')
+"		Project .vimprojects
+"	endif
+"endif
