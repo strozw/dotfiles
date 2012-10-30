@@ -1,0 +1,661 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NeoBundle
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vi との互換モードをOFF
+set nocompatible
+
+" ファイルタイプ:インデント プラグイン使用をOFF
+filetype plugin indent off
+
+" Neobundle のパス設定
+if has('vim_starting')
+	if has("win32") || has("win64") || has("win32unix")
+		" windows
+		set runtimepath+=~/vimfiles/neobundle.vim/
+		call neobundle#rc(expand('~/vimfiles/bundle/'))
+	else
+		" その他
+		set runtimepath+=~/.vim/neobundle.vim/
+		call neobundle#rc(expand('~/.vim/bundle/'))
+	endif
+endif
+
+" sudo.vim (root権限でファイルを編集するなど)
+NeoBundle 'git://github.com/vim-scripts/sudo.vim.git'
+
+" vim-fugitive (git コマンド利用)
+NeoBundle 'git://github.com/tpope/vim-fugitive'
+
+" neocomplcache.vim (キーワード補完)
+NeoBundle 'git://github.com/Shougo/neocomplcache'
+
+" neocomplcache snippet (スニペット補完)
+NeoBundle 'git://github.com/Shougo/neosnippet'
+
+" vimproc (非同期通信, unite,vimshellなどで必須)
+NeoBundle 'git://github.com/Shougo/vimproc'
+
+" unite.vim (ランチャー, 統合インターフェース)
+NeoBundle 'git://github.com/Shougo/unite.vim'
+
+" vimfiler.vim (ファイラー)
+NeoBundle 'git://github.com/Shougo/vimfiler'
+
+" vimshell.vim (シェル)
+NeoBundle 'git://github.com/Shougo/vimshell'
+
+" vimshell-ssh.vim (シェル)
+NeoBundle 'vimshell-ssh'
+
+" unite-outline (Unite:アウトラインソース)
+NeoBundle 'git://github.com/h1mesuke/unite-outline'
+
+" unite-help (Unite:ヘルプソース)
+NeoBundle 'git://github.com/tsukkee/unite-help'
+
+" unite-tag (Unite:ctagソース)
+NeoBundle 'git://github.com/tsukkee/unite-tag'
+
+" unite-ssh (Unite:sshソース)
+NeoBundle 'git://github.com/Shougo/unite-ssh.git'
+
+" quickrun.vim (格ファイルタイプをvim内で実行)
+NeoBundle 'git://github.com/thinca/vim-quickrun'
+
+" open-browser.vim (ブラウザを開く)
+NeoBundle 'git://github.com/tyru/open-browser.vim'
+
+" zencoding.vim (zencodingの利用)
+NeoBundle 'git://github.com/mattn/zencoding-vim'
+
+" benchvimrc-vim (vimrcのベンチマーク)
+NeoBundle 'git://github.com/mattn/benchvimrc-vim'
+
+" html5.vim (html5シンタックス)
+NeoBundle 'git://github.com/othree/html5.vim'
+
+" hail2u/vim-css3-syntax (css3シンタックス)
+NeoBundle 'git://github.com/hail2u/vim-css3-syntax'
+
+" vim colors solarized (color theme:solarized)
+NeoBundle 'git://github.com/altercation/vim-colors-solarized'
+
+" vim powerline (ステータスラインを分かりやすくする)
+NeoBundle 'git://github.com/Lokaltog/vim-powerline'
+
+" smartword (全角文字の単語認識)
+NeoBundle 'git://github.com/kana/vim-smartword.git'
+
+" remote php debugger (xdebugの利用)
+"NeoBundle 'DBGp-Remote-Debugger-Interface'
+
+" webapi.vim (各種web apiをvimから利用)
+NeoBundle 'git://github.com/mattn/webapi-vim'
+
+" vimplenote.vim (simplenoteの利用)
+NeoBundle 'git://github.com/mattn/vimplenote-vim'
+
+" surround.vim (テキストオブジェクトを使いやすく)
+NeoBundle 'git://github.com/tpope/vim-surround.git'
+
+" scrooloose/syntastic.vim (各種ファイルタイプのシンタックスエラーの検出・表示)
+NeoBundle 'git://github.com/scrooloose/syntastic.git'
+
+" Tagbar (ctagを見やすく表示)
+NeoBundle 'git://github.com/majutsushi/tagbar'
+
+" unite-vcs (Unite:git,svnをUniteで利用。)
+NeoBundle 'git://github.com/hrsh7th/vim-unite-vcs.git'
+
+" vcscommand.vim (svnの利用)
+NeoBundle 'git://github.com/harleypig/vcscommand.vim.git'
+
+" rails.vim (railsのシンタックス、MVCの移動、railsコマンドの利用)
+NeoBundle 'git://github.com/tpope/vim-rails.git'
+
+" ruby の do に対する end を補完
+NeoBundle 'git://github.com/tpope/vim-endwise.git'
+
+" vim-quickhl (選択箇所の複数ハイライト)
+NeoBundle 'git://github.com/t9md/vim-quickhl.git'
+
+" ref.vim (リファレンス参照)
+NeoBundle 'git://github.com/thinca/vim-ref.git'
+
+" php.vim (php syntax, 補完)
+NeoBundle 'git://github.com/shawncplus/php.vim.git'
+
+" vim-ruby (ruby syntax, 補完)
+NeoBundle 'git://github.com/vim-ruby/vim-ruby.git'
+
+" Unite todo source
+NeoBundle 'git://github.com/kannokanno/unite-todo.git'
+
+" Source explorer
+NeoBundle 'git://github.com/wesleyche/SrcExpl.git'
+
+" project.vim
+"NeoBundle 'project.vim'
+
+" AutoClose.vim
+"NeoBundle 'git://github.com/vim-scripts/AutoClose.git'
+
+" ファイルタイプ:インデント プラグインをON
+filetype plugin indent on
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+".vimrc設定
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" .swap ファイルの出力先
+set directory=~/tmp/vim
+
+"検索パターンにおいて大文字と小文字を区別しない。
+"(有効:ignorecase/無効:noignorecase)
+set noignorecase
+
+"検索パターンが大文字を含んでいたらオプション 'ignorecase'を上書きする。
+"(有効:smartcase/無効nosmartcase)
+set nosmartcase
+
+"Insertモードで<tab>を挿入するとき、代わりに適切な数の空白を使う。
+"(有効:expandtab/無効:noexpandtab)
+set noexpandtab
+
+"入力されているテキストの最大幅。行がそれより長くなると、
+"この幅を超えない様に空白の後で改行される。
+"値を0に設定すると無効になる。
+set textwidth=0
+
+" textwidthが0の時にかってに改行してしまうのを止める
+set formatoptions=q
+
+"新しい行を開始したとき(Insertモードで<CR>を打ち込むか、コマンド"o"や"0"を使った時)
+"新しい行のインデントを現在の行と同じくする。
+"(有効:autoindent/無効:noautoindent)
+set autoindent
+
+"ファイル内の<tab>が対応する空白の数。
+set tabstop=4
+
+"<Tab>の挿入や<BS>の使用等の編集操作をするときに、<Tab>が対応する空白の数。
+set softtabstop=4
+
+"autoindent時のタブの幅半角空白で指定する。
+set shiftwidth=4
+
+"オンの時は、ウィンドウの幅より長い行は折り返され、次の行に続けて表示される。
+"(有効:wrap/無効:nowrap)
+set wrap
+
+"検索がファイル末尾まで進んだら、ファイル先頭から再び検索する。
+"(有効:wrapscan/無効:nowrapscan)
+set wrapscan
+
+"オンのとき、コマンドライン補完が拡張モードで行われる。
+"(有効:wildmenu/無効:nowildmenu)
+set wildmenu
+
+"閉じ括弧が入力されたとき、対応する開き括弧にわずかの間ジャンプルする。
+"(有効:showmatch/無効:noshowmatch)
+set showmatch
+
+"毎行の前に行番号を表示する。
+"(有効:number/無効:nonumber)
+set number
+
+"カーソルが何行目の何列目に置かれているかを表示する。
+"(有効:ruler/無効:noruler)
+set ruler
+
+"タブ文字をCTRL-Iで表示し、行末に$で表示する。
+"(有効:list/無効:nolist)
+set nolist
+
+"Listモード(訳注:オプション'list'がオンのとき)に使われる文字を設定する。
+":set listchars=tab:>-,extends:<,trail:-,eol:<
+
+"最下ウィンドウにいつステータス行が表示されるかを設定する。
+"	0:全く表示しない
+"	1:ウィンドウの数が2以上の時のみ表示
+"	2:常に表示
+set laststatus=2
+
+"コマンド(の一部)を画面の最下行に表示する。
+"(有効:shocmd/無効:noshowcmd)
+set showcmd
+
+"ファイルを上書きする前にバックアップを作る。
+"書き込みが成功してバックアップはそのまま取っておく。
+"(有効:backup/無効:nobackup)
+set nobackup
+
+"ファイルの上書きの前にバックアップを作る。
+"オプション'backup'がオンでない限り、バックアップは上書きに成功した後削除される。
+"(有効:writebackup/無効nowritebackup)
+set writebackup
+
+"エンコーディング関連
+"ステータスバーに文字コードと改行コード表示
+" vim-poerline で 代用
+"set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
+
+"文字コードの自動認識
+"適当な文字コード判別
+set termencoding=utf-8
+set encoding=utf-8
+" MacVimの場合 gauche_guess により、自動的に文字コードの判別を行うので不要
+" set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
+
+"UTF-8の□や○でカーソル位置がずれないようにする
+if exists("&ambiwidth")
+  set ambiwidth=double
+endif
+
+"改行コードの自動認識
+set fileformats=unix,dos,mac
+
+" ※MacのQuicklookでVimで保存したUTF-8テキストが文字化けする対策。
+" UTF-8を保存する際、
+" UTF-8エンコーディングを表す拡張属性をを追加する。
+au BufWritePost * call SetUTF8Xattr(expand("<afile>"))
+function! SetUTF8Xattr(file)
+	let isutf8 = &fileencoding == "utf-8" || ( &fileencoding == "" && &encoding == "utf-8")
+	if has("unix") && match(system("uname"),'Darwin') != -1 && isutf8
+		call system("xattr -w com.apple.TextEncoding 'utf-8;134217984' '" . a:file . "'")
+	endif
+endfunction
+
+" grepは外部コマンドを使用する
+set grepprg=internal
+
+" ウィンドウを分割で開く際に、右側に表示する。
+set splitright
+
+" タグファイルの場所
+"set tags=.tags
+
+"
+" 補完に辞書ファイル追加
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set complete =.,b,w,u,k,i,t
+
+"
+" コマンド補完
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" コマンド補完を強化
+"set wildmenu
+" リスト表示、最長マッチ
+"set wildmode=longest,list,full
+
+"
+" Omni補完関連
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 補完表示設定
+set completeopt=menu,preview,menuone
+
+"ポップアップメニューの色
+highlight Pmenu ctermbg=lightcyan ctermfg=black
+highlight PmenuSel ctermbg=blue ctermfg=black
+highlight PmenuSbar ctermbg=darkgray
+highlight PmenuThumb ctermbg=lightgray
+
+"
+" ファイル・タイプ別シンタックス
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" markdown 
+au BufNewFile,BufRead *.mkd set filetype=markdown
+au BufNewFile,BufRead *.md set filetype=markdown 
+" html.erb
+au BufNewFile,BufRead *.html.erb set filetype=eruby.html
+
+"
+" ファイル・タイプ別インデント
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Rubyでインデント幅を2にする
+au FileType ruby set tabstop=2 softtabstop=2 shiftwidth=2
+
+"
+" 相対行切り替え(<Space>n)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if version >= 703
+  nnoremap  <silent> <Space>n :<C-u>ToggleNumber<CR>
+  vnoremap  <silent> <Space>n :<C-u>ToggleNumber<CR> gv
+  command! -nargs=0 ToggleNumber call ToggleNumberOption()
+
+  function! ToggleNumberOption()
+    if &number
+      set relativenumber
+	  set cursorline
+    else
+	  set nocursorline
+      set number
+    endif
+  endfunction
+endif
+
+"
+" 検索設定
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 検索内容をハイライト
+set hlsearch
+" 検索ハイライトを解除
+nmap <Esc><Esc> :nohlsearch<CR><Esc>
+
+"
+" ビジュアルモード範囲内検索
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 範囲内検索をデフォルトに
+vnoremap / <ESC>/\%V
+vnoremap ? <ESC>?\%V
+
+"
+" neocomplcache
+" 参考：http://vim-users.jp/2010/10/hack177/
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"AutoComplepop OFF
+let g:acp_enableAtStartup = 0
+
+"NeoComplCache起動
+let g:neocomplcache_enable_at_startup = 1
+
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+
+" Don't use camel case completion.
+let g:neocomplcache_enable_camel_case_completion = 0 
+
+" Use underbar completion.
+let g:neocomplcache_enable_underbar_completion = 1
+
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_keyword_length = 3 
+
+" Define dictionary.
+let g:neocomplcache_dictionary_filetype_lists = {
+  \'default':'',
+  \}
+
+" set tags option
+let g:neocomplcache_member_prefix_patterns = {
+  \'php':'->\|::',
+  \}
+
+" Define keyword.
+if !exists('g:neocomplcache_keyword_patterns')
+	let g:neocomplcache_keyword_patterns = {}
+endif
+
+" 英数字の単語の頭文字
+let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+
+" 補完キー
+"inoremap <expr><TAB>	pumvisible() ? "\<C-n>" : "\<TAB>"
+"inoremap <expr><S-TAB>	pumvisible() ? "\<C-p>" : "\<S-TAB>"
+"inoremap <expr><CR>		pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+
+" Snnipets
+let g:neocomplcache_snippets_dir = $HOME . '/.vim/snippets'
+
+" neoconplecache snippet keybindings
+imap <C-k>	<Plug>(neocomplcache_snippets_expand)
+smap <C-k>	<Plug>(neocomplcache_snippets_expand)
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
+"
+" Zen-Cording.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" let g:user_zen_leader_key = '<c-e>'
+
+"ファイルタイプ
+let g:user_zen_settings = {
+\  'lang' : 'ja',
+\  'html' : {
+\    'filters' : 'html',
+\    'indentation' : ' '
+\  },
+\  'php' : {
+\    'extends' : 'html',
+\    'filters' : 'html,c',
+\  },
+\  'css' : {
+\    'filters' : 'fc',
+\  },
+\  'eruby' : {
+\    'extends' : 'html',
+\  },
+\}
+
+"
+" unite.vim
+" 参考：http://www.karakaram.com/vim/unite/
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"unite prefix key.
+nnoremap [unite] <Nop>
+nmap <Space>f [unite]
+
+"unite general settings
+"インサートモード開始
+"let g:unite_enable_start_insert = 1
+"最近開いたファイル履歴お保存数
+let g:unite_source_file_mru_limit = 15
+
+"file_mruの表示フォーマットを指定。空にすると表示スピードが高速化される
+let g:unite_source_file_mru_filename_format = ''
+
+"現在開いているファイルのディレクトリ下のファイル一覧
+"開いていない場合はカレントディレクトリ
+nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+"バッファ一覧
+nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+"レジスタ一覧
+nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
+"最近使用したファイル一覧
+nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
+"ブックマーク一覧
+nnoremap <silent> [unite]c :<C-u>Unite bookmark<CR>
+"ブックマークを追加
+nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
+" ライン
+nnoremap <silent> [unite]l :<C-u>Unite line<CR>
+" アウトライン
+nnoremap <silent> [unite]ol :<C-u>Unite outline<CR>
+" grep
+nnoremap <silent> [unite]g :<C-u>Unite grep<CR>
+" tag
+nnoremap <silent> [unite]t :<C-u>Unite tag<CR>
+" help
+nnoremap <silent> [unite]h :<C-u>Unite help<CR>
+
+"uniteを開いている間のキーマッピング
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings()"{{{
+	"ESCでuniteでを終了
+	nmap <buffer> <ESC> <Plug>(unite_exit)
+	"入力モードのきctrl+wでバックスラッシュも削除
+	imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
+	"ctrl+jで縦に分割して開く
+	nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+	inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+	"ctrl+lで横横に分割して開く
+	nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+	inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+	"ctrl+oでその場所に開く
+	nnoremap <silent> <buffer> <expr> <o> unite#do_action('open')
+	nnoremap <silent> <buffer> <expr> <C-o> unite#do_action('open')
+	inoremap <silent> <buffer> <expr> <C-o> unite#do_action('open')
+endfunction"}}}
+
+syntax enable
+
+"
+" Unite-line
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <silent> <C-l> :<C-u>UniteWithCursorWord line<CR>
+
+"
+" Unite-tag
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" C-] にマッピング
+autocmd BufEnter *
+\   if empty(&buftype)
+\|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+\|  endif
+
+"
+" vimfiler.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Default File Explorer
+let g:vimfiler_as_default_explorer = 1
+
+" Enable file operation commands.
+let g:vimfiler_safe_mode_by_default = 0
+
+" Edit file by tabedit.
+"let g:vimfiler_edit_action = 'tabopen'
+
+" Like Textmate icons.
+let g:vimfiler_tree_leaf_icon = ' '
+let g:vimfiler_tree_opened_icon = '▾'
+let g:vimfiler_tree_closed_icon = '▸'
+let g:vimfiler_file_icon = '-'
+let g:vimfiler_marked_file_icon = '*'
+
+" filename column min size
+let g:vimfiler_min_filename_width = 30
+
+" filename column max size
+let g:vimfiler_max_filename_width = 60
+
+" VimFiler をNERDTreeっぽく使う方法
+" 参考: http://d.hatena.ne.jp/hrsh7th/20120229/1330525683
+nnoremap <F2> :VimFilerExplorer<Cr>
+autocmd! FileType vimfiler call g:my_vimfiler_settings()
+function! g:my_vimfiler_settings()
+  nmap     <buffer><expr><Cr> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
+  nnoremap <buffer>s          :call vimfiler#mappings#do_action('my_split')<Cr>
+  nnoremap <buffer>v          :call vimfiler#mappings#do_action('my_vsplit')<Cr>
+  nnoremap <buffer>E          :call vimfiler#mappings#do_action('my_tabopen')<Cr>
+endfunction
+
+let my_action = { 'is_selectable' : 1 }
+function! my_action.func(candidates)
+  wincmd p
+  exec 'split '. a:candidates[0].action__path
+endfunction
+call unite#custom_action('file', 'my_split', my_action)
+
+let my_action = { 'is_selectable' : 1 }                     
+function! my_action.func(candidates)
+  wincmd p
+  exec 'vsplit '. a:candidates[0].action__path
+endfunction
+call unite#custom_action('file', 'my_vsplit', my_action)
+
+let my_action = { 'is_selectable' : 1 }                     
+function! my_action.func(candidates)
+  wincmd p
+  exec 'tabedit '. a:candidates[0].action__path
+endfunction
+call unite#custom_action('file', 'my_tabopen', my_action)
+
+"
+"quickrun.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:quickrun_config = {}
+let g:quickrun_config['markdown'] = {
+	\ 'type': 'markdown/pandoc',
+	\ 'outputter': 'browser',
+	\ 'cmdopt': '-s'
+	\ }
+
+"
+" vim-powerline
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:Powerline_symbols = 'compatible'
+
+"
+" syntastic
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:syntastic_check_on_open=1
+let g:syntastic_auto_jump=0
+
+"
+" TagBar
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" タグバーの開閉を<F8>にマッピング
+nmap <F8> :TagbarToggle<CR>
+
+"
+" quickhl
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ハイライトトグル <Space>m にマッピング
+nmap <Space>h <Plug>(quickhl-toggle)
+xmap <Space>h <Plug>(quickhl-toggle)
+
+" ハイライトリセット <Space> にマッピング
+nmap <Space>H <Plug>(quickhl-reset)
+xmap <Space>H <Plug>(quickhl-reset)
+nmap <Space>j <Plug>(quickhl-match)
+
+"
+" ref.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" php ref
+let g:ref_phpmanual_path = $HOME . '/References/php-chunked-xhtml'
+" ruby refe
+let g:ref_refe_cmd = $HOME . "/References/ruby-refm/ruby-refm-1.9.3-dynamic-snapshot/refe-1_9_3"
+
+"
+" SrcExpl.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" // The switch of the Source Explorer 
+nmap <F9> :SrcExplToggle<CR> 
+
+" // Set the height of Source Explorer window 
+let g:SrcExpl_winHeight = 8 
+
+" // Set 100 ms for refreshing the Source Explorer 
+let g:SrcExpl_refreshTime = 100 
+
+" // Set "Enter" key to jump into the exact definition context 
+" let g:SrcExpl_jumpKey = "<ENTER>" 
+
+" // Set "Space" key for back from the definition context 
+let g:SrcExpl_gobackKey = "<SPACE>" 
+
+" // In order to Avoid conflicts, the Source Explorer should know what plugins 
+" // are using buffers. And you need add their bufname into the list below 
+" // according to the command ":buffers!" 
+let g:SrcExpl_pluginList = [ 
+        \ "__Tag_List__", 
+        \ "_NERD_tree_", 
+        \ "Source_Explorer" 
+    \ ] 
+
+" // Enable/Disable the local definition searching, and note that this is not 
+" // guaranteed to work, the Source Explorer doesn't check the syntax for now. 
+" // It only searches for a match with the keyword according to command 'gd' 
+let g:SrcExpl_searchLocalDef = 1 
+
+" // Do not let the Source Explorer update the tags file when opening 
+let g:SrcExpl_isUpdateTags = 0 
+
+" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to 
+" //  create/update a tags file 
+let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
+
+" // Set "<F12>" key for updating the tags file artificially 
+let g:SrcExpl_updateTagsKey = "<F12>"
+
+"
+" project.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"if getcwd() != $HOME
+"	if filereadable(getcwd() . '/.vimprojects')
+"		Project .vimprojects
+"	endif
+"endif
