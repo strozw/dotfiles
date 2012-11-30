@@ -7,138 +7,154 @@ set nocompatible
 " ファイルタイプ:インデント プラグイン使用をOFF
 filetype plugin indent off
 
+" 自動カレントディレクトリ変更 OFF
+let g:vimfiler_enable_auto_cd = 0
+
 " Neobundle のパス設定
 if has('vim_starting')
 	if has("win32") || has("win64") || has("win32unix")
 		" windows
 		set runtimepath+=~/vimfiles/neobundle.vim/
 		call neobundle#rc(expand('~/vimfiles/bundle/'))
+
+		" プロキシ環境用の設定ファイルを読み込む（リポジトリでは管理しない）
+		if filereadable($HOME . '_vimrc.local')
+		  source $HOME/_vimrc.local
+		endif
 	else
 		" その他
 		set runtimepath+=~/.vim/neobundle.vim/
 		call neobundle#rc(expand('~/.vim/bundle/'))
+
+		" プロキシ環境用の設定ファイルを読み込む（リポジトリでは管理しない）
+		if filereadable($HOME . '.vimrc.local')
+		  source $HOME/.vimrc.local
+		endif
 	endif
 endif
 
+"let g:neobundle#types#git#default_protocol = 'https'
+
 " sudo.vim (root権限でファイルを編集するなど)
-NeoBundle 'git://github.com/vim-scripts/sudo.vim.git'
+NeoBundle 'sudo.vim'
 
 " vim-fugitive (git コマンド利用)
-NeoBundle 'git://github.com/tpope/vim-fugitive'
+NeoBundle 'tpope/vim-fugitive'
 
 " neocomplcache.vim (キーワード補完)
-NeoBundle 'git://github.com/Shougo/neocomplcache'
+NeoBundle 'Shougo/neocomplcache'
 
 " neocomplcache snippet (スニペット補完)
-NeoBundle 'git://github.com/Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet'
 
 " vimproc (非同期通信, unite,vimshellなどで必須)
-NeoBundle 'git://github.com/Shougo/vimproc'
+NeoBundle 'Shougo/vimproc'
 
 " unite.vim (ランチャー, 統合インターフェース)
-NeoBundle 'git://github.com/Shougo/unite.vim'
+NeoBundle 'Shougo/unite.vim'
 
 " vimfiler.vim (ファイラー)
-NeoBundle 'git://github.com/Shougo/vimfiler'
+NeoBundle 'Shougo/vimfiler'
 
 " vimshell.vim (シェル)
-NeoBundle 'git://github.com/Shougo/vimshell'
+NeoBundle 'Shougo/vimshell'
 
 " vimshell-ssh.vim (シェル)
 NeoBundle 'vimshell-ssh'
 
 " unite-outline (Unite:アウトラインソース)
-NeoBundle 'git://github.com/h1mesuke/unite-outline'
+NeoBundle 'h1mesuke/unite-outline'
 
 " unite-help (Unite:ヘルプソース)
-NeoBundle 'git://github.com/tsukkee/unite-help'
+NeoBundle 'tsukkee/unite-help'
 
 " unite-tag (Unite:ctagソース)
-NeoBundle 'git://github.com/tsukkee/unite-tag'
+NeoBundle 'tsukkee/unite-tag'
 
 " unite-ssh (Unite:sshソース)
-NeoBundle 'git://github.com/Shougo/unite-ssh.git'
+NeoBundle 'Shougo/unite-ssh'
 
 " quickrun.vim (格ファイルタイプをvim内で実行)
-NeoBundle 'git://github.com/thinca/vim-quickrun'
+NeoBundle 'thinca/vim-quickrun'
 
 " open-browser.vim (ブラウザを開く)
-NeoBundle 'git://github.com/tyru/open-browser.vim'
+NeoBundle 'tyru/open-browser.vim'
 
 " zencoding.vim (zencodingの利用)
-NeoBundle 'git://github.com/mattn/zencoding-vim'
+NeoBundle 'mattn/zencoding-vim'
 
 " benchvimrc-vim (vimrcのベンチマーク)
-NeoBundle 'git://github.com/mattn/benchvimrc-vim'
+NeoBundle 'mattn/benchvimrc-vim'
 
 " html5.vim (html5シンタックス)
-NeoBundle 'git://github.com/othree/html5.vim'
+NeoBundle 'othree/html5.vim'
 
 " hail2u/vim-css3-syntax (css3シンタックス)
-NeoBundle 'git://github.com/hail2u/vim-css3-syntax'
+NeoBundle 'hail2u/vim-css3-syntax'
 
 " vim colors solarized (color theme:solarized)
-NeoBundle 'git://github.com/altercation/vim-colors-solarized'
+NeoBundle 'altercation/vim-colors-solarized'
 
 " vim powerline (ステータスラインを分かりやすくする)
-NeoBundle 'git://github.com/Lokaltog/vim-powerline'
+NeoBundle 'Lokaltog/vim-powerline'
 
 " smartword (全角文字の単語認識)
-NeoBundle 'git://github.com/kana/vim-smartword.git'
+NeoBundle 'kana/vim-smartword'
 
 " remote php debugger (xdebugの利用)
 "NeoBundle 'DBGp-Remote-Debugger-Interface'
 
 " webapi.vim (各種web apiをvimから利用)
-NeoBundle 'git://github.com/mattn/webapi-vim'
+NeoBundle 'mattn/webapi-vim'
 
 " vimplenote.vim (simplenoteの利用)
-NeoBundle 'git://github.com/mattn/vimplenote-vim'
+NeoBundle 'mattn/vimplenote-vim'
 
 " surround.vim (テキストオブジェクトを使いやすく)
-NeoBundle 'git://github.com/tpope/vim-surround.git'
+NeoBundle 'tpope/vim-surround'
 
 " scrooloose/syntastic.vim (各種ファイルタイプのシンタックスエラーの検出・表示)
-NeoBundle 'git://github.com/scrooloose/syntastic.git'
+NeoBundle 'scrooloose/syntastic'
 
 " Tagbar (ctagを見やすく表示)
-NeoBundle 'git://github.com/majutsushi/tagbar'
+NeoBundle 'majutsushi/tagbar'
 
 " unite-vcs (Unite:git,svnをUniteで利用。)
-NeoBundle 'git://github.com/hrsh7th/vim-unite-vcs.git'
+"NeoBundle 'hrsh7th/vim-unite-vcs'
+NeoBundle 'hrsh7th/vim-versions'
 
 " vcscommand.vim (svnの利用)
-NeoBundle 'git://github.com/harleypig/vcscommand.vim.git'
+NeoBundle 'harleypig/vcscommand.vim'
 
 " rails.vim (railsのシンタックス、MVCの移動、railsコマンドの利用)
-NeoBundle 'git://github.com/tpope/vim-rails.git'
+NeoBundle 'tpope/vim-rails'
 
 " ruby の do に対する end を補完
-NeoBundle 'git://github.com/tpope/vim-endwise.git'
+NeoBundle 'tpope/vim-endwise'
 
 " vim-quickhl (選択箇所の複数ハイライト)
-NeoBundle 'git://github.com/t9md/vim-quickhl.git'
+NeoBundle 't9md/vim-quickhl'
 
 " ref.vim (リファレンス参照)
-NeoBundle 'git://github.com/thinca/vim-ref.git'
+NeoBundle 'thinca/vim-ref'
 
 " php.vim (php syntax, 補完)
-NeoBundle 'git://github.com/shawncplus/php.vim.git'
+NeoBundle 'shawncplus/php.vim'
 
 " vim-ruby (ruby syntax, 補完)
-NeoBundle 'git://github.com/vim-ruby/vim-ruby.git'
+NeoBundle 'vim-ruby/vim-ruby'
 
 " Unite todo source
-NeoBundle 'git://github.com/kannokanno/unite-todo.git'
+NeoBundle 'kannokanno/unite-todo'
 
 " Source explorer
-NeoBundle 'git://github.com/wesleyche/SrcExpl.git'
+NeoBundle 'wesleyche/SrcExpl'
 
 " project.vim
 "NeoBundle 'project.vim'
 
 " AutoClose.vim
-"NeoBundle 'git://github.com/vim-scripts/AutoClose.git'
+"NeoBundle 'vim-scripts/AutoClose'
 
 " ファイルタイプ:インデント プラグインをON
 filetype plugin indent on
@@ -448,7 +464,8 @@ let g:unite_source_file_mru_filename_format = ''
 
 "現在開いているファイルのディレクトリ下のファイル一覧
 "開いていない場合はカレントディレクトリ
-nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file file/new<CR>
+nnoremap <silent> [unite]fr :<C-u>Unite file_rec file/new<CR>
 "バッファ一覧
 nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 "レジスタ一覧
@@ -469,6 +486,15 @@ nnoremap <silent> [unite]g :<C-u>Unite grep<CR>
 nnoremap <silent> [unite]t :<C-u>Unite tag<CR>
 " help
 nnoremap <silent> [unite]h :<C-u>Unite help<CR>
+" version/{type}/changeset
+nnoremap <silent> [unite]vsc :<C-u>Unite versions/svn/changeset<CR>
+nnoremap <silent> [unite]vgc :<C-u>Unite versions/git/changeset<CR>
+" version/{type}/log
+nnoremap <silent> [unite]vsl :<C-u>Unite versions/svn/log<CR>
+nnoremap <silent> [unite]vgl :<C-u>Unite versions/git/log<CR>
+" version/{type}/status
+nnoremap <silent> [unite]vss :<C-u>Unite versions/svn/status<CR>
+nnoremap <silent> [unite]vgs :<C-u>Unite versions/git/status<CR>
 
 "uniteを開いている間のキーマッピング
 autocmd FileType unite call s:unite_my_settings()
@@ -532,7 +558,7 @@ let g:vimfiler_max_filename_width = 60
 
 " VimFiler をNERDTreeっぽく使う方法
 " 参考: http://d.hatena.ne.jp/hrsh7th/20120229/1330525683
-nnoremap <F2> :VimFilerExplorer<Cr>
+nnoremap <F2> :VimFilerExplorer -winwidth=50<Cr>
 autocmd! FileType vimfiler call g:my_vimfiler_settings()
 function! g:my_vimfiler_settings()
   nmap     <buffer><expr><Cr> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
@@ -575,7 +601,8 @@ let g:quickrun_config['markdown'] = {
 "
 " vim-powerline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:Powerline_symbols = 'compatible'
+"let g:Powerline_symbols = 'compatible'
+let g:Powerline_symbols = 'fancy'
 
 "
 " syntastic
@@ -651,11 +678,3 @@ let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
 " // Set "<F12>" key for updating the tags file artificially 
 let g:SrcExpl_updateTagsKey = "<F12>"
 
-"
-" project.vim
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"if getcwd() != $HOME
-"	if filereadable(getcwd() . '/.vimprojects')
-"		Project .vimprojects
-"	endif
-"endif
