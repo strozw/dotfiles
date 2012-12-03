@@ -33,7 +33,7 @@ if has('vim_starting')
 	endif
 endif
 
-"let g:neobundle#types#git#default_protocol = 'https'
+let g:neobundle#types#git#default_protocol = 'ssh'
 
 " sudo.vim (root権限でファイルを編集するなど)
 NeoBundle 'sudo.vim'
@@ -465,7 +465,7 @@ let g:unite_source_file_mru_filename_format = ''
 "現在開いているファイルのディレクトリ下のファイル一覧
 "開いていない場合はカレントディレクトリ
 nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file file/new<CR>
-nnoremap <silent> [unite]fr :<C-u>Unite file_rec file/new<CR>
+nnoremap <silent> [unite]ff :<C-u>Unite file_rec file/new<CR>
 "バッファ一覧
 nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 "レジスタ一覧
