@@ -33,8 +33,6 @@ if has('vim_starting')
 	endif
 endif
 
-let g:neobundle#types#git#default_protocol = 'ssh'
-
 " sudo.vim (root権限でファイルを編集するなど)
 NeoBundle 'sudo.vim'
 
@@ -48,7 +46,14 @@ NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 
 " vimproc (非同期通信, unite,vimshellなどで必須)
-NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimproc', {
+\ 'build' : {
+\     'windows' : 'echo "Sorry, cannot update vimproc."',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make -f make_mac.mak',
+\     'unix' : 'make -f make_unix.mak',
+\    },
+\ }
 
 " unite.vim (ランチャー, 統合インターフェース)
 NeoBundle 'Shougo/unite.vim'
@@ -74,6 +79,9 @@ NeoBundle 'tsukkee/unite-tag'
 " unite-ssh (Unite:sshソース)
 NeoBundle 'Shougo/unite-ssh'
 
+" unite-sudo (Unite:sudoソース)
+NeoBundle 'Shougo/unite-sudo'
+
 " quickrun.vim (格ファイルタイプをvim内で実行)
 NeoBundle 'thinca/vim-quickrun'
 
@@ -89,8 +97,8 @@ NeoBundle 'mattn/benchvimrc-vim'
 " html5.vim (html5シンタックス)
 NeoBundle 'othree/html5.vim'
 
-" hail2u/vim-css3-syntax (css3シンタックス)
-NeoBundle 'hail2u/vim-css3-syntax'
+" lepture/vim-css css3シンタックス
+NeoBundle 'lepture/vim-css'
 
 " vim colors solarized (color theme:solarized)
 NeoBundle 'altercation/vim-colors-solarized'
@@ -138,11 +146,20 @@ NeoBundle 't9md/vim-quickhl'
 " ref.vim (リファレンス参照)
 NeoBundle 'thinca/vim-ref'
 
-" php.vim (php syntax, 補完)
-NeoBundle 'shawncplus/php.vim'
+" php.vim のfork版 (php syntax, 補完)
+NeoBundle 'StanAngeloff/php.vim'
 
 " vim-ruby (ruby syntax, 補完)
 NeoBundle 'vim-ruby/vim-ruby'
+
+" ruby の do end, if end を%で移動可能にする
+NeoBundle 'ruby-matchit'
+
+" javascript syntax
+NeoBundle 'jelera/vim-javascript-syntax'
+
+" coffeescript syntax
+NeoBundle 'kchmck/vim-coffee-script'
 
 " Unite todo source
 NeoBundle 'kannokanno/unite-todo'
@@ -150,11 +167,14 @@ NeoBundle 'kannokanno/unite-todo'
 " Source explorer
 NeoBundle 'wesleyche/SrcExpl'
 
-" project.vim
-"NeoBundle 'project.vim'
-
 " AutoClose.vim
-"NeoBundle 'vim-scripts/AutoClose'
+""NeoBundle 'vim-scripts/AutoClose'
+
+" minimap.vim
+""NeoBundle 'koron/minimap-vim'
+
+" 一括置換
+""NeoBundle 'thinca/vim-qfreplace'
 
 " ファイルタイプ:インデント プラグインをON
 filetype plugin indent on
@@ -288,7 +308,7 @@ set grepprg=internal
 set splitright
 
 " タグファイルの場所
-"set tags=.tags
+set tags=.tags
 
 "
 " 補完に辞書ファイル追加
@@ -323,6 +343,8 @@ au BufNewFile,BufRead *.mkd set filetype=markdown
 au BufNewFile,BufRead *.md set filetype=markdown 
 " html.erb
 au BufNewFile,BufRead *.html.erb set filetype=eruby.html
+" thor
+autocmd BufNewFile,BufRead *.thor set filetype=ruby
 
 "
 " ファイル・タイプ別インデント
@@ -462,10 +484,13 @@ let g:unite_source_file_mru_limit = 15
 "file_mruの表示フォーマットを指定。空にすると表示スピードが高速化される
 let g:unite_source_file_mru_filename_format = ''
 
+" unite grep
+let g:unite_source_grep_default_opts = '-iHn --exclude=''.tags'' --exclude=''tags'' --exclude=''.svn'' --exclude=''.git'''
+
 "現在開いているファイルのディレクトリ下のファイル一覧
 "開いていない場合はカレントディレクトリ
 nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file file/new<CR>
-nnoremap <silent> [unite]ff :<C-u>Unite file_rec file/new<CR>
+nnoremap <silent> [unite]ff :<C-u>Unite file_rec/async file/new<CR>
 "バッファ一覧
 nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 "レジスタ一覧
@@ -481,7 +506,7 @@ nnoremap <silent> [unite]l :<C-u>Unite line<CR>
 " アウトライン
 nnoremap <silent> [unite]ol :<C-u>Unite outline<CR>
 " grep
-nnoremap <silent> [unite]g :<C-u>Unite grep<CR>
+nnoremap <silent> [unite]g :<C-u>Unite grep -no-quit<CR>
 " tag
 nnoremap <silent> [unite]t :<C-u>Unite tag<CR>
 " help
@@ -496,24 +521,43 @@ nnoremap <silent> [unite]vgl :<C-u>Unite versions/git/log<CR>
 nnoremap <silent> [unite]vss :<C-u>Unite versions/svn/status<CR>
 nnoremap <silent> [unite]vgs :<C-u>Unite versions/git/status<CR>
 
+" 現在のプロジェクト内のファイルを一望する
+" 参考 : http://d.hatena.ne.jp/h1mesuke/20110918/p1
+nnoremap <silent> [unite]p :<C-u>call <SID>unite_project('-start-insert')<CR>
+function! s:unite_project(...)
+  let opts = (a:0 ? join(a:000, ' ') : '')
+  let dir = unite#util#path2project_directory(expand('%'))
+  execute 'Unite' opts 'file_rec:' . dir
+endfunction
+
 "uniteを開いている間のキーマッピング
 autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()"{{{
+function! s:unite_my_settings()
 	"ESCでuniteでを終了
 	nmap <buffer> <ESC> <Plug>(unite_exit)
 	"入力モードのきctrl+wでバックスラッシュも削除
-	imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
+	"imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
 	"ctrl+jで縦に分割して開く
-	nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-	inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+	"nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+	"inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
 	"ctrl+lで横横に分割して開く
-	nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-	inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+	"nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+	"inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
 	"ctrl+oでその場所に開く
 	nnoremap <silent> <buffer> <expr> <o> unite#do_action('open')
 	nnoremap <silent> <buffer> <expr> <C-o> unite#do_action('open')
 	inoremap <silent> <buffer> <expr> <C-o> unite#do_action('open')
-endfunction"}}}
+
+	" my tabopen (Unite を終了しないtabopen)
+	let my_tabopen = {
+	\ 'is_quit' : 0,
+	\ }
+	function! my_tabopen.func(candidates)
+	  call unite#take_action('tabopen', a:candidates)
+	endfunction
+	call unite#custom_action('*', 'tabopen', my_tabopen)
+	unlet my_tabopen
+endfunction
 
 syntax enable
 
@@ -527,9 +571,9 @@ nnoremap <silent> <C-l> :<C-u>UniteWithCursorWord line<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " C-] にマッピング
 autocmd BufEnter *
-\   if empty(&buftype)
-\|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
-\|  endif
+\	if empty(&buftype)
+\|		nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+\|	endif
 
 "
 " vimfiler.vim

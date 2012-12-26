@@ -1,0 +1,55 @@
+################################################
+# BASH COMPLETION
+################################################
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+	. $(brew --prefix)/etc/bash_completion
+fi
+
+################################################
+# PATH
+################################################
+
+# homebrew path
+export PATH=/usr/local/bin:$PATH
+export PATH=~/bin:$PATH
+
+################################################
+# OTHER ENV
+################################################
+
+# android-sdk
+export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
+
+# homebrew byobu
+export BYOBU_PREFIX=$(brew --prefix)
+
+# rvm path
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+
+# git
+export GIT_EDITOR=vim
+
+# CLI COLOR
+export CLICOLOR_FORCE=1
+
+# pager
+#export PAGER=less
+export PAGER=vimpager
+
+# tmux 
+PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
+
+################################################
+# ALIAS
+################################################
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -i'
+alias ls='ls -G'
+alias mvim='/Applications/MacVim.app/Contents/MacOS/mvim';
+alias vim='/Applications/MacVim.app/Contents/MacOS/Vim';
+alias ctags='ctags -f .tags'
+alias less='less -R'
+
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

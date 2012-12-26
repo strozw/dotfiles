@@ -40,17 +40,16 @@ set hlsearch
 
 " Visual選択で選択されたテキストが、自動的にクリップボードレジスタ"*"にコピーされる。
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
-set guioptions+=a
+"set guioptions+=a
+"set guioptions-=m
 
-
-set guioptions-=m
 
 " MacVim用設定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has('gui_macvim')
     set showtabline=2
 	"自動IMオンを無効
-	"set imdisable
+	set imdisable
 	"ツールバーを非表示
 	set guioptions-=T
 	set transparency=5
