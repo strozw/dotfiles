@@ -13,9 +13,15 @@ fi
 export PATH=/usr/local/bin:$PATH
 export PATH=~/bin:$PATH
 
+# flex path
+export PATH=/usr/local/Cellar/flex_sdk/4.6.0.23201/libexec/bin:$PATH
+
 ################################################
 # OTHER ENV
 ################################################
+
+# flex sdk home
+export FLEX_HOME=/usr/local/Cellar/flex_sdk/4.6.0.23201/libexec
 
 # android-sdk
 export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk

@@ -33,6 +33,9 @@ if has('vim_starting')
 	endif
 endif
 
+" use https
+let g:neobundle#types#git#default_protocol = 'https'
+
 " sudo.vim (root権限でファイルを編集するなど)
 NeoBundle 'sudo.vim'
 
@@ -166,6 +169,12 @@ NeoBundle 'kannokanno/unite-todo'
 
 " Source explorer
 NeoBundle 'wesleyche/SrcExpl'
+
+" Flex 4 syntax
+"NeoBundle 'vim-scripts/Flex-4'
+
+" vim-scripts/Flex-Development-Support
+NeoBundle 'vim-scripts/Flex-Development-Support'
 
 " AutoClose.vim
 ""NeoBundle 'vim-scripts/AutoClose'
@@ -310,6 +319,12 @@ set splitright
 " タグファイルの場所
 set tags=.tags
 
+" コマンドラインの高さ
+set cmdheight=1
+
+" クリップボード
+set clipboard=unnamed
+
 "
 " 補完に辞書ファイル追加
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -385,6 +400,13 @@ nmap <Esc><Esc> :nohlsearch<CR><Esc>
 " 範囲内検索をデフォルトに
 vnoremap / <ESC>/\%V
 vnoremap ? <ESC>?\%V
+
+"
+" vim colors solarized
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"syntax enable
+"set background=dark
+"colorscheme solarized
 
 "
 " neocomplcache
@@ -680,6 +702,11 @@ let g:ref_phpmanual_path = $HOME . '/References/php-chunked-xhtml'
 " ruby refe
 let g:ref_refe_cmd = $HOME . "/References/ruby-refm/ruby-refm-1.9.3-dynamic-snapshot/refe-1_9_3"
 
+" syntax
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd BufRead *.as set filetype=actionscript 
+autocmd BufRead *.mxml set filetype=mxml
+
 "
 " SrcExpl.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -721,4 +748,5 @@ let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
 
 " // Set "<F12>" key for updating the tags file artificially 
 let g:SrcExpl_updateTagsKey = "<F12>"
+
 
