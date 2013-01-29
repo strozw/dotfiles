@@ -34,7 +34,7 @@ if has('vim_starting')
 endif
 
 " use https
-"let g:neobundle#types#git#default_protocol = 'https'
+let g:neobundle#types#git#default_protocol = 'https'
 
 " sudo.vim (root権限でファイルを編集するなど)
 NeoBundle 'sudo.vim'
@@ -167,8 +167,15 @@ NeoBundle 'kchmck/vim-coffee-script'
 " Unite todo source
 NeoBundle 'kannokanno/unite-todo'
 
+" Unite font
+"NeoBundle 'MeijiMori/unite-font'
+NeoBundle 'ujihisa/unite-font'
+
 "
-NeoBundle 'unite-font'
+NeoBundle 'ujihisa/unite-colorscheme'
+
+" fontzoom
+NeoBundle 'thinca/vim-fontzoom.git'
 
 " Source explorer
 NeoBundle 'wesleyche/SrcExpl'
@@ -187,6 +194,9 @@ NeoBundle 'vim-scripts/Flex-Development-Support'
 
 " 一括置換
 ""NeoBundle 'thinca/vim-qfreplace'
+
+" colorscheme jellybeans
+NeoBundle 'nanotech/jellybeans.vim'
 
 " ファイルタイプ:インデント プラグインをON
 filetype plugin indent on
