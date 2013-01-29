@@ -167,6 +167,9 @@ NeoBundle 'kchmck/vim-coffee-script'
 " Unite todo source
 NeoBundle 'kannokanno/unite-todo'
 
+"
+NeoBundle 'unite-font'
+
 " Source explorer
 NeoBundle 'wesleyche/SrcExpl'
 
