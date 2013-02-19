@@ -164,6 +164,9 @@ NeoBundle 'jelera/vim-javascript-syntax'
 " coffeescript syntax
 NeoBundle 'kchmck/vim-coffee-script'
 
+" less syntax
+NeoBundle 'less.vim'
+
 " Unite todo source
 NeoBundle 'kannokanno/unite-todo'
 
@@ -175,16 +178,16 @@ NeoBundle 'ujihisa/unite-font'
 NeoBundle 'ujihisa/unite-colorscheme'
 
 " fontzoom
-NeoBundle 'thinca/vim-fontzoom.git'
+"NeoBundle 'thinca/vim-fontzoom.git'
 
 " Source explorer
-NeoBundle 'wesleyche/SrcExpl'
+"NeoBundle 'wesleyche/SrcExpl'
 
 " Flex 4 syntax
 "NeoBundle 'vim-scripts/Flex-4'
 
 " vim-scripts/Flex-Development-Support
-NeoBundle 'vim-scripts/Flex-Development-Support'
+"NeoBundle 'vim-scripts/Flex-Development-Support'
 
 " AutoClose.vim
 ""NeoBundle 'vim-scripts/AutoClose'
@@ -338,6 +341,9 @@ set cmdheight=1
 " クリップボード
 set clipboard=unnamed
 
+" マウス
+set mouse=a
+
 "
 " 補完に辞書ファイル追加
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -417,9 +423,9 @@ vnoremap ? <ESC>?\%V
 "
 " vim colors solarized
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
-"syntax enable
 "set background=dark
 "colorscheme solarized
+let g:solarized_termcolors = 256
 
 "
 " neocomplcache
@@ -680,8 +686,8 @@ let g:quickrun_config['markdown'] = {
 "
 " vim-powerline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:Powerline_symbols = 'compatible'
-let g:Powerline_symbols = 'fancy'
+let g:Powerline_symbols = 'compatible'
+"let g:Powerline_symbols = 'fancy'
 
 "
 " syntastic
@@ -719,7 +725,7 @@ let g:ref_refe_cmd = $HOME . "/References/ruby-refm/ruby-refm-1.9.3-dynamic-snap
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd BufRead *.as set filetype=actionscript 
 autocmd BufRead *.mxml set filetype=mxml
-
+au BufNewFile,BufRead *.less set filetype=less
 "
 " SrcExpl.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
