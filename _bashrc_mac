@@ -28,10 +28,10 @@ export FLEX_HOME=/usr/local/Cellar/flex_sdk/4.6.0.23201/libexec
 export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
 
 # homebrew byobu
-export BYOBU_PREFIX=$(brew --prefix)
+#export BYOBU_PREFIX=$(brew --prefix)
 
-# rvm path
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+# rbenv
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # git
 export GIT_EDITOR=vim
@@ -48,6 +48,11 @@ PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$
 
 # z
 . `brew --prefix`/etc/profile.d/z.sh
+
+# for PostgreSQL
+export PGDATA=/usr/local/var/postgres
+alias pgstart="pg_ctl -l /usr/local/var/postgres/server.log start"
+alias pgstop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
 
 ################################################
 # ALIAS
