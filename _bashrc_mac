@@ -61,5 +61,3 @@ alias vim='/Applications/MacVim.app/Contents/MacOS/Vim';
 alias ctags='ctags -f .tags'
 alias less='less -R'
 
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
