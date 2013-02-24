@@ -103,9 +103,6 @@ NeoBundle 'othree/html5.vim'
 " lepture/vim-css css3シンタックス
 NeoBundle 'lepture/vim-css'
 
-" vim colors solarized (color theme:solarized)
-NeoBundle 'altercation/vim-colors-solarized'
-
 " vim powerline (ステータスラインを分かりやすくする)
 NeoBundle 'Lokaltog/vim-powerline'
 
@@ -156,7 +153,7 @@ NeoBundle 'StanAngeloff/php.vim'
 NeoBundle 'vim-ruby/vim-ruby'
 
 " ruby の do end, if end を%で移動可能にする
-NeoBundle 'ruby-matchit'
+"NeoBundle 'ruby-matchit'
 
 " javascript syntax
 NeoBundle 'jelera/vim-javascript-syntax'
@@ -183,11 +180,11 @@ NeoBundle 'ujihisa/unite-colorscheme'
 " Source explorer
 "NeoBundle 'wesleyche/SrcExpl'
 
-" Flex 4 syntax
-"NeoBundle 'vim-scripts/Flex-4'
+" actionscript
+NeoBundle 'endel/actionscript'
 
-" vim-scripts/Flex-Development-Support
-"NeoBundle 'vim-scripts/Flex-Development-Support'
+"as3 omni comp
+"NeoBundle 'ActionScript-3-Omnicomplete'
 
 " AutoClose.vim
 ""NeoBundle 'vim-scripts/AutoClose'
@@ -200,6 +197,17 @@ NeoBundle 'ujihisa/unite-colorscheme'
 
 " colorscheme jellybeans
 NeoBundle 'nanotech/jellybeans.vim'
+
+" color scheme
+NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'vim-scripts/twilight'
+NeoBundle 'jonathanfilip/vim-lucius'
+NeoBundle 'jpo/vim-railscasts-theme'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'vim-scripts/Wombat'
+NeoBundle 'tomasr/molokai'
+NeoBundle 'vim-scripts/rdark'
 
 " ファイルタイプ:インデント プラグインをON
 filetype plugin indent on
@@ -451,7 +459,8 @@ let g:neocomplcache_min_keyword_length = 3
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
-  \'default':'',
+  \'default' : '',
+  \'actionscript' : $HOME . '/.vim/dict/actionscript3.dict',
   \}
 
 " set tags option
@@ -723,8 +732,8 @@ let g:ref_refe_cmd = $HOME . "/References/ruby-refm/ruby-refm-1.9.3-dynamic-snap
 
 " syntax
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd BufRead *.as set filetype=actionscript 
-autocmd BufRead *.mxml set filetype=mxml
+au BufNewFile,BufRead *.as set filetype=actionscript 
+au BufNewFile,BufRead *.mxml set filetype=mxml
 au BufNewFile,BufRead *.less set filetype=less
 "
 " SrcExpl.vim
