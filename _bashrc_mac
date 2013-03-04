@@ -14,12 +14,18 @@ export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=~/bin:$PATH
 
+# homebrew installed node npm
+export PATH=/usr/local/share/npm/bin:$PATH
+
 # flex path
 export PATH=/usr/local/Cellar/flex_sdk/4.6.0.23201/libexec/bin:$PATH
 
 ################################################
 # OTHER ENV
 ################################################
+
+# JAVA_OPTIONS
+export _JAVA_OPTIONS=-Dfile.encoding=UTF-8
 
 # flex sdk home
 export FLEX_HOME=/usr/local/Cellar/flex_sdk/4.6.0.23201/libexec
@@ -65,3 +71,4 @@ alias mvim='/Applications/MacVim.app/Contents/MacOS/mvim';
 alias vim='/Applications/MacVim.app/Contents/MacOS/Vim';
 alias ctags='ctags -f .tags'
 alias less='less -R'
+#alias mxmlc='-debug=true'

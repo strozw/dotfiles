@@ -34,7 +34,7 @@ if has('vim_starting')
 endif
 
 " use https
-let g:neobundle#types#git#default_protocol = 'https'
+"let g:neobundle#types#git#default_protocol = 'https'
 
 " sudo.vim (root権限でファイルを編集するなど)
 NeoBundle 'sudo.vim'
@@ -181,7 +181,7 @@ NeoBundle 'ujihisa/unite-colorscheme'
 "NeoBundle 'wesleyche/SrcExpl'
 
 " actionscript
-NeoBundle 'endel/actionscript'
+NeoBundle 'endel/actionscript.vim'
 
 "as3 omni comp
 "NeoBundle 'ActionScript-3-Omnicomplete'
@@ -194,9 +194,6 @@ NeoBundle 'endel/actionscript'
 
 " 一括置換
 ""NeoBundle 'thinca/vim-qfreplace'
-
-" colorscheme jellybeans
-NeoBundle 'nanotech/jellybeans.vim'
 
 " color scheme
 NeoBundle 'nanotech/jellybeans.vim'
@@ -691,6 +688,11 @@ let g:quickrun_config['markdown'] = {
 	\ 'outputter': 'browser',
 	\ 'cmdopt': '-s'
 	\ }
+"let g:quickrun_config['actionscript']  = {
+"	\ 'command' : 'mxmlc',
+"	"\ 'exec' : ['%c %o %s:p > null'],
+"	\ 'cmdopt' : '-static-link-runtime-shared-libraries',
+"\ }
 
 "
 " vim-powerline
