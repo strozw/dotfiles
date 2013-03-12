@@ -181,7 +181,7 @@ NeoBundle 'ujihisa/unite-colorscheme'
 "NeoBundle 'wesleyche/SrcExpl'
 
 " actionscript
-NeoBundle 'endel/actionscript'
+NeoBundle 'endel/actionscript.vim'
 
 "as3 omni comp
 "NeoBundle 'ActionScript-3-Omnicomplete'
@@ -195,8 +195,8 @@ NeoBundle 'endel/actionscript'
 " 一括置換
 ""NeoBundle 'thinca/vim-qfreplace'
 
-" colorscheme jellybeans
-NeoBundle 'nanotech/jellybeans.vim'
+" font size変更
+NeoBundle 'thinca/vim-fontzoom'
 
 " color scheme
 NeoBundle 'nanotech/jellybeans.vim'
@@ -418,6 +418,7 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 検索内容をハイライト
 set hlsearch
+
 " 検索ハイライトを解除
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
@@ -434,6 +435,8 @@ vnoremap ? <ESC>?\%V
 "set background=dark
 "colorscheme solarized
 let g:solarized_termcolors = 256
+let g:solarized_contrast = 'high'
+
 
 "
 " neocomplcache
@@ -691,6 +694,10 @@ let g:quickrun_config['markdown'] = {
 	\ 'outputter': 'browser',
 	\ 'cmdopt': '-s'
 	\ }
+let g:quickrun_config['actionscript']  = {
+	\ 'command': 'mxmlc',
+	\ 'cmdopt': '-static-link-runtime-shared-libraries -debug=true',
+	\ }
 
 "
 " vim-powerline
@@ -777,4 +784,7 @@ let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
 " // Set "<F12>" key for updating the tags file artificially 
 let g:SrcExpl_updateTagsKey = "<F12>"
 
-
+"
+" Taglist 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:tlist_actionscript_settings = 'actionscript;c:class;v:var;p:property;m:method;f:function;o:object;const:constants'

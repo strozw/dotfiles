@@ -20,6 +20,11 @@ export PATH=/usr/local/Cellar/flex_sdk/4.6.0.23201/libexec/bin:$PATH
 ################################################
 # OTHER ENV
 ################################################
+# GCC
+export CC=/usr/local/bin/gcc-4.2
+
+# JAVA OPTIONS
+export _JAVA_OPTIONS=-Dfile.encoding=UTF-8
 
 # flex sdk home
 export FLEX_HOME=/usr/local/Cellar/flex_sdk/4.6.0.23201/libexec
