@@ -195,7 +195,7 @@ NeoBundle 'endel/actionscript.vim'
 " 一括置換
 ""NeoBundle 'thinca/vim-qfreplace'
 
-"font zoom
+" font size変更
 NeoBundle 'thinca/vim-fontzoom'
 
 " color scheme
@@ -418,6 +418,7 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 検索内容をハイライト
 set hlsearch
+
 " 検索ハイライトを解除
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
@@ -434,6 +435,8 @@ vnoremap ? <ESC>?\%V
 "set background=dark
 "colorscheme solarized
 let g:solarized_termcolors = 256
+let g:solarized_contrast = 'high'
+
 
 "
 " neocomplcache
@@ -696,6 +699,10 @@ let g:quickrun_config['markdown'] = {
 "	"\ 'exec' : ['%c %o %s:p > null'],
 "	\ 'cmdopt' : '-static-link-runtime-shared-libraries',
 "\ }
+let g:quickrun_config['actionscript']  = {
+	\ 'command': 'mxmlc',
+	\ 'cmdopt': '-static-link-runtime-shared-libraries -debug=true',
+	\ }
 
 "
 " vim-powerline
@@ -782,4 +789,7 @@ let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
 " // Set "<F12>" key for updating the tags file artificially 
 let g:SrcExpl_updateTagsKey = "<F12>"
 
-
+"
+" Taglist 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:tlist_actionscript_settings = 'actionscript;c:class;v:var;p:property;m:method;f:function;o:object;const:constants'
