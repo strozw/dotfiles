@@ -34,7 +34,7 @@ if has('vim_starting')
 endif
 
 " use https
-"let g:neobundle#types#git#default_protocol = 'https'
+let g:neobundle#types#git#default_protocol = 'https'
 
 " sudo.vim (root権限でファイルを編集するなど)
 NeoBundle 'sudo.vim'
