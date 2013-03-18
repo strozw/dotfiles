@@ -195,6 +195,9 @@ NeoBundle 'endel/actionscript.vim'
 " 一括置換
 ""NeoBundle 'thinca/vim-qfreplace'
 
+"font zoom
+NeoBundle 'thinca/vim-fontzoom'
+
 " color scheme
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'w0ng/vim-hybrid'

@@ -8,3 +8,18 @@
 --regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\[/\1/,array/
 --regex-js=/([^= ]+)[ \t]*=[ \t]*[^"]'[^']*/\1/,string/
 --regex-js=/([^= ]+)[ \t]*=[ \t]*[^']"[^"]*/\1/,string/
+--langdef=actionscript
+--langmap=actionscript:.as
+--regex-actionscript=/^[ \t]*(private|public|protected|internal|static)[ \t]+function[ \t]+([A-Za-z0-9_]+)[ \t]*\(/\2/f, function, functions/
+--regex-actionscript=/^[ \t]*(private|public|protected|internal|static)[ \t]+function[ \t]+(set|get) [ \t]+([A-Za-z0-9_]+)[ \t]*\(/\2 \2/p,property, properties/
+--regex-actionscript=/^[ \t]*(private|public|protected|internal|static)[ \t]*var[ \t]+([A-Za-z0-9_]+)[ \t]*/\2/v,variable, variables/
+--regex-actionscript=/[ \t]*class[ \t]+([A-Za-z0-9_]+)[ \t]*/\1/c,class, classes/
+--langdef=mxml
+--langmap=mxml:.mxml
+--regex-mxml=/^[ \t]*(private|public|protected|internal|static)[ \t]+function[ \t]+([A-Za-z0-9_]+)[ \t]*\(/\2/f, function, functions/
+--regex-mxml=/^[ \t]*(private|public|protected|internal|static)[ \t]+function[ \t]+(set|get) [ \t]+([A-Za-z0-9_]+)[ \t]*\(/\2 \2/p,property, properties/
+--regex-mxml=/^[ \t]*(private|public|protected|internal|static)[ \t]*var[ \t]+([A-Za-z0-9_]+)[ \t]*/\2/v,variable, variables/
+--regex-mxml=/[ \t]id=['"]([A-Za-z0-9_]+)['"]/\1/f, function, functions/
+--python-kinds=-vi
+--exclude=*env/*
+--exclude=*.tox/*
