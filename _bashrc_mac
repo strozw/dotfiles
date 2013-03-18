@@ -1,9 +1,15 @@
 ################################################
-# BASH COMPLETION
+# BASH COMPLETION 1.x
 ################################################
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-	. $(brew --prefix)/etc/bash_completion
+#if [ -f $(brew --prefix)/etc/bash_completion ]; then
+#	. $(brew --prefix)/etc/bash_completion
+#fi
 
+################################################
+# BASH COMPLETION 2.x
+################################################
+if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
+	. $(brew --prefix)/share/bash-completion/bash_completion
 fi
 
 ################################################
