@@ -61,7 +61,11 @@ export CLICOLOR_FORCE=1
 #export PAGER=less
 export PAGER=vimpager
 
-# tmux 
+# PS1
+PS1='\H:\W \u\$ '
+
+
+# tmux  ps1
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
 
 # z
