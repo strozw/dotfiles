@@ -184,7 +184,10 @@ NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'endel/actionscript.vim'
 
 "as3 omni comp
-"NeoBundle 'ActionScript-3-Omnicomplete'
+NeoBundle 'yuratomo/flex-api-complete'
+
+" mdbg, cdb, gdb, jdb, fdb debugger
+NeoBundle 'yuratomo/dbg.vim'
 
 " AutoClose.vim
 ""NeoBundle 'vim-scripts/AutoClose'
@@ -436,6 +439,28 @@ vnoremap ? <ESC>?\%V
 "colorscheme solarized
 let g:solarized_termcolors = 256
 let g:solarized_contrast = 'high'
+
+" syntax
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+au BufNewFile,BufRead *.as set filetype=actionscript 
+au BufNewFile,BufRead *.mxml set filetype=mxml
+au BufNewFile,BufRead *.less set filetype=less
+
+"
+" omnifunc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+au BufNewFile,BufRead *.as    setl omnifunc=flexapi#complete
+au BufNewFile,BufRead *.mxml  setf xml
+au BufNewFile,BufRead *.mxml  setl omnifunc=mxml#complete
+
+au CompleteDone *.as          call flexapi#showRef()
+au BufNewFile,BufRead *.as    inoremap <expr> <c-down> flexapi#nextRef()
+au BufNewFile,BufRead *.as    inoremap <expr> <c-up>   flexapi#prevRef()
+
+if has("balloon_eval") && has("balloon_multiline") 
+  au BufNewFile,BufRead *.as  setl bexpr=flexapi#balloon()
+  au BufNewFile,BufRead *.as  setl ballooneval
+endif
 
 
 "
@@ -742,11 +767,7 @@ let g:ref_phpmanual_path = $HOME . '/References/php-chunked-xhtml'
 " ruby refe
 let g:ref_refe_cmd = $HOME . "/References/ruby-refm/ruby-refm-1.9.3-dynamic-snapshot/refe-1_9_3"
 
-" syntax
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-au BufNewFile,BufRead *.as set filetype=actionscript 
-au BufNewFile,BufRead *.mxml set filetype=mxml
-au BufNewFile,BufRead *.less set filetype=less
+
 "
 " SrcExpl.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
