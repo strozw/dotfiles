@@ -63,11 +63,12 @@ NeoBundleLazy 'Shougo/vimfiler', {
 \		'VimFiler','VimFilerTab', 'VimFilerExplorer', 'Edit', 'Read', 'Write', 'Source'
 \	  ],
 \	  'mappings' : ['<Plug>(vimfiler_switch)'],
+\	  'explorer' : 1,
 \	},
 \ }
 
 " vimshell.vim (シェル)
-NeoBundle 'Shougo/vimshell', {
+NeoBundleLazy 'Shougo/vimshell', {
 \ 'depends' : ['Shougo/unite.vim', 'Shougo/vimproc'],
 \ 'autoload' : {
 \	  'commands' : [
@@ -80,32 +81,59 @@ NeoBundle 'Shougo/vimshell', {
 
 " vimshell-ssh.vim (シェル)
 NeoBundle 'vimshell-ssh', {
-\ 'depends' : ['Shougo/vimshell', 'Shougo/unite.vim', 'Shougo/unite-ssh', 'Shougo/vimproc'],
+\	'depends' : ['Shougo/vimshell', 'Shougo/unite.vim', 'Shougo/unite-ssh', 'Shougo/vimproc'],
+\	'autoload' : {
+\	  'filetypes' : ['vimshell', 'vimfiler'],
+\	}
 \ }
 
 " unite-outline (Unite:アウトラインソース)
-NeoBundle 'h1mesuke/unite-outline', {'depends' : 'Shougo/unite.vim'}
+NeoBundleLazy 'h1mesuke/unite-outline', {
+\	'depends' : 'Shougo/unite.vim',
+\	'autoload' : {'unite_sources' : 'outline'}
+\ }
 
 " unite-help (Unite:ヘルプソース)
-NeoBundle 'tsukkee/unite-help', {'depends' : 'Shougo/unite.vim'}
+NeoBundleLazy 'tsukkee/unite-help', {
+\	'depends' : 'Shougo/unite.vim',
+\	'autoload' : {'unite_sources' : 'help'}
+\ }
 
 " unite-tag (Unite:ctagソース)
-NeoBundle 'tsukkee/unite-tag', {'depends' : 'Shougo/unite.vim'}
+NeoBundleLazy 'tsukkee/unite-tag', {
+\	'depends' : 'Shougo/unite.vim',
+\	'autoload' : {'unite_sources' : 'outline'}
+\ }
 
 " unite-ssh (Unite:sshソース)
-NeoBundle 'Shougo/unite-ssh', {'depends' : 'Shougo/unite.vim'}
+NeoBundleLazy 'Shougo/unite-ssh', {
+\	'depends' : 'Shougo/unite.vim',
+\	'autoload' : {
+\	  'filetypes' : ['vimshell', 'vimfiler'],
+\	}
+\ }
 
 " unite-sudo (Unite:sudoソース)
 NeoBundle 'Shougo/unite-sudo', {'depends' : 'Shougo/unite.vim'}
 
 " Unite todo source
-NeoBundle 'kannokanno/unite-todo', {'depends' : 'Shougo/unite.vim'}
+NeoBundle 'kannokanno/unite-todo', {
+\	'depends' : 'Shougo/unite.vim',
+\	'autoload' : {'unite_sources' : 'todo'}
+\ }
 
 " Unite font source
-NeoBundle 'ujihisa/unite-font', {'depends' : 'Shougo/unite.vim'}
+NeoBundleLazy 'ujihisa/unite-font', {
+\	'depends' : 'Shougo/unite.vim',
+\	'gui' : 1,
+\	'autoload' : {'unite_sources' : 'font'}
+\ }
 
 " Unite color scheme source
-NeoBundle 'ujihisa/unite-colorscheme', {'depends' : 'Shougo/unite.vim'}
+NeoBundle 'ujihisa/unite-colorscheme', {
+\	'depends' : 'Shougo/unite.vim',
+\	'autoload' : {'unite_sources' : 'colorscheme'}
+\ }
 
 " unite-vcs (Unite:git,svnをUniteで利用。)
 NeoBundle 'hrsh7th/vim-versions', {'depends' : 'Shougo/unite.vim'}
@@ -238,6 +266,7 @@ NeoBundleLazy 'yuratomo/flex-api-complete', {
 \	  'filetypes' : ['actionscript', 'mxml'],
 \	},
 \ }
+"NeoBundle 'yuratomo/flex-api-complete'
 
 " mdbg, cdb, gdb, jdb, fdb debugger
 NeoBundleLazy 'yuratomo/dbg.vim', {
@@ -499,8 +528,23 @@ vnoremap ? <ESC>?\%V
 let g:solarized_termcolors = 256
 let g:solarized_contrast = 'high'
 
-" syntax
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"
+" omnifunct
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+au BufNewFile,BufRead *.mxml  setf xml
+
+au BufNewFile,BufRead *.mxml  setl omnifunc=mxml#complete
+"au BufNewFile,BufRead *.as    setl omnifunc=flexapi#complete
+"
+"au CompleteDone *.as          call flexapi#showRef()
+"au BufNewFile,BufRead *.as    inoremap <expr> <c-down> flexapi#nextRef()
+"au BufNewFile,BufRead *.as    inoremap <expr> <c-up>   flexapi#prevRef()
+"
+"if has("balloon_eval") && has("balloon_multiline") 
+"  au BufNewFile,BufRead *.as  setl bexpr=flexapi#balloon()
+"  au BufNewFile,BufRead *.as  setl ballooneval
+"endif
 
 
 "
@@ -542,6 +586,10 @@ endif
 
 " 英数字の単語の頭文字
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
 
 " 補完キー
 "inoremap <expr><TAB>	pumvisible() ? "\<C-n>" : "\<TAB>"
