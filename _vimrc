@@ -33,25 +33,19 @@ if has('vim_starting')
 	endif
 endif
 
-" use https
-let g:neobundle#types#git#default_protocol = 'https'
-
 " sudo.vim (root権限でファイルを編集するなど)
 NeoBundle 'sudo.vim'
-
-" vim-fugitive (git コマンド利用)
-NeoBundle 'tpope/vim-fugitive'
 
 " neocomplcache.vim (キーワード補完)
 NeoBundle 'Shougo/neocomplcache'
 
 " neocomplcache snippet (スニペット補完)
-NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet', {'depends' : 'Shougo/neocomplcache'}
 
 " vimproc (非同期通信, unite,vimshellなどで必須)
 NeoBundle 'Shougo/vimproc', {
 \ 'build' : {
-\     'windows' : 'echo "Sorry, cannot update vimproc."',
+\	  'windows' : 'echo "Sorry, cannot update vimproc."',
 \     'cygwin' : 'make -f make_cygwin.mak',
 \     'mac' : 'make -f make_mac.mak',
 \     'unix' : 'make -f make_unix.mak',
@@ -59,31 +53,68 @@ NeoBundle 'Shougo/vimproc', {
 \ }
 
 " unite.vim (ランチャー, 統合インターフェース)
-NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unite.vim', {'depends' : 'Shougo/vimproc'}
 
 " vimfiler.vim (ファイラー)
-NeoBundle 'Shougo/vimfiler'
+NeoBundleLazy 'Shougo/vimfiler', {
+\ 'depends' : ['Shougo/unite.vim', 'Shougo/vimproc'],
+\ 'autoload' : {
+\	  'commands' : [
+\		'VimFiler','VimFilerTab', 'VimFilerExplorer', 'Edit', 'Read', 'Write', 'Source'
+\	  ],
+\	  'mappings' : ['<Plug>(vimfiler_switch)'],
+\	},
+\ }
 
 " vimshell.vim (シェル)
-NeoBundle 'Shougo/vimshell'
+NeoBundle 'Shougo/vimshell', {
+\ 'depends' : ['Shougo/unite.vim', 'Shougo/vimproc'],
+\ 'autoload' : {
+\	  'commands' : [
+\		'VimShell','VimShellExecute', 'VimShellInterractive', 'VimShellTermianl', 
+\		'VimShellPop', 'VimShellTab', 'VimShellCreate'
+\	  ],
+\	  'mappings' : ['<Plug>(vimshell_switch)'],
+\	},
+\ }
 
 " vimshell-ssh.vim (シェル)
-NeoBundle 'vimshell-ssh'
+NeoBundle 'vimshell-ssh', {
+\ 'depends' : ['Shougo/vimshell', 'Shougo/unite.vim', 'Shougo/unite-ssh', 'Shougo/vimproc'],
+\ }
 
 " unite-outline (Unite:アウトラインソース)
-NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'h1mesuke/unite-outline', {'depends' : 'Shougo/unite.vim'}
 
 " unite-help (Unite:ヘルプソース)
-NeoBundle 'tsukkee/unite-help'
+NeoBundle 'tsukkee/unite-help', {'depends' : 'Shougo/unite.vim'}
 
 " unite-tag (Unite:ctagソース)
-NeoBundle 'tsukkee/unite-tag'
+NeoBundle 'tsukkee/unite-tag', {'depends' : 'Shougo/unite.vim'}
 
 " unite-ssh (Unite:sshソース)
-NeoBundle 'Shougo/unite-ssh'
+NeoBundle 'Shougo/unite-ssh', {'depends' : 'Shougo/unite.vim'}
 
 " unite-sudo (Unite:sudoソース)
-NeoBundle 'Shougo/unite-sudo'
+NeoBundle 'Shougo/unite-sudo', {'depends' : 'Shougo/unite.vim'}
+
+" Unite todo source
+NeoBundle 'kannokanno/unite-todo', {'depends' : 'Shougo/unite.vim'}
+
+" Unite font source
+NeoBundle 'ujihisa/unite-font', {'depends' : 'Shougo/unite.vim'}
+
+" Unite color scheme source
+NeoBundle 'ujihisa/unite-colorscheme', {'depends' : 'Shougo/unite.vim'}
+
+" unite-vcs (Unite:git,svnをUniteで利用。)
+NeoBundle 'hrsh7th/vim-versions', {'depends' : 'Shougo/unite.vim'}
+
+" benchvimrc-vim (vimrcのベンチマーク)
+NeoBundle 'mattn/benchvimrc-vim'
+
+" ref.vim (リファレンス参照)
+NeoBundle 'thinca/vim-ref'
 
 " quickrun.vim (格ファイルタイプをvim内で実行)
 NeoBundle 'thinca/vim-quickrun'
@@ -91,35 +122,23 @@ NeoBundle 'thinca/vim-quickrun'
 " open-browser.vim (ブラウザを開く)
 NeoBundle 'tyru/open-browser.vim'
 
-" zencoding.vim (zencodingの利用)
-NeoBundle 'mattn/zencoding-vim'
+" webapi.vim (各種web apiをvimから利用)
+NeoBundle 'mattn/webapi-vim'
 
-" benchvimrc-vim (vimrcのベンチマーク)
-NeoBundle 'mattn/benchvimrc-vim'
-
-" html5.vim (html5シンタックス)
-NeoBundle 'othree/html5.vim'
-
-" lepture/vim-css css3シンタックス
-NeoBundle 'lepture/vim-css'
-
-" vim powerline (ステータスラインを分かりやすくする)
-NeoBundle 'Lokaltog/vim-powerline'
+" surround.vim (テキストオブジェクトを使いやすく)
+NeoBundle 'tpope/vim-surround'
 
 " smartword (全角文字の単語認識)
 NeoBundle 'kana/vim-smartword'
 
-" remote php debugger (xdebugの利用)
-"NeoBundle 'DBGp-Remote-Debugger-Interface'
+" vim powerline (ステータスラインを分かりやすくする)
+NeoBundle 'Lokaltog/vim-powerline'
 
-" webapi.vim (各種web apiをvimから利用)
-NeoBundle 'mattn/webapi-vim'
+" font size変更
+NeoBundle 'thinca/vim-fontzoom'
 
-" vimplenote.vim (simplenoteの利用)
-NeoBundle 'mattn/vimplenote-vim'
-
-" surround.vim (テキストオブジェクトを使いやすく)
-NeoBundle 'tpope/vim-surround'
+" vim-quickhl (選択箇所の複数ハイライト)
+NeoBundle 't9md/vim-quickhl'
 
 " scrooloose/syntastic.vim (各種ファイルタイプのシンタックスエラーの検出・表示)
 NeoBundle 'scrooloose/syntastic'
@@ -127,67 +146,105 @@ NeoBundle 'scrooloose/syntastic'
 " Tagbar (ctagを見やすく表示)
 NeoBundle 'majutsushi/tagbar'
 
-" unite-vcs (Unite:git,svnをUniteで利用。)
-"NeoBundle 'hrsh7th/vim-unite-vcs'
-NeoBundle 'hrsh7th/vim-versions'
+" Source explorer
+NeoBundle 'wesleyche/SrcExpl'
 
 " vcscommand.vim (svnの利用)
 NeoBundle 'harleypig/vcscommand.vim'
 
-" rails.vim (railsのシンタックス、MVCの移動、railsコマンドの利用)
-NeoBundle 'tpope/vim-rails'
+" vim-fugitive (git コマンド利用)
+NeoBundle 'tpope/vim-fugitive'
 
-" ruby の do に対する end を補完
-NeoBundle 'tpope/vim-endwise'
+" vimplenote.vim (simplenoteの利用)
+NeoBundle 'mattn/vimplenote-vim'
 
-" vim-quickhl (選択箇所の複数ハイライト)
-NeoBundle 't9md/vim-quickhl'
+" zencoding.vim (zencodingの利用)
+NeoBundle 'mattn/zencoding-vim'
 
-" ref.vim (リファレンス参照)
-NeoBundle 'thinca/vim-ref'
+" html5.vim (html5シンタックス)
+NeoBundleLazy 'othree/html5.vim', {
+\ 'autoload' : {
+\	  'filetypes' : ['html', 'php'],
+\	},
+\ }
+
+" lepture/vim-css css3シンタックス
+NeoBundleLazy 'lepture/vim-css', {
+\ 'autoload' : {
+\	  'filetypes' : ['html', 'css'],
+\	},
+\ }
 
 " php.vim のfork版 (php syntax, 補完)
-NeoBundle 'StanAngeloff/php.vim'
+NeoBundleLazy 'StanAngeloff/php.vim', {
+\ 'autoload' : {
+\	  'filetypes' : 'php',
+\	},
+\ }
 
 " vim-ruby (ruby syntax, 補完)
-NeoBundle 'vim-ruby/vim-ruby'
+NeoBundleLazy 'vim-ruby/vim-ruby', {
+\ 'autoload' : {
+\	  'filetypes' : 'ruby',
+\	},
+\ }
 
-" ruby の do end, if end を%で移動可能にする
-"NeoBundle 'ruby-matchit'
+" rails.vim (railsのシンタックス、MVCの移動、railsコマンドの利用)
+NeoBundleLazy 'tpope/vim-rails', {
+\ 'autoload' : {
+\	  'filetypes' : 'ruby',
+\	},
+\ }
+
+" ruby の do に対する end を補完
+NeoBundleLazy 'tpope/vim-endwise', {
+\ 'autoload' : {
+\	  'filetypes' : 'ruby',
+\	},
+\ }
 
 " javascript syntax
-NeoBundle 'jelera/vim-javascript-syntax'
+NeoBundleLazy 'jelera/vim-javascript-syntax', {
+\ 'autoload' : {
+\	  'filetypes' : 'javascript',
+\	}
+\ }
 
 " coffeescript syntax
-NeoBundle 'kchmck/vim-coffee-script'
+NeoBundleLazy 'kchmck/vim-coffee-script', {
+\ 'autoload' : {
+\	  'filetypes' : 'coffeescript',
+\	},
+\ }
 
 " less syntax
-NeoBundle 'less.vim'
+NeoBundleLazy 'less.vim', {
+\ 'autoload' : {
+\	  'filetypes' : ['less'],
+\	},
+\ }
 
-" Unite todo source
-NeoBundle 'kannokanno/unite-todo'
-
-" Unite font
-"NeoBundle 'MeijiMori/unite-font'
-NeoBundle 'ujihisa/unite-font'
-
-"
-NeoBundle 'ujihisa/unite-colorscheme'
-
-" fontzoom
-"NeoBundle 'thinca/vim-fontzoom.git'
-
-" Source explorer
-"NeoBundle 'wesleyche/SrcExpl'
 
 " actionscript
-NeoBundle 'endel/actionscript.vim'
+NeoBundleLazy 'endel/actionscript.vim', {
+\ 'autoload' : {
+\	  'filetypes' : 'actionscript',
+\	},
+\ }
 
 "as3 omni comp
-NeoBundle 'yuratomo/flex-api-complete'
+NeoBundleLazy 'yuratomo/flex-api-complete', {
+\ 'autoload' : {
+\	  'filetypes' : ['actionscript', 'mxml'],
+\	},
+\ }
 
 " mdbg, cdb, gdb, jdb, fdb debugger
-NeoBundle 'yuratomo/dbg.vim'
+NeoBundleLazy 'yuratomo/dbg.vim', {
+\ 'autoload' : {
+\	  'filetypes' : ['c', 'cpp', 'java', 'actionscript', 'mxml'],
+\	},
+\ }
 
 " AutoClose.vim
 ""NeoBundle 'vim-scripts/AutoClose'
@@ -197,9 +254,6 @@ NeoBundle 'yuratomo/dbg.vim'
 
 " 一括置換
 ""NeoBundle 'thinca/vim-qfreplace'
-
-" font size変更
-NeoBundle 'thinca/vim-fontzoom'
 
 " color scheme
 NeoBundle 'nanotech/jellybeans.vim'
@@ -386,16 +440,21 @@ highlight PmenuThumb ctermbg=lightgray
 " markdown 
 au BufNewFile,BufRead *.mkd set filetype=markdown
 au BufNewFile,BufRead *.md set filetype=markdown 
+
 " html.erb
 au BufNewFile,BufRead *.html.erb set filetype=eruby.html
+
 " thor
 autocmd BufNewFile,BufRead *.thor set filetype=ruby
 
-"
-" ファイル・タイプ別インデント
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Rubyでインデント幅を2にする
-au FileType ruby set tabstop=2 softtabstop=2 shiftwidth=2
+" actionscript 
+au BufNewFile,BufRead *.as set filetype=actionscript 
+
+" flex mxml
+au BufNewFile,BufRead *.mxml set filetype=mxml
+
+" less
+au BufNewFile,BufRead *.less set filetype=less
 
 "
 " 相対行切り替え(<Space>n)
@@ -442,25 +501,6 @@ let g:solarized_contrast = 'high'
 
 " syntax
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-au BufNewFile,BufRead *.as set filetype=actionscript 
-au BufNewFile,BufRead *.mxml set filetype=mxml
-au BufNewFile,BufRead *.less set filetype=less
-
-"
-" omnifunc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
-au BufNewFile,BufRead *.as    setl omnifunc=flexapi#complete
-au BufNewFile,BufRead *.mxml  setf xml
-au BufNewFile,BufRead *.mxml  setl omnifunc=mxml#complete
-
-au CompleteDone *.as          call flexapi#showRef()
-au BufNewFile,BufRead *.as    inoremap <expr> <c-down> flexapi#nextRef()
-au BufNewFile,BufRead *.as    inoremap <expr> <c-up>   flexapi#prevRef()
-
-if has("balloon_eval") && has("balloon_multiline") 
-  au BufNewFile,BufRead *.as  setl bexpr=flexapi#balloon()
-  au BufNewFile,BufRead *.as  setl ballooneval
-endif
 
 
 "
@@ -487,14 +527,13 @@ let g:neocomplcache_min_keyword_length = 3
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
-  \'default' : '',
-  \'actionscript' : $HOME . '/.vim/dict/actionscript3.dict',
-  \}
+\ 'default' : '',
+\ }
 
 " set tags option
 let g:neocomplcache_member_prefix_patterns = {
-  \'php':'->\|::',
-  \}
+\ 'php':'->\|::',
+\ }
 
 " Define keyword.
 if !exists('g:neocomplcache_keyword_patterns')
@@ -759,11 +798,10 @@ nmap <Space>H <Plug>(quickhl-reset)
 xmap <Space>H <Plug>(quickhl-reset)
 nmap <Space>j <Plug>(quickhl-match)
 
+
 "
 " ref.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" php ref
-let g:ref_phpmanual_path = $HOME . '/References/php-chunked-xhtml'
 " ruby refe
 let g:ref_refe_cmd = $HOME . "/References/ruby-refm/ruby-refm-1.9.3-dynamic-snapshot/refe-1_9_3"
 
@@ -810,7 +848,3 @@ let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
 " // Set "<F12>" key for updating the tags file artificially 
 let g:SrcExpl_updateTagsKey = "<F12>"
 
-"
-" Taglist 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:tlist_actionscript_settings = 'actionscript;c:class;v:var;p:property;m:method;f:function;o:object;const:constants'
