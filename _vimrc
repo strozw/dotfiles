@@ -18,7 +18,7 @@ if has('vim_starting')
 		call neobundle#rc(expand('~/vimfiles/bundle/'))
 
 		" プロキシ環境用の設定ファイルを読み込む（リポジトリでは管理しない）
-		if filereadable($HOME . '_vimrc.local')
+		if filereadable($HOME . '/_vimrc.local')
 		  source $HOME/_vimrc.local
 		endif
 	else
@@ -27,14 +27,24 @@ if has('vim_starting')
 		call neobundle#rc(expand('~/.vim/bundle/'))
 
 		" プロキシ環境用の設定ファイルを読み込む（リポジトリでは管理しない）
-		if filereadable($HOME . '.vimrc.local')
+		if filereadable($HOME . '/.vimrc.local')
 		  source $HOME/.vimrc.local
 		endif
 	endif
 endif
 
 " use https
-let g:neobundle#types#git#default_protocol = 'https'
+"let g:neobundle#types#git#default_protocol = 'https'
+
+" vimproc (非同期通信, unite,vimshellなどで必須)
+NeoBundle 'Shougo/vimproc', {
+\ 'build' : {
+\     'windows' : 'echo "Sorry, cannot update vimproc."',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make -f make_mac.mak',
+\     'unix' : 'make -f make_unix.mak',
+\    },
+\ }
 
 " sudo.vim (root権限でファイルを編集するなど)
 NeoBundle 'sudo.vim'
@@ -47,16 +57,6 @@ NeoBundle 'Shougo/neocomplcache'
 
 " neocomplcache snippet (スニペット補完)
 NeoBundle 'Shougo/neosnippet'
-
-" vimproc (非同期通信, unite,vimshellなどで必須)
-NeoBundle 'Shougo/vimproc', {
-\ 'build' : {
-\     'windows' : 'echo "Sorry, cannot update vimproc."',
-\     'cygwin' : 'make -f make_cygwin.mak',
-\     'mac' : 'make -f make_mac.mak',
-\     'unix' : 'make -f make_unix.mak',
-\    },
-\ }
 
 " unite.vim (ランチャー, 統合インターフェース)
 NeoBundle 'Shougo/unite.vim'
@@ -171,14 +171,11 @@ NeoBundle 'kannokanno/unite-todo'
 "NeoBundle 'MeijiMori/unite-font'
 NeoBundle 'ujihisa/unite-font'
 
-"
+" unite color scheme
 NeoBundle 'ujihisa/unite-colorscheme'
 
-" fontzoom
-"NeoBundle 'thinca/vim-fontzoom.git'
-
 " Source explorer
-"NeoBundle 'wesleyche/SrcExpl'
+NeoBundle 'wesleyche/SrcExpl'
 
 " actionscript
 NeoBundle 'endel/actionscript.vim'
@@ -190,13 +187,13 @@ NeoBundle 'yuratomo/flex-api-complete'
 NeoBundle 'yuratomo/dbg.vim'
 
 " AutoClose.vim
-""NeoBundle 'vim-scripts/AutoClose'
+"NeoBundle 'vim-scripts/AutoClose'
 
 " minimap.vim
-""NeoBundle 'koron/minimap-vim'
+"NeoBundle 'koron/minimap-vim'
 
 " 一括置換
-""NeoBundle 'thinca/vim-qfreplace'
+"NeoBundle 'thinca/vim-qfreplace'
 
 " font size変更
 NeoBundle 'thinca/vim-fontzoom'
@@ -771,44 +768,44 @@ let g:ref_refe_cmd = $HOME . "/References/ruby-refm/ruby-refm-1.9.3-dynamic-snap
 "
 " SrcExpl.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" // The switch of the Source Explorer 
-nmap <F9> :SrcExplToggle<CR> 
-
-" // Set the height of Source Explorer window 
-let g:SrcExpl_winHeight = 8 
-
-" // Set 100 ms for refreshing the Source Explorer 
-let g:SrcExpl_refreshTime = 100 
-
-" // Set "Enter" key to jump into the exact definition context 
-" let g:SrcExpl_jumpKey = "<ENTER>" 
-
-" // Set "Space" key for back from the definition context 
-let g:SrcExpl_gobackKey = "<SPACE>" 
-
-" // In order to Avoid conflicts, the Source Explorer should know what plugins 
-" // are using buffers. And you need add their bufname into the list below 
-" // according to the command ":buffers!" 
-let g:SrcExpl_pluginList = [ 
-        \ "__Tag_List__", 
-        \ "_NERD_tree_", 
-        \ "Source_Explorer" 
-    \ ] 
-
-" // Enable/Disable the local definition searching, and note that this is not 
-" // guaranteed to work, the Source Explorer doesn't check the syntax for now. 
-" // It only searches for a match with the keyword according to command 'gd' 
-let g:SrcExpl_searchLocalDef = 1 
-
-" // Do not let the Source Explorer update the tags file when opening 
-let g:SrcExpl_isUpdateTags = 0 
-
-" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to 
-" //  create/update a tags file 
-let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
-
-" // Set "<F12>" key for updating the tags file artificially 
-let g:SrcExpl_updateTagsKey = "<F12>"
+"" // The switch of the Source Explorer 
+"nmap <F9> :SrcExplToggle<CR> 
+"
+"" // Set the height of Source Explorer window 
+"let g:SrcExpl_winHeight = 8 
+"
+"" // Set 100 ms for refreshing the Source Explorer 
+"let g:SrcExpl_refreshTime = 100 
+"
+"" // Set "Enter" key to jump into the exact definition context 
+"" let g:SrcExpl_jumpKey = "<ENTER>" 
+"
+"" // Set "Space" key for back from the definition context 
+"let g:SrcExpl_gobackKey = "<SPACE>" 
+"
+"" // In order to Avoid conflicts, the Source Explorer should know what plugins 
+"" // are using buffers. And you need add their bufname into the list below 
+"" // according to the command ":buffers!" 
+"let g:SrcExpl_pluginList = [ 
+"        \ "__Tag_List__", 
+"        \ "_NERD_tree_", 
+"        \ "Source_Explorer" 
+"    \ ] 
+"
+"" // Enable/Disable the local definition searching, and note that this is not 
+"" // guaranteed to work, the Source Explorer doesn't check the syntax for now. 
+"" // It only searches for a match with the keyword according to command 'gd' 
+"let g:SrcExpl_searchLocalDef = 1 
+"
+"" // Do not let the Source Explorer update the tags file when opening 
+"let g:SrcExpl_isUpdateTags = 0 
+"
+"" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to 
+"" //  create/update a tags file 
+"let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
+"
+"" // Set "<F12>" key for updating the tags file artificially 
+"let g:SrcExpl_updateTagsKey = "<F12>"
 
 "
 " Taglist 
