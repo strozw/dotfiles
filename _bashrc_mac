@@ -1,10 +1,23 @@
 ################################################
+# SHELL
+################################################
+export SHELL=/usr/local/bin/bash
+export BASH=/usr/local/bin/bash
+
+################################################
 # BASH COMPLETION 1.x
 ################################################
 #if [ -f $(brew --prefix)/etc/bash_completion ]; then
 #	. $(brew --prefix)/etc/bash_completion
 #fi
 
+
+################################################
+# BASH COMPLETION 2.x
+################################################
+if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
+	. $(brew --prefix)/share/bash-completion/bash_completion
+fi
 
 
 ################################################
@@ -15,7 +28,7 @@
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=~/bin:$PATH
-export PATH=/Users/strozw/Library/Python/2.7/bin/:$PATH
+#export PATH=/Users/strozw/Library/Python/2.7/bin/:$PATH
 
 # homebrew installed node npm
 export PATH=/usr/local/share/npm/bin:$PATH
@@ -47,16 +60,11 @@ export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
 # homebrew byobu
 #export BYOBU_PREFIX=$(brew --prefix)
 
-################################################
-# BASH COMPLETION 2.x
-################################################
-if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
-	. $(brew --prefix)/share/bash-completion/bash_completion
-fi
+
 
 
 #powerline
-. ~/.vim/bundle/powerline/powerline/bindings/bash/powerline.sh
+#. ~/.vim/bundle/powerline/powerline/bindings/bash/powerline.sh
 
 # rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
