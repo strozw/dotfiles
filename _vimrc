@@ -150,7 +150,8 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'kana/vim-smartword'
 
 " vim powerline (ステータスラインを分かりやすくする)
-NeoBundle 'Lokaltog/vim-powerline'
+"NeoBundle 'Lokaltog/vim-powerline'
+NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}
 
 " font size変更
 NeoBundle 'thinca/vim-fontzoom'
