@@ -1,4 +1,3 @@
-
 ################################################
 # SHELL
 ################################################
@@ -12,14 +11,12 @@ export BASH=/usr/local/bin/bash
 #	. $(brew --prefix)/etc/bash_completion
 #fi
 
-
 ################################################
 # BASH COMPLETION 2.x
 ################################################
 if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
 	. $(brew --prefix)/share/bash-completion/bash_completion
 fi
-
 
 ################################################
 # PATH
@@ -29,14 +26,12 @@ fi
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=~/bin:$PATH
-#export PATH=/Users/strozw/Library/Python/2.7/bin/:$PATH
 
 # homebrew installed node npm
 export PATH=/usr/local/share/npm/bin:$PATH
 
 # flex path
 export PATH=/usr/local/Cellar/flex_sdk/4.6.0.23201/libexec/bin:$PATH
-
 
 # flash log
 export FLASH_LOG=~/Library/Preferences/Macromedia/Flash\ Player/Logs/flashlog.txt
@@ -47,7 +42,6 @@ export FLASH_LOG=~/Library/Preferences/Macromedia/Flash\ Player/Logs/flashlog.tx
 # python 2.7
 export PATH=~/Library/Python/2.7/bin/:$PATH
 #. ~/.vim/bundle/powerline/powerline/bindings/bash/powerline.sh
-
 
 ################################################
 # OTHER ENV
@@ -70,12 +64,6 @@ export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
 # homebrew byobu
 #export BYOBU_PREFIX=$(brew --prefix)
 
-
-
-
-#powerline
-#. ~/.vim/bundle/powerline/powerline/bindings/bash/powerline.sh
-
 # rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
@@ -91,7 +79,6 @@ export PAGER=vimpager
 
 # PS1
 PS1='\H:\W \u\$ '
-
 
 # tmux  ps1
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
@@ -115,4 +102,3 @@ alias mvim='/Applications/MacVim.app/Contents/MacOS/mvim';
 alias vim='/Applications/MacVim.app/Contents/MacOS/Vim';
 alias ctags='ctags -f .tags'
 alias less='less -R'
-#alias mxmlc='-debug=true'
