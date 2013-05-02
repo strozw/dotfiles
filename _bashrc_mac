@@ -1,3 +1,4 @@
+
 ################################################
 # BASH COMPLETION 1.x
 ################################################
@@ -27,8 +28,17 @@ export PATH=/usr/local/share/npm/bin:$PATH
 # flex path
 export PATH=/usr/local/Cellar/flex_sdk/4.6.0.23201/libexec/bin:$PATH
 
+
 # flash log
 export FLASH_LOG=~/Library/Preferences/Macromedia/Flash\ Player/Logs/flashlog.txt
+
+################################################
+# Powerline
+################################################
+# python 2.7
+export PATH=~/Library/Python/2.7/bin/:$PATH
+#. ~/.vim/bundle/powerline/powerline/bindings/bash/powerline.sh
+
 
 ################################################
 # OTHER ENV
