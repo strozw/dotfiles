@@ -26,10 +26,6 @@ fi
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=~/bin:$PATH
-<<<<<<< HEAD
-export PATH=~/Library/Python/2.7/bin/:$PATH
-=======
->>>>>>> c5219a4a3f1925f6cfebf31b0be3ab79020a1bd5
 
 # homebrew installed node npm
 export PATH=/usr/local/share/npm/bin:$PATH
@@ -68,12 +64,6 @@ export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
 # homebrew byobu
 #export BYOBU_PREFIX=$(brew --prefix)
 
-<<<<<<< HEAD
-#powerline
-#. ~/.vim/bundle/powerline/powerline/bindings/bash/powerline.sh
-
-=======
->>>>>>> c5219a4a3f1925f6cfebf31b0be3ab79020a1bd5
 # rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
