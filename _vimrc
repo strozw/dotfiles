@@ -18,7 +18,7 @@ if has('vim_starting')
 		call neobundle#rc(expand('~/vimfiles/bundle/'))
 
 		" プロキシ環境用の設定ファイルを読み込む（リポジトリでは管理しない）
-		if filereadable($HOME . '_vimrc.local')
+		if filereadable($HOME . '/_vimrc.local')
 		  source $HOME/_vimrc.local
 		endif
 	else
@@ -27,63 +27,112 @@ if has('vim_starting')
 		call neobundle#rc(expand('~/.vim/bundle/'))
 
 		" プロキシ環境用の設定ファイルを読み込む（リポジトリでは管理しない）
-		if filereadable($HOME . '.vimrc.local')
+		if filereadable($HOME . '/.vimrc.local')
 		  source $HOME/.vimrc.local
 		endif
 	endif
 endif
 
-" use https
-let g:neobundle#types#git#default_protocol = 'https'
-
 " sudo.vim (root権限でファイルを編集するなど)
 NeoBundle 'sudo.vim'
-
-" vim-fugitive (git コマンド利用)
-NeoBundle 'tpope/vim-fugitive'
 
 " neocomplcache.vim (キーワード補完)
 NeoBundle 'Shougo/neocomplcache'
 
 " neocomplcache snippet (スニペット補完)
-NeoBundle 'Shougo/neosnippet'
-
-" vimproc (非同期通信, unite,vimshellなどで必須)
-NeoBundle 'Shougo/vimproc', {
-\ 'build' : {
-\     'windows' : 'echo "Sorry, cannot update vimproc."',
-\     'cygwin' : 'make -f make_cygwin.mak',
-\     'mac' : 'make -f make_mac.mak',
-\     'unix' : 'make -f make_unix.mak',
-\    },
-\ }
+NeoBundle 'Shougo/neosnippet', {'depends' : 'Shougo/neocomplcache'}
 
 " unite.vim (ランチャー, 統合インターフェース)
-NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unite.vim', {'depends' : 'Shougo/vimproc'}
 
 " vimfiler.vim (ファイラー)
-NeoBundle 'Shougo/vimfiler'
+NeoBundleLazy 'Shougo/vimfiler', {
+\ 'depends' : ['Shougo/unite.vim', 'Shougo/vimproc'],
+\ 'autoload' : {
+\	  'commands' : [
+\		'VimFiler','VimFilerTab', 'VimFilerExplorer', 'Edit', 'Read', 'Write', 'Source'
+\	  ],
+\	  'mappings' : ['<Plug>(vimfiler_switch)'],
+\	  'explorer' : 1,
+\	},
+\ }
 
 " vimshell.vim (シェル)
-NeoBundle 'Shougo/vimshell'
+NeoBundleLazy 'Shougo/vimshell', {
+\ 'depends' : ['Shougo/unite.vim', 'Shougo/vimproc'],
+\ 'autoload' : {
+\	  'commands' : [
+\		'VimShell','VimShellExecute', 'VimShellInterractive', 'VimShellTermianl', 
+\		'VimShellPop', 'VimShellTab', 'VimShellCreate'
+\	  ],
+\	  'mappings' : ['<Plug>(vimshell_switch)'],
+\	},
+\ }
 
 " vimshell-ssh.vim (シェル)
-NeoBundle 'vimshell-ssh'
+NeoBundle 'vimshell-ssh', {
+\	'depends' : ['Shougo/vimshell', 'Shougo/unite.vim', 'Shougo/unite-ssh', 'Shougo/vimproc'],
+\	'autoload' : {
+\	  'filetypes' : ['vimshell', 'vimfiler'],
+\	}
+\ }
 
 " unite-outline (Unite:アウトラインソース)
-NeoBundle 'h1mesuke/unite-outline'
+NeoBundleLazy 'h1mesuke/unite-outline', {
+\	'depends' : 'Shougo/unite.vim',
+\	'autoload' : {'unite_sources' : 'outline'}
+\ }
 
 " unite-help (Unite:ヘルプソース)
-NeoBundle 'tsukkee/unite-help'
+NeoBundleLazy 'tsukkee/unite-help', {
+\	'depends' : 'Shougo/unite.vim',
+\	'autoload' : {'unite_sources' : 'help'}
+\ }
 
 " unite-tag (Unite:ctagソース)
-NeoBundle 'tsukkee/unite-tag'
+NeoBundleLazy 'tsukkee/unite-tag', {
+\	'depends' : 'Shougo/unite.vim',
+\	'autoload' : {'unite_sources' : 'outline'}
+\ }
 
 " unite-ssh (Unite:sshソース)
-NeoBundle 'Shougo/unite-ssh'
+NeoBundleLazy 'Shougo/unite-ssh', {
+\	'depends' : 'Shougo/unite.vim',
+\	'autoload' : {
+\	  'filetypes' : ['vimshell', 'vimfiler'],
+\	}
+\ }
 
 " unite-sudo (Unite:sudoソース)
-NeoBundle 'Shougo/unite-sudo'
+NeoBundle 'Shougo/unite-sudo', {'depends' : 'Shougo/unite.vim'}
+
+" Unite todo source
+NeoBundle 'kannokanno/unite-todo', {
+\	'depends' : 'Shougo/unite.vim',
+\	'autoload' : {'unite_sources' : 'todo'}
+\ }
+
+" Unite font source
+NeoBundleLazy 'ujihisa/unite-font', {
+\	'depends' : 'Shougo/unite.vim',
+\	'gui' : 1,
+\	'autoload' : {'unite_sources' : 'font'}
+\ }
+
+" Unite color scheme source
+NeoBundle 'ujihisa/unite-colorscheme', {
+\	'depends' : 'Shougo/unite.vim',
+\	'autoload' : {'unite_sources' : 'colorscheme'}
+\ }
+
+" unite-vcs (Unite:git,svnをUniteで利用。)
+NeoBundle 'hrsh7th/vim-versions', {'depends' : 'Shougo/unite.vim'}
+
+" benchvimrc-vim (vimrcのベンチマーク)
+NeoBundle 'mattn/benchvimrc-vim'
+
+" ref.vim (リファレンス参照)
+NeoBundle 'thinca/vim-ref'
 
 " quickrun.vim (格ファイルタイプをvim内で実行)
 NeoBundle 'thinca/vim-quickrun'
@@ -91,38 +140,25 @@ NeoBundle 'thinca/vim-quickrun'
 " open-browser.vim (ブラウザを開く)
 NeoBundle 'tyru/open-browser.vim'
 
-" zencoding.vim (zencodingの利用)
-NeoBundle 'mattn/zencoding-vim'
+" webapi.vim (各種web apiをvimから利用)
+NeoBundle 'mattn/webapi-vim'
 
-" benchvimrc-vim (vimrcのベンチマーク)
-NeoBundle 'mattn/benchvimrc-vim'
-
-" html5.vim (html5シンタックス)
-NeoBundle 'othree/html5.vim'
-
-" lepture/vim-css css3シンタックス
-NeoBundle 'lepture/vim-css'
-
-" vim colors solarized (color theme:solarized)
-NeoBundle 'altercation/vim-colors-solarized'
-
-" vim powerline (ステータスラインを分かりやすくする)
-NeoBundle 'Lokaltog/vim-powerline'
+" surround.vim (テキストオブジェクトを使いやすく)
+NeoBundle 'tpope/vim-surround'
 
 " smartword (全角文字の単語認識)
 NeoBundle 'kana/vim-smartword'
 
-" remote php debugger (xdebugの利用)
-"NeoBundle 'DBGp-Remote-Debugger-Interface'
+" vim powerline (ステータスラインを分かりやすくする)
+"NeoBundle 'Lokaltog/vim-powerline'
+NeoBundle 'taichouchou2/alpaca_powertabline'
+NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}
 
-" webapi.vim (各種web apiをvimから利用)
-NeoBundle 'mattn/webapi-vim'
+" font size変更
+NeoBundle 'thinca/vim-fontzoom'
 
-" vimplenote.vim (simplenoteの利用)
-NeoBundle 'mattn/vimplenote-vim'
-
-" surround.vim (テキストオブジェクトを使いやすく)
-NeoBundle 'tpope/vim-surround'
+" vim-quickhl (選択箇所の複数ハイライト)
+NeoBundle 't9md/vim-quickhl'
 
 " scrooloose/syntastic.vim (各種ファイルタイプのシンタックスエラーの検出・表示)
 NeoBundle 'scrooloose/syntastic'
@@ -130,73 +166,127 @@ NeoBundle 'scrooloose/syntastic'
 " Tagbar (ctagを見やすく表示)
 NeoBundle 'majutsushi/tagbar'
 
-" unite-vcs (Unite:git,svnをUniteで利用。)
-"NeoBundle 'hrsh7th/vim-unite-vcs'
-NeoBundle 'hrsh7th/vim-versions'
+" Source explorer
+NeoBundle 'wesleyche/SrcExpl'
 
 " vcscommand.vim (svnの利用)
 NeoBundle 'harleypig/vcscommand.vim'
 
-" rails.vim (railsのシンタックス、MVCの移動、railsコマンドの利用)
-NeoBundle 'tpope/vim-rails'
+" vim-fugitive (git コマンド利用)
+NeoBundle 'tpope/vim-fugitive'
 
-" ruby の do に対する end を補完
-NeoBundle 'tpope/vim-endwise'
+" vimplenote.vim (simplenoteの利用)
+NeoBundle 'mattn/vimplenote-vim'
 
-" vim-quickhl (選択箇所の複数ハイライト)
-NeoBundle 't9md/vim-quickhl'
+" zencoding.vim (zencodingの利用)
+NeoBundle 'mattn/zencoding-vim'
 
-" ref.vim (リファレンス参照)
-NeoBundle 'thinca/vim-ref'
+" dir単位のdiff
+NeoBundle 'vim-scripts/DirDiff.vim'
+
+" html5.vim (html5シンタックス)
+NeoBundleLazy 'othree/html5.vim', {
+\ 'autoload' : {
+\	  'filetypes' : ['html', 'php'],
+\	},
+\ }
+
+" lepture/vim-css css3シンタックス
+NeoBundleLazy 'lepture/vim-css', {
+\ 'autoload' : {
+\	  'filetypes' : ['html', 'css'],
+\	},
+\ }
 
 " php.vim のfork版 (php syntax, 補完)
-NeoBundle 'StanAngeloff/php.vim'
+NeoBundleLazy 'StanAngeloff/php.vim', {
+\ 'autoload' : {
+\	  'filetypes' : 'php',
+\	},
+\ }
 
 " vim-ruby (ruby syntax, 補完)
-NeoBundle 'vim-ruby/vim-ruby'
+NeoBundleLazy 'vim-ruby/vim-ruby', {
+\ 'autoload' : {
+\	  'filetypes' : 'ruby',
+\	},
+\ }
 
-" ruby の do end, if end を%で移動可能にする
-NeoBundle 'ruby-matchit'
+" rails.vim (railsのシンタックス、MVCの移動、railsコマンドの利用)
+NeoBundleLazy 'tpope/vim-rails', {
+\ 'autoload' : {
+\	  'filetypes' : 'ruby',
+\	},
+\ }
+
+" ruby の do に対する end を補完
+NeoBundleLazy 'tpope/vim-endwise', {
+\ 'autoload' : {
+\	  'filetypes' : 'ruby',
+\	},
+\ }
 
 " javascript syntax
-NeoBundle 'jelera/vim-javascript-syntax'
+NeoBundleLazy 'jelera/vim-javascript-syntax', {
+\ 'autoload' : {
+\	  'filetypes' : 'javascript',
+\	}
+\ }
 
 " coffeescript syntax
-NeoBundle 'kchmck/vim-coffee-script'
+NeoBundleLazy 'kchmck/vim-coffee-script', {
+\ 'autoload' : {
+\	  'filetypes' : 'coffeescript',
+\	},
+\ }
 
-" Unite todo source
-NeoBundle 'kannokanno/unite-todo'
+" less syntax
+NeoBundleLazy 'less.vim', {
+\ 'autoload' : {
+\	  'filetypes' : ['less'],
+\	},
+\ }
 
-" Unite font
-"NeoBundle 'MeijiMori/unite-font'
-NeoBundle 'ujihisa/unite-font'
+" actionscript
+NeoBundleLazy 'endel/actionscript.vim', {
+\ 'autoload' : {
+\	  'filetypes' : 'actionscript',
+\	},
+\ }
 
-"
-NeoBundle 'ujihisa/unite-colorscheme'
+"as3 omni comp
+NeoBundleLazy 'yuratomo/flex-api-complete', {
+\ 'autoload' : {
+\	  'filetypes' : ['actionscript', 'mxml'],
+\	},
+\ }
 
-" fontzoom
-NeoBundle 'thinca/vim-fontzoom.git'
-
-" Source explorer
-NeoBundle 'wesleyche/SrcExpl'
-
-" Flex 4 syntax
-"NeoBundle 'vim-scripts/Flex-4'
-
-" vim-scripts/Flex-Development-Support
-NeoBundle 'vim-scripts/Flex-Development-Support'
+" mdbg, cdb, gdb, jdb, fdb debugger
+NeoBundleLazy 'yuratomo/dbg.vim', {
+\ 'autoload' : {
+\	  'filetypes' : ['c', 'cpp', 'java', 'actionscript', 'mxml'],
+\	},
+\ }
 
 " AutoClose.vim
-""NeoBundle 'vim-scripts/AutoClose'
+"NeoBundle 'vim-scripts/AutoClose'
 
 " minimap.vim
-""NeoBundle 'koron/minimap-vim'
+"NeoBundle 'koron/minimap-vim'
 
 " 一括置換
-""NeoBundle 'thinca/vim-qfreplace'
+"NeoBundle 'thinca/vim-qfreplace'
 
-" colorscheme jellybeans
+" color scheme
 NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'vim-scripts/twilight'
+NeoBundle 'jonathanfilip/vim-lucius'
+NeoBundle 'jpo/vim-railscasts-theme'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'vim-scripts/Wombat'
+NeoBundle 'tomasr/molokai'
+NeoBundle 'vim-scripts/rdark'
 
 " ファイルタイプ:インデント プラグインをON
 filetype plugin indent on
@@ -338,6 +428,9 @@ set cmdheight=1
 " クリップボード
 set clipboard=unnamed
 
+" マウス
+set mouse=a
+
 "
 " 補完に辞書ファイル追加
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -369,16 +462,21 @@ highlight PmenuThumb ctermbg=lightgray
 " markdown 
 au BufNewFile,BufRead *.mkd set filetype=markdown
 au BufNewFile,BufRead *.md set filetype=markdown 
+
 " html.erb
 au BufNewFile,BufRead *.html.erb set filetype=eruby.html
+
 " thor
 autocmd BufNewFile,BufRead *.thor set filetype=ruby
 
-"
-" ファイル・タイプ別インデント
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Rubyでインデント幅を2にする
-au FileType ruby set tabstop=2 softtabstop=2 shiftwidth=2
+" actionscript 
+au BufNewFile,BufRead *.as set filetype=actionscript 
+
+" flex mxml
+au BufNewFile,BufRead *.mxml set filetype=mxml
+
+" less
+au BufNewFile,BufRead *.less set filetype=less
 
 "
 " 相対行切り替え(<Space>n)
@@ -404,6 +502,7 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 検索内容をハイライト
 set hlsearch
+
 " 検索ハイライトを解除
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
@@ -417,9 +516,30 @@ vnoremap ? <ESC>?\%V
 "
 " vim colors solarized
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
-"syntax enable
 "set background=dark
 "colorscheme solarized
+let g:solarized_termcolors = 256
+let g:solarized_contrast = 'high'
+colorscheme hybrid
+
+
+"
+" omnifunct
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+au BufNewFile,BufRead *.mxml  setf xml
+
+au BufNewFile,BufRead *.mxml  setl omnifunc=mxml#complete
+"au BufNewFile,BufRead *.as    setl omnifunc=flexapi#complete
+"
+"au CompleteDone *.as          call flexapi#showRef()
+"au BufNewFile,BufRead *.as    inoremap <expr> <c-down> flexapi#nextRef()
+"au BufNewFile,BufRead *.as    inoremap <expr> <c-up>   flexapi#prevRef()
+"
+"if has("balloon_eval") && has("balloon_multiline") 
+"  au BufNewFile,BufRead *.as  setl bexpr=flexapi#balloon()
+"  au BufNewFile,BufRead *.as  setl ballooneval
+"endif
+
 
 "
 " neocomplcache
@@ -445,13 +565,13 @@ let g:neocomplcache_min_keyword_length = 3
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
-  \'default':'',
-  \}
+\ 'default' : '',
+\ }
 
 " set tags option
 let g:neocomplcache_member_prefix_patterns = {
-  \'php':'->\|::',
-  \}
+\ 'php':'->\|::',
+\ }
 
 " Define keyword.
 if !exists('g:neocomplcache_keyword_patterns')
@@ -460,6 +580,10 @@ endif
 
 " 英数字の単語の頭文字
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
 
 " 補完キー
 "inoremap <expr><TAB>	pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -676,11 +800,23 @@ let g:quickrun_config['markdown'] = {
 	\ 'outputter': 'browser',
 	\ 'cmdopt': '-s'
 	\ }
+"let g:quickrun_config['actionscript']  = {
+"	\ 'command' : 'mxmlc',
+"	"\ 'exec' : ['%c %o %s:p > null'],
+"	\ 'cmdopt' : '-static-link-runtime-shared-libraries',
+"\ }
+let g:quickrun_config['actionscript']  = {
+	\ 'command': 'mxmlc',
+	\ 'cmdopt': '-static-link-runtime-shared-libraries -debug=true',
+	\ }
 
 "
 " vim-powerline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+<<<<<<< HEAD
 let g:Powerline_symbols = 'compatible'
+=======
+>>>>>>> 1f7b3cc33d6c71831d0e3dd9b4d38cc3c51be620
 "let g:Powerline_symbols = 'fancy'
 
 "
@@ -707,59 +843,60 @@ nmap <Space>H <Plug>(quickhl-reset)
 xmap <Space>H <Plug>(quickhl-reset)
 nmap <Space>j <Plug>(quickhl-match)
 
+
 "
 " ref.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" php ref
-let g:ref_phpmanual_path = $HOME . '/References/php-chunked-xhtml'
 " ruby refe
 let g:ref_refe_cmd = $HOME . "/References/ruby-refm/ruby-refm-1.9.3-dynamic-snapshot/refe-1_9_3"
 
-" syntax
+"
+" dirdiff
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd BufRead *.as set filetype=actionscript 
-autocmd BufRead *.mxml set filetype=mxml
+let g:DirDiffExcludes = "CVS,*.class,*.exe,.*.swp,.svn,.git,.DS_Store"
+
 
 "
 " SrcExpl.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" // The switch of the Source Explorer 
-nmap <F9> :SrcExplToggle<CR> 
-
-" // Set the height of Source Explorer window 
-let g:SrcExpl_winHeight = 8 
-
-" // Set 100 ms for refreshing the Source Explorer 
-let g:SrcExpl_refreshTime = 100 
-
-" // Set "Enter" key to jump into the exact definition context 
-" let g:SrcExpl_jumpKey = "<ENTER>" 
-
-" // Set "Space" key for back from the definition context 
-let g:SrcExpl_gobackKey = "<SPACE>" 
-
-" // In order to Avoid conflicts, the Source Explorer should know what plugins 
-" // are using buffers. And you need add their bufname into the list below 
-" // according to the command ":buffers!" 
-let g:SrcExpl_pluginList = [ 
-        \ "__Tag_List__", 
-        \ "_NERD_tree_", 
-        \ "Source_Explorer" 
-    \ ] 
-
-" // Enable/Disable the local definition searching, and note that this is not 
-" // guaranteed to work, the Source Explorer doesn't check the syntax for now. 
-" // It only searches for a match with the keyword according to command 'gd' 
-let g:SrcExpl_searchLocalDef = 1 
-
-" // Do not let the Source Explorer update the tags file when opening 
-let g:SrcExpl_isUpdateTags = 0 
-
-" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to 
-" //  create/update a tags file 
-let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
-
-" // Set "<F12>" key for updating the tags file artificially 
-let g:SrcExpl_updateTagsKey = "<F12>"
+"" // The switch of the Source Explorer 
+"nmap <F9> :SrcExplToggle<CR> 
+"
+"" // Set the height of Source Explorer window 
+"let g:SrcExpl_winHeight = 8 
+"
+"" // Set 100 ms for refreshing the Source Explorer 
+"let g:SrcExpl_refreshTime = 100 
+"
+"" // Set "Enter" key to jump into the exact definition context 
+"" let g:SrcExpl_jumpKey = "<ENTER>" 
+"
+"" // Set "Space" key for back from the definition context 
+"let g:SrcExpl_gobackKey = "<SPACE>" 
+"
+"" // In order to Avoid conflicts, the Source Explorer should know what plugins 
+"" // are using buffers. And you need add their bufname into the list below 
+"" // according to the command ":buffers!" 
+"let g:SrcExpl_pluginList = [ 
+"        \ "__Tag_List__", 
+"        \ "_NERD_tree_", 
+"        \ "Source_Explorer" 
+"    \ ] 
+"
+"" // Enable/Disable the local definition searching, and note that this is not 
+"" // guaranteed to work, the Source Explorer doesn't check the syntax for now. 
+"" // It only searches for a match with the keyword according to command 'gd' 
+"let g:SrcExpl_searchLocalDef = 1 
+"
+"" // Do not let the Source Explorer update the tags file when opening 
+"let g:SrcExpl_isUpdateTags = 0 
+"
+"" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to 
+"" //  create/update a tags file 
+"let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
+"
+"" // Set "<F12>" key for updating the tags file artificially 
+"let g:SrcExpl_updateTagsKey = "<F12>"
+"
 
 

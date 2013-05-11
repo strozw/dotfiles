@@ -1,8 +1,21 @@
 ################################################
-# BASH COMPLETION
+# SHELL
 ################################################
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-	. $(brew --prefix)/etc/bash_completion
+export SHELL=/usr/local/bin/bash
+export BASH=/usr/local/bin/bash
+
+################################################
+# BASH COMPLETION 1.x
+################################################
+#if [ -f $(brew --prefix)/etc/bash_completion ]; then
+#	. $(brew --prefix)/etc/bash_completion
+#fi
+
+################################################
+# BASH COMPLETION 2.x
+################################################
+if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
+	. $(brew --prefix)/share/bash-completion/bash_completion
 fi
 
 ################################################
@@ -14,12 +27,33 @@ export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=~/bin:$PATH
 
+# homebrew installed node npm
+export PATH=/usr/local/share/npm/bin:$PATH
+
 # flex path
 export PATH=/usr/local/Cellar/flex_sdk/4.6.0.23201/libexec/bin:$PATH
+
+# flash log
+export FLASH_LOG=~/Library/Preferences/Macromedia/Flash\ Player/Logs/flashlog.txt
+
+################################################
+# Powerline
+################################################
+# python 2.7
+export PATH=~/Library/Python/2.7/bin/:$PATH
+#. ~/.vim/bundle/powerline/powerline/bindings/bash/powerline.sh
 
 ################################################
 # OTHER ENV
 ################################################
+# GCC
+export CC=/usr/local/bin/gcc-4.2
+
+# JAVA OPTIONS
+export _JAVA_OPTIONS=-Dfile.encoding=UTF-8
+
+# JAVA_OPTIONS
+export _JAVA_OPTIONS=-Dfile.encoding=UTF-8
 
 # flex sdk home
 export FLEX_HOME=/usr/local/Cellar/flex_sdk/4.6.0.23201/libexec
@@ -28,10 +62,10 @@ export FLEX_HOME=/usr/local/Cellar/flex_sdk/4.6.0.23201/libexec
 export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
 
 # homebrew byobu
-export BYOBU_PREFIX=$(brew --prefix)
+#export BYOBU_PREFIX=$(brew --prefix)
 
-# rvm path
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+# rbenv
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # git
 export GIT_EDITOR=vim
@@ -43,11 +77,19 @@ export CLICOLOR_FORCE=1
 #export PAGER=less
 export PAGER=vimpager
 
-# tmux 
+# PS1
+PS1='\H:\W \u\$ '
+
+# tmux  ps1
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
 
 # z
 . `brew --prefix`/etc/profile.d/z.sh
+
+# for PostgreSQL
+export PGDATA=/usr/local/var/postgres
+alias pgstart="pg_ctl -l /usr/local/var/postgres/server.log start"
+alias pgstop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
 
 ################################################
 # ALIAS
@@ -60,6 +102,4 @@ alias mvim='/Applications/MacVim.app/Contents/MacOS/mvim';
 alias vim='/Applications/MacVim.app/Contents/MacOS/Vim';
 alias ctags='ctags -f .tags'
 alias less='less -R'
-
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+alias myrascut='rascut --log="$FLASH_LOG" -c "-debug=true -static-link-runtime-shared-libraries=true"'

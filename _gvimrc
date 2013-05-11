@@ -5,18 +5,19 @@
 ":colorscheme h2u_black
 
 "
-" vim colors solarized
+" colors
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable
-set background=dark
-colorscheme solarized
+"set background=dark
+"colorscheme solarized
+colorscheme hybrid
 
 " VimのGUI版で使用するフォントのリスト。
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 ":set guifont=Inconsolata:h13
 ":set guifontwide=Takaoゴシック:h13
-set guifont=Ricty:h13
-set guifontwide=Ricty:h13
+set guifont=Ricty\ for\ Powerline:h13
+set guifontwide=Ricty\ for\ Powerline:h13
 
 "画面上の列幅を設定する。
 "set columns=110
@@ -42,6 +43,11 @@ set hlsearch
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 "set guioptions+=a
 "set guioptions-=m
+"
+
+" poweline
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:Powerline_symbols = 'compatible'
 
 
 " MacVim用設定
