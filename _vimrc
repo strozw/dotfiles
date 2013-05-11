@@ -151,6 +151,7 @@ NeoBundle 'kana/vim-smartword'
 
 " vim powerline (ステータスラインを分かりやすくする)
 "NeoBundle 'Lokaltog/vim-powerline'
+NeoBundle 'taichouchou2/alpaca_powertabline'
 NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}
 
 " font size変更
@@ -179,6 +180,9 @@ NeoBundle 'mattn/vimplenote-vim'
 
 " zencoding.vim (zencodingの利用)
 NeoBundle 'mattn/zencoding-vim'
+
+" dir単位のdiff
+NeoBundle 'vim-scripts/DirDiff.vim'
 
 " html5.vim (html5シンタックス)
 NeoBundleLazy 'othree/html5.vim', {
@@ -516,6 +520,7 @@ vnoremap ? <ESC>?\%V
 "colorscheme solarized
 let g:solarized_termcolors = 256
 let g:solarized_contrast = 'high'
+colorscheme hybrid
 
 
 "
@@ -808,7 +813,6 @@ let g:quickrun_config['actionscript']  = {
 "
 " vim-powerline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:Powerline_symbols = 'compatible'
 "let g:Powerline_symbols = 'fancy'
 
 "
@@ -841,6 +845,11 @@ nmap <Space>j <Plug>(quickhl-match)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ruby refe
 let g:ref_refe_cmd = $HOME . "/References/ruby-refm/ruby-refm-1.9.3-dynamic-snapshot/refe-1_9_3"
+
+"
+" dirdiff
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:DirDiffExcludes = "CVS,*.class,*.exe,.*.swp,.svn,.git,.DS_Store"
 
 
 "
@@ -884,4 +893,6 @@ let g:ref_refe_cmd = $HOME . "/References/ruby-refm/ruby-refm-1.9.3-dynamic-snap
 "
 "" // Set "<F12>" key for updating the tags file artificially 
 "let g:SrcExpl_updateTagsKey = "<F12>"
+"
+
 

@@ -5,11 +5,12 @@
 ":colorscheme h2u_black
 
 "
-" vim colors solarized
+" colors
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable
-set background=dark
-colorscheme solarized
+"set background=dark
+"colorscheme solarized
+colorscheme hybrid
 
 " VimのGUI版で使用するフォントのリスト。
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -42,6 +43,11 @@ set hlsearch
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 "set guioptions+=a
 "set guioptions-=m
+"
+
+" poweline
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:Powerline_symbols = 'compatible'
 
 
 " MacVim用設定
