@@ -28,7 +28,7 @@ fi
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=~/bin:$PATH
-#export PATH=/Users/strozw/Library/Python/2.7/bin/:$PATH
+export PATH=~/Library/Python/2.7/bin/:$PATH
 
 # homebrew installed node npm
 export PATH=/usr/local/share/npm/bin:$PATH
@@ -59,9 +59,6 @@ export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
 
 # homebrew byobu
 #export BYOBU_PREFIX=$(brew --prefix)
-
-
-
 
 #powerline
 #. ~/.vim/bundle/powerline/powerline/bindings/bash/powerline.sh
