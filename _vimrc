@@ -268,6 +268,13 @@ NeoBundleLazy 'yuratomo/dbg.vim', {
 \	},
 \ }
 
+"javacomplete
+NeoBundleLazy 'vim-scripts/javacomplete', {
+\ 'autoload' : {
+\	  'filetypes' : ['java'],
+\	},
+\ }
+
 " AutoClose.vim
 "NeoBundle 'vim-scripts/AutoClose'
 
