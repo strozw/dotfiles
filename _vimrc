@@ -12,6 +12,11 @@ let g:vimfiler_enable_auto_cd = 0
 
 " Neobundle のパス設定
 if has('vim_starting')
+	"if has("mac")
+	"  let $PYTHON_DL = '/usr/local/Cellar/python/2.7.5/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib'
+	"  let $PYTHON3_DLL = '/usr/local/Cellar/python3/3.3.0/Frameworks/Python.framework/Versions/3.3/Python'
+	"endif
+
 	if has("win32") || has("win64") || has("win32unix")
 		" windows
 		set runtimepath+=~/vimfiles/neobundle.vim/
@@ -274,6 +279,9 @@ NeoBundleLazy 'vim-scripts/javacomplete', {
 \	  'filetypes' : ['java'],
 \	},
 \ }
+
+"poweline shougo ware theme
+NeoBundle 'zhaocai/linepower.vim'
 
 " AutoClose.vim
 "NeoBundle 'vim-scripts/AutoClose'

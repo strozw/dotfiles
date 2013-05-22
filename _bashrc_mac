@@ -40,7 +40,7 @@ export FLASH_LOG=~/Library/Preferences/Macromedia/Flash\ Player/Logs/flashlog.tx
 # Powerline
 ################################################
 # python 2.7
-export PATH=~/Library/Python/2.7/bin/:$PATH
+export PATH=~/Library/Python/2.7/bin:$PATH
 #. ~/.vim/bundle/powerline/powerline/bindings/bash/powerline.sh
 
 ################################################
