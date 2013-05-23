@@ -12,10 +12,10 @@ let g:vimfiler_enable_auto_cd = 0
 
 " Neobundle のパス設定
 if has('vim_starting')
-	"if has("mac")
-	"  let $PYTHON_DL = '/usr/local/Cellar/python/2.7.5/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib'
-	"  let $PYTHON3_DLL = '/usr/local/Cellar/python3/3.3.0/Frameworks/Python.framework/Versions/3.3/Python'
-	"endif
+	if has("mac")
+	  "let $PYTHON_DL = '/usr/local/Cellar/python/2.7.5/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib'
+	  let $PYTHON3_DLL = '/usr/local/Cellar/python3/3.3.0/Frameworks/Python.framework/Versions/3.3/Python'
+	endif
 
 	if has("win32") || has("win64") || has("win32unix")
 		" windows
@@ -157,7 +157,8 @@ NeoBundle 'kana/vim-smartword'
 " vim powerline (ステータスラインを分かりやすくする)
 "NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'taichouchou2/alpaca_powertabline'
-NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}
+NeoBundle 'Lokaltog/powerline', 'e3ed3aba6c0fcd4eb51eeb5ea94931aea3bf4f10', { 'rtp' : 'powerline/bindings/vim'}
+NeoBundle 'zhaocai/linepower.vim'
 
 " font size変更
 NeoBundle 'thinca/vim-fontzoom'
