@@ -158,6 +158,7 @@ NeoBundle 'kana/vim-smartword'
 "NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'taichouchou2/alpaca_powertabline'
 NeoBundle 'Lokaltog/powerline', 'e3ed3aba6c0fcd4eb51eeb5ea94931aea3bf4f10', { 'rtp' : 'powerline/bindings/vim'}
+"NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}
 NeoBundle 'zhaocai/linepower.vim'
 
 " font size変更
@@ -275,11 +276,15 @@ NeoBundleLazy 'yuratomo/dbg.vim', {
 \ }
 
 "javacomplete
-NeoBundleLazy 'vim-scripts/javacomplete', {
-\ 'autoload' : {
-\	  'filetypes' : ['java'],
-\	},
-\ }
+"NeoBundleLazy 'vim-scripts/javacomplete', {
+"\ 'autoload' : {
+"\	  'filetypes' : ['java'],
+"\	},
+"\ }
+NeoBundle 'marijnh/tern_for_vim', {
+\ 'build': {
+\   'others': 'npm install'
+\}}
 
 "poweline shougo ware theme
 NeoBundle 'zhaocai/linepower.vim'
