@@ -813,11 +813,8 @@ let g:quickrun_config['actionscript']  = {
 "
 " vim-powerline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-<<<<<<< HEAD
-let g:Powerline_symbols = 'compatible'
-=======
->>>>>>> 1f7b3cc33d6c71831d0e3dd9b4d38cc3c51be620
-"let g:Powerline_symbols = 'fancy'
+"let g:Powerline_symbols = 'compatible'
+let g:Powerline_symbols = 'fancy'
 
 "
 " syntastic
