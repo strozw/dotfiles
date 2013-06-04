@@ -38,6 +38,22 @@ if has('vim_starting')
 	endif
 endif
 
+" vim powerline (ステータスラインを分かりやすくする)
+if has('python')
+  " pip install --user git+git://github.com/Lokaltog/powerline
+  NeoBundle 'Lokaltog/powerline', { 'rtp' : '~/.vim/bundle/powerline/powerline/bindings/vim', 'build' : { 'mac' : 'python setup.py build install --user' } }
+  "NeoBundle 'zhaocai/linepower.vim'
+else
+  NeoBundle 'Lokaltog/vim-powerline'
+  NeoBundle 'osyo-manga/vim-powerline-unite-theme'
+  let g:Powerline_stl_path_style = 'short'
+
+  " PowerLineの再読み込み
+  if exists('g:Powerline_loaded')
+	  silent! call Pl#Load()
+  endif
+endif
+
 " sudo.vim (root権限でファイルを編集するなど)
 NeoBundle 'sudo.vim'
 
@@ -154,12 +170,6 @@ NeoBundle 'tpope/vim-surround'
 " smartword (全角文字の単語認識)
 NeoBundle 'kana/vim-smartword'
 
-" vim powerline (ステータスラインを分かりやすくする)
-"NeoBundle 'Lokaltog/vim-powerline'
-NeoBundle 'taichouchou2/alpaca_powertabline'
-NeoBundle 'Lokaltog/powerline', 'e3ed3aba6c0fcd4eb51eeb5ea94931aea3bf4f10', { 'rtp' : 'powerline/bindings/vim'}
-"NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}
-NeoBundle 'zhaocai/linepower.vim'
 
 " font size変更
 NeoBundle 'thinca/vim-fontzoom'
@@ -180,7 +190,7 @@ NeoBundle 'wesleyche/SrcExpl'
 NeoBundle 'harleypig/vcscommand.vim'
 
 " vim-fugitive (git コマンド利用)
-NeoBundle 'tpope/vim-fugitive'
+"NeoBundle 'tpope/vim-fugitive'
 
 " vimplenote.vim (simplenoteの利用)
 NeoBundle 'mattn/vimplenote-vim'
@@ -199,9 +209,22 @@ NeoBundleLazy 'othree/html5.vim', {
 \ }
 
 " lepture/vim-css css3シンタックス
-NeoBundleLazy 'lepture/vim-css', {
+NeoBundleLazy 'hail2u/vim-css3-syntax', {
 \ 'autoload' : {
 \	  'filetypes' : ['html', 'css'],
+\	},
+\ }
+
+" cssのcoloをその色で表示
+NeoBundleLazy 'vim-scripts/css_color.vim', {
+\ 'autoload' : {
+\	  'filetypes' : ['html', 'css'],
+\	},
+\ }
+
+NeoBundleLazy 'cakebaker/scss-syntax.vim', {
+\ 'autoload' : {
+\	  'filetypes' : ['scss', 'sass'],
 \	},
 \ }
 
@@ -286,9 +309,6 @@ NeoBundle 'marijnh/tern_for_vim', {
 \   'others': 'npm install'
 \}}
 
-"poweline shougo ware theme
-NeoBundle 'zhaocai/linepower.vim'
-
 " AutoClose.vim
 "NeoBundle 'vim-scripts/AutoClose'
 
@@ -311,6 +331,7 @@ NeoBundle 'vim-scripts/rdark'
 
 " ファイルタイプ:インデント プラグインをON
 filetype plugin indent on
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ".vimrc設定
@@ -915,5 +936,4 @@ let g:DirDiffExcludes = "CVS,*.class,*.exe,.*.swp,.svn,.git,.DS_Store"
 "" // Set "<F12>" key for updating the tags file artificially 
 "let g:SrcExpl_updateTagsKey = "<F12>"
 "
-
 
