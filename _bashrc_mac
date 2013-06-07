@@ -84,7 +84,7 @@ PS1='\H:\W \u\$ '
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
 
 # z
-. `brew --prefix`/etc/profile.d/z.sh
+#. `brew --prefix`/etc/profile.d/z.sh
 
 # for PostgreSQL
 export PGDATA=/usr/local/var/postgres
