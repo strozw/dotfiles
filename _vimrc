@@ -323,6 +323,7 @@ NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'vim-scripts/Wombat'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'vim-scripts/rdark'
+NeoBundle 'jdonaldson/vaxe'
 
 " ファイルタイプ:インデント プラグインをON
 filetype plugin indent on
