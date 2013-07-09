@@ -324,6 +324,7 @@ NeoBundle 'vim-scripts/Wombat'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'vim-scripts/rdark'
 NeoBundle 'jdonaldson/vaxe'
+NeoBundle 'pekepeke/titanium-vim'
 
 " ファイルタイプ:インデント プラグインをON
 filetype plugin indent on
