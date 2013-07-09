@@ -33,24 +33,20 @@ if has('vim_starting')
 	endif
 endif
 
-" vim powerline (ステータスラインを分かりやすくする)
-if has('python')
-  " pip install --user git+git://github.com/Lokaltog/powerline
-  NeoBundle 'Lokaltog/powerline', { 'rtp' : '~/.vim/bundle/powerline/powerline/bindings/vim', 'build' : { 'mac' : 'python setup.py build install --user' } }
-  "NeoBundle 'zhaocai/linepower.vim'
-else
-  NeoBundle 'Lokaltog/vim-powerline'
-  NeoBundle 'osyo-manga/vim-powerline-unite-theme'
-  let g:Powerline_stl_path_style = 'short'
 
-  " PowerLineの再読み込み
-  if exists('g:Powerline_loaded')
-	  silent! call Pl#Load()
-  endif
-endif
 
 " sudo.vim (root権限でファイルを編集するなど)
 NeoBundle 'sudo.vim'
+
+" vim 非同期プロセス
+NeoBundle 'Shougo/vimproc', {
+  \ 'build' : {
+    \ 'windows' : 'make -f make_mingw32.mak',
+    \ 'cygwin' : 'make -f make_cygwin.mak',
+    \ 'mac' : 'make -f make_mac.mak',
+    \ 'unix' : 'make -f make_unix.mak',
+  \ },
+\ }
 
 " neocomplcache.vim (キーワード補完)
 NeoBundle 'Shougo/neocomplcache'
@@ -312,6 +308,22 @@ NeoBundle 'marijnh/tern_for_vim', {
 
 " 一括置換
 "NeoBundle 'thinca/vim-qfreplace'
+"
+" vim powerline (ステータスラインを分かりやすくする)
+if has('python')
+  " pip install --user git+git://github.com/Lokaltog/powerline
+  NeoBundle 'Lokaltog/powerline', { 'rtp' : '~/.vim/bundle/powerline/powerline/bindings/vim', 'build' : { 'mac' : 'python setup.py build install --user' } }
+  "NeoBundle 'zhaocai/linepower.vim'
+else
+  NeoBundle 'Lokaltog/vim-powerline'
+  NeoBundle 'osyo-manga/vim-powerline-unite-theme'
+  let g:Powerline_stl_path_style = 'short'
+
+  " PowerLineの再読み込み
+  if exists('g:Powerline_loaded')
+	  silent! call Pl#Load()
+  endif
+endif
 
 " color scheme
 NeoBundle 'nanotech/jellybeans.vim'
