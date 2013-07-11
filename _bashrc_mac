@@ -5,17 +5,10 @@ export SHELL=/usr/local/bin/bash
 export BASH=/usr/local/bin/bash
 
 ################################################
-# BASH COMPLETION 1.x
-################################################
-#if [ -f $(brew --prefix)/etc/bash_completion ]; then
-#	. $(brew --prefix)/etc/bash_completion
-#fi
-
-################################################
 # BASH COMPLETION 2.x
 ################################################
-if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
-	. $(brew --prefix)/share/bash-completion/bash_completion
+if [ -f `brew --prefix`/share/bash-completion/bash_completion ]; then
+	. `brew --prefix`/share/bash-completion/bash_completion
 fi
 
 ################################################
@@ -49,11 +42,8 @@ export PATH=~/Library/Python/2.7/bin:$PATH
 # GCC
 export CC=/usr/local/bin/gcc-4.2
 
-# JAVA OPTIONS
-export _JAVA_OPTIONS=-Dfile.encoding=UTF-8
-
 # JAVA_OPTIONS
-export _JAVA_OPTIONS=-Dfile.encoding=UTF-8
+# export _JAVA_OPTIONS=-Dfile.encoding=UTF-8
 
 # flex sdk home
 export FLEX_HOME=/usr/local/Cellar/flex_sdk/4.6.0.23201/libexec
