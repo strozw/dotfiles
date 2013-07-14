@@ -21,7 +21,7 @@ export PATH=/usr/local/sbin:$PATH
 export PATH=~/bin:$PATH
 
 # homebrew installed node npm
-export PATH=/usr/local/share/npm/bin:$PATH
+#export PATH=/usr/local/share/npm/bin:$PATH
 
 # flex path
 export PATH=/usr/local/Cellar/flex_sdk/4.6.0.23201/libexec/bin:$PATH
@@ -56,6 +56,16 @@ export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
 
 # rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+# phpenv
+export PATH=~/.phpenv/bin:$PATH
+if which phpenv > /dev/null; then eval "$(phpenv init -)"; fi
+
+# nodebrew
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+
+# mysqlenv
+source ~/.mysqlenv/etc/bashrc
 
 # git
 export GIT_EDITOR=vim

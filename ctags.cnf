@@ -14,7 +14,6 @@
 --regex-mxml=/^[ \t]*(private|public|protected|internal|static)[ \t]+function[ \t]+(set|get) [ \t]+([A-Za-z0-9_]+)[ \t]*\(/\2 \2/p,property, properties/
 --regex-mxml=/^[ \t]*(private|public|protected|internal|static)[ \t]*var[ \t]+([A-Za-z0-9_]+)[ \t]*/\2/v,variable, variables/
 --regex-mxml=/[ \t]id=['"]([A-Za-z0-9_]+)['"]/\1/f, function, functions/
---python-kinds=-vi
 --exclude=*env/*
 --exclude=*.tox/*
 --langdef=actionscript
