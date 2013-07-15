@@ -49,10 +49,35 @@ NeoBundle 'Shougo/vimproc', {
 \ }
 
 " neocomplcache.vim (キーワード補完)
-NeoBundle 'Shougo/neocomplcache'
+"NeoBundle 'Shougo/neocomplcache'
 
-" neocomplcache snippet (スニペット補完)
-NeoBundle 'Shougo/neosnippet', {'depends' : 'Shougo/neocomplcache'}
+" 条件を満たせばNeoComplete、満たさないときはNeoComplcacheを使う
+if has('lua') && v:version >= 703 && has('patch885')
+  NeoBundle "Shougo/neocomplete.vim"
+  " Disable AutoComplPop.
+  let g:acp_enableAtStartup = 0
+  " Use neocomplete.
+  let g:neocomplete#enable_at_startup = 1
+  " Use smartcase.
+  let g:neocomplete#enable_smart_case = 1
+  " Set minimum syntax keyword length.
+  let g:neocomplete#sources#syntax#min_keyword_length = 3
+  let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+else
+  NeoBundle 'Shougo/neocomplcache.vim'
+  " Disable AutoComplPop.
+  let g:acp_enableAtStartup = 0
+  " Use neocomplcache.
+  let g:neocomplcache_enable_at_startup = 1
+  " Use smartcase.
+  let g:neocomplcache_enable_smart_case = 1
+  " Set minimum syntax keyword length.
+  let g:neocomplcache_min_syntax_length = 3
+  let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+endif
+
+" neocomplcache & neocomplete 互換 snippet (スニペット補完)
+NeoBundle 'Shougo/neosnippet'
 
 " unite.vim (ランチャー, 統合インターフェース)
 NeoBundle 'Shougo/unite.vim', {'depends' : 'Shougo/vimproc'}
@@ -221,6 +246,12 @@ NeoBundleLazy 'cakebaker/scss-syntax.vim', {
 
 " php.vim のfork版 (php syntax, 補完)
 NeoBundleLazy 'StanAngeloff/php.vim', {
+\ 'autoload' : {
+\	  'filetypes' : 'php',
+\	},
+\ }
+" php-doc.vim のfork版
+NeoBundleLazy 'bthemad/php-doc.vim', {
 \ 'autoload' : {
 \	  'filetypes' : 'php',
 \	},
@@ -595,66 +626,66 @@ au BufNewFile,BufRead *.mxml  setl omnifunc=mxml#complete
 "endif
 
 
+""
+"" neocomplcache
+"" 参考：http://vim-users.jp/2010/10/hack177/
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""AutoComplepop OFF
+"let g:acp_enableAtStartup = 0
 "
-" neocomplcache
-" 参考：http://vim-users.jp/2010/10/hack177/
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"AutoComplepop OFF
-let g:acp_enableAtStartup = 0
-
-"NeoComplCache起動
-let g:neocomplcache_enable_at_startup = 1
-
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-
-" Don't use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 0 
-
-" Use underbar completion.
-let g:neocomplcache_enable_underbar_completion = 1
-
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_keyword_length = 3 
-
-" Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-\ 'default' : '',
-\ }
-
-" set tags option
-let g:neocomplcache_member_prefix_patterns = {
-\ 'php':'->\|::',
-\ }
-
-" Define keyword.
-if !exists('g:neocomplcache_keyword_patterns')
-	let g:neocomplcache_keyword_patterns = {}
-endif
-
-" 英数字の単語の頭文字
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-
-" 補完キー
-"inoremap <expr><TAB>	pumvisible() ? "\<C-n>" : "\<TAB>"
-"inoremap <expr><S-TAB>	pumvisible() ? "\<C-p>" : "\<S-TAB>"
-"inoremap <expr><CR>		pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-
-" Snnipets
-let g:neocomplcache_snippets_dir = $HOME . '/.vim/snippets'
-
-" neoconplecache snippet keybindings
-imap <C-k>	<Plug>(neocomplcache_snippets_expand)
-smap <C-k>	<Plug>(neocomplcache_snippets_expand)
-
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
+""NeoComplCache起動
+"let g:neocomplcache_enable_at_startup = 1
+"
+"" Use smartcase.
+"let g:neocomplcache_enable_smart_case = 1
+"
+"" Don't use camel case completion.
+"let g:neocomplcache_enable_camel_case_completion = 0 
+"
+"" Use underbar completion.
+"let g:neocomplcache_enable_underbar_completion = 1
+"
+"" Set minimum syntax keyword length.
+"let g:neocomplcache_min_keyword_length = 3 
+"
+"" Define dictionary.
+"let g:neocomplcache_dictionary_filetype_lists = {
+"\ 'default' : '',
+"\ }
+"
+"" set tags option
+"let g:neocomplcache_member_prefix_patterns = {
+"\ 'php':'->\|::',
+"\ }
+"
+"" Define keyword.
+"if !exists('g:neocomplcache_keyword_patterns')
+"	let g:neocomplcache_keyword_patterns = {}
+"endif
+"
+"" 英数字の単語の頭文字
+"let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+"
+"if !exists('g:neocomplcache_omni_patterns')
+"  let g:neocomplcache_omni_patterns = {}
+"endif
+"
+"" 補完キー
+""inoremap <expr><TAB>	pumvisible() ? "\<C-n>" : "\<TAB>"
+""inoremap <expr><S-TAB>	pumvisible() ? "\<C-p>" : "\<S-TAB>"
+""inoremap <expr><CR>		pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+"
+"" Snnipets
+"let g:neocomplcache_snippets_dir = $HOME . '/.vim/snippets'
+"
+"" neoconplecache snippet keybindings
+"imap <C-k>	<Plug>(neocomplcache_snippets_expand)
+"smap <C-k>	<Plug>(neocomplcache_snippets_expand)
+"
+"" For snippet_complete marker.
+"if has('conceal')
+"  set conceallevel=2 concealcursor=i
+"endif
 
 "
 " Zen-Cording.vim
@@ -962,4 +993,33 @@ let g:SrcExpl_nextDefKey = "<F4>"
 ":let g:miniBufExplMapWindowNavVim = 1
 ":let g:miniBufExplMapWindowNavArrows = 1
 ":let g:miniBufExplMapCTabSwitchBuffs = 1
+
+
+
+"
+" neosnippet
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
+" Enable snipMate compatibility feature.
+let g:neosnippet#enable_snipmate_compatibility = 1
+
+" Tell Neosnippet about the other snippets
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
