@@ -74,6 +74,25 @@ else
   " Set minimum syntax keyword length.
   let g:neocomplcache_min_syntax_length = 3
   let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+  " Define dictionary.
+  let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+	\ }
+
+  " Define keyword.
+  if !exists('g:neocomplete#keyword_patterns')
+	  let g:neocomplete#keyword_patterns = {}
+  endif
+  let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+  " Enable heavy omni completion.
+  if !exists('g:neocomplete#sources#omni#input_patterns')
+	let g:neocomplete#sources#omni#input_patterns = {}
+  endif
+
 endif
 
 " neocomplcache & neocomplete 互換 snippet (スニペット補完)
@@ -105,6 +124,7 @@ NeoBundleLazy 'Shougo/vimshell', {
 \	  'mappings' : ['<Plug>(vimshell_switch)'],
 \	},
 \ }
+NeoBundle 'supermomonga/vimshell-pure.vim', {'depends' : 'Shougo/vimshell.vim'}
 
 " vimshell-ssh.vim (シェル)
 NeoBundle 'vimshell-ssh', {
@@ -256,6 +276,11 @@ NeoBundleLazy 'bthemad/php-doc.vim', {
 \	  'filetypes' : 'php',
 \	},
 \ }
+"NeoBundleLazy 'karakaram/vim-quickrun-phpunit', {
+"\ 'autoload' : {
+"\	  'filetypes' : 'php',
+"\	},
+"\ }
 
 " vim-ruby (ruby syntax, 補完)
 NeoBundleLazy 'vim-ruby/vim-ruby', {

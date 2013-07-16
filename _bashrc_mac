@@ -19,15 +19,13 @@ fi
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=~/bin:$PATH
+export PATH=/usr/local/opt/ruby/bin/:$PATH
 
 # homebrew installed node npm
 #export PATH=/usr/local/share/npm/bin:$PATH
 
 # flex path
 export PATH=/usr/local/Cellar/flex_sdk/4.6.0.23201/libexec/bin:$PATH
-
-# flash log
-export FLASH_LOG=~/Library/Preferences/Macromedia/Flash\ Player/Logs/flashlog.txt
 
 ################################################
 # Powerline
@@ -45,6 +43,9 @@ export CC=/usr/local/bin/gcc-4.2
 # JAVA_OPTIONS
 # export _JAVA_OPTIONS=-Dfile.encoding=UTF-8
 
+# flash log
+export FLASH_LOG=~/Library/Preferences/Macromedia/Flash\ Player/Logs/flashlog.txt
+
 # flex sdk home
 export FLEX_HOME=/usr/local/Cellar/flex_sdk/4.6.0.23201/libexec
 
@@ -55,12 +56,15 @@ export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
 #export BYOBU_PREFIX=$(brew --prefix)
 
 # rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH=~/.rbenv/bin:$PATH
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # phpenv
 export PATH=~/.phpenv/bin:$PATH
 if which phpenv > /dev/null; then eval "$(phpenv init -)"; fi
+
+# php global composer packages
+export PATH=~/composer-packages/vendor/bin:$PATH
 
 # nodebrew
 #export PATH=$HOME/.nodebrew/current/bin:$PATH
