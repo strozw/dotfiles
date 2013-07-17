@@ -394,6 +394,9 @@ NeoBundle 'vim-scripts/rdark'
 NeoBundle 'jdonaldson/vaxe'
 NeoBundle 'pekepeke/titanium-vim'
 
+" the Silver Searcher (ag)
+NeoBundle 'rking/ag.vim'
+
 " 
 "NeoBundle 'fholgado/minibufexpl.vim'
 
@@ -754,7 +757,11 @@ let g:unite_source_file_mru_limit = 15
 let g:unite_source_file_mru_filename_format = ''
 
 " unite grep
-let g:unite_source_grep_default_opts = '-iHn --exclude=''.tags'' --exclude=''tags'' --exclude=''.svn'' --exclude=''.git'''
+"let g:unite_source_grep_default_opts = '-iRHn --exclude=''.tags'' --exclude=''tags'' --exclude=''.svn'' --exclude=''.git'''
+let g:unite_source_grep_command = 'ag'
+let g:unite_source_grep_default_opts = '--nocolor --nogroup --ignore=''.tags'' --ignore=''tags'' --ignore=''.svn'' --ignore=''.git'''
+let g:unite_source_grep_recursive_opt = ''
+let g:unite_source_grep_max_candidates = 200
 
 "現在開いているファイルのディレクトリ下のファイル一覧
 "開いていない場合はカレントディレクトリ

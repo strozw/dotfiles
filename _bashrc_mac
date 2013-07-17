@@ -67,7 +67,7 @@ if which phpenv > /dev/null; then eval "$(phpenv init -)"; fi
 export PATH=~/composer-packages/vendor/bin:$PATH
 
 # nodebrew
-#export PATH=$HOME/.nodebrew/current/bin:$PATH
+export PATH=$HOME/.nodebrew/current/bin:$PATH
 
 # mysqlenv
 #source ~/.mysqlenv/etc/bashrc
