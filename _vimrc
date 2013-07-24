@@ -185,6 +185,9 @@ NeoBundle 'ujihisa/unite-colorscheme', {
 " unite-vcs (Unite:git,svnをUniteで利用。)
 NeoBundle 'hrsh7th/vim-versions', {'depends' : 'Shougo/unite.vim'}
 
+" unite-variable 追加
+NeoBundle 'thinca/vim-editvar'
+
 " benchvimrc-vim (vimrcのベンチマーク)
 NeoBundle 'mattn/benchvimrc-vim'
 
@@ -338,13 +341,6 @@ NeoBundleLazy 'yuratomo/flex-api-complete', {
 \	},
 \ }
 
-" mdbg, cdb, gdb, jdb, fdb debugger
-NeoBundleLazy 'yuratomo/dbg.vim', {
-\ 'autoload' : {
-\	  'filetypes' : ['c', 'cpp', 'java', 'actionscript', 'mxml'],
-\	},
-\ }
-
 "javacomplete
 "NeoBundleLazy 'vim-scripts/javacomplete', {
 "\ 'autoload' : {
@@ -381,6 +377,9 @@ else
   endif
 endif
 
+" vim easymotion 特定位置へのショートカットジャンプ
+NeoBundle 'Lokaltog/vim-easymotion'
+
 " color scheme
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'w0ng/vim-hybrid'
@@ -396,6 +395,12 @@ NeoBundle 'pekepeke/titanium-vim'
 
 " the Silver Searcher (ag)
 NeoBundle 'rking/ag.vim'
+
+" markdown syntax
+NeoBundle 'tpope/vim-markdown'
+
+" プロジェクトのtopぽいところに移動
+NeoBundle 'airblade/vim-rooter'
 
 " 
 "NeoBundle 'fholgado/minibufexpl.vim'
@@ -532,6 +537,9 @@ set grepprg=internal
 " ウィンドウを分割で開く際に、右側に表示する。
 set splitright
 
+"
+set notagbsearch
+
 " タグファイルの場所
 set tags=.tags
 
@@ -635,86 +643,6 @@ let g:solarized_termcolors = 256
 let g:solarized_contrast = 'high'
 colorscheme hybrid
 
-
-"
-" omnifunct
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-au BufNewFile,BufRead *.mxml  setf xml
-
-au BufNewFile,BufRead *.mxml  setl omnifunc=mxml#complete
-"au BufNewFile,BufRead *.as    setl omnifunc=flexapi#complete
-"
-"au CompleteDone *.as          call flexapi#showRef()
-"au BufNewFile,BufRead *.as    inoremap <expr> <c-down> flexapi#nextRef()
-"au BufNewFile,BufRead *.as    inoremap <expr> <c-up>   flexapi#prevRef()
-"
-"if has("balloon_eval") && has("balloon_multiline") 
-"  au BufNewFile,BufRead *.as  setl bexpr=flexapi#balloon()
-"  au BufNewFile,BufRead *.as  setl ballooneval
-"endif
-
-
-""
-"" neocomplcache
-"" 参考：http://vim-users.jp/2010/10/hack177/
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""AutoComplepop OFF
-"let g:acp_enableAtStartup = 0
-"
-""NeoComplCache起動
-"let g:neocomplcache_enable_at_startup = 1
-"
-"" Use smartcase.
-"let g:neocomplcache_enable_smart_case = 1
-"
-"" Don't use camel case completion.
-"let g:neocomplcache_enable_camel_case_completion = 0 
-"
-"" Use underbar completion.
-"let g:neocomplcache_enable_underbar_completion = 1
-"
-"" Set minimum syntax keyword length.
-"let g:neocomplcache_min_keyword_length = 3 
-"
-"" Define dictionary.
-"let g:neocomplcache_dictionary_filetype_lists = {
-"\ 'default' : '',
-"\ }
-"
-"" set tags option
-"let g:neocomplcache_member_prefix_patterns = {
-"\ 'php':'->\|::',
-"\ }
-"
-"" Define keyword.
-"if !exists('g:neocomplcache_keyword_patterns')
-"	let g:neocomplcache_keyword_patterns = {}
-"endif
-"
-"" 英数字の単語の頭文字
-"let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-"
-"if !exists('g:neocomplcache_omni_patterns')
-"  let g:neocomplcache_omni_patterns = {}
-"endif
-"
-"" 補完キー
-""inoremap <expr><TAB>	pumvisible() ? "\<C-n>" : "\<TAB>"
-""inoremap <expr><S-TAB>	pumvisible() ? "\<C-p>" : "\<S-TAB>"
-""inoremap <expr><CR>		pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-"
-"" Snnipets
-"let g:neocomplcache_snippets_dir = $HOME . '/.vim/snippets'
-"
-"" neoconplecache snippet keybindings
-"imap <C-k>	<Plug>(neocomplcache_snippets_expand)
-"smap <C-k>	<Plug>(neocomplcache_snippets_expand)
-"
-"" For snippet_complete marker.
-"if has('conceal')
-"  set conceallevel=2 concealcursor=i
-"endif
-
 "
 " Zen-Cording.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -745,7 +673,8 @@ let g:user_zen_settings = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "unite prefix key.
 nnoremap [unite] <Nop>
-nmap <Space>f [unite]
+"nmap <Space>F [unite]
+nmap <C-u> [unite]
 
 "unite general settings
 "インサートモード開始
@@ -765,37 +694,37 @@ let g:unite_source_grep_max_candidates = 200
 
 "現在開いているファイルのディレクトリ下のファイル一覧
 "開いていない場合はカレントディレクトリ
-nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file file/new<CR>
-nnoremap <silent> [unite]ff :<C-u>Unite file_rec/async file/new<CR>
+nnoremap <silent> [unite]f :UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> [unite]ff :Unite file_rec/async<CR>
 "バッファ一覧
-nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+nnoremap <silent> [unite]b :Unite buffer<CR>
 "レジスタ一覧
-nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> [unite]r :Unite -buffer-name=register register<CR>
 "最近使用したファイル一覧
-nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
+nnoremap <silent> [unite]m :Unite file_mru<CR>
 "ブックマーク一覧
-nnoremap <silent> [unite]c :<C-u>Unite bookmark<CR>
+nnoremap <silent> [unite]c :Unite bookmark<CR>
 "ブックマークを追加
-nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
+nnoremap <silent> [unite]a :UniteBookmarkAdd<CR>
 " ライン
-nnoremap <silent> [unite]l :<C-u>Unite line<CR>
+nnoremap <silent> [unite]l :Unite line<CR>
 " アウトライン
-nnoremap <silent> [unite]ol :<C-u>Unite outline<CR>
+nnoremap <silent> [unite]ol :Unite outline<CR>
 " grep
-nnoremap <silent> [unite]g :<C-u>Unite grep -no-quit<CR>
+nnoremap <silent> [unite]g :Unite grep -no-quit<CR>
 " tag
-nnoremap <silent> [unite]t :<C-u>Unite tag<CR>
+nnoremap <silent> [unite]t :Unite tag -no-quit<CR>
 " help
-nnoremap <silent> [unite]h :<C-u>Unite help<CR>
+nnoremap <silent> [unite]h :Unite help<CR>
 " version/{type}/changeset
-nnoremap <silent> [unite]vsc :<C-u>Unite versions/svn/changeset<CR>
-nnoremap <silent> [unite]vgc :<C-u>Unite versions/git/changeset<CR>
+nnoremap <silent> [unite]vsc :Unite versions/svn/changeset<CR>
+nnoremap <silent> [unite]vgc :Unite versions/git/changeset<CR>
 " version/{type}/log
-nnoremap <silent> [unite]vsl :<C-u>Unite versions/svn/log<CR>
-nnoremap <silent> [unite]vgl :<C-u>Unite versions/git/log<CR>
+nnoremap <silent> [unite]vsl :Unite versions/svn/log<CR>
+nnoremap <silent> [unite]vgl :Unite versions/git/log<CR>
 " version/{type}/status
-nnoremap <silent> [unite]vss :<C-u>Unite versions/svn/status<CR>
-nnoremap <silent> [unite]vgs :<C-u>Unite versions/git/status<CR>
+nnoremap <silent> [unite]vss :Unite versions/svn/status<CR>
+nnoremap <silent> [unite]vgs :Unite versions/git/status<CR>
 
 " 現在のプロジェクト内のファイルを一望する
 " 参考 : http://d.hatena.ne.jp/h1mesuke/20110918/p1
@@ -1055,3 +984,22 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
+"
+" vim-easymotion
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:EasyMotion_mapping_j = '<C-j>'
+let g:EasyMotion_mapping_k = '<C-k>'
+
+"
+" vim-rooter
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" \cd でカレントディレクトリを移動（デフォルト）
+map <silent> <unique> <space>cd <Plug>RooterChangeToRootDirectory
+" 一旦全部削除
+autocmd! rooter
+" 標準では以下の拡張子で自動的に起動
+autocmd BufEnter *.rb,*.html,*.haml,*.erb,*.rjs,*.css,*.js :Rooter
+" cd の代わりに lcd を使う
+let g:rooter_use_lcd = 1
+" ルート発見パターン
+let g:rooter_patterns = ['Rakefile', '.git/', 'tags', '.tags', '.project']
