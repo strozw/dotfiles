@@ -33,8 +33,6 @@ if has('vim_starting')
 	endif
 endif
 
-
-
 " sudo.vim (root権限でファイルを編集するなど)
 NeoBundle 'sudo.vim'
 
@@ -140,6 +138,12 @@ NeoBundleLazy 'h1mesuke/unite-outline', {
 \	'autoload' : {'unite_sources' : 'outline'}
 \ }
 
+" unite-locate ()
+NeoBundleLazy 'ujihisa/unite-locate', {
+\	'depends' : 'Shougo/unite.vim',
+\	'autoload' : {'unite_sources' : 'locate'}
+\ }
+
 " unite-help (Unite:ヘルプソース)
 NeoBundleLazy 'tsukkee/unite-help', {
 \	'depends' : 'Shougo/unite.vim',
@@ -208,7 +212,6 @@ NeoBundle 'tpope/vim-surround'
 
 " smartword (全角文字の単語認識)
 NeoBundle 'kana/vim-smartword'
-
 
 " font size変更
 NeoBundle 'thinca/vim-fontzoom'
@@ -365,7 +368,7 @@ NeoBundle 'marijnh/tern_for_vim', {
 if has('python')
   " pip install --user git+git://github.com/Lokaltog/powerline
   NeoBundle 'Lokaltog/powerline', { 'rtp' : '~/.vim/bundle/powerline/powerline/bindings/vim', 'build' : { 'mac' : 'python setup.py build install --user' } }
-  "NeoBundle 'zhaocai/linepower.vim'
+  NeoBundle 'zhaocai/linepower.vim'
 else
   NeoBundle 'Lokaltog/vim-powerline'
   NeoBundle 'osyo-manga/vim-powerline-unite-theme'
@@ -400,7 +403,7 @@ NeoBundle 'rking/ag.vim'
 NeoBundle 'tpope/vim-markdown'
 
 " プロジェクトのtopぽいところに移動
-NeoBundle 'airblade/vim-rooter'
+"NeoBundle 'airblade/vim-rooter'
 
 " 
 "NeoBundle 'fholgado/minibufexpl.vim'
@@ -512,6 +515,10 @@ set encoding=utf-8
 " MacVimの場合 gauche_guess により、自動的に文字コードの判別を行うので不要
 " set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
 
+" タブ 空白表示
+set list
+set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+
 "UTF-8の□や○でカーソル位置がずれないようにする
 if exists("&ambiwidth")
   set ambiwidth=double
@@ -541,7 +548,8 @@ set splitright
 set notagbsearch
 
 " タグファイルの場所
-set tags=.tags
+set tags=tags
+set tags+=.tags
 
 " コマンドラインの高さ
 set cmdheight=1
@@ -641,6 +649,7 @@ vnoremap ? <ESC>?\%V
 "colorscheme solarized
 let g:solarized_termcolors = 256
 let g:solarized_contrast = 'high'
+let g:hybrid_use_Xresources = 1
 colorscheme hybrid
 
 "
@@ -694,7 +703,7 @@ let g:unite_source_grep_max_candidates = 200
 
 "現在開いているファイルのディレクトリ下のファイル一覧
 "開いていない場合はカレントディレクトリ
-nnoremap <silent> [unite]f :UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> [unite]f :UniteWithBufferDir file<CR>
 nnoremap <silent> [unite]ff :Unite file_rec/async<CR>
 "バッファ一覧
 nnoremap <silent> [unite]b :Unite buffer<CR>
@@ -712,6 +721,8 @@ nnoremap <silent> [unite]l :Unite line<CR>
 nnoremap <silent> [unite]ol :Unite outline<CR>
 " grep
 nnoremap <silent> [unite]g :Unite grep -no-quit<CR>
+" locate
+nnoremap <silent> [unite]lo :Unite locate<CR>
 " tag
 nnoremap <silent> [unite]t :Unite tag -no-quit<CR>
 " help
@@ -805,9 +816,6 @@ let g:vimfiler_min_filename_width = 30
 " filename column max size
 let g:vimfiler_max_filename_width = 60
 
-" VimFiler をNERDTreeっぽく使う方法
-" 参考: http://d.hatena.ne.jp/hrsh7th/20120229/1330525683
-nnoremap <F2> :VimFilerExplorer -winwidth=50<Cr>
 autocmd! FileType vimfiler call g:my_vimfiler_settings()
 function! g:my_vimfiler_settings()
   nmap     <buffer><expr><Cr> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
@@ -815,6 +823,19 @@ function! g:my_vimfiler_settings()
   nnoremap <buffer>v          :call vimfiler#mappings#do_action('my_vsplit')<Cr>
   nnoremap <buffer>E          :call vimfiler#mappings#do_action('my_tabopen')<Cr>
 endfunction
+
+" VimFiler をNERDTreeっぽく使う方法
+command! -nargs=0 MyVimFilerExp call g:my_vimfiler_exp()
+function! g:my_vimfiler_exp()
+	if (exists(":VimFilerCurrentDir") == 2)
+	  :VimFilerCurrentDir -explorer -winwidth=50<Cr>
+	else
+	  :VimFilerExplorer -winwidth=50<Cr>
+	endif
+endfunction
+nnoremap <F2> :MyVimFilerExp<Cr>
+
+
 
 let my_action = { 'is_selectable' : 1 }
 function! my_action.func(candidates)
@@ -885,13 +906,6 @@ xmap <Space>h <Plug>(quickhl-toggle)
 nmap <Space>H <Plug>(quickhl-reset)
 xmap <Space>H <Plug>(quickhl-reset)
 nmap <Space>j <Plug>(quickhl-match)
-
-
-"
-" ref.vim
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ruby refe
-let g:ref_refe_cmd = $HOME . "/References/ruby-refm/ruby-refm-1.9.3-dynamic-snapshot/refe-1_9_3"
 
 "
 " dirdiff
@@ -993,13 +1007,13 @@ let g:EasyMotion_mapping_k = '<C-k>'
 "
 " vim-rooter
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" \cd でカレントディレクトリを移動（デフォルト）
-map <silent> <unique> <space>cd <Plug>RooterChangeToRootDirectory
-" 一旦全部削除
-autocmd! rooter
-" 標準では以下の拡張子で自動的に起動
-autocmd BufEnter *.rb,*.html,*.haml,*.erb,*.rjs,*.css,*.js :Rooter
-" cd の代わりに lcd を使う
-let g:rooter_use_lcd = 1
-" ルート発見パターン
-let g:rooter_patterns = ['Rakefile', '.git/', 'tags', '.tags', '.project']
+"" \cd でカレントディレクトリを移動（デフォルト）
+"map <silent> <unique> <space>cd <Plug>RooterChangeToRootDirectory
+"" 一旦全部削除
+"autocmd! rooter BufEnter *
+"" 標準では以下の拡張子で自動的に起動
+"autocmd rooter BufEnter *.php,*.rb,*.html,*.haml,*.erb,*.rjs,*.css,*.js
+"" cd の代わりに lcd を使う
+"let g:rooter_use_lcd = 1
+"" ルート発見パターン
+"let g:rooter_patterns = ['Rakefile', '.git/', 'tags', '.tags', '.project']

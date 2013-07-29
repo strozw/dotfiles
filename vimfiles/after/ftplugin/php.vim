@@ -10,6 +10,9 @@ if exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 endif
 
+" vim-ref
+let g:ref_phpmanual_path = $HOME . '/.vim/refs/php-chunked-xhtml'
+
 " quickrun phpunit
 "augroup QuickRunPHPUnit
 "  autocmd!
