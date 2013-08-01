@@ -12,25 +12,25 @@ let g:vimfiler_enable_auto_cd = 0
 
 " Neobundle のパス設定
 if has('vim_starting')
-	if has("win32") || has("win64") || has("win32unix")
-		" windows
-		set runtimepath+=~/vimfiles/neobundle.vim/
-		call neobundle#rc(expand('~/vimfiles/bundle/'))
+    if has("win32") || has("win64") || has("win32unix")
+        " windows
+        set runtimepath+=~/vimfiles/neobundle.vim/
+        call neobundle#rc(expand('~/vimfiles/bundle/'))
 
-		" プロキシ環境用の設定ファイルを読み込む（リポジトリでは管理しない）
-		if filereadable($HOME . '/_vimrc.local')
-		  source $HOME/_vimrc.local
-		endif
-	else
-		" その他
-		set runtimepath+=~/.vim/neobundle.vim/
-		call neobundle#rc(expand('~/.vim/bundle/'))
+        " プロキシ環境用の設定ファイルを読み込む（リポジトリでは管理しない）
+        if filereadable($HOME . '/_vimrc.local')
+          source $HOME/_vimrc.local
+        endif
+    else
+        " その他
+        set runtimepath+=~/.vim/neobundle.vim/
+        call neobundle#rc(expand('~/.vim/bundle/'))
 
-		" プロキシ環境用の設定ファイルを読み込む（リポジトリでは管理しない）
-		if filereadable($HOME . '/.vimrc.local')
-		  source $HOME/.vimrc.local
-		endif
-	endif
+        " プロキシ環境用の設定ファイルを読み込む（リポジトリでは管理しない）
+        if filereadable($HOME . '/.vimrc.local')
+          source $HOME/.vimrc.local
+        endif
+    endif
 endif
 
 " sudo.vim (root権限でファイルを編集するなど)
@@ -78,17 +78,17 @@ else
     \ 'default' : '',
     \ 'vimshell' : $HOME.'/.vimshell_hist',
     \ 'scheme' : $HOME.'/.gosh_completions'
-	\ }
+    \ }
 
   " Define keyword.
   if !exists('g:neocomplete#keyword_patterns')
-	  let g:neocomplete#keyword_patterns = {}
+      let g:neocomplete#keyword_patterns = {}
   endif
   let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
   " Enable heavy omni completion.
   if !exists('g:neocomplete#sources#omni#input_patterns')
-	let g:neocomplete#sources#omni#input_patterns = {}
+    let g:neocomplete#sources#omni#input_patterns = {}
   endif
 
 endif
@@ -103,65 +103,65 @@ NeoBundle 'Shougo/unite.vim', {'depends' : 'Shougo/vimproc'}
 NeoBundleLazy 'Shougo/vimfiler', {
 \ 'depends' : ['Shougo/unite.vim', 'Shougo/vimproc'],
 \ 'autoload' : {
-\	  'commands' : [
-\		'VimFiler','VimFilerTab', 'VimFilerExplorer', 'Edit', 'Read', 'Write', 'Source'
-\	  ],
-\	  'mappings' : ['<Plug>(vimfiler_switch)'],
-\	  'explorer' : 1,
-\	},
+\      'commands' : [
+\        'VimFiler','VimFilerTab', 'VimFilerExplorer', 'Edit', 'Read', 'Write', 'Source'
+\      ],
+\      'mappings' : ['<Plug>(vimfiler_switch)'],
+\      'explorer' : 1,
+\    },
 \ }
 
 " vimshell.vim (シェル)
 NeoBundleLazy 'Shougo/vimshell', {
 \ 'depends' : ['Shougo/unite.vim', 'Shougo/vimproc'],
 \ 'autoload' : {
-\	  'commands' : [
-\		'VimShell','VimShellExecute', 'VimShellInterractive', 'VimShellTermianl', 
-\		'VimShellPop', 'VimShellTab', 'VimShellCreate'
-\	  ],
-\	  'mappings' : ['<Plug>(vimshell_switch)'],
-\	},
+\      'commands' : [
+\        'VimShell','VimShellExecute', 'VimShellInterractive', 'VimShellTermianl', 
+\        'VimShellPop', 'VimShellTab', 'VimShellCreate'
+\      ],
+\      'mappings' : ['<Plug>(vimshell_switch)'],
+\    },
 \ }
 NeoBundle 'supermomonga/vimshell-pure.vim', {'depends' : 'Shougo/vimshell.vim'}
 
 " vimshell-ssh.vim (シェル)
 NeoBundle 'vimshell-ssh', {
-\	'depends' : ['Shougo/vimshell', 'Shougo/unite.vim', 'Shougo/unite-ssh', 'Shougo/vimproc'],
-\	'autoload' : {
-\	  'filetypes' : ['vimshell', 'vimfiler'],
-\	}
+\    'depends' : ['Shougo/vimshell', 'Shougo/unite.vim', 'Shougo/unite-ssh', 'Shougo/vimproc'],
+\    'autoload' : {
+\      'filetypes' : ['vimshell', 'vimfiler'],
+\    }
 \ }
 
 " unite-outline (Unite:アウトラインソース)
 NeoBundleLazy 'h1mesuke/unite-outline', {
-\	'depends' : 'Shougo/unite.vim',
-\	'autoload' : {'unite_sources' : 'outline'}
+\    'depends' : 'Shougo/unite.vim',
+\    'autoload' : {'unite_sources' : 'outline'}
 \ }
 
 " unite-locate ()
 NeoBundleLazy 'ujihisa/unite-locate', {
-\	'depends' : 'Shougo/unite.vim',
-\	'autoload' : {'unite_sources' : 'locate'}
+\    'depends' : 'Shougo/unite.vim',
+\    'autoload' : {'unite_sources' : 'locate'}
 \ }
 
 " unite-help (Unite:ヘルプソース)
 NeoBundleLazy 'tsukkee/unite-help', {
-\	'depends' : 'Shougo/unite.vim',
-\	'autoload' : {'unite_sources' : 'help'}
+\    'depends' : 'Shougo/unite.vim',
+\    'autoload' : {'unite_sources' : 'help'}
 \ }
 
 " unite-tag (Unite:ctagソース)
 NeoBundleLazy 'tsukkee/unite-tag', {
-\	'depends' : 'Shougo/unite.vim',
-\	'autoload' : {'unite_sources' : 'tag'}
+\    'depends' : 'Shougo/unite.vim',
+\    'autoload' : {'unite_sources' : 'tag'}
 \ }
 
 " unite-ssh (Unite:sshソース)
 NeoBundleLazy 'Shougo/unite-ssh', {
-\	'depends' : 'Shougo/unite.vim',
-\	'autoload' : {
-\	  'filetypes' : ['vimshell', 'vimfiler'],
-\	}
+\    'depends' : 'Shougo/unite.vim',
+\    'autoload' : {
+\      'filetypes' : ['vimshell', 'vimfiler'],
+\    }
 \ }
 
 " unite-sudo (Unite:sudoソース)
@@ -169,21 +169,21 @@ NeoBundle 'Shougo/unite-sudo', {'depends' : 'Shougo/unite.vim'}
 
 " Unite todo source
 NeoBundle 'kannokanno/unite-todo', {
-\	'depends' : 'Shougo/unite.vim',
-\	'autoload' : {'unite_sources' : 'todo'}
+\    'depends' : 'Shougo/unite.vim',
+\    'autoload' : {'unite_sources' : 'todo'}
 \ }
 
 " Unite font source
 NeoBundleLazy 'ujihisa/unite-font', {
-\	'depends' : 'Shougo/unite.vim',
-\	'gui' : 1,
-\	'autoload' : {'unite_sources' : 'font'}
+\    'depends' : 'Shougo/unite.vim',
+\    'gui' : 1,
+\    'autoload' : {'unite_sources' : 'font'}
 \ }
 
 " Unite color scheme source
 NeoBundle 'ujihisa/unite-colorscheme', {
-\	'depends' : 'Shougo/unite.vim',
-\	'autoload' : {'unite_sources' : 'colorscheme'}
+\    'depends' : 'Shougo/unite.vim',
+\    'autoload' : {'unite_sources' : 'colorscheme'}
 \ }
 
 " unite-vcs (Unite:git,svnをUniteで利用。)
@@ -246,109 +246,109 @@ NeoBundle 'vim-scripts/DirDiff.vim'
 " html5.vim (html5シンタックス)
 NeoBundleLazy 'othree/html5.vim', {
 \ 'autoload' : {
-\	  'filetypes' : ['html', 'php'],
-\	},
+\      'filetypes' : ['html', 'php'],
+\    },
 \ }
 
 " lepture/vim-css css3シンタックス
 NeoBundleLazy 'hail2u/vim-css3-syntax', {
 \ 'autoload' : {
-\	  'filetypes' : ['html', 'css'],
-\	},
+\      'filetypes' : ['html', 'css'],
+\    },
 \ }
 
 " cssのcoloをその色で表示
 NeoBundleLazy 'vim-scripts/css_color.vim', {
 \ 'autoload' : {
-\	  'filetypes' : ['html', 'css'],
-\	},
+\      'filetypes' : ['html', 'css'],
+\    },
 \ }
 
 NeoBundleLazy 'cakebaker/scss-syntax.vim', {
 \ 'autoload' : {
-\	  'filetypes' : ['scss', 'sass'],
-\	},
+\      'filetypes' : ['scss', 'sass'],
+\    },
 \ }
 
 " php.vim のfork版 (php syntax, 補完)
 NeoBundleLazy 'StanAngeloff/php.vim', {
 \ 'autoload' : {
-\	  'filetypes' : 'php',
-\	},
+\      'filetypes' : 'php',
+\    },
 \ }
 " php-doc.vim のfork版
 NeoBundleLazy 'bthemad/php-doc.vim', {
 \ 'autoload' : {
-\	  'filetypes' : 'php',
-\	},
+\      'filetypes' : 'php',
+\    },
 \ }
 "NeoBundleLazy 'karakaram/vim-quickrun-phpunit', {
 "\ 'autoload' : {
-"\	  'filetypes' : 'php',
-"\	},
+"\      'filetypes' : 'php',
+"\    },
 "\ }
 
 " vim-ruby (ruby syntax, 補完)
 NeoBundleLazy 'vim-ruby/vim-ruby', {
 \ 'autoload' : {
-\	  'filetypes' : 'ruby',
-\	},
+\      'filetypes' : 'ruby',
+\    },
 \ }
 
 " rails.vim (railsのシンタックス、MVCの移動、railsコマンドの利用)
 NeoBundleLazy 'tpope/vim-rails', {
 \ 'autoload' : {
-\	  'filetypes' : 'ruby',
-\	},
+\      'filetypes' : 'ruby',
+\    },
 \ }
 
 " ruby の do に対する end を補完
 NeoBundleLazy 'tpope/vim-endwise', {
 \ 'autoload' : {
-\	  'filetypes' : 'ruby',
-\	},
+\      'filetypes' : 'ruby',
+\    },
 \ }
 
 " javascript syntax
 NeoBundleLazy 'jelera/vim-javascript-syntax', {
 \ 'autoload' : {
-\	  'filetypes' : 'javascript',
-\	}
+\      'filetypes' : 'javascript',
+\    }
 \ }
 
 " coffeescript syntax
 NeoBundleLazy 'kchmck/vim-coffee-script', {
 \ 'autoload' : {
-\	  'filetypes' : 'coffeescript',
-\	},
+\      'filetypes' : 'coffeescript',
+\    },
 \ }
 
 " less syntax
 NeoBundleLazy 'less.vim', {
 \ 'autoload' : {
-\	  'filetypes' : ['less'],
-\	},
+\      'filetypes' : ['less'],
+\    },
 \ }
 
 " actionscript
 NeoBundleLazy 'endel/actionscript.vim', {
 \ 'autoload' : {
-\	  'filetypes' : 'actionscript',
-\	},
+\      'filetypes' : 'actionscript',
+\    },
 \ }
 
 "as3 omni comp
 NeoBundleLazy 'yuratomo/flex-api-complete', {
 \ 'autoload' : {
-\	  'filetypes' : ['actionscript', 'mxml'],
-\	},
+\      'filetypes' : ['actionscript', 'mxml'],
+\    },
 \ }
 
 "javacomplete
 "NeoBundleLazy 'vim-scripts/javacomplete', {
 "\ 'autoload' : {
-"\	  'filetypes' : ['java'],
-"\	},
+"\      'filetypes' : ['java'],
+"\    },
 "\ }
 NeoBundle 'marijnh/tern_for_vim', {
 \ 'build': {
@@ -376,7 +376,7 @@ else
 
   " PowerLineの再読み込み
   if exists('g:Powerline_loaded')
-	  silent! call Pl#Load()
+      silent! call Pl#Load()
   endif
 endif
 
@@ -484,9 +484,9 @@ set nolist
 ":set listchars=tab:>-,extends:<,trail:-,eol:<
 
 "最下ウィンドウにいつステータス行が表示されるかを設定する。
-"	0:全く表示しない
-"	1:ウィンドウの数が2以上の時のみ表示
-"	2:常に表示
+"    0:全く表示しない
+"    1:ウィンドウの数が2以上の時のみ表示
+"    2:常に表示
 set laststatus=2
 
 "コマンド(の一部)を画面の最下行に表示する。
@@ -532,10 +532,10 @@ set fileformats=unix,dos,mac
 " UTF-8エンコーディングを表す拡張属性をを追加する。
 au BufWritePost * call SetUTF8Xattr(expand("<afile>"))
 function! SetUTF8Xattr(file)
-	let isutf8 = &fileencoding == "utf-8" || ( &fileencoding == "" && &encoding == "utf-8")
-	if has("unix") && match(system("uname"),'Darwin') != -1 && isutf8
-		call system("xattr -w com.apple.TextEncoding 'utf-8;134217984' '" . a:file . "'")
-	endif
+    let isutf8 = &fileencoding == "utf-8" || ( &fileencoding == "" && &encoding == "utf-8")
+    if has("unix") && match(system("uname"),'Darwin') != -1 && isutf8
+        call system("xattr -w com.apple.TextEncoding 'utf-8;134217984' '" . a:file . "'")
+    endif
 endfunction
 
 " grepは外部コマンドを使用する
@@ -618,9 +618,9 @@ if version >= 703
   function! ToggleNumberOption()
     if &number
       set relativenumber
-	  set cursorline
+      set cursorline
     else
-	  set nocursorline
+      set nocursorline
       set number
     endif
   endfunction
@@ -749,30 +749,31 @@ endfunction
 "uniteを開いている間のキーマッピング
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
-	"ESCでuniteでを終了
-	nmap <buffer> <ESC> <Plug>(unite_exit)
-	"入力モードのきctrl+wでバックスラッシュも削除
-	"imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
-	"ctrl+jで縦に分割して開く
-	"nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-	"inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-	"ctrl+lで横横に分割して開く
-	"nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-	"inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-	"ctrl+oでその場所に開く
-	nnoremap <silent> <buffer> <expr> <o> unite#do_action('open')
-	nnoremap <silent> <buffer> <expr> <C-o> unite#do_action('open')
-	inoremap <silent> <buffer> <expr> <C-o> unite#do_action('open')
+    "ESCでuniteでを終了
+    nmap <buffer> <ESC> <Plug>(unite_exit)
+    nmap <buffer> <ESC><ESC> <Plug>(unite_exit)
+    "入力モードのきctrl+wでバックスラッシュも削除
+    "imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
+    "ctrl+jで縦に分割して開く
+    "nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+    "inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+    "ctrl+lで横横に分割して開く
+    "nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+    "inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+    "ctrl+oでその場所に開く
+    nnoremap <silent> <buffer> <expr> <o> unite#do_action('open')
+    nnoremap <silent> <buffer> <expr> <C-o> unite#do_action('open')
+    inoremap <silent> <buffer> <expr> <C-o> unite#do_action('open')
 
-	" my tabopen (Unite を終了しないtabopen)
-	let my_tabopen = {
-	\ 'is_quit' : 0,
-	\ }
-	function! my_tabopen.func(candidates)
-	  call unite#take_action('tabopen', a:candidates)
-	endfunction
-	call unite#custom_action('*', 'tabopen', my_tabopen)
-	unlet my_tabopen
+    " my tabopen (Unite を終了しないtabopen)
+    let my_tabopen = {
+    \ 'is_quit' : 0,
+    \ }
+    function! my_tabopen.func(candidates)
+      call unite#take_action('tabopen', a:candidates)
+    endfunction
+    call unite#custom_action('*', 'tabopen', my_tabopen)
+    unlet my_tabopen
 endfunction
 
 syntax enable
@@ -787,9 +788,9 @@ nnoremap <silent> <C-l> :<C-u>UniteWithCursorWord line<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " C-] にマッピング
 autocmd BufEnter *
-\	if empty(&buftype)
-\|		nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
-\|	endif
+\    if empty(&buftype)
+\|        nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+\|    endif
 
 "
 " vimfiler.vim
@@ -827,11 +828,11 @@ endfunction
 " VimFiler をNERDTreeっぽく使う方法
 command! -nargs=0 MyVimFilerExp call g:my_vimfiler_exp()
 function! g:my_vimfiler_exp()
-	if (exists(":VimFilerCurrentDir") == 2)
-	  :VimFilerCurrentDir -explorer -winwidth=50<Cr>
-	else
-	  :VimFilerExplorer -winwidth=50<Cr>
-	endif
+    if (exists(":VimFilerCurrentDir") == 2)
+      :VimFilerCurrentDir -explorer -winwidth=50<Cr>
+    else
+      :VimFilerExplorer -winwidth=50<Cr>
+    endif
 endfunction
 nnoremap <F2> :MyVimFilerExp<Cr>
 
@@ -863,19 +864,19 @@ call unite#custom_action('file', 'my_tabopen', my_action)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:quickrun_config = {}
 let g:quickrun_config['markdown'] = {
-	\ 'type': 'markdown/pandoc',
-	\ 'outputter': 'browser',
-	\ 'cmdopt': '-s'
-	\ }
+    \ 'type': 'markdown/pandoc',
+    \ 'outputter': 'browser',
+    \ 'cmdopt': '-s'
+    \ }
 "let g:quickrun_config['actionscript']  = {
-"	\ 'command' : 'mxmlc',
-"	"\ 'exec' : ['%c %o %s:p > null'],
-"	\ 'cmdopt' : '-static-link-runtime-shared-libraries',
+"    \ 'command' : 'mxmlc',
+"    "\ 'exec' : ['%c %o %s:p > null'],
+"    \ 'cmdopt' : '-static-link-runtime-shared-libraries',
 "\ }
 let g:quickrun_config['actionscript']  = {
-	\ 'command': 'mxmlc',
-	\ 'cmdopt': '-static-link-runtime-shared-libraries -debug=true',
-	\ }
+    \ 'command': 'mxmlc',
+    \ 'cmdopt': '-static-link-runtime-shared-libraries -debug=true',
+    \ }
 
 "
 " vim-powerline

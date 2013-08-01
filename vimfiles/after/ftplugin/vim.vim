@@ -13,6 +13,7 @@ setlocal nomodeline
 " set indent.
 setlocal shiftwidth=2 softtabstop=2
 
+
 " add keyword
 setlocal iskeyword+=:,#
 
