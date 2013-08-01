@@ -400,7 +400,7 @@ NeoBundle 'rking/ag.vim'
 NeoBundle 'tpope/vim-markdown'
 
 " プロジェクトのtopぽいところに移動
-NeoBundle 'airblade/vim-rooter'
+"NeoBundle 'airblade/vim-rooter'
 
 " 
 "NeoBundle 'fholgado/minibufexpl.vim'
@@ -990,16 +990,16 @@ let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 let g:EasyMotion_mapping_j = '<C-j>'
 let g:EasyMotion_mapping_k = '<C-k>'
 
-"
-" vim-rooter
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" \cd でカレントディレクトリを移動（デフォルト）
-map <silent> <unique> <space>cd <Plug>RooterChangeToRootDirectory
-" 一旦全部削除
-autocmd! rooter
-" 標準では以下の拡張子で自動的に起動
-autocmd BufEnter *.rb,*.html,*.haml,*.erb,*.rjs,*.css,*.js :Rooter
-" cd の代わりに lcd を使う
-let g:rooter_use_lcd = 1
-" ルート発見パターン
-let g:rooter_patterns = ['Rakefile', '.git/', 'tags', '.tags', '.project']
+""
+"" vim-rooter
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" \cd でカレントディレクトリを移動（デフォルト）
+"map <silent> <unique> <space>cd <Plug>RooterChangeToRootDirectory
+"" 一旦全部削除
+"autocmd! rooter
+"" 標準では以下の拡張子で自動的に起動
+"autocmd BufEnter *.rb,*.html,*.haml,*.erb,*.rjs,*.css,*.js :Rooter
+"" cd の代わりに lcd を使う
+"let g:rooter_use_lcd = 1
+"" ルート発見パターン
+"let g:rooter_patterns = ['Rakefile', '.git/', 'tags', '.tags', '.project']
