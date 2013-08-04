@@ -116,3 +116,5 @@ alias vim='/Applications/MacVim.app/Contents/MacOS/Vim';
 alias ctags='ctags -f .tags'
 alias less='less -R'
 alias myrascut='rascut --log="$FLASH_LOG" -c "-debug=true -static-link-runtime-shared-libraries=true"'
+#alias pbcopy='reattach-to-user-namespace pbcopy'
+#alias pbpaste='reattach-to-user-namespace pbpaste'

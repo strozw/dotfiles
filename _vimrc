@@ -408,6 +408,9 @@ NeoBundle 'tpope/vim-markdown'
 " 
 "NeoBundle 'fholgado/minibufexpl.vim'
 
+" tmux の vim で pbcopy/pbpaste
+NeoBundle 'kana/vim-fakeclip'
+
 " ファイルタイプ:インデント プラグインをON
 filetype plugin indent on
 
