@@ -88,7 +88,7 @@ export CLICOLOR_FORCE=1
 
 # pager
 #export PAGER=less
-export PAGER=vimpager
+#export PAGER=vimpager
 
 # PS1
 PS1='\H:\W \u\$ '

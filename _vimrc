@@ -594,6 +594,7 @@ highlight PmenuThumb ctermbg=lightgray
 " markdown 
 au BufNewFile,BufRead *.mkd set filetype=markdown
 au BufNewFile,BufRead *.md set filetype=markdown 
+au BufNewFile,BufRead *.tmpl set filetype=php
 
 " html.erb
 au BufNewFile,BufRead *.html.erb set filetype=eruby.html
