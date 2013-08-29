@@ -23,7 +23,7 @@ export PATH=~/bin:$PATH
 export PATH=/usr/local/opt/ruby/bin/:$PATH
 
 # homebrew installed node npm
-#export PATH=/usr/local/share/npm/bin:$PATH
+export PATH=/usr/local/share/npm/bin:$PATH
 
 # flex path
 export PATH=/usr/local/Cellar/flex_sdk/4.6.0.23201/libexec/bin:$PATH

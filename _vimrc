@@ -237,11 +237,15 @@ NeoBundle 'harleypig/vcscommand.vim'
 " vimplenote.vim (simplenoteの利用)
 NeoBundle 'mattn/vimplenote-vim'
 
-" zencoding.vim (zencodingの利用)
-NeoBundle 'mattn/zencoding-vim'
+" emmet (zencodingの利用)
+NeoBundle 'mattn/emmet-vim/'
 
 " dir単位のdiff
 NeoBundle 'vim-scripts/DirDiff.vim'
+
+" laravle blade
+"NeoBundle 'johnhamelink/blade.vim'
+NeoBundle 'xsbeats/vim-blade'
 
 " html5.vim (html5シンタックス)
 NeoBundleLazy 'othree/html5.vim', {
@@ -252,13 +256,6 @@ NeoBundleLazy 'othree/html5.vim', {
 
 " lepture/vim-css css3シンタックス
 NeoBundleLazy 'hail2u/vim-css3-syntax', {
-\ 'autoload' : {
-\      'filetypes' : ['html', 'css'],
-\    },
-\ }
-
-" cssのcoloをその色で表示
-NeoBundleLazy 'vim-scripts/css_color.vim', {
 \ 'autoload' : {
 \      'filetypes' : ['html', 'css'],
 \    },
@@ -656,17 +653,16 @@ let g:solarized_contrast = 'high'
 let g:hybrid_use_Xresources = 1
 colorscheme hybrid
 
-"
-" Zen-Cording.vim
+" emmet-vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:user_zen_leader_key = '<c-e>'
+" let g:user_emmet_leader_key = '<c-e>'
 
 "ファイルタイプ
-let g:user_zen_settings = {
+let g:user_emmet_settings = {
 \  'lang' : 'ja',
 \  'html' : {
 \    'filters' : 'html',
-\    'indentation' : ' '
+\    'indentation' : '    ',
 \  },
 \  'php' : {
 \    'extends' : 'html',
@@ -679,6 +675,8 @@ let g:user_zen_settings = {
 \    'extends' : 'html',
 \  },
 \}
+
+
 
 "
 " unite.vim
