@@ -64,11 +64,11 @@ export ANDROID_HOME=/usr/local/opt/android-sdk
 #export BYOBU_PREFIX=$(brew --prefix)
 
 # rbenv
-export PATH=~/.rbenv/bin:$PATH
+export PATH="${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}"
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # phpenv
-export PATH=~/.phpenv/bin:$PATH
+export PATH="${HOME}/.phpenv/bin:${HOME}/.phpenv/shims:${PATH}"
 if which phpenv > /dev/null; then eval "$(phpenv init -)"; fi
 
 # php global composer packages
