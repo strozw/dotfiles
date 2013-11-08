@@ -6,12 +6,14 @@ nnoremap <C-D> :call PhpDocSingle()<CR>
 vnoremap <C-D> :call PhpDocRange()<CR>
 
 " neocomplete
-if exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-endif
+
+"if exists('g:neocomplete#sources#omni#input_patterns')
+"  let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"endif
 
 " vim-ref
 let g:ref_phpmanual_path = $HOME . '/.vim/refs/php-chunked-xhtml'
+autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
 
 " quickrun phpunit
 "augroup QuickRunPHPUnit

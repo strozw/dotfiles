@@ -28,6 +28,9 @@ export PATH=/usr/local/share/npm/bin:$PATH
 # flex path
 export PATH=/usr/local/Cellar/flex_sdk/4.6.0.23201/libexec/bin:$PATH
 
+# macvim
+export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
+
 # java6 利用
 #JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home
 #export JAVA_HOME
@@ -38,7 +41,7 @@ export PATH=/usr/local/Cellar/flex_sdk/4.6.0.23201/libexec/bin:$PATH
 # Powerline
 ################################################
 # python 2.7
-export PATH=~/Library/Python/2.7/bin:$PATH
+#export PATH=~/Library/Python/2.7/bin:$PATH
 #. ~/.vim/bundle/powerline/powerline/bindings/bash/powerline.sh
 
 ################################################
@@ -111,8 +114,8 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
 alias ls='ls -G'
-alias mvim='/Applications/MacVim.app/Contents/MacOS/mvim';
-alias vim='/Applications/MacVim.app/Contents/MacOS/Vim';
+#alias mvim='/Applications/MacVim.app/Contents/MacOS/mvim';
+#alias vim='/Applications/MacVim.app/Contents/MacOS/Vim';
 alias ctags='ctags -f .tags'
 alias less='less -R'
 alias myrascut='rascut --log="$FLASH_LOG" -c "-debug=true -static-link-runtime-shared-libraries=true"'

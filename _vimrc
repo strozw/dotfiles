@@ -50,7 +50,7 @@ NeoBundle 'Shougo/vimproc', {
 "NeoBundle 'Shougo/neocomplcache'
 
 " 条件を満たせばNeoComplete、満たさないときはNeoComplcacheを使う
-if has('lua') && v:version >= 703 && has('patch885')
+"if has('lua') && v:version >= 703 && has('patch885')
   NeoBundle "Shougo/neocomplete.vim"
   " Disable AutoComplPop.
   let g:acp_enableAtStartup = 0
@@ -60,38 +60,38 @@ if has('lua') && v:version >= 703 && has('patch885')
   let g:neocomplete#enable_smart_case = 1
   " Set minimum syntax keyword length.
   let g:neocomplete#sources#syntax#min_keyword_length = 3
-  let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-else
-  NeoBundle 'Shougo/neocomplcache.vim'
-  " Disable AutoComplPop.
-  let g:acp_enableAtStartup = 0
-  " Use neocomplcache.
-  let g:neocomplcache_enable_at_startup = 1
-  " Use smartcase.
-  let g:neocomplcache_enable_smart_case = 1
-  " Set minimum syntax keyword length.
-  let g:neocomplcache_min_syntax_length = 3
-  let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
-  " Define dictionary.
-  let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-    \ }
-
-  " Define keyword.
-  if !exists('g:neocomplete#keyword_patterns')
-      let g:neocomplete#keyword_patterns = {}
-  endif
-  let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-  " Enable heavy omni completion.
-  if !exists('g:neocomplete#sources#omni#input_patterns')
-    let g:neocomplete#sources#omni#input_patterns = {}
-  endif
-
-endif
+  "let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+"else
+"  NeoBundle 'Shougo/neocomplcache.vim'
+"  " Disable AutoComplPop.
+"  let g:acp_enableAtStartup = 0
+"  " Use neocomplcache.
+"  let g:neocomplcache_enable_at_startup = 1
+"  " Use smartcase.
+"  let g:neocomplcache_enable_smart_case = 1
+"  " Set minimum syntax keyword length.
+"  let g:neocomplcache_min_syntax_length = 3
+"  let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+"
+"  " Define dictionary.
+"  let g:neocomplete#sources#dictionary#dictionaries = {
+"    \ 'default' : '',
+"    \ 'vimshell' : $HOME.'/.vimshell_hist',
+"    \ 'scheme' : $HOME.'/.gosh_completions'
+"    \ }
+"
+"  " Define keyword.
+"  if !exists('g:neocomplete#keyword_patterns')
+"      let g:neocomplete#keyword_patterns = {}
+"  endif
+"  let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+"
+"  " Enable heavy omni completion.
+"  if !exists('g:neocomplete#sources#omni#input_patterns')
+"    let g:neocomplete#sources#omni#input_patterns = {}
+"  endif
+"
+"endif
 
 " neocomplcache & neocomplete 互換 snippet (スニペット補完)
 NeoBundle 'Shougo/neosnippet'
@@ -155,6 +155,12 @@ NeoBundleLazy 'tsukkee/unite-tag', {
 \    'depends' : 'Shougo/unite.vim',
 \    'autoload' : {'unite_sources' : 'tag'}
 \ }
+
+" tagsファイル生成
+NeoBundle 'szw/vim-tags'
+
+" ctrlp
+NeoBundle "kien/ctrlp.vim"
 
 " unite-ssh (Unite:sshソース)
 NeoBundleLazy 'Shougo/unite-ssh', {
@@ -250,7 +256,7 @@ NeoBundle 'xsbeats/vim-blade'
 " html5.vim (html5シンタックス)
 NeoBundleLazy 'othree/html5.vim', {
 \ 'autoload' : {
-\      'filetypes' : ['html', 'php'],
+\      'filetypes' : ['html'],
 \    },
 \ }
 
@@ -273,12 +279,27 @@ NeoBundleLazy 'StanAngeloff/php.vim', {
 \      'filetypes' : 'php',
 \    },
 \ }
-" php-doc.vim のfork版
-NeoBundleLazy 'bthemad/php-doc.vim', {
+"NeoBundle 'vim-scripts/tagbar-phpctags', {
+"\   'build' : {
+"\     'others' : 'chmod +x bin/phpctags',
+"\   },
+"\ }
+NeoBundleLazy 'm2mdas/phpcomplete-extended', {
 \ 'autoload' : {
 \      'filetypes' : 'php',
 \    },
 \ }
+NeoBundleLazy 'm2mdas/phpcomplete-extended-laravel',{
+\ 'autoload' : {
+\      'filetypes' : 'php',
+\    },
+\ }
+" php-doc.vim のfork版
+"NeoBundleLazy 'bthemad/php-doc.vim', {
+"\ 'autoload' : {
+"\      'filetypes' : 'php',
+"\    },
+"\ }
 "NeoBundleLazy 'karakaram/vim-quickrun-phpunit', {
 "\ 'autoload' : {
 "\      'filetypes' : 'php',
@@ -362,20 +383,23 @@ NeoBundle 'marijnh/tern_for_vim', {
 "NeoBundle 'thinca/vim-qfreplace'
 "
 " vim powerline (ステータスラインを分かりやすくする)
-if has('python')
-  " pip install --user git+git://github.com/Lokaltog/powerline
-  NeoBundle 'Lokaltog/powerline', { 'rtp' : '~/.vim/bundle/powerline/powerline/bindings/vim', 'build' : { 'mac' : 'python setup.py build install --user' } }
-  NeoBundle 'zhaocai/linepower.vim'
-else
-  NeoBundle 'Lokaltog/vim-powerline'
-  NeoBundle 'osyo-manga/vim-powerline-unite-theme'
-  let g:Powerline_stl_path_style = 'short'
+"if has('python')
+"  " pip install --user git+git://github.com/Lokaltog/powerline
+"  NeoBundle 'Lokaltog/powerline', { 'rtp' : '~/.vim/bundle/powerline/powerline/bindings/vim', 'build' : { 'mac' : 'python setup.py build install --user' } }
+"  NeoBundle 'zhaocai/linepower.vim'
+"else
+"  NeoBundle 'Lokaltog/vim-powerline'
+"  NeoBundle 'osyo-manga/vim-powerline-unite-theme'
+"  let g:Powerline_stl_path_style = 'short'
+"
+"  " PowerLineの再読み込み
+"  if exists('g:Powerline_loaded')
+"      silent! call Pl#Load()
+"  endif
+"endif
 
-  " PowerLineの再読み込み
-  if exists('g:Powerline_loaded')
-      silent! call Pl#Load()
-  endif
-endif
+" 軽量のpowerline系プラグイン
+NeoBundle 'itchyny/lightline.vim'
 
 " vim easymotion 特定位置へのショートカットジャンプ
 NeoBundle 'Lokaltog/vim-easymotion'
@@ -407,6 +431,8 @@ NeoBundle 'tpope/vim-markdown'
 
 " tmux の vim で pbcopy/pbpaste
 NeoBundle 'kana/vim-fakeclip'
+
+NeoBundleCheck
 
 " ファイルタイプ:インデント プラグインをON
 filetype plugin indent on
@@ -585,13 +611,15 @@ highlight PmenuSel ctermbg=blue ctermfg=black
 highlight PmenuSbar ctermbg=darkgray
 highlight PmenuThumb ctermbg=lightgray
 
+autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
+
+
 "
 " ファイル・タイプ別シンタックス
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " markdown 
 au BufNewFile,BufRead *.mkd set filetype=markdown
 au BufNewFile,BufRead *.md set filetype=markdown 
-au BufNewFile,BufRead *.tmpl set filetype=php
 
 " html.erb
 au BufNewFile,BufRead *.html.erb set filetype=eruby.html
@@ -648,9 +676,9 @@ vnoremap ? <ESC>?\%V
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 "set background=dark
 "colorscheme solarized
-let g:solarized_termcolors = 256
-let g:solarized_contrast = 'high'
-let g:hybrid_use_Xresources = 1
+"let g:solarized_termcolors = 256
+"let g:solarized_contrast = 'high'
+"let g:hybrid_use_Xresources = 1
 colorscheme hybrid
 
 " emmet-vim
@@ -658,23 +686,23 @@ colorscheme hybrid
 " let g:user_emmet_leader_key = '<c-e>'
 
 "ファイルタイプ
-let g:user_emmet_settings = {
-\  'lang' : 'ja',
-\  'html' : {
-\    'filters' : 'html',
-\    'indentation' : '    ',
-\  },
-\  'php' : {
-\    'extends' : 'html',
-\    'filters' : 'html,c',
-\  },
-\  'css' : {
-\    'filters' : 'fc',
-\  },
-\  'eruby' : {
-\    'extends' : 'html',
-\  },
-\}
+"let g:user_emmet_settings = {
+"\  'lang' : 'ja',
+"\  'html' : {
+"\    'filters' : 'html',
+"\    'indentation' : '    ',
+"\  },
+"\  'php' : {
+"\    'extends' : 'html',
+"\    'filters' : 'html,c',
+"\  },
+"\  'css' : {
+"\    'filters' : 'fc',
+"\  },
+"\  'eruby' : {
+"\    'extends' : 'html',
+"\  },
+"\}
 
 
 
@@ -1020,3 +1048,68 @@ let g:EasyMotion_mapping_k = '<C-k>'
 "let g:rooter_use_lcd = 1
 "" ルート発見パターン
 "let g:rooter_patterns = ['Rakefile', '.git/', 'tags', '.tags', '.project']
+
+
+"
+" lightline.vim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:lightline = {
+        \ 'colorscheme': 'wombat',
+        \ 'mode_map': {'c': 'NORMAL'},
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+        \ },
+        \ 'component_function': {
+        \   'modified': 'MyModified',
+        \   'readonly': 'MyReadonly',
+        \   'fugitive': 'MyFugitive',
+        \   'filename': 'MyFilename',
+        \   'fileformat': 'MyFileformat',
+        \   'filetype': 'MyFiletype',
+        \   'fileencoding': 'MyFileencoding',
+        \   'mode': 'MyMode'
+        \ }
+        \ }
+
+function! MyModified()
+  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+function! MyReadonly()
+  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'x' : ''
+endfunction
+
+function! MyFilename()
+  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+        \  &ft == 'unite' ? unite#get_status_string() :
+        \  &ft == 'vimshell' ? vimshell#get_status_string() :
+        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ('' != MyModified() ? ' ' . MyModified() : '')
+endfunction
+
+function! MyFugitive()
+  try
+    if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
+      return fugitive#head()
+    endif
+  catch
+  endtry
+  return ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+function! MyFileencoding()
+  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+endfunction
+
+function! MyMode()
+  return winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
