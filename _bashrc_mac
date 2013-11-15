@@ -83,6 +83,9 @@ export PATH=$HOME/.nodebrew/current/bin:$PATH
 # mysqlenv
 #source ~/.mysqlenv/etc/bashrc
 
+# AWS
+export AWS_CONFIG_FILE=~/.aws/credentials
+
 # git
 export GIT_EDITOR=vim
 

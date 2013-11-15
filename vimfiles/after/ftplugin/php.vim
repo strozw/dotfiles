@@ -1,6 +1,3 @@
-" php ref
-let g:ref_phpmanual_path = $HOME . '/References/php-chunked-xhtml'
-
 inoremap <C-D> <ESC>:call PhpDocSingle()<CR>i
 nnoremap <C-D> :call PhpDocSingle()<CR>
 vnoremap <C-D> :call PhpDocRange()<CR>
@@ -13,7 +10,7 @@ vnoremap <C-D> :call PhpDocRange()<CR>
 
 " vim-ref
 let g:ref_phpmanual_path = $HOME . '/.vim/refs/php-chunked-xhtml'
-autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
+"autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
 
 " quickrun phpunit
 "augroup QuickRunPHPUnit
