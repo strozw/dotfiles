@@ -227,6 +227,12 @@ NeoBundle 'thinca/vim-ref'
 
 " quickrun.vim (格ファイルタイプをvim内で実行)
 NeoBundle 'thinca/vim-quickrun'
+let s:hooks = neobundle#get_hooks("vim-quickrun")
+function! s:hooks.on_source(bundle)
+  let g:quickrun_config = {
+      \ "*": {"runner": "remote/vimproc"},
+      \ }
+endfunction
 
 " open-browser.vim (ブラウザを開く)
 NeoBundle 'tyru/open-browser.vim'
@@ -273,7 +279,7 @@ NeoBundle 'vim-scripts/DirDiff.vim'
 
 " laravle blade
 "NeoBundle 'johnhamelink/blade.vim'
-NeoBundle 'xsbeats/vim-blade'
+"NeoBundle 'xsbeats/vim-blade'
 
 " html5.vim (html5シンタックス)
 NeoBundleLazy 'othree/html5.vim', {
@@ -834,10 +840,10 @@ nnoremap <silent> <C-l> :<C-u>UniteWithCursorWord line<CR>
 " Unite-tag
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " C-] にマッピング
-autocmd BufEnter *
-\    if empty(&buftype)
-\|        nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
-\|    endif
+"autocmd BufEnter *
+"\    if empty(&buftype)
+"\|        nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+"\|    endif
 
 "
 " vimfiler.vim
