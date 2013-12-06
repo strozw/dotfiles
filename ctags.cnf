@@ -24,3 +24,5 @@
 --regex-actionscript=/^[ \t]*[(private|public|protected) ( \t)]*[(static) ( \t)]*var[ \t]+([A-Za-z0-9_]+)[ \t]*/\1/v,variable,variables/
 --regex-actionscript=/^[ \t]*[(private|public|protected) ( \t)]*[(static) ( \t)]*function[ \t]+(set|get)[ \t]+([A-Za-z0-9_]+)[ \t]*\(/\1 \2/p,property, propertis/
 --regex-actionscript=/.*\.prototype \.([A-Za-z0-9 ]+)=([ \t]?)function( [ \t]?)*\(/\1/ f,function, functions/
+--append=yes
+--recurse=yes

@@ -74,6 +74,9 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 export PATH="${HOME}/.phpenv/bin:${HOME}/.phpenv/shims:${PATH}"
 if which phpenv > /dev/null; then eval "$(phpenv init -)"; fi
 
+# php composer
+export PATH=$HOME/.composer/vendor/bin:$PATH
+
 # php global composer packages
 export PATH=~/composer-packages/vendor/bin:$PATH
 

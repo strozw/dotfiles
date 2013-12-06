@@ -93,9 +93,6 @@ inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 "inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
  
-
-autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
-"autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -179,6 +176,9 @@ NeoBundleLazy 'tsukkee/unite-tag', {
 
 " tagsファイル生成
 NeoBundle 'szw/vim-tags'
+
+" 非同期taskmanager
+NeoBundle 'tpope/vim-dispatch'
 
 " ctrlp
 NeoBundle "kien/ctrlp.vim"
@@ -308,12 +308,18 @@ NeoBundleLazy 'StanAngeloff/php.vim', {
 \    },
 \ }
 NeoBundle 'shawncplus/phpcomplete.vim'
+NeoBundle 'jfortunato25/vim-php-namespace', 'fix-namespace-firstline'
 NeoBundleLazy 'm2mdas/phpcomplete-extended', {
 \ 'autoload' : {
 \      'filetypes' : 'php',
 \    },
 \ }
-NeoBundleLazy 'm2mdas/phpcomplete-extended-laravel',{
+NeoBundleLazy 'm2mdas/phpcomplete-extended-laravel', {
+\ 'autoload' : {
+\      'filetypes' : 'php',
+\    },
+\ }
+NeoBundleLazy 'm2mdas/phpcomplete-extended-symfony', {
 \ 'autoload' : {
 \      'filetypes' : 'php',
 \    },
@@ -966,63 +972,12 @@ nmap <Space>j <Plug>(quickhl-match)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:DirDiffExcludes = "CVS,*.class,*.exe,.*.swp,.svn,.git,.DS_Store"
 
-
-"
-" SrcExpl.vim
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" // The switch of the Source Explorer 
-nmap <F9> :SrcExplToggle<CR> 
-
-" // Set the height of Source Explorer window 
-let g:SrcExpl_winHeight = 8 
-
-" // Set 100 ms for refreshing the Source Explorer 
-let g:SrcExpl_refreshTime = 100 
-
-" // Set "Enter" key to jump into the exact definition context 
-let g:SrcExpl_jumpKey = "<ENTER>" 
-
-" // Set "Space" key for back from the definition context 
-let g:SrcExpl_gobackKey = "<SPACE>" 
-
-" // In order to Avoid conflicts, the Source Explorer should know what plugins 
-" // are using buffers. And you need add their bufname into the list below 
-" // according to the command ":buffers!" 
-let g:SrcExpl_pluginList = [ 
-        \ "__Tag_List__", 
-        \ "_NERD_tree_", 
-        \ "Source_Explorer" 
-    \ ] 
-
-" // Enable/Disable the local definition searching, and note that this is not 
-" // guaranteed to work, the Source Explorer doesn't check the syntax for now. 
-" // It only searches for a match with the keyword according to command 'gd' 
-let g:SrcExpl_searchLocalDef = 1 
-
-" // Do not let the Source Explorer update the tags file when opening 
-let g:SrcExpl_isUpdateTags = 1 
-
-" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to 
-" // create/update the tags file 
-let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
-
-" // Set "<F12>" key for updating the tags file artificially 
-let g:SrcExpl_updateTagsKey = "<F12>" 
-
-" // Set "<F3>" key for displaying the previous definition in the jump list 
-let g:SrcExpl_prevDefKey = "<F3>" 
-
-" // Set "<F4>" key for displaying the next definition in the jump list 
-let g:SrcExpl_nextDefKey = "<F4>" 
-
-
 "
 " minibufexp
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ":let g:miniBufExplMapWindowNavVim = 1
 ":let g:miniBufExplMapWindowNavArrows = 1
 ":let g:miniBufExplMapCTabSwitchBuffs = 1
-
 
 
 "
@@ -1071,6 +1026,7 @@ let g:EasyMotion_mapping_k = '<C-k>'
 "let g:rooter_use_lcd = 1
 "" ルート発見パターン
 "let g:rooter_patterns = ['Rakefile', '.git/', 'tags', '.tags', '.project']
+"
 
 
 "
@@ -1136,3 +1092,19 @@ endfunction
 function! MyMode()
   return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
+
+
+"
+" vim-tags
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set exrc
+set secure
+let g:vim_tags_auto_generate = 1
+let g:vim_tags_project_tags_command = "ctags -R ./ 2>/dev/null"
+let g:vim_tags_use_vim_dispatch = 1
+let g:vim_tags_use_ycm = 1
+let g:vim_tags_ignore_files = ['.gitignore', '.svnignore', '.cvsignore']
+let g:vim_tags_directories = ['.git', '.svn', 'CVS']
+let g:vim_tags_main_file = 'tags'
+let g:vim_tags_extension = '.tags'
