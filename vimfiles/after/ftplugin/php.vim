@@ -15,16 +15,23 @@ noremap <Leader>u :call PhpInsertUse()<CR>
 inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
 noremap <Leader>e :call PhpExpandClass()<CR>
 
-" omni func
-autocmd FileType php call SetOmniFunc()
+"neocompleteの補完候補
+let g:neocomplete#sources = {
+  \ '_' : ['neosnippet', 'omni', 'tag', 'file', 'syntax', 'include', 'buffer', 'file/include']
+  \ }
 
-function! SetOmniFunc() 
-    if phpcomplete_extended#is_phpcomplete_extended_project()
-        setlocal omnifunc=phpcomplete_extended#CompletePHP
-    else
-        setlocal omnifunc=phpcomplete#CompletePHP
-    endif
-endfunction
+" omni func
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+
+"autocmd FileType php call SetOmniFunc()
+"
+"function! SetOmniFunc() 
+"    if phpcomplete_extended#is_phpcomplete_extended_project()
+"        setlocal omnifunc=phpcomplete_extended#CompletePHP
+"    else
+"        setlocal omnifunc=phpcomplete#CompletePHP
+"    endif
+"endfunction
 
 " vim-ref
 let g:ref_phpmanual_path = $HOME . '/.vim/refs/php-chunked-xhtml'

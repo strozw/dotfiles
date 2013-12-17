@@ -15,6 +15,8 @@ fi
 # PATH
 ################################################
 
+# macvim
+export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
 
 # homebrew path
 export PATH=/usr/local/bin:$PATH
@@ -28,8 +30,6 @@ export PATH=/usr/local/share/npm/bin:$PATH
 # flex path
 export PATH=/usr/local/Cellar/flex_sdk/4.6.0.23201/libexec/bin:$PATH
 
-# macvim
-export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
 
 # java6 利用
 #JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home

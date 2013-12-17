@@ -1,3 +1,4 @@
+--fields=+aimS
 --langmap=PHP:.php.inc
 --php-kinds=+cfd
 --langdef=js
