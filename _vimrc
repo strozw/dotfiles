@@ -256,7 +256,7 @@ NeoBundle 'vim-scripts/tagbar-phpctags', {
 \ }
 
 " Source explorer
-NeoBundle 'wesleyche/SrcExpl'
+"NeoBundle 'wesleyche/SrcExpl'
 
 " vcscommand.vim (svnの利用)
 NeoBundle 'harleypig/vcscommand.vim'
@@ -598,7 +598,7 @@ set grepprg=internal
 set splitright
 
 "
-set notagbsearch
+"set notagbsearch
 
 " タグファイルの場所
 set tags=tags
@@ -753,7 +753,7 @@ let g:unite_source_file_mru_filename_format = ''
 " unite grep
 "let g:unite_source_grep_default_opts = '-iRHn --exclude=''.tags'' --exclude=''tags'' --exclude=''.svn'' --exclude=''.git'''
 let g:unite_source_grep_command = 'ag'
-let g:unite_source_grep_default_opts = '--nocolor --nogroup --ignore=''.tags'' --ignore=''tags'' --ignore=''.svn'' --ignore=''.git'''
+let g:unite_source_grep_default_opts = '--nocolor --nogroup --ignore=''*.tags'' --ignore=''tags'' --ignore=''.svn'' --ignore=''.git'''
 let g:unite_source_grep_recursive_opt = ''
 let g:unite_source_grep_max_candidates = 200
 
@@ -845,10 +845,10 @@ nnoremap <silent> <C-l> :<C-u>UniteWithCursorWord line<CR>
 " Unite-tag
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " C-] にマッピング
-"autocmd BufEnter *
-"\    if empty(&buftype)
-"\|        nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
-"\|    endif
+autocmd BufEnter *
+\   if empty(&buftype)
+\|        nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord tag<CR>
+\|   endif
 
 "
 " vimfiler.vim
@@ -1097,8 +1097,6 @@ endfunction
 " vim-tags
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set exrc
-set secure
 let g:vim_tags_auto_generate = 1
 let g:vim_tags_project_tags_command = "ctags -R ./ 2>/dev/null"
 let g:vim_tags_use_vim_dispatch = 1
@@ -1107,3 +1105,20 @@ let g:vim_tags_ignore_files = ['.gitignore', '.svnignore', '.cvsignore']
 let g:vim_tags_directories = ['.git', '.svn', 'CVS']
 let g:vim_tags_main_file = 'tags'
 let g:vim_tags_extension = '.tags'
+
+"
+" load project local vimrc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Load settings for each location.
+" http://vim-users.jp/2009/12/hack112/
+augroup vimrc-local
+  autocmd!
+  autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
+  autocmd BufReadPre .vimprojects set ft=vim
+augroup END
+function! s:vimrc_local(loc)
+  let files = findfile('.vimprojects', escape(a:loc, ' ') . ';', -1)
+  for i in reverse(filter(files, 'filereadable(v:val)'))
+    source `=i`
+  endfor
+endfunction

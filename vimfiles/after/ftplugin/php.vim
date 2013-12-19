@@ -41,6 +41,9 @@ let g:ref_phpmanual_path = $HOME . '/.vim/refs/php-chunked-xhtml'
 "let g:syntastic_php_checkers=['php', 'phpmd']
 let g:syntastic_php_checkers=['php']
 
+" tags
+"let g:vim_tags_project_tags_command = "ctags -f ~/php.tags -R ./ 2>/dev/null"
+
 "autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
 
 " quickrun phpunit
