@@ -58,7 +58,7 @@ let g:neocomplete#sources#syntax#min_keyword_length = 1             " シンタ�
 let g:neocomplete#skip_auto_completion_time = '0.2'
 
 " AutoComplPop like behavior.
-let g:neocomplete#enable_auto_select = 1
+let g:neocomplete#enable_auto_select = 0
  
 " ファイルタイプ別、使用するdictionary
 let g:neocomplete#sources#dictionary#dictionaries = {
@@ -91,13 +91,14 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
  
 " オムニ補完の関数呼び出し, 動作重め
-"if !exists('g:neocomplete#sources#omni#input_patterns')             
-"  let g:neocomplete#sources#omni#input_patterns = {}
-"endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+if !exists('g:neocomplete#sources#omni#input_patterns')             
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+inoremap <expr><C-Space>        neocomplete#start_manual_complete('omni')
 
 
 " neocomplcache & neocomplete 互換 snippet (スニペット補完)
@@ -305,21 +306,21 @@ NeoBundleLazy 'StanAngeloff/php.vim', {
 \ }
 NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'jfortunato25/vim-php-namespace', 'fix-namespace-firstline'
-NeoBundleLazy 'm2mdas/phpcomplete-extended', {
-\ 'autoload' : {
-\      'filetypes' : 'php',
-\    },
-\ }
-NeoBundleLazy 'm2mdas/phpcomplete-extended-laravel', {
-\ 'autoload' : {
-\      'filetypes' : 'php',
-\    },
-\ }
-NeoBundleLazy 'm2mdas/phpcomplete-extended-symfony', {
-\ 'autoload' : {
-\      'filetypes' : 'php',
-\    },
-\ }
+"NeoBundleLazy 'm2mdas/phpcomplete-extended', {
+"\ 'autoload' : {
+"\      'filetypes' : 'php',
+"\    },
+"\ }
+"NeoBundleLazy 'm2mdas/phpcomplete-extended-laravel', {
+"\ 'autoload' : {
+"\      'filetypes' : 'php',
+"\    },
+"\ }
+"NeoBundleLazy 'm2mdas/phpcomplete-extended-symfony', {
+"\ 'autoload' : {
+"\      'filetypes' : 'php',
+"\    },
+"\ }
 " php-doc.vim のfork版
 NeoBundleLazy 'bthemad/php-doc.vim', {
 \ 'autoload' : {
@@ -988,13 +989,6 @@ imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: "\<TAB>"
 
 " For snippet_complete marker.
 if has('conceal')
