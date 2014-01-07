@@ -306,21 +306,21 @@ NeoBundleLazy 'StanAngeloff/php.vim', {
 \ }
 NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'jfortunato25/vim-php-namespace', 'fix-namespace-firstline'
-"NeoBundleLazy 'm2mdas/phpcomplete-extended', {
-"\ 'autoload' : {
-"\      'filetypes' : 'php',
-"\    },
-"\ }
-"NeoBundleLazy 'm2mdas/phpcomplete-extended-laravel', {
-"\ 'autoload' : {
-"\      'filetypes' : 'php',
-"\    },
-"\ }
-"NeoBundleLazy 'm2mdas/phpcomplete-extended-symfony', {
-"\ 'autoload' : {
-"\      'filetypes' : 'php',
-"\    },
-"\ }
+NeoBundleLazy 'm2mdas/phpcomplete-extended', {
+\ 'autoload' : {
+\      'filetypes' : 'php',
+\    },
+\ }
+NeoBundleLazy 'm2mdas/phpcomplete-extended-laravel', {
+\ 'autoload' : {
+\      'filetypes' : 'php',
+\    },
+\ }
+NeoBundleLazy 'm2mdas/phpcomplete-extended-symfony', {
+\ 'autoload' : {
+\      'filetypes' : 'php',
+\    },
+\ }
 " php-doc.vim のfork版
 NeoBundleLazy 'bthemad/php-doc.vim', {
 \ 'autoload' : {
@@ -609,6 +609,7 @@ set tags+=.tags
 set cmdheight=1
 
 " クリップボード
+set clipboard+=unnamed
 set clipboard=unnamed
 
 " マウス
