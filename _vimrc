@@ -306,23 +306,23 @@ NeoBundleLazy 'StanAngeloff/php.vim', {
 \ }
 NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'jfortunato25/vim-php-namespace', 'fix-namespace-firstline'
-NeoBundleLazy 'm2mdas/phpcomplete-extended', {
-\ 'autoload' : {
-\      'filetypes' : 'php',
-\    },
-\ }
-NeoBundleLazy 'm2mdas/phpcomplete-extended-laravel', {
-\ 'autoload' : {
-\      'filetypes' : 'php',
-\    },
-\ }
-NeoBundleLazy 'm2mdas/phpcomplete-extended-symfony', {
-\ 'autoload' : {
-\      'filetypes' : 'php',
-\    },
-\ }
+"NeoBundleLazy 'm2mdas/phpcomplete-extended', {
+"\ 'autoload' : {
+"\      'filetypes' : 'php',
+"\    },
+"\ }
+"NeoBundleLazy 'm2mdas/phpcomplete-extended-laravel', {
+"\ 'autoload' : {
+"\      'filetypes' : 'php',
+"\    },
+"\ }
+"NeoBundleLazy 'm2mdas/phpcomplete-extended-symfony', {
+"\ 'autoload' : {
+"\      'filetypes' : 'php',
+"\    },
+"\ }
 " php-doc.vim のfork版
-NeoBundleLazy 'bthemad/php-doc.vim', {
+NeoBundleLazy 'stephpy/vim-phpdoc', {
 \ 'autoload' : {
 \      'filetypes' : 'php',
 \    },
