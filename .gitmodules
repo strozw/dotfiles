@@ -1,9 +1,6 @@
-[submodule "vimfiles/neobundle.vim"]
-	path = vimfiles/neobundle.vim
-	url = https://github.com/Shougo/neobundle.vim
-[submodule "_tmux_d/tmux-powerline"]
-	path = _tmux_d/tmux-powerline
+[submodule ".vim/neobundle.vim"]
+	path = .vim/neobundle.vim
+	url = https://github.com/Shougo/neobundle.vim.git
+[submodule ".tmux.d/tmux-powerline"]
+	path = .tmux.d/tmux-powerline
 	url = https://github.com/erikw/tmux-powerline.git
-[submodule "_tmux_d/tmux-colors-solarized"]
-	path = _tmux_d/tmux-colors-solarized
-	url = https://github.com/seebi/tmux-colors-solarized.git
