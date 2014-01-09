@@ -155,6 +155,13 @@ NeoBundleLazy 'ujihisa/unite-locate', {
 \    'autoload' : {'unite_sources' : 'locate'}
 \ }
 
+" unite-spotlight
+NeoBundleLazy 'choplin/unite-spotlight', {
+\    'depends' : 'Shougo/unite.vim',
+\    'autoload' : {'unite_sources' : 'locate'}
+\ }
+
+
 " unite-help (Unite:ヘルプソース)
 NeoBundleLazy 'tsukkee/unite-help', {
 \    'depends' : 'Shougo/unite.vim',
@@ -217,6 +224,9 @@ NeoBundle 'mattn/benchvimrc-vim'
 
 " ref.vim (リファレンス参照)
 NeoBundle 'thinca/vim-ref'
+
+" quickfix replace
+NeoBundle 'thinca/vim-qfreplace'
 
 " quickrun.vim (格ファイルタイプをvim内で実行)
 NeoBundle 'thinca/vim-quickrun'
@@ -577,6 +587,10 @@ set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 if exists("&ambiwidth")
   set ambiwidth=double
 endif
+
+" UTF-8-MACの濁点、半濁点を含む文字を強調して表示する
+highlight Opaques term=underline ctermbg=DarkGreen guibg=DarkGreen
+match Opaques /\(\%u3099\|%u309a\)/
 
 "改行コードの自動認識
 set fileformats=unix,dos,mac
