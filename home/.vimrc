@@ -286,7 +286,7 @@ NeoBundle 'vim-scripts/DirDiff.vim'
 
 " laravle blade
 "NeoBundle 'johnhamelink/blade.vim'
-"NeoBundle 'xsbeats/vim-blade'
+NeoBundle 'xsbeats/vim-blade'
 
 " html5.vim (html5シンタックス)
 NeoBundleLazy 'othree/html5.vim', {
