@@ -21,11 +21,18 @@ let g:neocomplete#sources = {
   \ '_' : ['neosnippet', 'omni', 'tag', 'file', 'syntax', 'include', 'buffer', 'file/include']
   \ }
 
+" phpcomplete option
+let g:phpcomplete_relax_static_constraint = 1
+let g:phpcomplete_complete_for_unknown_classes = 0
+let g:phpcomplete_search_tags_for_variables = 1
+let g:phpcomplete_min_num_of_chars_for_namespace_completion = 1
+let g:phpcomplete_parse_docblock_comments = 1
+
 " omni func
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+"autocmd FileType php set omnifunc=phpcomplete_extended#CompletePHP
 
 "autocmd FileType php call SetOmniFunc()
-"
 "function! SetOmniFunc() 
 "    if phpcomplete_extended#is_phpcomplete_extended_project()
 "        setlocal omnifunc=phpcomplete_extended#CompletePHP
@@ -43,22 +50,6 @@ let g:ref_phpmanual_path = $HOME . '/.vim/refs/php-chunked-xhtml'
 let g:syntastic_php_checkers=['php']
 
 " tags
-"let g:vim_tags_project_tags_command = "ctags -f ~/php.tags -R ./ 2>/dev/null"
+let g:vim_tags_project_tags_command = "ctags -R {OPTIONS} {DIRECTORY} 2>/dev/null"
 
-"autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
-
-" quickrun phpunit
-"augroup QuickRunPHPUnit
-"  autocmd!
-"  autocmd BufWinEnter,BufNewFile *Test.php set filetype=phpunit
-"augroup END
-"
-"let g:quickrun_config['phpunit'] = {}
-"let g:quickrun_config['phpunit']['outputter'] = 'phpunit'
-"let g:quickrun_config['phpunit']['command'] = 'phpunit'
-"let g:quickrun_config['phpunit']['cmdopt'] = ''
-"let g:quickrun_config['phpunit']['exec'] = '%c %o %s'
-"
-"let g:quickrun_config['phpunit']['outputter/phpunit/running_mark'] = 'running...'
-"let g:quickrun_config['phpunit']['outputter/phpunit/height'] = 3
-"let g:quickrun_config['phpunit']['outputter/phpunit/auto_open'] = 0
+let g:phpcomplete_index_composer_command = "composer"

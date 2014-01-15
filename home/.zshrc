@@ -98,6 +98,7 @@ bindkey -M vicmd 'j' history-substring-search-down
 ###############################################
 # macvim
 export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
+export PATH=/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/:$PATH
 
 export PATH=/usr/bin:$PATH
 export PATH=/usr/sbin:$PATH
@@ -158,6 +159,14 @@ export PGDATA=/usr/local/var/postgres
 # SHELL
 ################################################
 export SHELL=/usr/local/bin/zsh
+
+################################################
+# Base16 Shell
+################################################
+export SHELL=/usr/local/bin/zsh
+BASE16_SCHEME="default"
+BASE16_SHELL="$HOME/.config/base16-shell/base16-$BASE16_SCHEME.dark.sh"
+[[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
 
 
 

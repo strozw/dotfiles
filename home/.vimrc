@@ -226,7 +226,7 @@ NeoBundle 'mattn/benchvimrc-vim'
 NeoBundle 'thinca/vim-ref'
 
 " quickfix replace
-NeoBundle 'thinca/vim-qfreplace'
+"NeoBundle 'thinca/vim-qfreplace'
 
 " quickrun.vim (格ファイルタイプをvim内で実行)
 NeoBundle 'thinca/vim-quickrun'
@@ -260,11 +260,7 @@ NeoBundle 'scrooloose/syntastic'
 
 " Tagbar (ctagを見やすく表示)
 NeoBundle 'majutsushi/tagbar'
-NeoBundle 'vim-scripts/tagbar-phpctags', {
-\   'build' : {
-\     'others' : 'chmod +x bin/phpctags',
-\   },
-\ }
+NeoBundle 'vim-scripts/tagbar-phpctags'
 
 " Source explorer
 "NeoBundle 'wesleyche/SrcExpl'
@@ -454,6 +450,11 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'vim-scripts/rdark'
 NeoBundle 'jdonaldson/vaxe'
 NeoBundle 'pekepeke/titanium-vim'
+NeoBundle 'cocopon/iceberg.vim'
+
+" base16 color
+NeoBundle 'chriskempson/base16-vim'
+"let base16colorspace=256
 
 " the Silver Searcher (ag)
 NeoBundle 'rking/ag.vim'
@@ -722,6 +723,7 @@ vnoremap ? <ESC>?\%V
 "let g:solarized_contrast = 'high'
 "let g:hybrid_use_Xresources = 1
 colorscheme hybrid
+"colorscheme base16-ocean
 
 " emmet-vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1108,7 +1110,7 @@ endfunction
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:vim_tags_auto_generate = 1
-let g:vim_tags_project_tags_command = "ctags -R ./ 2>/dev/null"
+let g:vim_tags_project_tags_command = "/usr/local/bin/ctags -R {OPTIONS} {DIRECTORY} 2>/dev/null &"
 let g:vim_tags_use_vim_dispatch = 1
 let g:vim_tags_use_ycm = 1
 let g:vim_tags_ignore_files = ['.gitignore', '.svnignore', '.cvsignore']
