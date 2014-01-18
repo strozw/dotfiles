@@ -66,7 +66,7 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 #plugins=(git ruby osx bundler brew rails emoji-clock)
-plugins=(sudo git osx brew vagrant z)
+plugins=(sudo git osx brew vagrant z git-flow)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -132,7 +132,7 @@ export PATH=$HOME/.composer/vendor/bin:$PATH
 ###############################################
 # OTHER ENV
 ###############################################
-# GCC
+export CC=/usr/local/bin/gcc-4.2
 #export CC=/usr/local/bin/gcc-4.2
 
 # android-sdk
@@ -163,10 +163,10 @@ export SHELL=/usr/local/bin/zsh
 ################################################
 # Base16 Shell
 ################################################
-export SHELL=/usr/local/bin/zsh
-BASE16_SCHEME="default"
-BASE16_SHELL="$HOME/.config/base16-shell/base16-$BASE16_SCHEME.dark.sh"
-[[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
+#export SHELL=/usr/local/bin/zsh
+#BASE16_SCHEME="ocean"
+#BASE16_SHELL="$HOME/.config/base16-shell/base16-$BASE16_SCHEME.dark.sh"
+#[[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
 
 
 

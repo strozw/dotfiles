@@ -22,7 +22,7 @@ let g:neocomplete#sources = {
   \ }
 
 " phpcomplete option
-let g:phpcomplete_relax_static_constraint = 1
+let g:phpcomplete_relax_static_constraint = 0
 let g:phpcomplete_complete_for_unknown_classes = 0
 let g:phpcomplete_search_tags_for_variables = 1
 let g:phpcomplete_min_num_of_chars_for_namespace_completion = 1
@@ -50,6 +50,6 @@ let g:ref_phpmanual_path = $HOME . '/.vim/refs/php-chunked-xhtml'
 let g:syntastic_php_checkers=['php']
 
 " tags
-let g:vim_tags_project_tags_command = "ctags -R {OPTIONS} {DIRECTORY} 2>/dev/null"
+"let g:vim_tags_project_tags_command = "ctags -R {OPTIONS} {DIRECTORY} 2>/dev/null"
 
-let g:phpcomplete_index_composer_command = "composer"
+let g:phpcomplete_index_composer_command = "hhvm ~/bin/composer.phar"

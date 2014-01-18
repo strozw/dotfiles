@@ -17,8 +17,8 @@ colorscheme base16-ocean
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 ":set guifont=Inconsolata:h13
 ":set guifontwide=Takaoゴシック:h13
-set guifont=Ricty\ for\ Powerline:h15
-set guifontwide=Ricty\ for\ Powerline:h15
+set guifont=Ricty\ for\ Powerline:h13
+set guifontwide=Ricty\ for\ Powerline:h13
 
 "画面上の列幅を設定する。
 "set columns=110

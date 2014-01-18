@@ -158,7 +158,7 @@ NeoBundleLazy 'ujihisa/unite-locate', {
 " unite-spotlight
 NeoBundleLazy 'choplin/unite-spotlight', {
 \    'depends' : 'Shougo/unite.vim',
-\    'autoload' : {'unite_sources' : 'locate'}
+\    'autoload' : {'unite_sources' : 'spotlight'}
 \ }
 
 
@@ -173,6 +173,12 @@ NeoBundleLazy 'tsukkee/unite-tag', {
 \    'depends' : 'Shougo/unite.vim',
 \    'autoload' : {'unite_sources' : 'tag'}
 \ }
+" unite-svn
+NeoBundleLazy 'kmnk/vim-unite-svn', {
+\    'depends' : 'Shougo/unite.vim',
+\    'autoload' : {'unite_sources' : 'svn'}
+\ }
+
 
 " tagsファイル生成
 NeoBundle 'szw/vim-tags'
@@ -269,7 +275,13 @@ NeoBundle 'vim-scripts/tagbar-phpctags'
 NeoBundle 'harleypig/vcscommand.vim'
 
 " vim-fugitive (git コマンド利用)
-"NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-fugitive'
+
+" git log view (tig相当 fugitive依存) 
+NeoBundle 'gregsexton/gitv'
+
+" gitの差分表示
+NeoBundle 'airblade/vim-gitgutter'
 
 " vimplenote.vim (simplenoteの利用)
 NeoBundle 'mattn/vimplenote-vim'
@@ -282,7 +294,7 @@ NeoBundle 'vim-scripts/DirDiff.vim'
 
 " laravle blade
 "NeoBundle 'johnhamelink/blade.vim'
-NeoBundle 'xsbeats/vim-blade'
+"NeoBundle 'xsbeats/vim-blade'
 
 " html5.vim (html5シンタックス)
 NeoBundleLazy 'othree/html5.vim', {
@@ -722,8 +734,9 @@ vnoremap ? <ESC>?\%V
 "let g:solarized_termcolors = 256
 "let g:solarized_contrast = 'high'
 "let g:hybrid_use_Xresources = 1
-colorscheme hybrid
-"colorscheme base16-ocean
+"colorscheme hybrid
+"colorscheme iceberg
+colorscheme base16-ocean
 
 " emmet-vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1043,37 +1056,54 @@ let g:EasyMotion_mapping_k = '<C-k>'
 "
 " lightline.vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-gitgutter
+let g:gitgutter_sign_added = '✚'
+let g:gitgutter_sign_modified = '➜'
+let g:gitgutter_sign_removed = '✘'
+
+" lightline.vim
 let g:lightline = {
-        \ 'colorscheme': 'wombat',
-        \ 'mode_map': {'c': 'NORMAL'},
-        \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
-        \ },
-        \ 'component_function': {
-        \   'modified': 'MyModified',
-        \   'readonly': 'MyReadonly',
-        \   'fugitive': 'MyFugitive',
-        \   'filename': 'MyFilename',
-        \   'fileformat': 'MyFileformat',
-        \   'filetype': 'MyFiletype',
-        \   'fileencoding': 'MyFileencoding',
-        \   'mode': 'MyMode'
-        \ }
-        \ }
+\ 'colorscheme': 'Tomorrow_Night',
+\ 'mode_map': {'c': 'NORMAL'},
+\ 'active': {
+\   'left': [
+\     ['mode', 'paste'],
+\     ['fugitive', 'gitgutter', 'filename'],
+\   ],
+\   'right': [
+\     ['lineinfo', 'syntastic'],
+\     ['percent'],
+\     ['charcode', 'fileformat', 'fileencoding', 'filetype'],
+\   ]
+\ },
+\ 'component_function': {
+\   'modified': 'MyModified',
+\   'readonly': 'MyReadonly',
+\   'fugitive': 'MyFugitive',
+\   'filename': 'MyFilename',
+\   'fileformat': 'MyFileformat',
+\   'filetype': 'MyFiletype',
+\   'fileencoding': 'MyFileencoding',
+\   'mode': 'MyMode',
+\   'syntastic': 'SyntasticStatuslineFlag',
+\   'charcode': 'MyCharCode',
+\   'gitgutter': 'MyGitGutter',
+\ },
+\ }
 
 function! MyModified()
   return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
 function! MyReadonly()
-  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'x' : ''
+  return &ft !~? 'help\|vimfiler\|gundo' && &ro ? '⭤' : ''
 endfunction
 
 function! MyFilename()
   return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
         \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
         \  &ft == 'unite' ? unite#get_status_string() :
-        \  &ft == 'vimshell' ? vimshell#get_status_string() :
+        \  &ft == 'vimshell' ? substitute(b:vimshell.current_dir,expand('~'),'~','') :
         \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
         \ ('' != MyModified() ? ' ' . MyModified() : '')
 endfunction
@@ -1081,7 +1111,8 @@ endfunction
 function! MyFugitive()
   try
     if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
-      return fugitive#head()
+      let _ = fugitive#head()
+      return strlen(_) ? '⭠ '._ : ''
     endif
   catch
   endtry
@@ -1089,20 +1120,81 @@ function! MyFugitive()
 endfunction
 
 function! MyFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
+  return winwidth('.') > 70 ? &fileformat : ''
 endfunction
 
 function! MyFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+  return winwidth('.') > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
 endfunction
 
 function! MyFileencoding()
-  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+  return winwidth('.') > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
 endfunction
 
 function! MyMode()
-  return winwidth(0) > 60 ? lightline#mode() : ''
+  return winwidth('.') > 60 ? lightline#mode() : ''
 endfunction
+
+function! MyGitGutter()
+  if ! exists('*GitGutterGetHunkSummary')
+        \ || ! get(g:, 'gitgutter_enabled', 0)
+        \ || winwidth('.') <= 90
+    return ''
+  endif
+  let symbols = [
+        \ g:gitgutter_sign_added . ' ',
+        \ g:gitgutter_sign_modified . ' ',
+        \ g:gitgutter_sign_removed . ' '
+        \ ]
+  let hunks = GitGutterGetHunkSummary()
+  let ret = []
+  for i in [0, 1, 2]
+    if hunks[i] > 0
+      call add(ret, symbols[i] . hunks[i])
+    endif
+  endfor
+  return join(ret, ' ')
+endfunction
+
+" https://github.com/Lokaltog/vim-powerline/blob/develop/autoload/Powerline/Functions.vim
+function! MyCharCode()
+  if winwidth('.') <= 70
+    return ''
+  endif
+
+  " Get the output of :ascii
+  redir => ascii
+  silent! ascii
+  redir END
+
+  if match(ascii, 'NUL') != -1
+    return 'NUL'
+  endif
+
+  " Zero pad hex values
+  let nrformat = '0x%02x'
+
+  let encoding = (&fenc == '' ? &enc : &fenc)
+
+  if encoding == 'utf-8'
+    " Zero pad with 4 zeroes in unicode files
+    let nrformat = '0x%04x'
+  endif
+
+  " Get the character and the numeric value from the return value of :ascii
+  " This matches the two first pieces of the return value, e.g.
+  " "<F>  70" => char: 'F', nr: '70'
+  let [str, char, nr; rest] = matchlist(ascii, '\v\<(.{-1,})\>\s*([0-9]+)')
+
+  " Format the numeric value
+  let nr = printf(nrformat, nr)
+
+  return "'". char ."' ". nr
+endfunction
+
+
+
+
 
 
 "
@@ -1110,7 +1202,7 @@ endfunction
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:vim_tags_auto_generate = 1
-let g:vim_tags_project_tags_command = "/usr/local/bin/ctags -R {OPTIONS} {DIRECTORY} 2>/dev/null &"
+let g:vim_tags_project_tags_command = "/usr/local/bin/ctags -R {OPTIONS} {DIRECTORY} 2>/dev/null"
 let g:vim_tags_use_vim_dispatch = 1
 let g:vim_tags_use_ycm = 1
 let g:vim_tags_ignore_files = ['.gitignore', '.svnignore', '.cvsignore']
