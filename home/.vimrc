@@ -47,58 +47,7 @@ NeoBundle 'Shougo/vimproc', {
 \ }
 
 NeoBundle "Shougo/neocomplete.vim"
-let g:acp_enableAtStartup = 0                                       " AutoComplPopが競合するため無効化する
-let g:neocomplete#enable_at_startup = 1                             " neocompleteの自動起動
-let g:neocomplete#enable_smart_case = 1                             " smart caseを有効化する, 大文字が入力されるまで大小の区別を無視する
-" let g:neocomplcache_enable_camel_case_completion = 1              " camel caseを有効化する, 大文字を区切りとしたワイルドカードのように振る舞う
-let g:neocomplcache_enable_underbar_completion = 1                  " アンダーバー区切りの保管を有効化
-let g:neocomplete#sources#syntax#min_keyword_length = 1             " シンタックスをキャッシュする最小文字長
-"let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'               " neocompleteを自動的にロックするバッファ名, 相性が悪いプラグインを使う時用
-"" 補完が止まった際に、スキップする長さを短くする
-let g:neocomplete#skip_auto_completion_time = '0.2'
 
-" AutoComplPop like behavior.
-let g:neocomplete#enable_auto_select = 0
- 
-" ファイルタイプ別、使用するdictionary
-let g:neocomplete#sources#dictionary#dictionaries = {
-\ 'default' : '',
-\ }
- 
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-
-" キーワードのパターン指定
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" C-gで前回行われた補完をキャンセル
-inoremap <expr><C-g>     neocomplete#undo_completion()
-" C-lで、補完候補の中から共通する部分を補完
-inoremap <expr><C-l>     neocomplete#complete_common_string()
- 
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
-"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
- 
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
- 
-" オムニ補完の関数呼び出し, 動作重め
-if !exists('g:neocomplete#sources#omni#input_patterns')             
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-inoremap <expr><C-Space>        neocomplete#start_manual_complete('omni')
 
 
 " neocomplcache & neocomplete 互換 snippet (スニペット補完)
@@ -123,7 +72,7 @@ NeoBundleLazy 'Shougo/vimfiler', {
 \ }
 
 " vimshell.vim (シェル)
-NeoBundleLazy 'Shougo/vimshell', {
+NeoBundleLazy 'Shougo/vimshell.vim', {
 \ 'depends' : ['Shougo/unite.vim', 'Shougo/vimproc'],
 \ 'autoload' : {
 \      'commands' : [
@@ -136,7 +85,7 @@ NeoBundleLazy 'Shougo/vimshell', {
 NeoBundle 'supermomonga/vimshell-pure.vim', {'depends' : 'Shougo/vimshell.vim'}
 
 " vimshell-ssh.vim (シェル)
-NeoBundle 'vimshell-ssh', {
+NeoBundle 'ujihisa/vimshell-ssh', {
 \    'depends' : ['Shougo/vimshell', 'Shougo/unite.vim', 'Shougo/unite-ssh', 'Shougo/vimproc'],
 \    'autoload' : {
 \      'filetypes' : ['vimshell', 'vimfiler'],
@@ -324,16 +273,16 @@ NeoBundleLazy 'StanAngeloff/php.vim', {
 \ }
 NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'jfortunato25/vim-php-namespace', 'fix-namespace-firstline'
-"NeoBundleLazy 'm2mdas/phpcomplete-extended', {
-"\ 'autoload' : {
-"\      'filetypes' : 'php',
-"\    },
-"\ }
-"NeoBundleLazy 'm2mdas/phpcomplete-extended-laravel', {
-"\ 'autoload' : {
-"\      'filetypes' : 'php',
-"\    },
-"\ }
+NeoBundleLazy 'm2mdas/phpcomplete-extended', {
+\ 'autoload' : {
+\      'filetypes' : 'php',
+\    },
+\ }
+NeoBundleLazy 'm2mdas/phpcomplete-extended-laravel', {
+\ 'autoload' : {
+\      'filetypes' : 'php',
+\    },
+\ }
 "NeoBundleLazy 'm2mdas/phpcomplete-extended-symfony', {
 "\ 'autoload' : {
 "\      'filetypes' : 'php',
@@ -786,7 +735,12 @@ let g:unite_source_file_mru_filename_format = ''
 let g:unite_source_grep_command = 'ag'
 let g:unite_source_grep_default_opts = '--nocolor --nogroup --ignore=''*.tags'' --ignore=''tags'' --ignore=''.svn'' --ignore=''.git'''
 let g:unite_source_grep_recursive_opt = ''
-let g:unite_source_grep_max_candidates = 200
+let g:unite_source_grep_max_candidates  = 200
+let g:unite_source_rec_max_cache_files = 0
+
+call unite#custom#source('file_rec,file_rec/async',
+    \ 'max_candidates', 0)
+
 
 "現在開いているファイルのディレクトリ下のファイル一覧
 "開いていない場合はカレントディレクトリ
@@ -825,6 +779,14 @@ nnoremap <silent> [unite]vgl :Unite versions/git/log<CR>
 " version/{type}/status
 nnoremap <silent> [unite]vss :Unite versions/svn/status<CR>
 nnoremap <silent> [unite]vgs :Unite versions/git/status<CR>
+
+nnoremap <silent> [unite]p :<C-u>call <SID>unite_project('-start-insert')<CR>
+
+function! s:unite_project(...)
+  let opts = (a:0 ? join(a:000, ' ') : '')
+  let dir = unite#util#path2project_directory(expand('%'))
+  execute 'Unite' opts 'file_rec:' . dir
+endfunction
 
 " 現在のプロジェクト内のファイルを一望する
 " 参考 : http://d.hatena.ne.jp/h1mesuke/20110918/p1
@@ -1193,6 +1155,61 @@ function! MyCharCode()
 endfunction
 
 
+"
+" neocomplete
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let g:acp_enableAtStartup = 0                                       " AutoComplPopが競合するため無効化する
+let g:neocomplete#enable_at_startup = 1                             " neocompleteの自動起動
+let g:neocomplete#enable_smart_case = 1                             " smart caseを有効化する, 大文字が入力されるまで大小の区別を無視する
+" let g:neocomplcache_enable_camel_case_completion = 1              " camel caseを有効化する, 大文字を区切りとしたワイルドカードのように振る舞う
+let g:neocomplcache_enable_underbar_completion = 1                  " アンダーバー区切りの保管を有効化
+let g:neocomplete#sources#syntax#min_keyword_length = 1             " シンタックスをキャッシュする最小文字長
+"let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'               " neocompleteを自動的にロックするバッファ名, 相性が悪いプラグインを使う時用
+"" 補完が止まった際に、スキップする長さを短くする
+let g:neocomplete#skip_auto_completion_time = '0.2'
+
+" AutoComplPop like behavior.
+let g:neocomplete#enable_auto_select = 0
+ 
+" ファイルタイプ別、使用するdictionary
+let g:neocomplete#sources#dictionary#dictionaries = {
+\ 'default' : '',
+\ }
+ 
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+
+" キーワードのパターン指定
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" C-gで前回行われた補完をキャンセル
+inoremap <expr><C-g>     neocomplete#undo_completion()
+" C-lで、補完候補の中から共通する部分を補完
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+ 
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+ 
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+ 
+" オムニ補完の関数呼び出し, 動作重め
+if !exists('g:neocomplete#sources#omni#input_patterns')             
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+inoremap <expr><C-Space>        neocomplete#start_manual_complete('omni')
 
 
 
@@ -1202,8 +1219,8 @@ endfunction
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:vim_tags_auto_generate = 1
-let g:vim_tags_project_tags_command = "/usr/local/bin/ctags -R {OPTIONS} {DIRECTORY} 2>/dev/null"
-let g:vim_tags_use_vim_dispatch = 1
+let g:vim_tags_project_tags_command = "/usr/local/bin/ctags -R {OPTIONS} {DIRECTORY} 2>/dev/null &"
+let g:vim_tags_use_vim_dispatch = 0
 let g:vim_tags_use_ycm = 1
 let g:vim_tags_ignore_files = ['.gitignore', '.svnignore', '.cvsignore']
 let g:vim_tags_directories = ['.git', '.svn', 'CVS']

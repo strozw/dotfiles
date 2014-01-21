@@ -123,8 +123,15 @@ if which phpenv > /dev/null; then eval "$(phpenv init -)"; fi
 # phpenv no rehash ver
 #if which phpenv > /dev/null; then eval "$(phpenv init - --no-rehash)"; fi
 
+# jenv
 export PATH="$HOME/.jenv/bin:$PATH"
-if which phpenv > /dev/null; then eval "$(jenv init -)"; fi
+if which jenv > /dev/null; then eval "$(jenv init -)"; fi
+
+# ndenv
+export PATH="$HOME/.ndenv/bin:$PATH"
+if which ndenv > /dev/null; then eval "$(ndenv init -)"; fi
+
+
 
 # php composer
 export PATH=$HOME/.composer/vendor/bin:$PATH
