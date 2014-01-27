@@ -48,8 +48,6 @@ NeoBundle 'Shougo/vimproc', {
 
 NeoBundle "Shougo/neocomplete.vim"
 
-
-
 " neocomplcache & neocomplete 互換 snippet (スニペット補完)
 NeoBundle 'Shougo/neosnippet'
 
@@ -230,7 +228,10 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'gregsexton/gitv'
 
 " gitの差分表示
-NeoBundle 'airblade/vim-gitgutter'
+"NeoBundle 'airblade/vim-gitgutter'
+
+" vcsのステータス表示
+NeoBundle 'mhinz/vim-signify'
 
 " vimplenote.vim (simplenoteの利用)
 NeoBundle 'mattn/vimplenote-vim'
@@ -242,15 +243,10 @@ NeoBundle 'mattn/emmet-vim/'
 NeoBundle 'vim-scripts/DirDiff.vim'
 
 " laravle blade
-"NeoBundle 'johnhamelink/blade.vim'
-"NeoBundle 'xsbeats/vim-blade'
+NeoBundle 'xsbeats/vim-blade'
 
 " html5.vim (html5シンタックス)
-NeoBundleLazy 'othree/html5.vim', {
-\ 'autoload' : {
-\      'filetypes' : ['html'],
-\    },
-\ }
+NeoBundleLazy 'othree/html5.vim'
 
 " lepture/vim-css css3シンタックス
 NeoBundleLazy 'hail2u/vim-css3-syntax', {
@@ -273,23 +269,23 @@ NeoBundleLazy 'StanAngeloff/php.vim', {
 \ }
 NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'jfortunato25/vim-php-namespace', 'fix-namespace-firstline'
-NeoBundleLazy 'm2mdas/phpcomplete-extended', {
-\ 'autoload' : {
-\      'filetypes' : 'php',
-\    },
-\ }
-NeoBundleLazy 'm2mdas/phpcomplete-extended-laravel', {
-\ 'autoload' : {
-\      'filetypes' : 'php',
-\    },
-\ }
+"NeoBundleLazy 'm2mdas/phpcomplete-extended', {
+"\ 'autoload' : {
+"\      'filetypes' : 'php',
+"\    },
+"\ }
+"NeoBundleLazy 'm2mdas/phpcomplete-extended-laravel', {
+"\ 'autoload' : {
+"\      'filetypes' : 'php',
+"\    },
+"\ }
 "NeoBundleLazy 'm2mdas/phpcomplete-extended-symfony', {
 "\ 'autoload' : {
 "\      'filetypes' : 'php',
 "\    },
 "\ }
 " php-doc.vim のfork版
-NeoBundleLazy 'stephpy/vim-phpdoc', {
+NeoBundleLazy 'drwX/php-doc.vim', {
 \ 'autoload' : {
 \      'filetypes' : 'php',
 \    },
@@ -327,6 +323,14 @@ NeoBundleLazy 'jelera/vim-javascript-syntax', {
 \      'filetypes' : 'javascript',
 \    }
 \ }
+
+" jsdoc
+NeoBundleLazy 'heavenshell/vim-jsdoc', {
+\ 'autoload' : {
+\      'filetypes' : 'javascript',
+\    }
+\ }
+
 
 " coffeescript syntax
 NeoBundleLazy 'kchmck/vim-coffee-script', {
@@ -398,6 +402,12 @@ NeoBundle 'itchyny/lightline.vim'
 " vim easymotion 特定位置へのショートカットジャンプ
 NeoBundle 'Lokaltog/vim-easymotion'
 
+" コンテキストによってfiletypeを自動で変更 
+NeoBundle "osyo-manga/vim-precious"
+
+" コンテキストによってファイルタイプを検出
+NeoBundle "Shougo/context_filetype.vim"
+
 " color scheme
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'w0ng/vim-hybrid'
@@ -410,7 +420,6 @@ NeoBundle 'vim-scripts/Wombat'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'vim-scripts/rdark'
 NeoBundle 'jdonaldson/vaxe'
-NeoBundle 'pekepeke/titanium-vim'
 NeoBundle 'cocopon/iceberg.vim'
 
 " base16 color
@@ -684,8 +693,7 @@ vnoremap ? <ESC>?\%V
 "let g:solarized_contrast = 'high'
 "let g:hybrid_use_Xresources = 1
 "colorscheme hybrid
-"colorscheme iceberg
-colorscheme base16-ocean
+colorscheme iceberg
 
 " emmet-vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1016,12 +1024,23 @@ let g:EasyMotion_mapping_k = '<C-k>'
 
 
 "
+" vim-gitgutter
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let g:gitgutter_sign_added = '✚'
+"let g:gitgutter_sign_modified = '➜'
+"let g:gitgutter_sign_removed = '✘'
+
+"
+" vim-signify
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let g:signify_sign_add               = '✚'
+"let g:signify_sign_change            = '➜'
+"let g:signify_sign_delete            = '✘'
+"let g:signify_sign_delete_first_line = '✘'
+
+"
 " lightline.vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-gitgutter
-let g:gitgutter_sign_added = '✚'
-let g:gitgutter_sign_modified = '➜'
-let g:gitgutter_sign_removed = '✘'
 
 " lightline.vim
 let g:lightline = {
@@ -1030,7 +1049,7 @@ let g:lightline = {
 \ 'active': {
 \   'left': [
 \     ['mode', 'paste'],
-\     ['fugitive', 'gitgutter', 'filename'],
+\     ['fugitive', 'filename'],
 \   ],
 \   'right': [
 \     ['lineinfo', 'syntastic'],
@@ -1049,7 +1068,6 @@ let g:lightline = {
 \   'mode': 'MyMode',
 \   'syntastic': 'SyntasticStatuslineFlag',
 \   'charcode': 'MyCharCode',
-\   'gitgutter': 'MyGitGutter',
 \ },
 \ }
 
@@ -1097,26 +1115,26 @@ function! MyMode()
   return winwidth('.') > 60 ? lightline#mode() : ''
 endfunction
 
-function! MyGitGutter()
-  if ! exists('*GitGutterGetHunkSummary')
-        \ || ! get(g:, 'gitgutter_enabled', 0)
-        \ || winwidth('.') <= 90
-    return ''
-  endif
-  let symbols = [
-        \ g:gitgutter_sign_added . ' ',
-        \ g:gitgutter_sign_modified . ' ',
-        \ g:gitgutter_sign_removed . ' '
-        \ ]
-  let hunks = GitGutterGetHunkSummary()
-  let ret = []
-  for i in [0, 1, 2]
-    if hunks[i] > 0
-      call add(ret, symbols[i] . hunks[i])
-    endif
-  endfor
-  return join(ret, ' ')
-endfunction
+"function! MyGitGutter()
+"  if ! exists('*GitGutterGetHunkSummary')
+"        \ || ! get(g:, 'gitgutter_enabled', 0)
+"        \ || winwidth('.') <= 90
+"    return ''
+"  endif
+"  let symbols = [
+"        \ g:gitgutter_sign_added . ' ',
+"        \ g:gitgutter_sign_modified . ' ',
+"        \ g:gitgutter_sign_removed . ' '
+"        \ ]
+"  let hunks = GitGutterGetHunkSummary()
+"  let ret = []
+"  for i in [0, 1, 2]
+"    if hunks[i] > 0
+"      call add(ret, symbols[i] . hunks[i])
+"    endif
+"  endfor
+"  return join(ret, ' ')
+"endfunction
 
 " https://github.com/Lokaltog/vim-powerline/blob/develop/autoload/Powerline/Functions.vim
 function! MyCharCode()
@@ -1226,6 +1244,33 @@ let g:vim_tags_ignore_files = ['.gitignore', '.svnignore', '.cvsignore']
 let g:vim_tags_directories = ['.git', '.svn', 'CVS']
 let g:vim_tags_main_file = 'tags'
 let g:vim_tags_extension = '.tags'
+
+"
+" context_filetype
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:context_filetype#filetypes = {
+\ 'html': [
+\   {
+\    'start':
+\     '<script\%( [^>]*\)\? type="text/javascript"\%( [^>]*\)\?>',
+\    'end': '</script>', 'filetype': 'javascript',
+\   },
+\   {
+\    'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>',
+\    'end': '</style>', 'filetype': 'css',
+\   },
+\   {
+\    'start': '<?php\?',
+\    'end': '?>', 'filetype': 'php',
+\   }
+\ ],}
+
+
+"
+" tern for vim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let tern#is_show_argument_hints_enabled = 1
+
 
 "
 " load project local vimrc
