@@ -20,7 +20,6 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
 alias ls='ls -G'
-alias ctags='ctags -f .tags'
 alias less='less -R'
 
 # vim

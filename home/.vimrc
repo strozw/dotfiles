@@ -441,6 +441,9 @@ NeoBundle 'tpope/vim-markdown'
 " tmux の vim で pbcopy/pbpaste
 NeoBundle 'kana/vim-fakeclip'
 
+" vimscript 向け console
+NeoBundle 'rbtnn/vimconsole.vim'
+
 NeoBundleCheck
 
 " ファイルタイプ:インデント プラグインをON
@@ -689,13 +692,13 @@ vnoremap ? <ESC>?\%V
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 set background=dark
 "let base16colorspace=256
+let g:solarized_termcolors = 256
+let g:solarized_contrast = 'high'
+let g:hybrid_use_Xresources = 1
 "colorscheme solarized
-"let g:solarized_termcolors = 256
-"let g:solarized_contrast = 'high'
-"let g:hybrid_use_Xresources = 1
 "colorscheme hybrid
-colorscheme iceberg
 "colorscheme base16-ocean
+colorscheme iceberg
 
 " emmet-vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1258,12 +1261,13 @@ inoremap <expr><C-Space>        neocomplete#start_manual_complete('omni')
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:vim_tags_auto_generate = 1
-let g:vim_tags_project_tags_command = "/usr/local/bin/ctags -R {OPTIONS} {DIRECTORY} 2>/dev/null"
+let g:vim_tags_project_tags_command = "ctags -R {OPTIONS} {DIRECTORY} 2>/dev/null"
 let g:vim_tags_use_vim_dispatch = 0
-let g:vim_tags_use_ycm = 0
+let g:vim_tags_use_ycm = 1
 let g:vim_tags_ignore_files = ['.gitignore', '.svnignore', '.cvsignore']
-let g:vim_tags_directories = ['.git', '.svn', 'CVS']
-"let g:vim_tags_main_file = 'tags'
+"let g:vim_tags_directories = ['.git', '.svn', 'CVS']
+let g:vim_tags_directories = ['.git', '.svn', 'CVS', '.']
+let g:vim_tags_main_file = 'tags'
 let g:vim_tags_extension = '.tags'
 
 "
@@ -1271,6 +1275,32 @@ let g:vim_tags_extension = '.tags'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:context_filetype#filetypes = {
 \ 'html': [
+\   {
+\    'start':
+\     '<script\%( [^>]*\)\? type="text/javascript"\%( [^>]*\)\?>',
+\    'end': '</script>', 'filetype': 'javascript',
+\   },
+\   {
+\    'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>',
+\    'end': '</style>', 'filetype': 'css',
+\   },
+\   {
+\    'start': '<?php\?',
+\    'end': '?>', 'filetype': 'php',
+\   }
+\ ],
+\ 'php': [
+\   {
+\    'start':
+\     '<script\%( [^>]*\)\? type="text/javascript"\%( [^>]*\)\?>',
+\    'end': '</script>', 'filetype': 'javascript',
+\   },
+\   {
+\    'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>',
+\    'end': '</style>', 'filetype': 'css',
+\   }
+\ ],
+\ 'blade': [
 \   {
 \    'start':
 \     '<script\%( [^>]*\)\? type="text/javascript"\%( [^>]*\)\?>',
