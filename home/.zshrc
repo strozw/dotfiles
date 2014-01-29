@@ -80,6 +80,13 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ###############################################
 source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
 
+##############################################
+# zsh-history-substring-search
+###############################################
+source ~/.zsh.d/zsh-notify/notify.plugin.zsh
+export SYS_NOTIFIER="/usr/local/bin/terminal-notifier"
+export NOTIFY_COMMAND_COMPLETE_TIMEOUT=10
+
 # bind UP and DOWN arrow keys
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up

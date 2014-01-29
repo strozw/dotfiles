@@ -50,6 +50,8 @@ let g:ref_phpmanual_path = $HOME . '/.vim/refs/php-chunked-xhtml'
 let g:syntastic_php_checkers=['php']
 
 " tags
-"let g:vim_tags_project_tags_command = "ctags -R {OPTIONS} {DIRECTORY} 2>/dev/null"
+"let g:vim_tags_project_tags_command = 'ctags -R {OPTIONS} {DIRECTORY} 2>/dev/null'
+set tags=php.tags
+let g:vim_tags_main_file = 'php.tags'
 
 let g:phpcomplete_index_composer_command = "hhvm ~/bin/composer.phar"

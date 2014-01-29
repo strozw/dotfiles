@@ -51,6 +51,10 @@ set hlsearch
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:Powerline_symbols = 'compatible'
 
+" vim-airline
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:airline#extensions#tabline#enabled = 0
+
 
 " MacVim用設定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
