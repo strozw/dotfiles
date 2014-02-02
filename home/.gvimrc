@@ -1,10 +1,4 @@
-" カラースキーマをロードする。
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
-":colorscheme rdark
-":colorscheme pyte
-":colorscheme h2u_black
-
-"
 " colors
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable
@@ -15,6 +9,7 @@ syntax enable
 "colorscheme base16-ocean
 colorscheme my-base16-ocean
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VimのGUI版で使用するフォントのリスト。
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 ":set guifont=Inconsolata:h13
@@ -34,29 +29,22 @@ set cmdheight=1
 "  0:表示しない
 " 1:２個以上のタブページがあるときのみ表示
 " 2:常に表示
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set showtabline=2
 
 " 前回の検索パータンが存在するとき、それにマッチするテキストを全て強調表示する。
 "  (有効:hlsearch/無効:nohlsearch)
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set hlsearch
 
 " Visual選択で選択されたテキストが、自動的にクリップボードレジスタ"*"にコピーされる。
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "set guioptions+=a
 "set guioptions-=m
-"
 
-" poweline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:Powerline_symbols = 'compatible'
-
 " vim-airline
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline#extensions#tabline#enabled = 0
 
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MacVim用設定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has('gui_macvim')
@@ -65,7 +53,7 @@ if has('gui_macvim')
 	set imdisable
 	"ツールバーを非表示
 	set guioptions-=T
-	set transparency=1
+	set transparency=0
 	"ESCでIMEをOFFにしたあとインサートに戻った際に自動的にIMEをONにする
 	"set noimdisableactivate
 	"set imdisableactivate

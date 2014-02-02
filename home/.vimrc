@@ -1,4 +1,4 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NeoBundle
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vi との互換モードをOFF
@@ -46,6 +46,7 @@ NeoBundle 'Shougo/vimproc', {
   \ },
 \ }
 
+" auto complete
 NeoBundle "Shougo/neocomplete.vim"
 
 " neocomplcache & neocomplete 互換 snippet (スニペット補完)
@@ -109,7 +110,6 @@ NeoBundleLazy 'choplin/unite-spotlight', {
 \    'autoload' : {'unite_sources' : 'spotlight'}
 \ }
 
-
 " unite-help (Unite:ヘルプソース)
 NeoBundleLazy 'tsukkee/unite-help', {
 \    'depends' : 'Shougo/unite.vim',
@@ -121,12 +121,12 @@ NeoBundleLazy 'tsukkee/unite-tag', {
 \    'depends' : 'Shougo/unite.vim',
 \    'autoload' : {'unite_sources' : 'tag'}
 \ }
+
 " unite-svn
 NeoBundleLazy 'kmnk/vim-unite-svn', {
 \    'depends' : 'Shougo/unite.vim',
 \    'autoload' : {'unite_sources' : 'svn'}
 \ }
-
 
 " tagsファイル生成
 NeoBundle 'szw/vim-tags'
@@ -186,12 +186,7 @@ NeoBundle 'thinca/vim-ref'
 
 " quickrun.vim (格ファイルタイプをvim内で実行)
 NeoBundle 'thinca/vim-quickrun'
-let s:hooks = neobundle#get_hooks("vim-quickrun")
-function! s:hooks.on_source(bundle)
-  let g:quickrun_config = {
-      \ "*": {"runner": "remote/vimproc"},
-      \ }
-endfunction
+
 
 " open-browser.vim (ブラウザを開く)
 NeoBundle 'tyru/open-browser.vim'
@@ -201,6 +196,12 @@ NeoBundle 'mattn/webapi-vim'
 
 " surround.vim (テキストオブジェクトを使いやすく)
 NeoBundle 'tpope/vim-surround'
+
+" 直感的に選択テキストを移動
+NeoBundle 't9md/vim-textmanip'
+
+" 直感的にテキスト置換"
+NeoBundle 'osyo-manga/vim-over'
 
 " smartword (全角文字の単語認識)
 NeoBundle 'kana/vim-smartword'
@@ -283,7 +284,7 @@ NeoBundleLazy 'heavenshell/vim-jsdoc', {'autoload': {'filetypes': 'javascript'}}
 NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload': {'filetypes': 'coffeescript'}}
 
 " less syntax
-NeoBundleLazy 'less.vim', {'autoload': {'filetypes': ['less']}}
+NeoBundleLazy 'less.vim', {'autoload': {'filetypes': 'less'}}
 
 " actionscript
 NeoBundleLazy 'endel/actionscript.vim', {'autoload': {'filetypes': 'actionscript'}}
@@ -291,10 +292,11 @@ NeoBundleLazy 'endel/actionscript.vim', {'autoload': {'filetypes': 'actionscript
 "as3 omni comp
 NeoBundleLazy 'yuratomo/flex-api-complete', {'autoload': {'filetypes': ['actionscript', 'mxml']}}
 
-NeoBundle 'marijnh/tern_for_vim', {
-\ 'build': {
-\   'others': 'npm install'
-\}}
+" omni complete for js
+NeoBundleLazy 'marijnh/tern_for_vim', {
+\ 'build': {'others': 'npm install'},
+\ 'autoload': {'filetypes': 'actionscript'}
+\}
 
 " AutoClose.vim
 "NeoBundle 'vim-scripts/AutoClose'
@@ -358,15 +360,12 @@ filetype plugin indent on
 set directory=~/tmp/vim
 
 "検索パターンにおいて大文字と小文字を区別しない。
-"(有効:ignorecase/無効:noignorecase)
-set noignorecase
+set ignorecase
 
 "検索パターンが大文字を含んでいたらオプション 'ignorecase'を上書きする。
-"(有効:smartcase/無効nosmartcase)
 set nosmartcase
 
 "Insertモードで<tab>を挿入するとき、代わりに適切な数の空白を使う。
-"(有効:expandtab/無効:noexpandtab)
 set noexpandtab
 
 "入力されているテキストの最大幅。行がそれより長くなると、
@@ -400,27 +399,16 @@ set wrap
 set wrapscan
 
 "オンのとき、コマンドライン補完が拡張モードで行われる。
-"(有効:wildmenu/無効:nowildmenu)
 set wildmenu
 
 "閉じ括弧が入力されたとき、対応する開き括弧にわずかの間ジャンプルする。
-"(有効:showmatch/無効:noshowmatch)
 set showmatch
 
 "毎行の前に行番号を表示する。
-"(有効:number/無効:nonumber)
 set number
 
 "カーソルが何行目の何列目に置かれているかを表示する。
-"(有効:ruler/無効:noruler)
 set ruler
-
-"タブ文字をCTRL-Iで表示し、行末に$で表示する。
-"(有効:list/無効:nolist)
-set nolist
-
-"Listモード(訳注:オプション'list'がオンのとき)に使われる文字を設定する。
-":set listchars=tab:>-,extends:<,trail:-,eol:<
 
 "最下ウィンドウにいつステータス行が表示されるかを設定する。
 "    0:全く表示しない
@@ -429,7 +417,6 @@ set nolist
 set laststatus=2
 
 "コマンド(の一部)を画面の最下行に表示する。
-"(有効:shocmd/無効:noshowcmd)
 set showcmd
 
 "ファイルを上書きする前にバックアップを作る。
@@ -442,9 +429,8 @@ set nobackup
 "(有効:writebackup/無効nowritebackup)
 set writebackup
 
-"エンコーディング関連
 "ステータスバーに文字コードと改行コード表示
-" vim-poerline で 代用
+" airline で 代用
 "set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 
 "文字コードの自動認識
@@ -487,9 +473,6 @@ set grepprg=internal
 " ウィンドウを分割で開く際に、右側に表示する。
 set splitright
 
-"
-"set notagbsearch
-
 " タグファイルの場所
 set tags=tags
 set tags+=*.tags
@@ -504,37 +487,28 @@ set clipboard=unnamed
 " マウス
 set mouse=a
 
-"
-" 補完に辞書ファイル追加
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set complete =.,b,w,u,k,i,t
-
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " コマンド補完
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " コマンド補完を強化
-"set wildmenu
+set wildmenu
+
 " リスト表示、最長マッチ
-"set wildmode=longest,list,full
+set wildmode=longest,list,full
 
 "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Omni補完関連
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 補完に辞書ファイル追加
+"set complete =.,b,w,u,k,i,t
 " 補完表示設定
 set completeopt=menu,preview,menuone
 
-"ポップアップメニューの色
-highlight Pmenu ctermbg=lightcyan ctermfg=black
-highlight PmenuSel ctermbg=blue ctermfg=black
-highlight PmenuSbar ctermbg=darkgray
-highlight PmenuThumb ctermbg=lightgray
-
-
-
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ファイル・タイプ別シンタックス
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" markdown 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" markdown
 au BufNewFile,BufRead *.mkd set filetype=markdown
 au BufNewFile,BufRead *.md set filetype=markdown 
 
@@ -553,9 +527,9 @@ au BufNewFile,BufRead *.mxml set filetype=mxml
 " less
 au BufNewFile,BufRead *.less set filetype=less
 
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 相対行切り替え(<Space>n)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if version >= 703
   nnoremap  <silent> <Space>n :<C-u>ToggleNumber<CR>
   vnoremap  <silent> <Space>n :<C-u>ToggleNumber<CR> gv
@@ -566,6 +540,7 @@ if version >= 703
       set relativenumber
       set cursorline
     else
+      set norelativenumber
       set nocursorline
       set number
     endif
@@ -573,24 +548,25 @@ if version >= 703
 endif
 
 "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 検索設定
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 検索内容をハイライト
 set hlsearch
 
 " 検索ハイライトを解除
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ビジュアルモード範囲内検索
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 範囲内検索をデフォルトに
 vnoremap / <ESC>/\%V
 vnoremap ? <ESC>?\%V
 
-"
-" vim colors solarized
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" colorsheme
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let base16colorspace=256
 set background=dark
 let g:solarized_termcolors = 256
@@ -602,8 +578,9 @@ let g:hybrid_use_Xresources = 1
 "colorscheme base16-ocean
 colorscheme my-base16-ocean
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " emmet-vim
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " let g:user_emmet_leader_key = '<c-e>'
 
 "ファイルタイプ
@@ -627,10 +604,10 @@ colorscheme my-base16-ocean
 
 
 
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " unite.vim
 " 参考：http://www.karakaram.com/vim/unite/
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "unite prefix key.
 nnoremap [unite] <Nop>
 "nmap <Space>F [unite]
@@ -640,7 +617,7 @@ nmap <C-u> [unite]
 "インサートモード開始
 "let g:unite_enable_start_insert = 1
 "最近開いたファイル履歴お保存数
-let g:unite_source_file_mru_limit = 15
+let g:unite_source_file_mru_limit = 40
 
 "file_mruの表示フォーマットを指定。空にすると表示スピードが高速化される
 let g:unite_source_file_mru_filename_format = ''
@@ -747,16 +724,16 @@ endfunction
 
 syntax enable
 
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Unite-line
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent> <C-l> :<C-u>UniteWithCursorWord line<CR>
 
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " unite-tag
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:unite_source_tag_max_name_length = 25
-let g:unite_source_tag_max_fname_length = 50
+let g:unite_source_tag_max_fname_length = 150
 
 " C-] にマッピング
 autocmd BufEnter *
@@ -764,9 +741,9 @@ autocmd BufEnter *
 \|        nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord tag<CR>
 \|   endif
 
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vimfiler.vim
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Default File Explorer
 let g:vimfiler_as_default_explorer = 1
 
@@ -817,61 +794,49 @@ function! my_action.func(candidates)
 endfunction
 call unite#custom_action('file', 'my_split', my_action)
 
-let my_action = { 'is_selectable' : 1 }                     
+let my_action = { 'is_selectable' : 1 }
 function! my_action.func(candidates)
   wincmd p
   exec 'vsplit '. a:candidates[0].action__path
 endfunction
 call unite#custom_action('file', 'my_vsplit', my_action)
 
-let my_action = { 'is_selectable' : 1 }                     
+let my_action = { 'is_selectable' : 1 }
 function! my_action.func(candidates)
   wincmd p
   exec 'tabedit '. a:candidates[0].action__path
 endfunction
 call unite#custom_action('file', 'my_tabopen', my_action)
 
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "quickrun.vim
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <F5> :QuickRun<Cr>
 let g:quickrun_config = {}
-let g:quickrun_config['markdown'] = {
-    \ 'type': 'markdown/pandoc',
-    \ 'outputter': 'browser',
-    \ 'cmdopt': '-s'
-    \ }
-"let g:quickrun_config['actionscript']  = {
-"    \ 'command' : 'mxmlc',
-"    "\ 'exec' : ['%c %o %s:p > null'],
-"    \ 'cmdopt' : '-static-link-runtime-shared-libraries',
-"\ }
-let g:quickrun_config['actionscript']  = {
-    \ 'command': 'mxmlc',
-    \ 'cmdopt': '-static-link-runtime-shared-libraries -debug=true',
-    \ }
 
-"
-" vim-powerline
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:Powerline_symbols = 'compatible'
-let g:Powerline_symbols = 'fancy'
+" vimproc使用
+let g:quickrun_config = {
+\   "_" : {
+\       "runner" : "vimproc",
+\       "runner/vimproc/updatetime" : 10,
+\   },
+\}
 
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " syntastic
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:syntastic_check_on_open=1
-let g:syntastic_auto_jump=0
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:syntastic_check_on_open = 1
+let g:syntastic_auto_jump = 0
 
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TagBar
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " タグバーの開閉を<F8>にマッピング
 nmap <F8> :TagbarToggle<CR>
 
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " quickhl
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ハイライトトグル <Space>m にマッピング
 nmap <Space>h <Plug>(quickhl-toggle)
 xmap <Space>h <Plug>(quickhl-toggle)
@@ -881,63 +846,28 @@ nmap <Space>H <Plug>(quickhl-reset)
 xmap <Space>H <Plug>(quickhl-reset)
 nmap <Space>j <Plug>(quickhl-match)
 
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " dirdiff
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:DirDiffExcludes = "CVS,*.class,*.exe,.*.swp,.svn,.git,.DS_Store"
 
-"
-" minibufexp
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-":let g:miniBufExplMapWindowNavVim = 1
-":let g:miniBufExplMapWindowNavArrows = 1
-":let g:miniBufExplMapCTabSwitchBuffs = 1
-
-
-"
-" neosnippet
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-
-" Enable snipMate compatibility feature.
-let g:neosnippet#enable_snipmate_compatibility = 1
-
-" Tell Neosnippet about the other snippets
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/bundle/vim-snippets/snippets'
-
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-easymotion
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:EasyMotion_mapping_j = '<C-j>'
 let g:EasyMotion_mapping_k = '<C-k>'
 
-"
-" vim-gitgutter
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:gitgutter_sign_added = '✚'
-"let g:gitgutter_sign_modified = '➜'
-"let g:gitgutter_sign_removed = '✘'
-
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-signify
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let g:signify_sign_add               = '✚'
 "let g:signify_sign_change            = '➜'
 "let g:signify_sign_delete            = '✘'
 "let g:signify_sign_delete_first_line = '✘'
 
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-airline
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline_powerline_fonts = 1
 if has('gui_running')
   let g:airline#extensions#tabline#enabled = 0
@@ -955,9 +885,9 @@ let g:airline_theme='base16'
 "let g:airline_theme='bubblegum'
 
 
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " neocomplete
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplete.
@@ -1012,22 +942,40 @@ let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\
 let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" neosnippet
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
+" Enable snipMate compatibility feature.
+let g:neosnippet#enable_snipmate_compatibility = 1
+
+" Tell Neosnippet about the other snippets
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/bundle/vim-snippets/snippets'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-tags
-"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:vim_tags_auto_generate = 1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:vim_tags_project_tags_command ='ctags -R  --fields=+aimS {OPTIONS} {DIRECTORY} 2>/dev/null &'
+let g:vim_tags_auto_generate = 0
 let g:vim_tags_use_vim_dispatch = 0
-let g:vim_tags_use_ycm = 1
+let g:vim_tags_use_ycm = 0
 let g:vim_tags_ignore_files = ['.gitignore', '.svnignore', '.cvsignore']
 let g:vim_tags_directories = ['.git', '.svn', 'CVS']
 let g:vim_tags_main_file = 'tags'
 let g:vim_tags_extension = '.tags'
 
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " context_filetype
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:context_filetype#filetypes = {
 \ 'html': [
 \   {
@@ -1072,15 +1020,15 @@ let g:context_filetype#filetypes = {
 \ ],}
 
 
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " tern for vim
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let tern#is_show_argument_hints_enabled = 1
 
 
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " load project local vimrc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Load settings for each location.
 " http://vim-users.jp/2009/12/hack112/
 augroup vimrc-local
@@ -1095,4 +1043,20 @@ function! s:vimrc_local(loc)
   endfor
 endfunction
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-textmanip 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+xmap <Space>d <Plug>(textmanip-duplicate-down)
+nmap <Space>d <Plug>(textmanip-duplicate-down)
+xmap <Space>D <Plug>(textmanip-duplicate-up)
+nmap <Space>D <Plug>(textmanip-duplicate-up)
+
+xmap <C-j> <Plug>(textmanip-move-down)
+xmap <C-k> <Plug>(textmanip-move-up)
+xmap <C-h> <Plug>(textmanip-move-left)
+xmap <C-l> <Plug>(textmanip-move-right)
+
+" toggle insert/replace with <F10>
+nmap <F10> <Plug>(textmanip-toggle-mode)
+xmap <F10> <Plug>(textmanip-toggle-mode)
 
