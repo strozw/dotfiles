@@ -24,6 +24,8 @@ alias less='less -R'
 
 # vim
 alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+alias vimdiff='/Applications/MacVim.app/Contents/MacOS/vimdiff'
+alias view='/Applications/MacVim.app/Contents/MacOS/view'
 
 # composer
 alias composer='hhvm ~/bin/composer.phar'
@@ -65,7 +67,7 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 #plugins=(git ruby osx bundler brew rails emoji-clock)
-plugins=(sudo git osx brew vagrant z git-flow)
+plugins=(sudo git osx brew vagrant z git-flow laravel)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -119,6 +121,7 @@ export PATH=~/bin:$PATH
 
 # rbenv
 export PATH="${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}"
+#export PATH="${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}"
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 # rbenv no rehash ver
 #if which rbenv > /dev/null; then eval "$(rbenv init - --no-rehash)"; fi
@@ -130,11 +133,11 @@ if which phpenv > /dev/null; then eval "$(phpenv init -)"; fi
 #if which phpenv > /dev/null; then eval "$(phpenv init - --no-rehash)"; fi
 
 # jenv
-export PATH="$HOME/.jenv/bin:$PATH"
+export PATH="${HOME}/.jenv/bin:${PATH}"
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 
 # ndenv
-export PATH="$HOME/.ndenv/bin:$PATH"
+export PATH="${HOME}/.ndenv/bin:${HOME}/.ndenv/shims:${PATH}"
 if which ndenv > /dev/null; then eval "$(ndenv init -)"; fi
 
 
@@ -145,7 +148,7 @@ export PATH=$HOME/.composer/vendor/bin:$PATH
 ###############################################
 # OTHER ENV
 ###############################################
-export CC=/usr/local/bin/gcc-4.2
+#export CC=/usr/local/bin/gcc-4.2
 #export CC=/usr/local/bin/gcc-4.2
 
 # android-sdk
@@ -176,10 +179,9 @@ export SHELL=/usr/local/bin/zsh
 ################################################
 # Base16 Shell
 ################################################
-#export SHELL=/usr/local/bin/zsh
-#BASE16_SCHEME="ocean"
-#BASE16_SHELL="$HOME/.config/base16-shell/base16-$BASE16_SCHEME.dark.sh"
-#[[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
+BASE16_SCHEME="ocean"
+BASE16_SHELL="$HOME/.config/base16-shell/base16-$BASE16_SCHEME.dark.sh"
+[[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
 
 
 

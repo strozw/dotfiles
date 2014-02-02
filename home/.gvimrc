@@ -11,8 +11,9 @@ syntax enable
 "set background=dark
 "colorscheme solarized
 "colorscheme hybrid
+"colorscheme iceberg
 "colorscheme base16-ocean
-colorscheme iceberg
+colorscheme my-base16-ocean
 
 " VimのGUI版で使用するフォントのリスト。
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -64,7 +65,7 @@ if has('gui_macvim')
 	set imdisable
 	"ツールバーを非表示
 	set guioptions-=T
-	set transparency=5
+	set transparency=1
 	"ESCでIMEをOFFにしたあとインサートに戻った際に自動的にIMEをONにする
 	"set noimdisableactivate
 	"set imdisableactivate

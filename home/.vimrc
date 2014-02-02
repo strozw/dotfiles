@@ -80,6 +80,7 @@ NeoBundleLazy 'Shougo/vimshell.vim', {
 \      'mappings' : ['<Plug>(vimshell_switch)'],
 \    },
 \ }
+
 NeoBundle 'supermomonga/vimshell-pure.vim', {'depends' : 'Shougo/vimshell.vim'}
 
 " vimshell-ssh.vim (シェル)
@@ -129,6 +130,8 @@ NeoBundleLazy 'kmnk/vim-unite-svn', {
 
 " tagsファイル生成
 NeoBundle 'szw/vim-tags'
+"NeoBundle 'xolox/vim-misc'
+"NeoBundle 'xolox/vim-easytags'
 
 " 非同期taskmanager
 NeoBundle 'tpope/vim-dispatch'
@@ -227,9 +230,6 @@ NeoBundle 'tpope/vim-fugitive'
 " git log view (tig相当 fugitive依存) 
 NeoBundle 'gregsexton/gitv'
 
-" gitの差分表示
-"NeoBundle 'airblade/vim-gitgutter'
-
 " vcsのステータス表示
 NeoBundle 'mhinz/vim-signify'
 
@@ -249,123 +249,48 @@ NeoBundle 'xsbeats/vim-blade'
 NeoBundleLazy 'othree/html5.vim'
 
 " lepture/vim-css css3シンタックス
-NeoBundleLazy 'hail2u/vim-css3-syntax', {
-\ 'autoload' : {
-\      'filetypes' : ['html', 'css'],
-\    },
-\ }
+NeoBundleLazy 'hail2u/vim-css3-syntax', {'autoload': {'filetypes': ['html', 'css']}}
 
-NeoBundleLazy 'cakebaker/scss-syntax.vim', {
-\ 'autoload' : {
-\      'filetypes' : ['scss', 'sass'],
-\    },
-\ }
+NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload': {'filetypes': ['scss', 'sass']}}
 
 " php.vim のfork版 (php syntax, 補完)
-NeoBundleLazy 'StanAngeloff/php.vim', {
-\ 'autoload' : {
-\      'filetypes' : 'php',
-\    },
-\ }
+NeoBundleLazy 'StanAngeloff/php.vim', {'autoload': {'filetypes': 'php'}}
 NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'jfortunato25/vim-php-namespace', 'fix-namespace-firstline'
-"NeoBundleLazy 'm2mdas/phpcomplete-extended', {
-"\ 'autoload' : {
-"\      'filetypes' : 'php',
-"\    },
-"\ }
-"NeoBundleLazy 'm2mdas/phpcomplete-extended-laravel', {
-"\ 'autoload' : {
-"\      'filetypes' : 'php',
-"\    },
-"\ }
-"NeoBundleLazy 'm2mdas/phpcomplete-extended-symfony', {
-"\ 'autoload' : {
-"\      'filetypes' : 'php',
-"\    },
-"\ }
+"NeoBundleLazy 'm2mdas/phpcomplete-extended', {'autoload': {'filetypes': 'php'}}
+"NeoBundleLazy 'm2mdas/phpcomplete-extended-laravel', {'autoload': {'filetypes': 'php'}}
+"NeoBundleLazy 'm2mdas/phpcomplete-extended-symfony', {'autoload': {'filetypes': 'php'}}
 " php-doc.vim のfork版
-NeoBundleLazy 'drwX/php-doc.vim', {
-\ 'autoload' : {
-\      'filetypes' : 'php',
-\    },
-\ }
-"NeoBundleLazy 'karakaram/vim-quickrun-phpunit', {
-"\ 'autoload' : {
-"\      'filetypes' : 'php',
-"\    },
-"\ }
+NeoBundleLazy 'drwX/php-doc.vim', {'autoload': {'filetypes': 'php'}}
+"NeoBundleLazy 'karakaram/vim-quickrun-phpunit', {'autoload': {''filetypes': 'php'}}
 
 " vim-ruby (ruby syntax, 補完)
-NeoBundleLazy 'vim-ruby/vim-ruby', {
-\ 'autoload' : {
-\      'filetypes' : 'ruby',
-\    },
-\ }
+NeoBundleLazy 'vim-ruby/vim-ruby', {'autoload': {'filetypes': 'ruby'}}
 
 " rails.vim (railsのシンタックス、MVCの移動、railsコマンドの利用)
-NeoBundleLazy 'tpope/vim-rails', {
-\ 'autoload' : {
-\      'filetypes' : 'ruby',
-\    },
-\ }
+NeoBundleLazy 'tpope/vim-rails', {'autoload': {'filetypes': 'ruby'}}
 
 " ruby の do に対する end を補完
-NeoBundleLazy 'tpope/vim-endwise', {
-\ 'autoload' : {
-\      'filetypes' : 'ruby',
-\    },
-\ }
+NeoBundleLazy 'tpope/vim-endwise', {'autoload': {'filetypes': 'ruby'}}
 
 " javascript syntax
-NeoBundleLazy 'jelera/vim-javascript-syntax', {
-\ 'autoload' : {
-\      'filetypes' : 'javascript',
-\    }
-\ }
+NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload': {'filetypes': 'javascript'}}
 
 " jsdoc
-NeoBundleLazy 'heavenshell/vim-jsdoc', {
-\ 'autoload' : {
-\      'filetypes' : 'javascript',
-\    }
-\ }
-
+NeoBundleLazy 'heavenshell/vim-jsdoc', {'autoload': {'filetypes': 'javascript'}}
 
 " coffeescript syntax
-NeoBundleLazy 'kchmck/vim-coffee-script', {
-\ 'autoload' : {
-\      'filetypes' : 'coffeescript',
-\    },
-\ }
+NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload': {'filetypes': 'coffeescript'}}
 
 " less syntax
-NeoBundleLazy 'less.vim', {
-\ 'autoload' : {
-\      'filetypes' : ['less'],
-\    },
-\ }
+NeoBundleLazy 'less.vim', {'autoload': {'filetypes': ['less']}}
 
 " actionscript
-NeoBundleLazy 'endel/actionscript.vim', {
-\ 'autoload' : {
-\      'filetypes' : 'actionscript',
-\    },
-\ }
+NeoBundleLazy 'endel/actionscript.vim', {'autoload': {'filetypes': 'actionscript'}}
 
 "as3 omni comp
-NeoBundleLazy 'yuratomo/flex-api-complete', {
-\ 'autoload' : {
-\      'filetypes' : ['actionscript', 'mxml'],
-\    },
-\ }
+NeoBundleLazy 'yuratomo/flex-api-complete', {'autoload': {'filetypes': ['actionscript', 'mxml']}}
 
-"javacomplete
-"NeoBundleLazy 'vim-scripts/javacomplete', {
-"\ 'autoload' : {
-"\      'filetypes' : ['java'],
-"\    },
-"\ }
 NeoBundle 'marijnh/tern_for_vim', {
 \ 'build': {
 \   'others': 'npm install'
@@ -373,31 +298,13 @@ NeoBundle 'marijnh/tern_for_vim', {
 
 " AutoClose.vim
 "NeoBundle 'vim-scripts/AutoClose'
-
-" minimap.vim
-"NeoBundle 'koron/minimap-vim'
+NeoBundle "kana/vim-smartinput"
+NeoBundle "cohama/vim-smartinput-endwise"
 
 " 一括置換
 "NeoBundle 'thinca/vim-qfreplace'
-"
-" vim powerline (ステータスラインを分かりやすくする)
-"if has('python')
-"  " pip install --user git+git://github.com/Lokaltog/powerline
-"  NeoBundle 'Lokaltog/powerline', { 'rtp' : '~/.vim/bundle/powerline/powerline/bindings/vim', 'build' : { 'mac' : 'python setup.py build install --user' } }
-"  NeoBundle 'zhaocai/linepower.vim'
-"else
-"  NeoBundle 'Lokaltog/vim-powerline'
-"  NeoBundle 'osyo-manga/vim-powerline-unite-theme'
-"  let g:Powerline_stl_path_style = 'short'
-"
-"  " PowerLineの再読み込み
-"  if exists('g:Powerline_loaded')
-"      silent! call Pl#Load()
-"  endif
-"endif
 
 " 軽量のpowerline系プラグイン
-"NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'bling/vim-airline'
 
 " vim easymotion 特定位置へのショートカットジャンプ
@@ -431,12 +338,6 @@ NeoBundle 'rking/ag.vim'
 
 " markdown syntax
 NeoBundle 'tpope/vim-markdown'
-
-" プロジェクトのtopぽいところに移動
-"NeoBundle 'airblade/vim-rooter'
-
-" 
-"NeoBundle 'fholgado/minibufexpl.vim'
 
 " tmux の vim で pbcopy/pbpaste
 NeoBundle 'kana/vim-fakeclip'
@@ -591,7 +492,7 @@ set splitright
 
 " タグファイルの場所
 set tags=tags
-set tags+=.tags
+set tags+=*.tags
 
 " コマンドラインの高さ
 set cmdheight=1
@@ -690,15 +591,16 @@ vnoremap ? <ESC>?\%V
 "
 " vim colors solarized
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
+let base16colorspace=256
 set background=dark
-"let base16colorspace=256
 let g:solarized_termcolors = 256
 let g:solarized_contrast = 'high'
 let g:hybrid_use_Xresources = 1
 "colorscheme solarized
 "colorscheme hybrid
+"colorscheme iceberg
 "colorscheme base16-ocean
-colorscheme iceberg
+colorscheme my-base16-ocean
 
 " emmet-vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -750,6 +652,7 @@ let g:unite_source_grep_default_opts = '--nocolor --nogroup --ignore=''*.tags'' 
 let g:unite_source_grep_recursive_opt = ''
 let g:unite_source_grep_max_candidates  = 200
 let g:unite_source_rec_max_cache_files = 0
+let g:unite_converter_file_directory_width = 100
 
 call unite#custom#source('file_rec,file_rec/async',
     \ 'max_candidates', 0)
@@ -783,6 +686,8 @@ nnoremap <silent> [unite]lo :Unite locate<CR>
 nnoremap <silent> [unite]t :Unite tag -no-quit<CR>
 " help
 nnoremap <silent> [unite]h :Unite help<CR>
+" versions
+nnoremap <silent> [unite]v :Unite versions<CR>
 " version/{type}/changeset
 nnoremap <silent> [unite]vsc :Unite versions/svn/changeset<CR>
 nnoremap <silent> [unite]vgc :Unite versions/git/changeset<CR>
@@ -848,8 +753,11 @@ syntax enable
 nnoremap <silent> <C-l> :<C-u>UniteWithCursorWord line<CR>
 
 "
-" Unite-tag
+" unite-tag
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:unite_source_tag_max_name_length = 25
+let g:unite_source_tag_max_fname_length = 50
+
 " C-] にマッピング
 autocmd BufEnter *
 \   if empty(&buftype)
@@ -1013,22 +921,6 @@ let g:EasyMotion_mapping_j = '<C-j>'
 let g:EasyMotion_mapping_k = '<C-k>'
 
 "
-" vim-rooter
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" \cd でカレントディレクトリを移動（デフォルト）
-"map <silent> <unique> <space>cd <Plug>RooterChangeToRootDirectory
-"" 一旦全部削除
-"autocmd! rooter BufEnter *
-"" 標準では以下の拡張子で自動的に起動
-"autocmd rooter BufEnter *.php,*.rb,*.html,*.haml,*.erb,*.rjs,*.css,*.js
-"" cd の代わりに lcd を使う
-"let g:rooter_use_lcd = 1
-"" ルート発見パターン
-"let g:rooter_patterns = ['Rakefile', '.git/', 'tags', '.tags', '.project']
-"
-
-
-"
 " vim-gitgutter
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let g:gitgutter_sign_added = '✚'
@@ -1042,141 +934,6 @@ let g:EasyMotion_mapping_k = '<C-k>'
 "let g:signify_sign_change            = '➜'
 "let g:signify_sign_delete            = '✘'
 "let g:signify_sign_delete_first_line = '✘'
-
-"
-" lightline.vim
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" lightline.vim
-"let g:lightline = {
-"\ 'colorscheme': 'Tomorrow_Night',
-"\ 'mode_map': {'c': 'NORMAL'},
-"\ 'active': {
-"\   'left': [
-"\     ['mode', 'paste'],
-"\     ['fugitive', 'filename'],
-"\   ],
-"\   'right': [
-"\     ['lineinfo', 'syntastic'],
-"\     ['percent'],
-"\     ['charcode', 'fileformat', 'fileencoding', 'filetype'],
-"\   ]
-"\ },
-"\ 'component_function': {
-"\   'modified': 'MyModified',
-"\   'readonly': 'MyReadonly',
-"\   'fugitive': 'MyFugitive',
-"\   'filename': 'MyFilename',
-"\   'fileformat': 'MyFileformat',
-"\   'filetype': 'MyFiletype',
-"\   'fileencoding': 'MyFileencoding',
-"\   'mode': 'MyMode',
-"\   'syntastic': 'SyntasticStatuslineFlag',
-"\   'charcode': 'MyCharCode',
-"\ },
-"\ }
-"
-"function! MyModified()
-"  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-"endfunction
-"
-"function! MyReadonly()
-"  return &ft !~? 'help\|vimfiler\|gundo' && &ro ? '⭤' : ''
-"endfunction
-"
-"function! MyFilename()
-"  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-"        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-"        \  &ft == 'unite' ? unite#get_status_string() :
-"        \  &ft == 'vimshell' ? substitute(b:vimshell.current_dir,expand('~'),'~','') :
-"        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
-"        \ ('' != MyModified() ? ' ' . MyModified() : '')
-"endfunction
-"
-"function! MyFugitive()
-"  try
-"    if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
-"      let _ = fugitive#head()
-"      return strlen(_) ? '⭠ '._ : ''
-"    endif
-"  catch
-"  endtry
-"  return ''
-"endfunction
-"
-"function! MyFileformat()
-"  return winwidth('.') > 70 ? &fileformat : ''
-"endfunction
-"
-"function! MyFiletype()
-"  return winwidth('.') > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-"endfunction
-"
-"function! MyFileencoding()
-"  return winwidth('.') > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
-"endfunction
-"
-"function! MyMode()
-"  return winwidth('.') > 60 ? lightline#mode() : ''
-"endfunction
-"
-"function! MyGitGutter()
-"  if ! exists('*GitGutterGetHunkSummary')
-"        \ || ! get(g:, 'gitgutter_enabled', 0)
-"        \ || winwidth('.') <= 90
-"    return ''
-"  endif
-"  let symbols = [
-"        \ g:gitgutter_sign_added . ' ',
-"        \ g:gitgutter_sign_modified . ' ',
-"        \ g:gitgutter_sign_removed . ' '
-"        \ ]
-"  let hunks = GitGutterGetHunkSummary()
-"  let ret = []
-"  for i in [0, 1, 2]
-"    if hunks[i] > 0
-"      call add(ret, symbols[i] . hunks[i])
-"    endif
-"  endfor
-"  return join(ret, ' ')
-"endfunction
-"
-"" https://github.com/Lokaltog/vim-powerline/blob/develop/autoload/Powerline/Functions.vim
-"function! MyCharCode()
-"  if winwidth('.') <= 70
-"    return ''
-"  endif
-"
-"  " Get the output of :ascii
-"  redir => ascii
-"  silent! ascii
-"  redir END
-"
-"  if match(ascii, 'NUL') != -1
-"    return 'NUL'
-"  endif
-"
-"  " Zero pad hex values
-"  let nrformat = '0x%02x'
-"
-"  let encoding = (&fenc == '' ? &enc : &fenc)
-"
-"  if encoding == 'utf-8'
-"    " Zero pad with 4 zeroes in unicode files
-"    let nrformat = '0x%04x'
-"  endif
-"
-"  " Get the character and the numeric value from the return value of :ascii
-"  " This matches the two first pieces of the return value, e.g.
-"  " "<F>  70" => char: 'F', nr: '70'
-"  let [str, char, nr; rest] = matchlist(ascii, '\v\<(.{-1,})\>\s*([0-9]+)')
-"
-"  " Format the numeric value
-"  let nr = printf(nrformat, nr)
-"
-"  return "'". char ."' ". nr
-"endfunction
-
 
 "
 " vim-airline
@@ -1193,80 +950,78 @@ let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
-"let g:airline_theme='base16'
-let g:airline_theme='tomorrow'
+let g:airline_theme='base16'
+"let g:airline_theme='tomorrow'
+"let g:airline_theme='bubblegum'
 
 
 "
 " neocomplete
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:acp_enableAtStartup = 0                                       " AutoComplPopが競合するため無効化する
-let g:neocomplete#enable_at_startup = 1                             " neocompleteの自動起動
-let g:neocomplete#enable_smart_case = 1                             " smart caseを有効化する, 大文字が入力されるまで大小の区別を無視する
-" let g:neocomplcache_enable_camel_case_completion = 1              " camel caseを有効化する, 大文字を区切りとしたワイルドカードのように振る舞う
-let g:neocomplcache_enable_underbar_completion = 1                  " アンダーバー区切りの保管を有効化
-let g:neocomplete#sources#syntax#min_keyword_length = 1             " シンタックスをキャッシュする最小文字長
-"let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'               " neocompleteを自動的にロックするバッファ名, 相性が悪いプラグインを使う時用
-"" 補完が止まった際に、スキップする長さを短くする
-let g:neocomplete#skip_auto_completion_time = '0.2'
-
-" AutoComplPop like behavior.
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 1
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplete#enable_auto_select = 0
- 
-" ファイルタイプ別、使用するdictionary
+" Define dictionary.
 let g:neocomplete#sources#dictionary#dictionaries = {
 \ 'default' : '',
+\ 'vimshell' : $HOME.'/.vimshell_hist',
+\ 'scheme' : $HOME.'/.gosh_completions'
 \ }
- 
+" Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
     let g:neocomplete#keyword_patterns = {}
 endif
-
-" キーワードのパターン指定
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" C-gで前回行われた補完をキャンセル
+" Plugin key-mappings.
 inoremap <expr><C-g>     neocomplete#undo_completion()
-" C-lで、補完候補の中から共通する部分を補完
 inoremap <expr><C-l>     neocomplete#complete_common_string()
- 
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
-"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
- 
+
+" Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
- 
-" オムニ補完の関数呼び出し, 動作重め
-if !exists('g:neocomplete#sources#omni#input_patterns')             
+autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
-let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-inoremap <expr><C-Space>        neocomplete#start_manual_complete('omni')
-
-
-
 
 "
 " vim-tags
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:vim_tags_auto_generate = 1
-let g:vim_tags_project_tags_command = "ctags -R {OPTIONS} {DIRECTORY} 2>/dev/null"
+let g:vim_tags_project_tags_command ='ctags -R  --fields=+aimS {OPTIONS} {DIRECTORY} 2>/dev/null &'
 let g:vim_tags_use_vim_dispatch = 0
 let g:vim_tags_use_ycm = 1
 let g:vim_tags_ignore_files = ['.gitignore', '.svnignore', '.cvsignore']
-"let g:vim_tags_directories = ['.git', '.svn', 'CVS']
-let g:vim_tags_directories = ['.git', '.svn', 'CVS', '.']
+let g:vim_tags_directories = ['.git', '.svn', 'CVS']
 let g:vim_tags_main_file = 'tags'
 let g:vim_tags_extension = '.tags'
 
@@ -1339,3 +1094,5 @@ function! s:vimrc_local(loc)
     source `=i`
   endfor
 endfunction
+
+

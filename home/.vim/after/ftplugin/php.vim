@@ -18,7 +18,7 @@ noremap <Leader>e :call PhpExpandClass()<CR>
 
 "neocompleteの補完候補
 let g:neocomplete#sources = {
-  \ '_' : ['neosnippet', 'omni', 'tag', 'file', 'syntax', 'include', 'buffer', 'file/include']
+  \ '_' : ['file', 'neosnippet', 'omni', 'tag', 'syntax', 'include', 'buffer', 'file/include']
   \ }
 
 " phpcomplete option
@@ -27,9 +27,10 @@ let g:phpcomplete_complete_for_unknown_classes = 0
 let g:phpcomplete_search_tags_for_variables = 1
 let g:phpcomplete_min_num_of_chars_for_namespace_completion = 1
 let g:phpcomplete_parse_docblock_comments = 1
+let g:phpcomplete_cache_taglists = 1
 
 " omni func
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+"set omnifunc=phpcomplete#CompletePHP
 "autocmd FileType php set omnifunc=phpcomplete_extended#CompletePHP
 
 "autocmd FileType php call SetOmniFunc()
@@ -50,9 +51,10 @@ let g:ref_phpmanual_path = $HOME . '/.vim/refs/php-chunked-xhtml'
 let g:syntastic_php_checkers=['php']
 
 " tags
-let g:vim_tags_project_tags_command = 'ctags {OPTIONS} -R --fields=+aimS --languages=php {DIRECTORY} 2>/dev/null &'
 set tags=php.tags
-let g:vim_tags_main_file = 'php.tags'
+
+" vim-tags
+let g:vim_tags_project_tags_command = 'ctags -R --fields=+aimS --languages=php -f ./php.tags 2>/dev/null'
 
 " phpcomplete_extended
 let g:phpcomplete_index_composer_command = "hhvm ~/bin/composer.phar"
