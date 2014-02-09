@@ -19,4 +19,7 @@ let g:vim_tags_project_tags_command = 'ctags -R --fields=+aimS --languages=js -f
 let g:vim_tags_auto_generate = 1
 let g:vim_tags_use_vim_dispatch = 0
 
-
+"
+"syntastic
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:syntastic_javascript_checkers=['jshint']

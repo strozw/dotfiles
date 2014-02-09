@@ -13,7 +13,10 @@ ZSH=$HOME/.oh-my-zsh
 #ZSH_THEME="fishy"
 #ZSH_THEME="frisk"
 #ZSH_THEME="norm"
-ZSH_THEME="ys"
+#ZSH_THEME="ys"
+#ZSH_THEME="dst"
+ZSH_THEME="juanghurtado"
+#ZSH_THEME="re5et"
 
 # aliases
 alias cp='cp -i'
@@ -67,7 +70,7 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 #plugins=(git ruby osx bundler brew rails emoji-clock)
-plugins=(sudo git osx brew vagrant z git-flow laravel)
+plugins=(sudo themes git osx brew vagrant z git-flow laravel composer)
 
 source $ZSH/oh-my-zsh.sh
 

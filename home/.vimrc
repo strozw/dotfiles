@@ -246,6 +246,9 @@ NeoBundle 'vim-scripts/DirDiff.vim'
 " laravle blade
 NeoBundle 'xsbeats/vim-blade'
 
+" handlebars tamplete
+NeoBundle 'nono/vim-handlebars'
+
 " html5.vim (html5シンタックス)
 NeoBundleLazy 'othree/html5.vim'
 
@@ -274,6 +277,9 @@ NeoBundleLazy 'tpope/vim-rails', {'autoload': {'filetypes': 'ruby'}}
 " ruby の do に対する end を補完
 NeoBundleLazy 'tpope/vim-endwise', {'autoload': {'filetypes': 'ruby'}}
 
+" ruby で def end などのマッチングを行う
+NeoBundleLazy 'vim-scripts/ruby-matchit', {'autoload': {'filetypes': 'ruby'}}
+
 " javascript syntax
 NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload': {'filetypes': 'javascript'}}
 
@@ -293,9 +299,8 @@ NeoBundleLazy 'endel/actionscript.vim', {'autoload': {'filetypes': 'actionscript
 NeoBundleLazy 'yuratomo/flex-api-complete', {'autoload': {'filetypes': ['actionscript', 'mxml']}}
 
 " omni complete for js
-NeoBundleLazy 'marijnh/tern_for_vim', {
+NeoBundle 'marijnh/tern_for_vim', {
 \ 'build': {'others': 'npm install'},
-\ 'autoload': {'filetypes': 'actionscript'}
 \}
 
 " AutoClose.vim
@@ -567,9 +572,13 @@ vnoremap ? <ESC>?\%V
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " colorsheme
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let base16colorspace=256
 set background=dark
-let g:solarized_termcolors = 256
+if !has('gui_running')
+  set t_Co=256
+  syntax enable
+  let base16colorspace=256
+  let g:solarized_termcolors = 256
+endif
 let g:solarized_contrast = 'high'
 let g:hybrid_use_Xresources = 1
 "colorscheme solarized
@@ -854,8 +863,9 @@ let g:DirDiffExcludes = "CVS,*.class,*.exe,.*.swp,.svn,.git,.DS_Store"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-easymotion
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:EasyMotion_mapping_j = '<C-j>'
-let g:EasyMotion_mapping_k = '<C-k>'
+"let g:EasyMotion_leader_key="'"
+"let g:EasyMotion_mapping_j = '<C-j>'
+"let g:EasyMotion_mapping_k = '<C-k>'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-signify
@@ -984,8 +994,17 @@ let g:context_filetype#filetypes = {
 \    'end': '</script>', 'filetype': 'javascript',
 \   },
 \   {
+\    'start':
+\     '<script>',
+\    'end': '</script>', 'filetype': 'javascript',
+\   },
+\   {
 \    'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>',
 \    'end': '</style>', 'filetype': 'css',
+\   },
+\   {
+\    'start': '<style>',
+\    'end': '</stile>', 'filetype': 'css',
 \   },
 \   {
 \    'start': '<?php\?',
@@ -999,9 +1018,18 @@ let g:context_filetype#filetypes = {
 \    'end': '</script>', 'filetype': 'javascript',
 \   },
 \   {
+\    'start':
+\     '<script>',
+\    'end': '</script>', 'filetype': 'javascript',
+\   },
+\   {
 \    'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>',
 \    'end': '</style>', 'filetype': 'css',
-\   }
+\   },
+\   {
+\    'start': '<style>',
+\    'end': '</stile>', 'filetype': 'css',
+\   },
 \ ],
 \ 'blade': [
 \   {
@@ -1010,8 +1038,17 @@ let g:context_filetype#filetypes = {
 \    'end': '</script>', 'filetype': 'javascript',
 \   },
 \   {
+\    'start':
+\     '<script>',
+\    'end': '</script>', 'filetype': 'javascript',
+\   },
+\   {
 \    'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>',
 \    'end': '</style>', 'filetype': 'css',
+\   },
+\   {
+\    'start': '<style>',
+\    'end': '</stile>', 'filetype': 'css',
 \   },
 \   {
 \    'start': '<?php\?',
