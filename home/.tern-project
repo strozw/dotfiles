@@ -4,5 +4,8 @@
     "jquery",
     "ecma5",
     "underscore"
-  ]
+  ],
+  "plugins": {
+	"node": {}
+  }
 }

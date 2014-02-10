@@ -511,7 +511,7 @@ set wildmode=longest,list,full
 set completeopt=menu,preview,menuone
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ファイル・タイプ別シンタックス
+" ファイル・タイプ
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " markdown
 au BufNewFile,BufRead *.mkd set filetype=markdown
@@ -552,7 +552,7 @@ if version >= 703
   endfunction
 endif
 
-"
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 検索設定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -572,6 +572,9 @@ vnoremap ? <ESC>?\%V
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " colorsheme
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 行ハイライト
+set cursorline
+
 set background=dark
 if !has('gui_running')
   set t_Co=256
@@ -951,6 +954,12 @@ endif
 let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" Enabe force omni completion
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " neosnippet
