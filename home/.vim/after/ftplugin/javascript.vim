@@ -12,6 +12,8 @@ set softtabstop=2
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 au FileType javascript call JavaScriptFold()
 
+" javascript libs syntax
+let g:used_javascript_libs = 'underscore,backbone,jquery'
 "
 " tags
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

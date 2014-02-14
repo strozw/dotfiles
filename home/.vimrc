@@ -283,6 +283,12 @@ NeoBundleLazy 'vim-scripts/ruby-matchit', {'autoload': {'filetypes': 'ruby'}}
 " javascript syntax
 NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload': {'filetypes': 'javascript'}}
 
+" javascript libs syntax
+NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload': {'filetypes': 'javascript'}}
+
+" javascript indent
+NeoBundleLazy 'pangloss/vim-javascript', {'autoload': {'filetypes': 'javascript'}}
+
 " jsdoc
 NeoBundleLazy 'heavenshell/vim-jsdoc', {'autoload': {'filetypes': 'javascript'}}
 
@@ -365,7 +371,7 @@ filetype plugin indent on
 set directory=~/tmp/vim
 
 "検索パターンにおいて大文字と小文字を区別しない。
-set ignorecase
+set noignorecase
 
 "検索パターンが大文字を含んでいたらオプション 'ignorecase'を上書きする。
 set nosmartcase
@@ -882,13 +888,13 @@ let g:DirDiffExcludes = "CVS,*.class,*.exe,.*.swp,.svn,.git,.DS_Store"
 " vim-airline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline_powerline_fonts = 1
-if has('gui_running')
-  let g:airline#extensions#tabline#enabled = 0
-else
+"if has('gui_running')
+"  let g:airline#extensions#tabline#enabled = 0
+"else
   let g:airline#extensions#tabline#enabled = 1
   let g:airline#extensions#tabline#left_sep = ' '
   let g:airline#extensions#tabline#left_alt_sep = '|'
-endif
+"endif
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
