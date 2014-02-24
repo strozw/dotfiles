@@ -92,6 +92,8 @@ NeoBundle 'ujihisa/vimshell-ssh', {
 \    }
 \ }
 
+NeoBundle 'Shougo/neomru.vim', {'depends' : 'Shougo/unite.vim'}
+
 " unite-outline (Unite:アウトラインソース)
 NeoBundleLazy 'h1mesuke/unite-outline', {
 \    'depends' : 'Shougo/unite.vim',
