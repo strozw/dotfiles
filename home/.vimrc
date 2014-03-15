@@ -268,6 +268,7 @@ NeoBundle 'jfortunato25/vim-php-namespace', 'fix-namespace-firstline'
 "NeoBundleLazy 'm2mdas/phpcomplete-extended-symfony', {'autoload': {'filetypes': 'php'}}
 " php-doc.vim のfork版
 NeoBundleLazy 'drwX/php-doc.vim', {'autoload': {'filetypes': 'php'}}
+NeoBundleLazy 'tobyS/pdv', {'autoload': {'filetypes': 'php'}}
 "NeoBundleLazy 'karakaram/vim-quickrun-phpunit', {'autoload': {''filetypes': 'php'}}
 
 " vim-ruby (ruby syntax, 補完)
@@ -468,6 +469,10 @@ match Opaques /\(\%u3099\|%u309a\)/
 
 "改行コードの自動認識
 set fileformats=unix,dos,mac
+
+" 折りたたみ(フォールド設定)
+set foldmethod=syntax
+set foldlevel=100
 
 " ※MacのQuicklookでVimで保存したUTF-8テキストが文字化けする対策。
 " UTF-8を保存する際、

@@ -11,7 +11,7 @@ let b:undo_ftplugin .= 'setl modeline<'
 setlocal nomodeline
 
 " set indent.
-setlocal shiftwidth=2 softtabstop=2
+setlocal shiftwidth=2 softtabstop=2 expandtab
 
 
 " add keyword

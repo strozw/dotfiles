@@ -3,7 +3,10 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set tabstop=4
 set autoindent
-set expandtab
+" ハードタブ
+set noexpandtab
+" ソフトタブ
+"set expandtab
 set shiftwidth=4
 
 "
@@ -76,7 +79,8 @@ set tags=php.tags
 "
 " vim-tags
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:vim_tags_project_tags_command = 'ctags -R --fields=+aimS --languages=php -f ./php.tags 2>/dev/null'
+"let g:vim_tags_project_tags_command = 'ctags -R --fields=+aimS --languages=php -f ./php.tags 2>/dev/null'
+let g:vim_tags_project_tags_command = 'phpctags -R --fields=+aimS -f ./php.tags 2>/dev/null'
 let g:vim_tags_auto_generate = 1
 let g:vim_tags_use_vim_dispatch = 0
 

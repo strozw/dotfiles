@@ -111,3 +111,6 @@ alias less='less -R'
 alias myrascut='rascut --log="$FLASH_LOG" -c "-debug=true -static-link-runtime-shared-libraries=true"'
 #alias pbcopy='reattach-to-user-namespace pbcopy'
 #alias pbpaste='reattach-to-user-namespace pbpaste'
+
+#THIS MUST BE AT THE END OF THE FILE FOR JENV TO WORK!!!
+[[ -s "/Users/satoru/.jenv/bin/jenv-init.sh" ]] && source "/Users/satoru/.jenv/bin/jenv-init.sh" && source "/Users/satoru/.jenv/commands/completion.sh"

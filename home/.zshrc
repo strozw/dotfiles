@@ -119,6 +119,9 @@ export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 #export PATH=/usr/local/opt/ruby/bin/:$PATH
 
+# gnu-tar (installed by homebrew)
+export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
+
 # user bin path
 export PATH=~/bin:$PATH
 
@@ -240,3 +243,6 @@ elif type compctl &>/dev/null; then
   compctl -K _npm_completion npm
 fi
 ###-end-npm-completion-###
+
+#THIS MUST BE AT THE END OF THE FILE FOR JENV TO WORK!!!
+[[ -s "/Users/satoru/.jenv/bin/jenv-init.sh" ]] && source "/Users/satoru/.jenv/bin/jenv-init.sh" && source "/Users/satoru/.jenv/commands/completion.sh"
