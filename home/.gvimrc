@@ -48,6 +48,8 @@ let g:airline#extensions#tabline#enabled = 0
 " MacVim用設定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has('gui_macvim')
+    "ビジュアルベル
+    set visualbell
     set showtabline=2
 	"自動IMオンを無効
 	set imdisable

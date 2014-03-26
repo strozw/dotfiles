@@ -45,7 +45,7 @@ let g:phpcomplete_cache_taglists = 1
 "
 " phpcomplete_extended
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:phpcomplete_index_composer_command = "hhvm ~/bin/composer.phar"
+"let g:phpcomplete_index_composer_command = "hhvm"
 
 "set omnifunc=phpcomplete#CompletePHP
 "autocmd FileType php set omnifunc=phpcomplete_extended#CompletePHP
@@ -80,7 +80,7 @@ set tags=php.tags
 " vim-tags
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let g:vim_tags_project_tags_command = 'ctags -R --fields=+aimS --languages=php -f ./php.tags 2>/dev/null'
-let g:vim_tags_project_tags_command = 'phpctags -R --fields=+aimS -f ./php.tags 2>/dev/null'
+let g:vim_tags_project_tags_command = 'ctags -R --fields=+aimS --sort=yes -f ./php.tags 2>/dev/null'
 let g:vim_tags_auto_generate = 1
 let g:vim_tags_use_vim_dispatch = 0
 

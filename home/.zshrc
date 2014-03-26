@@ -31,7 +31,7 @@ alias vimdiff='/Applications/MacVim.app/Contents/MacOS/vimdiff'
 alias view='/Applications/MacVim.app/Contents/MacOS/view'
 
 # composer
-alias composer='hhvm ~/bin/composer.phar'
+#alias composer='hhvm ~/bin/composer.phar'
 
 # pgssql
 alias pgstart="pg_ctl -l /usr/local/var/postgres/server.log start"
@@ -127,7 +127,6 @@ export PATH=~/bin:$PATH
 
 # rbenv
 export PATH="${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}"
-#export PATH="${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}"
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 # rbenv no rehash ver
 #if which rbenv > /dev/null; then eval "$(rbenv init - --no-rehash)"; fi

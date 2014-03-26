@@ -46,6 +46,9 @@ NeoBundle 'Shougo/vimproc', {
   \ },
 \ }
 
+" バイナリ　エディット
+NeoBundle "Shougo/vinarise.vim"
+
 " auto complete
 NeoBundle "Shougo/neocomplete.vim"
 
@@ -273,6 +276,10 @@ NeoBundleLazy 'tobyS/pdv', {'autoload': {'filetypes': 'php'}}
 
 " vim-ruby (ruby syntax, 補完)
 NeoBundleLazy 'vim-ruby/vim-ruby', {'autoload': {'filetypes': 'ruby'}}
+
+" rsense
+NeoBundleLazy 'taichouchou2/vim-rsense', {'autoload': {'filetypes': 'ruby'}}
+NeoBundleLazy 'supermomonga/neocomplete-rsense.vim', {'autoload': {'filetypes': 'ruby'}}
 
 " rails.vim (railsのシンタックス、MVCの移動、railsコマンドの利用)
 NeoBundleLazy 'tpope/vim-rails', {'autoload': {'filetypes': 'ruby'}}
@@ -596,12 +603,13 @@ if !has('gui_running')
   let g:solarized_termcolors = 256
 endif
 let g:solarized_contrast = 'high'
-let g:hybrid_use_Xresources = 1
+"let g:hybrid_use_Xresources = 1
+"let g:hybrid_use_iTerm_colors = 1
 "colorscheme solarized
-"colorscheme hybrid
+colorscheme hybrid
 "colorscheme iceberg
 "colorscheme base16-ocean
-colorscheme my-base16-ocean
+"colorscheme my-base16-ocean
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " emmet-vim
@@ -960,6 +968,7 @@ autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+"autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
 
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
@@ -973,7 +982,9 @@ let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\
 if !exists('g:neocomplete#force_omni_input_patterns')
   let g:neocomplete#force_omni_input_patterns = {}
 endif
+let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " neosnippet

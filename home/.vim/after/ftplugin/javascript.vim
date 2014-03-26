@@ -30,3 +30,7 @@ let g:vim_tags_use_vim_dispatch = 0
 "syntastic
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:syntastic_javascript_checkers=['jshint']
+
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let $JS_CMD='node'
