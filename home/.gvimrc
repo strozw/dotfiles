@@ -4,10 +4,10 @@
 syntax enable
 "set background=dark
 "colorscheme solarized
-"colorscheme hybrid
+colorscheme my-hybrid
 "colorscheme iceberg
 "colorscheme base16-ocean
-colorscheme my-base16-ocean
+"colorscheme my-base16-ocean
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VimのGUI版で使用するフォントのリスト。

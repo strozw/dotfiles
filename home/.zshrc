@@ -13,10 +13,10 @@ ZSH=$HOME/.oh-my-zsh
 #ZSH_THEME="fishy"
 #ZSH_THEME="frisk"
 #ZSH_THEME="norm"
-ZSH_THEME="ys"
+#ZSH_THEME="ys"
 #ZSH_THEME="dst"
 #ZSH_THEME="juanghurtado"
-#ZSH_THEME="re5et"
+ZSH_THEME="re5et"
 
 # aliases
 alias cp='cp -i'
@@ -184,9 +184,9 @@ export SHELL=/usr/local/bin/zsh
 ################################################
 # Base16 Shell
 ################################################
-BASE16_SCHEME="ocean"
-BASE16_SHELL="$HOME/.config/base16-shell/base16-$BASE16_SCHEME.dark.sh"
-[[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
+#BASE16_SCHEME="ocean"
+#BASE16_SHELL="$HOME/.config/base16-shell/base16-$BASE16_SCHEME.dark.sh"
+#[[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
 
 
 ###-begin-npm-completion-###

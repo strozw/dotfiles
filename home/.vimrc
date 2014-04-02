@@ -55,6 +55,17 @@ NeoBundle "Shougo/neocomplete.vim"
 " neocomplcache & neocomplete 互換 snippet (スニペット補完)
 NeoBundle 'Shougo/neosnippet'
 
+" auto
+NeoBundle "Shougo/neocomplete.vim"
+
+" youcompletme
+NeoBundle 'Valloric/YouCompleteMe' , {
+\ 'build' : {
+\     'mac' : './install.sh',
+\     'unix' : './install.sh',
+\    },
+\ }
+
 " snipmate default snippets
 NeoBundle 'honza/vim-snippets'
 
@@ -606,7 +617,8 @@ let g:solarized_contrast = 'high'
 "let g:hybrid_use_Xresources = 1
 "let g:hybrid_use_iTerm_colors = 1
 "colorscheme solarized
-colorscheme hybrid
+"colorscheme hybrid
+colorscheme my-hybrid
 "colorscheme iceberg
 "colorscheme base16-ocean
 "colorscheme my-base16-ocean
@@ -914,10 +926,11 @@ let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
-let g:airline_theme='base16'
+"let g:airline_theme='base16'
 "let g:airline_theme='hybrid'
 "let g:airline_theme='tomorrow'
 "let g:airline_theme='bubblegum'
+let g:airline_theme='wombat'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -926,7 +939,7 @@ let g:airline_theme='base16'
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_at_startup = 0
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
@@ -968,6 +981,9 @@ autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 "autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
 
 " Enable heavy omni completion.
@@ -1117,17 +1133,17 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-textmanip 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-xmap <Space>d <Plug>(textmanip-duplicate-down)
-nmap <Space>d <Plug>(textmanip-duplicate-down)
-xmap <Space>D <Plug>(textmanip-duplicate-up)
-nmap <Space>D <Plug>(textmanip-duplicate-up)
-
-xmap <C-j> <Plug>(textmanip-move-down)
-xmap <C-k> <Plug>(textmanip-move-up)
-xmap <C-h> <Plug>(textmanip-move-left)
-xmap <C-l> <Plug>(textmanip-move-right)
-
-" toggle insert/replace with <F10>
-nmap <F10> <Plug>(textmanip-toggle-mode)
-xmap <F10> <Plug>(textmanip-toggle-mode)
+"xmap <Space>d <Plug>(textmanip-duplicate-down)
+"nmap <Space>d <Plug>(textmanip-duplicate-down)
+"xmap <Space>D <Plug>(textmanip-duplicate-up)
+"nmap <Space>D <Plug>(textmanip-duplicate-up)
+"
+"xmap <C-j> <Plug>(textmanip-move-down)
+"xmap <C-k> <Plug>(textmanip-move-up)
+"xmap <C-h> <Plug>(textmanip-move-left)
+"xmap <C-l> <Plug>(textmanip-move-right)
+"
+"" toggle insert/replace with <F10>
+"nmap <F10> <Plug>(textmanip-toggle-mode)
+"xmap <F10> <Plug>(textmanip-toggle-mode)
 
