@@ -59,12 +59,12 @@ NeoBundle 'Shougo/neosnippet'
 NeoBundle "Shougo/neocomplete.vim"
 
 " youcompletme
-NeoBundle 'Valloric/YouCompleteMe' , {
-\ 'build' : {
-\     'mac' : './install.sh',
-\     'unix' : './install.sh',
-\    },
-\ }
+"NeoBundle 'Valloric/YouCompleteMe' , {
+"\ 'build' : {
+"\     'mac' : './install.sh',
+"\     'unix' : './install.sh',
+"\    },
+"\ }
 
 " snipmate default snippets
 NeoBundle 'honza/vim-snippets'
@@ -143,6 +143,9 @@ NeoBundleLazy 'kmnk/vim-unite-svn', {
 \    'depends' : 'Shougo/unite.vim',
 \    'autoload' : {'unite_sources' : 'svn'}
 \ }
+
+" json 整形
+NeoBundle '5t111111/neat-json.vim'
 
 " tagsファイル生成
 NeoBundle 'szw/vim-tags'
@@ -231,7 +234,7 @@ NeoBundle 't9md/vim-quickhl'
 " scrooloose/syntastic.vim (各種ファイルタイプのシンタックスエラーの検出・表示)
 NeoBundle 'scrooloose/syntastic'
 
-" Tagbar (ctagを見やすく表示)
+" Tagbar (ctagを見やすく表示) javascriptで利用時にnodeがhung
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'vim-scripts/tagbar-phpctags'
 
@@ -319,6 +322,9 @@ NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload': {'filetypes': 'coffeescri
 " less syntax
 NeoBundleLazy 'less.vim', {'autoload': {'filetypes': 'less'}}
 
+" handlebars and mustache
+NeoBundle 'mustache/vim-mustache-handlebars'
+
 " actionscript
 NeoBundleLazy 'endel/actionscript.vim', {'autoload': {'filetypes': 'actionscript'}}
 
@@ -379,6 +385,9 @@ NeoBundle 'kana/vim-fakeclip'
 " vimscript 向け console
 NeoBundle 'rbtnn/vimconsole.vim'
 
+" インデントをカッコヨク
+NeoBundle 'nathanaelkane/vim-indent-guides'
+
 NeoBundleCheck
 
 " ファイルタイプ:インデント プラグインをON
@@ -390,6 +399,7 @@ filetype plugin indent on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " .swap ファイルの出力先
 set directory=~/tmp/vim
+set undodir=~/tmp/vim/undo
 
 "検索パターンにおいて大文字と小文字を区別しない。
 set noignorecase
@@ -606,16 +616,15 @@ vnoremap ? <ESC>?\%V
 " 行ハイライト
 set cursorline
 
-set background=dark
+"set background=dark
 if !has('gui_running')
-  set t_Co=256
-  syntax enable
-  let base16colorspace=256
-  let g:solarized_termcolors = 256
+  "set t_Co=256
+  "let base16colorspace=256
+  "let g:solarized_termcolors = 256
 endif
-let g:solarized_contrast = 'high'
 "let g:hybrid_use_Xresources = 1
 "let g:hybrid_use_iTerm_colors = 1
+"let g:solarized_contrast = 'high'
 "colorscheme solarized
 "colorscheme hybrid
 colorscheme my-hybrid
@@ -773,6 +782,7 @@ syntax enable
 " Unite-line
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent> <C-l> :<C-u>UniteWithCursorWord line<CR>
+nnoremap <silent> <C-g> :<C-u>UniteWithCursorWord grep:./<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " unite-tag
@@ -873,6 +883,9 @@ let g:quickrun_config = {
 let g:syntastic_check_on_open = 1
 let g:syntastic_auto_jump = 0
 
+" HTML
+"let g:syntastic_html_checkers = ['jshint']
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TagBar
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -899,13 +912,13 @@ let g:DirDiffExcludes = "CVS,*.class,*.exe,.*.swp,.svn,.git,.DS_Store"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-easymotion
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:EasyMotion_leader_key="'"
-"let g:EasyMotion_mapping_j = '<C-j>'
-"let g:EasyMotion_mapping_k = '<C-k>'
+let g:EasyMotion_leader_key="'"
+let g:EasyMotion_mapping_j = '<C-j>'
+let g:EasyMotion_mapping_k = '<C-k>'
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-signify
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let g:signify_sign_add               = '✚'
 "let g:signify_sign_change            = '➜'
 "let g:signify_sign_delete            = '✘'
@@ -929,8 +942,8 @@ let g:airline_right_alt_sep = ''
 "let g:airline_theme='base16'
 "let g:airline_theme='hybrid'
 "let g:airline_theme='tomorrow'
-"let g:airline_theme='bubblegum'
-let g:airline_theme='wombat'
+let g:airline_theme='bubblegum'
+"let g:airline_theme='wombat'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -939,7 +952,7 @@ let g:airline_theme='wombat'
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplete.
-let g:neocomplete#enable_at_startup = 0
+let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
@@ -985,12 +998,13 @@ autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 "autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
+"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
-let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+"let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
@@ -1036,75 +1050,77 @@ let g:vim_tags_extension = '.tags'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " context_filetype
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:context_filetype#filetypes = {
-\ 'html': [
-\   {
-\    'start':
-\     '<script\%( [^>]*\)\? type="text/javascript"\%( [^>]*\)\?>',
-\    'end': '</script>', 'filetype': 'javascript',
-\   },
-\   {
-\    'start':
-\     '<script>',
-\    'end': '</script>', 'filetype': 'javascript',
-\   },
-\   {
-\    'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>',
-\    'end': '</style>', 'filetype': 'css',
-\   },
-\   {
-\    'start': '<style>',
-\    'end': '</stile>', 'filetype': 'css',
-\   },
-\   {
-\    'start': '<?php\?',
-\    'end': '?>', 'filetype': 'php',
-\   }
-\ ],
-\ 'php': [
-\   {
-\    'start':
-\     '<script\%( [^>]*\)\? type="text/javascript"\%( [^>]*\)\?>',
-\    'end': '</script>', 'filetype': 'javascript',
-\   },
-\   {
-\    'start':
-\     '<script>',
-\    'end': '</script>', 'filetype': 'javascript',
-\   },
-\   {
-\    'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>',
-\    'end': '</style>', 'filetype': 'css',
-\   },
-\   {
-\    'start': '<style>',
-\    'end': '</stile>', 'filetype': 'css',
-\   },
-\ ],
-\ 'blade': [
-\   {
-\    'start':
-\     '<script\%( [^>]*\)\? type="text/javascript"\%( [^>]*\)\?>',
-\    'end': '</script>', 'filetype': 'javascript',
-\   },
-\   {
-\    'start':
-\     '<script>',
-\    'end': '</script>', 'filetype': 'javascript',
-\   },
-\   {
-\    'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>',
-\    'end': '</style>', 'filetype': 'css',
-\   },
-\   {
-\    'start': '<style>',
-\    'end': '</stile>', 'filetype': 'css',
-\   },
-\   {
-\    'start': '<?php\?',
-\    'end': '?>', 'filetype': 'php',
-\   }
-\ ],}
+let g:context_filetype#filetypes = {}
+"let g:context_filetype#filetypes = {
+"\ 'html': [
+"\   {
+"\    'start':
+"\     '<script\%( [^>]*\)\? type="text/javascript"\%( [^>]*\)\?>',
+"\    'end': '</script>', 'filetype': 'javascript',
+"\   },
+"\   {
+"\    'start':
+"\     '<script>',
+"\    'end': '</script>', 'filetype': 'javascript',
+"\   },
+"\   {
+"\    'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>',
+"\    'end': '</style>', 'filetype': 'css',
+"\   },
+"\   {
+"\    'start': '<style>',
+"\    'end': '</style>', 'filetype': 'css',
+"\   },
+"\   {
+"\    'start': '<?php\?',
+"\    'end': '?>', 'filetype': 'php',
+"\   }
+"\ ],
+"\ 'php': [
+"\   {
+"\    'start':
+"\     '<script\%( [^>]*\)\? type="text/javascript"\%( [^>]*\)\?>',
+"\    'end': '</script>', 'filetype': 'javascript',
+"\   },
+"\   {
+"\    'start':
+"\     '<script>',
+"\    'end': '</script>', 'filetype': 'javascript',
+"\   },
+"\   {
+"\    'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>',
+"\    'end': '</style>', 'filetype': 'css',
+"\   },
+"\   {
+"\    'start': '<style>',
+"\    'end': '</style>', 'filetype': 'css',
+"\   },
+"\ ],
+"\ 'blade': [
+"\   {
+"\    'start':
+"\     '<script\%( [^>]*\)\? type="text/javascript"\%( [^>]*\)\?>',
+"\    'end': '</script>', 'filetype': 'javascript',
+"\   },
+"\   {
+"\    'start':
+"\     '<script>',
+"\    'end': '</script>', 'filetype': 'javascript',
+"\   },
+"\   {
+"\    'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>',
+"\    'end': '</style>', 'filetype': 'css',
+"\   },
+"\   {
+"\    'start': '<style>',
+"\    'end': '</style>', 'filetype': 'css',
+"\   },
+"\   {
+"\    'start': '<?php\?',
+"\    'end': '?>', 'filetype': 'php',
+"\   }
+"\ ],
+"}
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1131,6 +1147,18 @@ function! s:vimrc_local(loc)
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ctrlp
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ctrlp_match_window = 'top,order:ttb,max:20'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  syntax
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocursorcolumn
+set nocursorline
+syntax sync minlines=256
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-textmanip 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "xmap <Space>d <Plug>(textmanip-duplicate-down)
@@ -1146,4 +1174,17 @@ endfunction
 "" toggle insert/replace with <F10>
 "nmap <F10> <Plug>(textmanip-toggle-mode)
 "xmap <F10> <Plug>(textmanip-toggle-mode)
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-indent-guides
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vim 起動時 vim-indent-guides を自動起動
+"let g:indent_guides_enable_on_vim_startup = 1
+" 自動カラー有効
+"let g:indent_guides_auto_colors = 1
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd   ctermbg=110
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  ctermbg=140
+"let g:indent_guides_start_level = 1
+"let g:indent_guides_guide_size = 1
 

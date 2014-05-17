@@ -1,11 +1,15 @@
 {
-    "strict"    : true,
+    "strict"    : false,
     "indent"    : 2,
-    "camelcase" : true,
+    "camelcase" : false,
     "unused"    : true,
     "eqeqeq"    : true,
     "undef"     : true,
     "browser"   : true,
     "jquery"    : true,
-    "devel"     : true
+    "devel"     : true,
+	"debug"    : true,
+	"node"		: true,
+	"eqnull" : true,
+	"expr" : true
 }

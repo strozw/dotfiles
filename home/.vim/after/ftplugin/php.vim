@@ -37,9 +37,9 @@ let g:neocomplete#sources = {
 "
 " phpcomplete option
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:phpcomplete_relax_static_constraint = 0
+let g:phpcomplete_relax_static_constraint = 1
 let g:phpcomplete_complete_for_unknown_classes = 0
-let g:phpcomplete_search_tags_for_variables = 0
+let g:phpcomplete_search_tags_for_variables = 1
 let g:phpcomplete_min_num_of_chars_for_namespace_completion = 1
 let g:phpcomplete_parse_docblock_comments = 1
 let g:phpcomplete_cache_taglists = 1
@@ -81,8 +81,8 @@ set tags=php.tags
 "
 " vim-tags
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:vim_tags_project_tags_command = 'ctags -R --fields=+aimS --languages=php -f ./php.tags 2>/dev/null'
-let g:vim_tags_project_tags_command = 'ctags -R --fields=+aimS --sort=yes -f ./php.tags 2>/dev/null'
+let g:vim_tags_project_tags_command = 'ctags -R --fields=+aimS --languages=php -f ./php.tags 2>/dev/null'
+"let g:vim_tags_project_tags_command = 'ctags -R --fields=+aimS --sort=yes -f ./php.tags 2>/dev/null'
 let g:vim_tags_auto_generate = 1
 let g:vim_tags_use_vim_dispatch = 0
 

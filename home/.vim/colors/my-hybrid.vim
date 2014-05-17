@@ -396,9 +396,9 @@ exe "hi! qfLineNr"        .s:fg_yellow      .s:bg_none        .s:fmt_none
 "call <sid>hi("vimfilerMask",  s:gui01, "", s:cterm01, "", "")
 "call <sid>hi("vimfilerNonMark",  s:gui02, "", s:cterm02, "", "")
 "call <sid>hi("vimfilerMarkedFile",  s:gui0D, "", s:cterm0D, "", "")
-exe "hi! vimfilerDirectory" .s:fg_yellow .s:bg_none .s:fmt_none
-exe "hi! vimfilerOpendFile" .s:fg_yellow .s:bg_none .s:fmt_none
-exe "hi! vimfilerClosedFile" .s:fg_yellow .s:bg_none .s:fmt_none
+exe "hi! vimfilerDirectory" .s:fg_yellow .s:bg_none .s:fmt_bold
+exe "hi! vimfilerOpendFile" .s:fg_yellow .s:bg_none .s:fmt_bold
+exe "hi! vimfilerClosedFile" .s:fg_yellow .s:bg_none .s:fmt_bold
 "call <sid>hi("vimfilerROFile",  s:gui0F, "", s:cterm0F, "", "")
 
 

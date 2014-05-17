@@ -13,10 +13,11 @@ ZSH=$HOME/.oh-my-zsh
 #ZSH_THEME="fishy"
 #ZSH_THEME="frisk"
 #ZSH_THEME="norm"
-#ZSH_THEME="ys"
+ZSH_THEME="ys"
 #ZSH_THEME="dst"
 #ZSH_THEME="juanghurtado"
-ZSH_THEME="re5et"
+#ZSH_THEME="re5et"
+#ZSH_THEME="pygmalion"
 
 # aliases
 alias cp='cp -i'
@@ -84,13 +85,6 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ###############################################
 source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
 
-##############################################
-# zsh-history-substring-search
-###############################################
-source ~/.zsh.d/zsh-notify/notify.plugin.zsh
-export SYS_NOTIFIER="/usr/local/bin/terminal-notifier"
-export NOTIFY_COMMAND_COMPLETE_TIMEOUT=10
-
 # bind UP and DOWN arrow keys
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
@@ -103,6 +97,18 @@ bindkey -M emacs '^N' history-substring-search-down
 # bind k and j for VI mode
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
+
+##############################################
+# zsh-notify
+##############################################
+source ~/.zsh.d/zsh-notify/notify.plugin.zsh
+export SYS_NOTIFIER="/usr/local/bin/terminal-notifier"
+export NOTIFY_COMMAND_COMPLETE_TIMEOUT=10
+
+##############################################
+# zaw
+##############################################
+source ~/.zsh.d/zaw/zaw.zsh
 
 ###############################################
 # PATH
@@ -154,7 +160,6 @@ export PATH=$HOME/.composer/vendor/bin:$PATH
 # OTHER ENV
 ###############################################
 #export CC=/usr/local/bin/gcc-4.2
-#export CC=/usr/local/bin/gcc-4.2
 
 # android-sdk
 export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
@@ -165,6 +170,9 @@ export AWS_CONFIG_FILE=~/.aws/credentials
 
 # git
 export GIT_EDITOR=vim
+
+# editor
+export EDITOR=vim
 
 # for PostgreSQL
 export PGDATA=/usr/local/var/postgres
