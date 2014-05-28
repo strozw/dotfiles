@@ -47,7 +47,7 @@ let g:phpcomplete_cache_taglists = 1
 "
 " phpcomplete_extended
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:phpcomplete_index_composer_command = "hhvm"
+let g:phpcomplete_index_composer_command = 'composer'
 
 "set omnifunc=phpcomplete#CompletePHP
 "autocmd FileType php set omnifunc=phpcomplete_extended#CompletePHP

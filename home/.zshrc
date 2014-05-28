@@ -23,7 +23,7 @@ ZSH_THEME="ys"
 alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
-alias ls='ls -G'
+alias ls='ls -G -A -F --color=auto'
 alias less='less -R'
 
 # vim
@@ -155,6 +155,9 @@ if which ndenv > /dev/null; then eval "$(ndenv init -)"; fi
 
 # php composer
 export PATH=$HOME/.composer/vendor/bin:$PATH
+
+# go
+export PATH=$PATH:/usr/local/opt/go/libexec/bin
 
 ###############################################
 # OTHER ENV

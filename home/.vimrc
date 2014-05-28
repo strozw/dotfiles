@@ -278,8 +278,8 @@ NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload': {'filetypes': ['scss', '
 
 " php.vim のfork版 (php syntax, 補完)
 NeoBundleLazy 'StanAngeloff/php.vim', {'autoload': {'filetypes': 'php'}}
-NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'jfortunato25/vim-php-namespace', 'fix-namespace-firstline'
+NeoBundle 'shawncplus/phpcomplete.vim'
 "NeoBundleLazy 'm2mdas/phpcomplete-extended', {'autoload': {'filetypes': 'php'}}
 "NeoBundleLazy 'm2mdas/phpcomplete-extended-laravel', {'autoload': {'filetypes': 'php'}}
 "NeoBundleLazy 'm2mdas/phpcomplete-extended-symfony', {'autoload': {'filetypes': 'php'}}
@@ -369,6 +369,7 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'vim-scripts/rdark'
 NeoBundle 'jdonaldson/vaxe'
 NeoBundle 'cocopon/iceberg.vim'
+NeoBundle 'daylerees/colour-schemes', { 'rtp': 'vim/' }
 
 " base16 color
 NeoBundle 'chriskempson/base16-vim'
@@ -387,6 +388,9 @@ NeoBundle 'rbtnn/vimconsole.vim'
 
 " インデントをカッコヨク
 NeoBundle 'nathanaelkane/vim-indent-guides'
+
+" Rich UI for Vim
+NeoBundle 'rbtnn/rabbit-ui.vim'
 
 NeoBundleCheck
 
@@ -993,12 +997,17 @@ inoremap <expr><C-e>  neocomplete#cancel_popup()
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-"autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
 "autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+
+"
+" phpcomplete-extended setting
+"""""""""""""""""""""""""""""""""""""""""""""""
+let g:phpcomplete_index_composer_command = 'composer'
+"autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
+autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
@@ -1188,3 +1197,12 @@ syntax sync minlines=256
 "let g:indent_guides_start_level = 1
 "let g:indent_guides_guide_size = 1
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CSV Edit
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! s:edit_csv(path)
+  call writefile(map(rabbit_ui#gridview(map(readfile(expand(a:path)),'split(v:val,",",1)')), "join(v:val, ',')"), expand(a:path))
+endfunction
+
+command! -nargs=1 EditCSV  :call <sid>edit_csv(<q-args>
