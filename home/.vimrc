@@ -392,6 +392,9 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 " Rich UI for Vim
 NeoBundle 'rbtnn/rabbit-ui.vim'
 
+" Splash Image
+NeoBundle 'thinca/vim-splash'
+
 NeoBundleCheck
 
 " ファイルタイプ:インデント プラグインをON
@@ -786,6 +789,10 @@ syntax enable
 " Unite-line
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent> <C-l> :<C-u>UniteWithCursorWord line<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Unite-grep
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent> <C-g> :<C-u>UniteWithCursorWord grep:./<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -799,6 +806,13 @@ autocmd BufEnter *
 \   if empty(&buftype)
 \|        nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord tag<CR>
 \|   endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Unite-jump タグジャンプ前の位置一覧
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <silent> <C-t> :<C-u>Unite jump<CR>
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vimfiler.vim
@@ -879,16 +893,25 @@ let g:quickrun_config = {
 \       "runner" : "vimproc",
 \       "runner/vimproc/updatetime" : 10,
 \   },
+\   'html' : { 'command' : 'open' },
 \}
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " syntastic
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:syntastic_mode_map = { 
+\ 'mode': 'active',
+\ 'active_filetypes': [],
+\ 'passive_filetypes': ['html'] 
+\}
+
 let g:syntastic_check_on_open = 1
 let g:syntastic_auto_jump = 0
 
 " HTML
 "let g:syntastic_html_checkers = ['jshint']
+let g:syntastic_html_validator_parser = 'html5'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TagBar
@@ -1000,7 +1023,6 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
 "
 " phpcomplete-extended setting
@@ -1158,7 +1180,7 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ctrlp
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ctrlp_match_window = 'top,order:ttb,max:20'
+"let g:ctrlp_match_window = 'top,order:ttb,max:20'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  syntax
@@ -1166,6 +1188,12 @@ let g:ctrlp_match_window = 'top,order:ttb,max:20'
 set nocursorcolumn
 set nocursorline
 syntax sync minlines=256
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  splash
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:splash#path = $HOME . '.vim/splash.txt'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-textmanip 

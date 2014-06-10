@@ -22,9 +22,9 @@ set tags=js.tags
 "
 " vim-tags
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:vim_tags_project_tags_command = 'jsctags -R --fields=+aimS --languages=js -f ./js.tags 2>/dev/null'
+let g:vim_tags_project_tags_command = 'jsctags -f ./js.tags 2>/dev/null'
 let g:vim_tags_auto_generate = 1
-let g:vim_tags_use_vim_dispatch = 0
+let g:vim_tags_use_vim_dispatch = 1
 
 " tagbar
 let g:tagbar_type_javascript = {

@@ -43,6 +43,7 @@ let g:phpcomplete_search_tags_for_variables = 1
 let g:phpcomplete_min_num_of_chars_for_namespace_completion = 1
 let g:phpcomplete_parse_docblock_comments = 1
 let g:phpcomplete_cache_taglists = 1
+let g:phpcomplete_enhance_jump_to_definition = 1
 
 "
 " phpcomplete_extended
@@ -84,7 +85,7 @@ set tags=php.tags
 let g:vim_tags_project_tags_command = 'ctags -R --fields=+aimS --languages=php -f ./php.tags 2>/dev/null'
 "let g:vim_tags_project_tags_command = 'ctags -R --fields=+aimS --sort=yes -f ./php.tags 2>/dev/null'
 let g:vim_tags_auto_generate = 1
-let g:vim_tags_use_vim_dispatch = 0
+let g:vim_tags_use_vim_dispatch = 1
 
 
 

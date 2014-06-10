@@ -143,10 +143,6 @@ if which phpenv > /dev/null; then eval "$(phpenv init -)"; fi
 # phpenv no rehash ver
 #if which phpenv > /dev/null; then eval "$(phpenv init - --no-rehash)"; fi
 
-# jenv
-export PATH="${HOME}/.jenv/bin:${PATH}"
-if which jenv > /dev/null; then eval "$(jenv init -)"; fi
-
 # ndenv
 export PATH="${HOME}/.ndenv/bin:${HOME}/.ndenv/shims:${PATH}"
 if which ndenv > /dev/null; then eval "$(ndenv init -)"; fi
@@ -191,6 +187,8 @@ export PGDATA=/usr/local/var/postgres
 # SHELL
 ################################################
 export SHELL=/usr/local/bin/zsh
+
+archey -c
 
 ################################################
 # Base16 Shell
@@ -254,5 +252,3 @@ elif type compctl &>/dev/null; then
 fi
 ###-end-npm-completion-###
 
-#THIS MUST BE AT THE END OF THE FILE FOR JENV TO WORK!!!
-[[ -s "/Users/satoru/.jenv/bin/jenv-init.sh" ]] && source "/Users/satoru/.jenv/bin/jenv-init.sh" && source "/Users/satoru/.jenv/commands/completion.sh"
