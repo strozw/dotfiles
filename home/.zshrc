@@ -188,7 +188,7 @@ export PGDATA=/usr/local/var/postgres
 ################################################
 export SHELL=/usr/local/bin/zsh
 
-archey -c
+#archey -c
 
 ################################################
 # Base16 Shell

@@ -348,7 +348,7 @@ NeoBundle "cohama/vim-smartinput-endwise"
 NeoBundle 'bling/vim-airline'
 
 " vim easymotion 特定位置へのショートカットジャンプ
-NeoBundle 'Lokaltog/vim-easymotion'
+"NeoBundle 'Lokaltog/vim-easymotion'
 
 " コンテキストによってfiletypeを自動で変更 
 NeoBundle "osyo-manga/vim-precious"
@@ -699,7 +699,7 @@ call unite#custom#source('file_rec,file_rec/async',
 "現在開いているファイルのディレクトリ下のファイル一覧
 "開いていない場合はカレントディレクトリ
 nnoremap <silent> [unite]f :UniteWithBufferDir file<CR>
-nnoremap <silent> [unite]ff :Unite file_rec/async<CR>
+nnoremap <silent> [unite]ff :Unite file_rec/async -start-insert<CR>
 "ソース一覧
 nnoremap <silent> [unite]b :Unite source<CR>
 "バッファ一覧
@@ -881,6 +881,10 @@ function! my_action.func(candidates)
 endfunction
 call unite#custom_action('file', 'my_tabopen', my_action)
 
+" unite-file_rec/async の除外パターン
+call unite#custom#source('file_rec/async', 'ignore_pattern', '\.\(png\|gif\|jpeg\|jpg\|JPG\|mpeg\|flv\|avi\|swf\|ico\|icon\|app\|exe\)$')
+let g:unite_source_rec_max_cache_files = 10000
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "quickrun.vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -939,9 +943,9 @@ let g:DirDiffExcludes = "CVS,*.class,*.exe,.*.swp,.svn,.git,.DS_Store"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-easymotion
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:EasyMotion_leader_key="'"
-let g:EasyMotion_mapping_j = '<C-j>'
-let g:EasyMotion_mapping_k = '<C-k>'
+"let g:EasyMotion_leader_key="'"
+"let g:EasyMotion_mapping_j = '<C-j>'
+"let g:EasyMotion_mapping_k = '<C-k>'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-signify
@@ -1064,7 +1068,7 @@ endif
 let g:neosnippet#enable_snipmate_compatibility = 1
 
 " Tell Neosnippet about the other snippets
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/bundle/vim-snippets/snippets'
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-tags
