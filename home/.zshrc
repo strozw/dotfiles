@@ -152,8 +152,14 @@ if which ndenv > /dev/null; then eval "$(ndenv init -)"; fi
 # php composer
 export PATH=$HOME/.composer/vendor/bin:$PATH
 
-# go
+###############################################
+# go path
+###############################################
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
+
+export GOPATH=~/go
+export PATH=$PATH:$GOPATH/bin
+
 
 ###############################################
 # OTHER ENV
@@ -181,6 +187,25 @@ export PGDATA=/usr/local/var/postgres
 ###############################################
 # z
 . `brew --prefix`/etc/profile.d/z.sh
+
+#######################################
+# peco hitory
+#######################################
+function peco-select-history() {
+    local tac
+    if which tac > /dev/null; then
+        tac="tac"
+    else
+        tac="tail -r"
+    fi
+    BUFFER=$(history -n 1 | \
+        eval $tac | \
+        peco --query "$LBUFFER")
+    CURSOR=$#BUFFER
+    zle clear-screen
+}
+zle -N peco-select-history
+bindkey '^r' peco-select-history
 
 
 ################################################

@@ -311,7 +311,10 @@ NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload': {'filetypes': 'javasc
 NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload': {'filetypes': 'javascript'}}
 
 " javascript indent
-NeoBundleLazy 'pangloss/vim-javascript', {'autoload': {'filetypes': 'javascript'}}
+NeoBundleLazy 'vim-scripts/JavaScript-Indent', {'autoload': {'filetypes': 'javascript'}}
+ 
+" node.js
+NeoBundleLazy 'moll/vim-node', {'autoload': {'filetypes': 'javascript'}}
 
 " jsdoc
 NeoBundleLazy 'heavenshell/vim-jsdoc', {'autoload': {'filetypes': 'javascript'}}
@@ -394,6 +397,9 @@ NeoBundle 'rbtnn/rabbit-ui.vim'
 
 " Splash Image
 NeoBundle 'thinca/vim-splash'
+
+" csv
+NeoBundle 'chrisbra/csv.vim'
 
 NeoBundleCheck
 
@@ -1028,7 +1034,7 @@ autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 
-"
+
 " phpcomplete-extended setting
 """""""""""""""""""""""""""""""""""""""""""""""
 let g:phpcomplete_index_composer_command = 'composer'
@@ -1048,7 +1054,7 @@ if !exists('g:neocomplete#force_omni_input_patterns')
   let g:neocomplete#force_omni_input_patterns = {}
 endif
 let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
+"let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
