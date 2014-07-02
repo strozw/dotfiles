@@ -76,6 +76,19 @@ plugins=(sudo themes git npm svn osx brew vagrant z git-flow laravel composer)
 source $ZSH/oh-my-zsh.sh
 
 ###############################################
+# cdr
+###############################################
+autoload -Uz is-at-least
+if is-at-least 4.3.11
+then
+  autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+  add-zsh-hook chpwd chpwd_recent_dirs
+  zstyle ':chpwd:*' recent-dirs-max 5000
+  zstyle ':chpwd:*' recent-dirs-default yes
+  zstyle ':completion:*' recent-dirs-insert both
+fi
+
+###############################################
 # zsh-syntax-highlighting
 ###############################################
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -205,6 +218,47 @@ function peco-select-history() {
 zle -N peco-select-history
 bindkey '^r' peco-select-history
 
+#######################################
+# peco cdr
+#######################################
+function peco-cdr () {
+    local selected_dir=$(cdr -l | awk '{ print $2 }' | peco)
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N peco-cdr
+bindkey '^@' peco-cdr
+
+#######################################
+# peco z
+#######################################
+function peco-z () {
+    local selected_dir=$(z -t | sort -nr | awk '{ print $2 }' | peco)
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N peco-z
+bindkey '^z' peco-z
+
+#######################################
+# peco h
+#######################################
+function peco-homesick () {
+    local selected_dir=$(homesick list | awk '{ print $1 }' | peco)
+    if [ -n "$selected_dir" ]; then
+        BUFFER="homesick cd ${selected_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N peco-homesick
+bindkey '^h' peco-homesick
 
 ################################################
 # SHELL

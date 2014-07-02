@@ -292,7 +292,7 @@ NeoBundleLazy 'tobyS/pdv', {'autoload': {'filetypes': 'php'}}
 NeoBundleLazy 'vim-ruby/vim-ruby', {'autoload': {'filetypes': 'ruby'}}
 
 " rsense
-NeoBundleLazy 'taichouchou2/vim-rsense', {'autoload': {'filetypes': 'ruby'}}
+"NeoBundleLazy 'taichouchou2/vim-rsense', {'autoload': {'filetypes': 'ruby'}}
 NeoBundleLazy 'supermomonga/neocomplete-rsense.vim', {'autoload': {'filetypes': 'ruby'}}
 
 " rails.vim (railsのシンタックス、MVCの移動、railsコマンドの利用)
