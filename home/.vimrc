@@ -401,6 +401,9 @@ NeoBundle 'thinca/vim-splash'
 " csv
 NeoBundle 'chrisbra/csv.vim'
 
+" editorconfig
+NeoBundle 'editorconfig/editorconfig-vim'
+
 NeoBundleCheck
 
 " ファイルタイプ:インデント プラグインをON
