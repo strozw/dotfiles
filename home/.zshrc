@@ -265,6 +265,15 @@ function peco-pkill() {
 }
 alias pk="peco-pkill"
 
+# tmux attach session
+function peco-tmux-attach-session() {
+	for sid in `tmux ls | peco | awk '{ print $1 }' | cut -d':' -f1`
+	do
+		tmux attach-session -t $sid
+	done
+}
+alias pta="peco-tmux-attach-session"
+
 ################################################
 # SHELL
 ################################################
