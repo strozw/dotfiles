@@ -404,6 +404,9 @@ NeoBundle 'chrisbra/csv.vim'
 " editorconfig
 NeoBundle 'editorconfig/editorconfig-vim'
 
+" align
+NeoBundle 'vim-scripts/Align'
+
 NeoBundleCheck
 
 " ファイルタイプ:インデント プラグインをON
