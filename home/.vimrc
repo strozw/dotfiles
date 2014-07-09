@@ -278,8 +278,8 @@ NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload': {'filetypes': ['scss', '
 
 " php.vim のfork版 (php syntax, 補完)
 NeoBundleLazy 'StanAngeloff/php.vim', {'autoload': {'filetypes': 'php'}}
-NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'jfortunato25/vim-php-namespace', 'fix-namespace-firstline'
+NeoBundle 'shawncplus/phpcomplete.vim'
 "NeoBundleLazy 'm2mdas/phpcomplete-extended', {'autoload': {'filetypes': 'php'}}
 "NeoBundleLazy 'm2mdas/phpcomplete-extended-laravel', {'autoload': {'filetypes': 'php'}}
 "NeoBundleLazy 'm2mdas/phpcomplete-extended-symfony', {'autoload': {'filetypes': 'php'}}
@@ -292,7 +292,7 @@ NeoBundleLazy 'tobyS/pdv', {'autoload': {'filetypes': 'php'}}
 NeoBundleLazy 'vim-ruby/vim-ruby', {'autoload': {'filetypes': 'ruby'}}
 
 " rsense
-NeoBundleLazy 'taichouchou2/vim-rsense', {'autoload': {'filetypes': 'ruby'}}
+"NeoBundleLazy 'taichouchou2/vim-rsense', {'autoload': {'filetypes': 'ruby'}}
 NeoBundleLazy 'supermomonga/neocomplete-rsense.vim', {'autoload': {'filetypes': 'ruby'}}
 
 " rails.vim (railsのシンタックス、MVCの移動、railsコマンドの利用)
@@ -311,7 +311,10 @@ NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload': {'filetypes': 'javasc
 NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload': {'filetypes': 'javascript'}}
 
 " javascript indent
-NeoBundleLazy 'pangloss/vim-javascript', {'autoload': {'filetypes': 'javascript'}}
+NeoBundleLazy 'vim-scripts/JavaScript-Indent', {'autoload': {'filetypes': 'javascript'}}
+ 
+" node.js
+NeoBundleLazy 'moll/vim-node', {'autoload': {'filetypes': 'javascript'}}
 
 " jsdoc
 NeoBundleLazy 'heavenshell/vim-jsdoc', {'autoload': {'filetypes': 'javascript'}}
@@ -348,7 +351,7 @@ NeoBundle "cohama/vim-smartinput-endwise"
 NeoBundle 'bling/vim-airline'
 
 " vim easymotion 特定位置へのショートカットジャンプ
-NeoBundle 'Lokaltog/vim-easymotion'
+"NeoBundle 'Lokaltog/vim-easymotion'
 
 " コンテキストによってfiletypeを自動で変更 
 NeoBundle "osyo-manga/vim-precious"
@@ -369,6 +372,7 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'vim-scripts/rdark'
 NeoBundle 'jdonaldson/vaxe'
 NeoBundle 'cocopon/iceberg.vim'
+NeoBundle 'daylerees/colour-schemes', { 'rtp': 'vim/' }
 
 " base16 color
 NeoBundle 'chriskempson/base16-vim'
@@ -387,6 +391,21 @@ NeoBundle 'rbtnn/vimconsole.vim'
 
 " インデントをカッコヨク
 NeoBundle 'nathanaelkane/vim-indent-guides'
+
+" Rich UI for Vim
+NeoBundle 'rbtnn/rabbit-ui.vim'
+
+" Splash Image
+NeoBundle 'thinca/vim-splash'
+
+" csv
+NeoBundle 'chrisbra/csv.vim'
+
+" editorconfig
+NeoBundle 'editorconfig/editorconfig-vim'
+
+" align
+NeoBundle 'vim-scripts/Align'
 
 NeoBundleCheck
 
@@ -692,7 +711,7 @@ call unite#custom#source('file_rec,file_rec/async',
 "現在開いているファイルのディレクトリ下のファイル一覧
 "開いていない場合はカレントディレクトリ
 nnoremap <silent> [unite]f :UniteWithBufferDir file<CR>
-nnoremap <silent> [unite]ff :Unite file_rec/async<CR>
+nnoremap <silent> [unite]ff :Unite file_rec/async -start-insert<CR>
 "ソース一覧
 nnoremap <silent> [unite]b :Unite source<CR>
 "バッファ一覧
@@ -782,6 +801,10 @@ syntax enable
 " Unite-line
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent> <C-l> :<C-u>UniteWithCursorWord line<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Unite-grep
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent> <C-g> :<C-u>UniteWithCursorWord grep:./<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -795,6 +818,13 @@ autocmd BufEnter *
 \   if empty(&buftype)
 \|        nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord tag<CR>
 \|   endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Unite-jump タグジャンプ前の位置一覧
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <silent> <C-t> :<C-u>Unite jump<CR>
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vimfiler.vim
@@ -863,6 +893,10 @@ function! my_action.func(candidates)
 endfunction
 call unite#custom_action('file', 'my_tabopen', my_action)
 
+" unite-file_rec/async の除外パターン
+call unite#custom#source('file_rec/async', 'ignore_pattern', '\.\(png\|gif\|jpeg\|jpg\|JPG\|mpeg\|flv\|avi\|swf\|ico\|icon\|app\|exe\)$')
+let g:unite_source_rec_max_cache_files = 10000
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "quickrun.vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -875,16 +909,25 @@ let g:quickrun_config = {
 \       "runner" : "vimproc",
 \       "runner/vimproc/updatetime" : 10,
 \   },
+\   'html' : { 'command' : 'open' },
 \}
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " syntastic
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:syntastic_mode_map = { 
+\ 'mode': 'active',
+\ 'active_filetypes': [],
+\ 'passive_filetypes': ['html'] 
+\}
+
 let g:syntastic_check_on_open = 1
 let g:syntastic_auto_jump = 0
 
 " HTML
 "let g:syntastic_html_checkers = ['jshint']
+let g:syntastic_html_validator_parser = 'html5'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TagBar
@@ -912,9 +955,9 @@ let g:DirDiffExcludes = "CVS,*.class,*.exe,.*.swp,.svn,.git,.DS_Store"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-easymotion
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:EasyMotion_leader_key="'"
-let g:EasyMotion_mapping_j = '<C-j>'
-let g:EasyMotion_mapping_k = '<C-k>'
+"let g:EasyMotion_leader_key="'"
+"let g:EasyMotion_mapping_j = '<C-j>'
+"let g:EasyMotion_mapping_k = '<C-k>'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-signify
@@ -993,12 +1036,16 @@ inoremap <expr><C-e>  neocomplete#cancel_popup()
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+
+
+" phpcomplete-extended setting
+"""""""""""""""""""""""""""""""""""""""""""""""
+let g:phpcomplete_index_composer_command = 'composer'
 "autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
-"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
@@ -1013,7 +1060,7 @@ if !exists('g:neocomplete#force_omni_input_patterns')
   let g:neocomplete#force_omni_input_patterns = {}
 endif
 let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
+"let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1033,7 +1080,7 @@ endif
 let g:neosnippet#enable_snipmate_compatibility = 1
 
 " Tell Neosnippet about the other snippets
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/bundle/vim-snippets/snippets'
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-tags
@@ -1149,7 +1196,7 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ctrlp
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ctrlp_match_window = 'top,order:ttb,max:20'
+"let g:ctrlp_match_window = 'top,order:ttb,max:20'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  syntax
@@ -1157,6 +1204,12 @@ let g:ctrlp_match_window = 'top,order:ttb,max:20'
 set nocursorcolumn
 set nocursorline
 syntax sync minlines=256
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  splash
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:splash#path = $HOME . '.vim/splash.txt'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-textmanip 
@@ -1188,3 +1241,12 @@ syntax sync minlines=256
 "let g:indent_guides_start_level = 1
 "let g:indent_guides_guide_size = 1
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CSV Edit
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! s:edit_csv(path)
+  call writefile(map(rabbit_ui#gridview(map(readfile(expand(a:path)),'split(v:val,",",1)')), "join(v:val, ',')"), expand(a:path))
+endfunction
+
+command! -nargs=1 EditCSV  :call <sid>edit_csv(<q-args>

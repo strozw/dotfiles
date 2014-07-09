@@ -17,6 +17,6 @@ let g:ref_refe_cmd = $HOME . "/References/ruby-refm/ruby-refm-1.9.3-dynamic-snap
 " omni
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " rsense
-"let g:rsenseHome = "/usr/local/Cellar/rsense/0.3/libexec/"
-"let g:rsenseUseOmniFunc = 1
-"let g:neocomplete#sources#rsense#home_directory = "/usr/local/Cellar/rsense/0.3/libexec/"
+let g:rsenseHome = "/usr/local/Cellar/rsense/0.3/libexec/"
+let g:rsenseUseOmniFunc = 1
+let g:neocomplete#sources#rsense#home_directory = "/usr/local/Cellar/rsense/0.3/libexec/"

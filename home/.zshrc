@@ -23,7 +23,7 @@ ZSH_THEME="ys"
 alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
-alias ls='ls -G'
+alias ls='ls -G -A -F --color=auto'
 alias less='less -R'
 
 # vim
@@ -74,6 +74,19 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 plugins=(sudo themes git npm svn osx brew vagrant z git-flow laravel composer)
 
 source $ZSH/oh-my-zsh.sh
+
+###############################################
+# cdr
+###############################################
+autoload -Uz is-at-least
+if is-at-least 4.3.11
+then
+  autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+  add-zsh-hook chpwd chpwd_recent_dirs
+  zstyle ':chpwd:*' recent-dirs-max 5000
+  zstyle ':chpwd:*' recent-dirs-default yes
+  zstyle ':completion:*' recent-dirs-insert both
+fi
 
 ###############################################
 # zsh-syntax-highlighting
@@ -143,10 +156,6 @@ if which phpenv > /dev/null; then eval "$(phpenv init -)"; fi
 # phpenv no rehash ver
 #if which phpenv > /dev/null; then eval "$(phpenv init - --no-rehash)"; fi
 
-# jenv
-export PATH="${HOME}/.jenv/bin:${PATH}"
-if which jenv > /dev/null; then eval "$(jenv init -)"; fi
-
 # ndenv
 export PATH="${HOME}/.ndenv/bin:${HOME}/.ndenv/shims:${PATH}"
 if which ndenv > /dev/null; then eval "$(ndenv init -)"; fi
@@ -155,6 +164,15 @@ if which ndenv > /dev/null; then eval "$(ndenv init -)"; fi
 
 # php composer
 export PATH=$HOME/.composer/vendor/bin:$PATH
+
+###############################################
+# go path
+###############################################
+export PATH=$PATH:/usr/local/opt/go/libexec/bin
+
+export GOPATH=~/go
+export PATH=$PATH:$GOPATH/bin
+
 
 ###############################################
 # OTHER ENV
@@ -183,11 +201,85 @@ export PGDATA=/usr/local/var/postgres
 # z
 . `brew --prefix`/etc/profile.d/z.sh
 
+###############################################
+# peco Utitlity
+###############################################
+# peco hitory
+function peco-select-history() {
+    local tac
+    if which tac > /dev/null; then
+        tac="tac"
+    else
+        tac="tail -r"
+    fi
+    BUFFER=$(history | cut -c 8- | eval $tac | peco --query "$LBUFFER")
+    CURSOR=$#BUFFER
+    zle clear-screen
+}
+zle -N peco-select-history
+bindkey '^r' peco-select-history
+
+# peco cdr
+function peco-cdr () {
+    local selected_dir=$(cdr -l | awk '{ print $2 }' | peco)
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N peco-cdr
+bindkey '^@' peco-cdr
+
+# peco z
+function peco-z () {
+    local selected_dir=$(z -t | sort -nr | awk '{ print $2 }' | peco)
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N peco-z
+bindkey '^z' peco-z
+
+# peco homesick
+function peco-homesick () {
+    local selected_dir=$(homesick list | awk '{ print $1 }' | peco)
+    if [ -n "$selected_dir" ]; then
+        BUFFER="homesick cd ${selected_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N peco-homesick
+bindkey '^h' peco-homesick
+
+# process kill
+function peco-pkill() {
+  for pid in `ps aux | peco | awk '{ print $2 }'`
+  do
+    kill $pid
+    echo "Killed ${pid}"
+  done
+}
+alias pk="peco-pkill"
+
+# tmux attach session
+function peco-tmux-attach-session() {
+	for sid in `tmux ls | peco | awk '{ print $1 }' | cut -d':' -f1`
+	do
+		tmux attach-session -t $sid
+	done
+}
+alias pta="peco-tmux-attach-session"
 
 ################################################
 # SHELL
 ################################################
 export SHELL=/usr/local/bin/zsh
+
+#archey -c
 
 ################################################
 # Base16 Shell
@@ -251,5 +343,3 @@ elif type compctl &>/dev/null; then
 fi
 ###-end-npm-completion-###
 
-#THIS MUST BE AT THE END OF THE FILE FOR JENV TO WORK!!!
-[[ -s "/Users/satoru/.jenv/bin/jenv-init.sh" ]] && source "/Users/satoru/.jenv/bin/jenv-init.sh" && source "/Users/satoru/.jenv/commands/completion.sh"
