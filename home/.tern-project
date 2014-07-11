@@ -5,7 +5,17 @@
     "ecma5",
     "underscore"
   ],
+  "loadEagerly": [
+	"*.js",
+	"*/*.js",
+	"*/*/*.js",
+	"*/*/*/*.js"
+  ],
   "plugins": {
-	"node": {}
+	"node": {},
+	"requirejs": {
+      "baseURL": "./",
+      "paths": {}
+    }
   }
 }
