@@ -75,6 +75,9 @@ plugins=(sudo themes git npm svn osx brew vagrant z git-flow laravel composer)
 
 source $ZSH/oh-my-zsh.sh
 
+# I want use jorke command
+unalias sl
+
 ###############################################
 # cdr
 ###############################################
@@ -167,6 +170,15 @@ export PATH=$PATH:/usr/local/opt/go/libexec/bin
 
 export GOPATH=~/go
 export PATH=$PATH:$GOPATH/bin
+
+###############################################
+# PATH fix for subshell
+###############################################
+#PATH=
+#if [ -x /usr/libexec/path_helper ]; then
+#    eval `/usr/libexec/path_helper -s`
+#fi
+#export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 
 ###############################################
