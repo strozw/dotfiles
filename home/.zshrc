@@ -18,6 +18,7 @@ ZSH_THEME="ys"
 #ZSH_THEME="juanghurtado"
 #ZSH_THEME="re5et"
 #ZSH_THEME="pygmalion"
+#ZSH_THEME="kphoen"
 
 # aliases
 alias cp='cp -i'
