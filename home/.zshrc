@@ -159,10 +159,13 @@ if which phpenv > /dev/null; then eval "$(phpenv init -)"; fi
 export PATH="${HOME}/.ndenv/bin:${HOME}/.ndenv/shims:${PATH}"
 if which ndenv > /dev/null; then eval "$(ndenv init -)"; fi
 
-
+# hombrew ruby gem path
+export GEM_EXE_DIR=`gem env | grep "EXECUTABLE DIRECTORY" | awk '{print $4}'`
+export PATH=$GEM_EXE_DIR:$PATH
 
 # php composer
 export PATH=$HOME/.composer/vendor/bin:$PATH
+
 
 ###############################################
 # go path
@@ -225,7 +228,7 @@ function peco-select-history() {
     zle clear-screen
 }
 zle -N peco-select-history
-bindkey '^r' peco-select-history
+#bindkey '^r' peco-select-history
 
 # peco cdr
 function peco-cdr () {
@@ -249,7 +252,7 @@ function peco-z () {
     zle clear-screen
 }
 zle -N peco-z
-bindkey '^z' peco-z
+bindkey '^r' peco-z
 
 # peco homesick
 function peco-homesick () {

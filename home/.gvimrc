@@ -14,8 +14,10 @@ colorscheme my-hybrid
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 ":set guifont=Inconsolata:h13
 ":set guifontwide=Takaoゴシック:h13
-set guifont=Ricty\ for\ Powerline:h13
-set guifontwide=Ricty\ for\ Powerline:h13
+set guifont=Ricty\ for\ Powerline:h11
+set guifontwide=Ricty\ for\ Powerline:h11
+set printfont=Ricty\ for\ Powerline:h11
+set linespace=3
 
 "画面上の列幅を設定する。
 "set columns=110

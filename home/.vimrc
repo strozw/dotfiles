@@ -399,13 +399,19 @@ NeoBundle 'rbtnn/rabbit-ui.vim'
 NeoBundle 'thinca/vim-splash'
 
 " csv
-NeoBundle 'chrisbra/csv.vim'
+"NeoBundle 'chrisbra/csv.vim'
 
 " editorconfig
 NeoBundle 'editorconfig/editorconfig-vim'
 
 " align
 NeoBundle 'vim-scripts/Align'
+
+" tabular
+NeoBundle 'godlygeek/tabular'
+
+" カーソル下の単語をハイライト
+"NeoBundle 'osyo-manga/vim-brightest'
 
 NeoBundleCheck
 
@@ -702,6 +708,7 @@ let g:unite_source_grep_default_opts = '--nocolor --nogroup --ignore=''*.tags'' 
 let g:unite_source_grep_recursive_opt = ''
 let g:unite_source_grep_max_candidates  = 200
 let g:unite_source_rec_max_cache_files = 0
+let g:unite_source_rec_async_command='ag --nocolor --nogroup --ignore ".hg" --ignore ".svn" --ignore ".git" --ignore ".bzr" --hidden -g ""'
 let g:unite_converter_file_directory_width = 100
 
 call unite#custom#source('file_rec,file_rec/async',
@@ -894,7 +901,7 @@ endfunction
 call unite#custom_action('file', 'my_tabopen', my_action)
 
 " unite-file_rec/async の除外パターン
-call unite#custom#source('file_rec/async', 'ignore_pattern', '\.\(png\|gif\|jpeg\|jpg\|JPG\|mpeg\|flv\|avi\|swf\|ico\|icon\|app\|exe\)$')
+call unite#custom#source('file_rec/async', 'ignore_pattern', '\.\(png\|gif\|jpeg\|jpg\|JPG\|mpeg\|flv\|avi\|swf\|ico\|icon\|app\|exe\|svn\|git\)$')
 let g:unite_source_rec_max_cache_files = 10000
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -970,18 +977,58 @@ let g:DirDiffExcludes = "CVS,*.class,*.exe,.*.swp,.svn,.git,.DS_Store"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-airline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" powerline fonts
+"   : version control
+"   : LN (line) symbol
+"   : Rightwards black arrwhead
+"   : Rightwardsarrwhead
+"   : iLeftwards black arrwhead
+"   : Leftwardsarrwhead
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
 let g:airline_powerline_fonts = 1
 if has('gui_running')
   let g:airline#extensions#tabline#enabled = 0
+  let g:airline_left_sep = ''
+  let g:airline_left_alt_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_right_alt_sep = ''
+  let g:airline_symbols.branch = '⭠'
+  let g:airline_symbols.readonly = '⭤'
+  let g:airline_symbols.linenr = '⭡'
 else
   let g:airline#extensions#tabline#enabled = 1
-  let g:airline#extensions#tabline#left_sep = ' '
+  let g:airline#extensions#tabline#left_sep = ''
   let g:airline#extensions#tabline#left_alt_sep = '|'
+  let g:airline_left_sep = ''
+  let g:airline_left_alt_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_right_alt_sep = ''
 endif
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
+
+
+
+"" powerline symbols
+"let g:airline_left_sep = ''
+"let g:airline_left_alt_sep = ''
+"let g:airline_right_sep = ''
+"let g:airline_right_alt_sep = ''
+"let g:airline_symbols.branch = ''
+"let g:airline_symbols.readonly = ''
+"let g:airline_symbols.linenr = ''
+
+" old vim-powerline symbols
+"let g:airline_left_sep = '⮀'
+"let g:airline_left_alt_sep = '⮁'
+"let g:airline_right_sep = '⮂'
+"let g:airline_right_alt_sep = '⮃'
+"let g:airline_symbols.branch = '⭠'
+"let g:airline_symbols.readonly = '⭤'
+"let g:airline_symbols.linenr = '⭡'
+
 "let g:airline_theme='base16'
 "let g:airline_theme='hybrid'
 "let g:airline_theme='tomorrow'
@@ -1043,9 +1090,9 @@ autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 
 " phpcomplete-extended setting
 """""""""""""""""""""""""""""""""""""""""""""""
-let g:phpcomplete_index_composer_command = 'composer'
+"let g:phpcomplete_index_composer_command = 'composer'
 "autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
-autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+"autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
