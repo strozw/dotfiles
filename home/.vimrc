@@ -372,7 +372,7 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'vim-scripts/rdark'
 NeoBundle 'jdonaldson/vaxe'
 NeoBundle 'cocopon/iceberg.vim'
-NeoBundle 'daylerees/colour-schemes', { 'rtp': 'vim/' }
+"NeoBundle 'daylerees/colour-schemes', { 'rtp': 'vim/' }
 
 " base16 color
 NeoBundle 'chriskempson/base16-vim'
@@ -381,7 +381,8 @@ NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'rking/ag.vim'
 
 " markdown syntax
-NeoBundle 'tpope/vim-markdown'
+"NeoBundle 'tpope/vim-markdown'
+NeoBundle 'plasticboy/vim-markdown'
 
 " tmux の vim で pbcopy/pbpaste
 NeoBundle 'kana/vim-fakeclip'
@@ -565,7 +566,8 @@ set mouse=a
 set wildmenu
 
 " リスト表示、最長マッチ
-set wildmode=longest,list,full
+"set wildmode=longest,list,full
+set wildmode=longest,full
 
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -574,7 +576,8 @@ set wildmode=longest,list,full
 " 補完に辞書ファイル追加
 "set complete =.,b,w,u,k,i,t
 " 補完表示設定
-set completeopt=menu,preview,menuone
+"set completeopt=menu,preview,menuone
+set completeopt=menu,menuone
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ファイル・タイプ

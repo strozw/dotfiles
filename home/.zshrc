@@ -1,6 +1,8 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
+ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -13,7 +15,8 @@ ZSH=$HOME/.oh-my-zsh
 #ZSH_THEME="fishy"
 #ZSH_THEME="frisk"
 #ZSH_THEME="norm"
-ZSH_THEME="ys"
+#ZSH_THEME="ys"
+ZSH_THEME="my-ys"
 #ZSH_THEME="dst"
 #ZSH_THEME="juanghurtado"
 #ZSH_THEME="re5et"
@@ -72,7 +75,7 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 #plugins=(git ruby osx bundler brew rails emoji-clock)
-plugins=(sudo themes git npm svn osx brew vagrant z git-flow laravel composer)
+plugins=(sudo themes git npm svn osx brew vagrant z git-flow laravel composer svn-fast-info)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -228,7 +231,7 @@ function peco-select-history() {
     zle clear-screen
 }
 zle -N peco-select-history
-#bindkey '^r' peco-select-history
+bindkey '^r' peco-select-history
 
 # peco cdr
 function peco-cdr () {
@@ -240,7 +243,7 @@ function peco-cdr () {
     zle clear-screen
 }
 zle -N peco-cdr
-bindkey '^@' peco-cdr
+#bindkey '^@' peco-cdr
 
 # peco z
 function peco-z () {
@@ -252,7 +255,7 @@ function peco-z () {
     zle clear-screen
 }
 zle -N peco-z
-bindkey '^r' peco-z
+bindkey '^@' peco-z
 
 # peco homesick
 function peco-homesick () {

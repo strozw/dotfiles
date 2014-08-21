@@ -114,3 +114,8 @@ alias myrascut='rascut --log="$FLASH_LOG" -c "-debug=true -static-link-runtime-s
 
 #THIS MUST BE AT THE END OF THE FILE FOR JENV TO WORK!!!
 [[ -s "/Users/satoru/.jenv/bin/jenv-init.sh" ]] && source "/Users/satoru/.jenv/bin/jenv-init.sh" && source "/Users/satoru/.jenv/commands/completion.sh"
+
+# Base16 Shell
+BASE16_SCHEME="default"
+BASE16_SHELL="$HOME/.config/base16-shell/base16-$BASE16_SCHEME.dark.sh"
+[[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
