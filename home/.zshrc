@@ -9,6 +9,7 @@ ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
 # time that oh-my-zsh is loaded.
 #ZSH_THEME="agnoster"
 #ZSH_THEME="blinks"
+#ZSH_THEME="my-blinks"
 #ZSH_THEME="dst"
 #ZSH_THEME="wedisagree"
 #ZSH_THEME="bureau"
