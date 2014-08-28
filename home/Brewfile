@@ -1,0 +1,241 @@
+update
+upgrade
+
+tap caskroom/cask
+tap homebrew/apache
+tap homebrew/binary
+tap homebrew/completions
+tap homebrew/dupes
+tap homebrew/versions
+tap jenv/jenv
+tap josegonzalez/php
+tap laurent22/massren
+tap mcuadros/hhvm
+tap monochromegane/sg
+tap peco/peco
+tap sanemat/font
+tap supermomonga/splhack
+
+install ack
+install android-ndk
+install ansible
+install ant
+install apple-gcc42
+install archey
+install awscli
+install bash
+install bash-completion2
+install binutils
+install bison27
+install boostfb
+install boot2docker
+install brew-cask
+install casperjs
+install clockywock
+install cmatrix
+install cmigemo-mk
+install colortail
+install composer
+install cowsay
+install cscope
+install ctags
+install ctags-objc-ja
+install curl
+install dart
+install editorconfig
+install emacs
+install envoy
+install faac
+install fb-client
+install fish
+install flex
+install folly
+install fswatch
+install fuse4x
+install gcc48
+install gcc49
+install gd
+install gettext-mk
+install gibo
+install git
+install git-flow
+install gitbucket
+install glog
+install gpm
+install graphicsmagick
+install grep
+install gvp
+install haskell-platform
+install heroku-toolbelt
+install htop-osx
+install hub
+install imap-uw
+install jemallocfb
+install jq
+install jsl
+install json-c
+install lame
+install lha
+install libdwarf
+install libeventfb
+install libiconv
+install libmemcached
+install libpng12
+install librsvg
+install librsync
+install libspiro
+install libssh2
+install libxslt
+install llvm
+install lua52
+install luajit
+install lv
+install markdown
+install massren
+install mcrypt
+install mercurial
+install migemogrep
+install mobile-shell
+install mongodb
+install mono
+install multitail
+install mysql
+install mysql-connector-c
+install mysql-connector-c++
+install nano
+install neovim
+install node
+install oniguruma
+install openssl098
+install ossp-uuid
+install p7zip
+install peco
+install perforce
+install php54-apc
+install php54-imagick
+install phpenv
+install pidof
+install potrace
+install python
+install python3
+install rails-completion
+install rar
+install rds-command-line-tools
+install re2c
+install reattach-to-user-namespace
+install redis
+install ricty
+install rig
+install rmtrash
+install rsense
+install rsync
+install ruby
+install safe-rm
+install sassc
+install scala
+install screenfetch
+install selenium-server-standalone
+install sg
+install sl
+install slimerjs
+install source-highlight
+install sshfs
+install subversion
+install subversion16
+install subversion17
+install tbb
+install terminal-notifier
+install texi2html
+install the_silver_searcher
+install tidy
+install tig
+install tmux
+install tree
+install tty-clock
+install unixodbc
+install unzip
+install vagrant-completion
+install vert.x
+install vim
+install vimpager
+install vtclock
+install w3m
+install watchman
+install wget
+install x264
+install xvid
+install ykclient
+install youtube-dl
+install z
+install zlib
+install zsh
+install zsh-completions
+install zsh-history-substring-search
+install zsh-syntax-highlighting
+
+cask install adium
+cask install atom
+cask install bartender
+cask install beatport-pro
+cask install bettertouchtool
+cask install betterzipql
+cask install bittorrent-sync
+cask install brackets
+cask install breach
+cask install burn
+cask install cakebrew
+cask install charles
+cask install chefdk
+cask install coteditor
+cask install cyberduck
+cask install diskmaker-x
+cask install dispcalgui
+cask install easysimbl
+cask install emacs
+cask install genymotion
+cask install github
+cask install gitx-rowanj
+cask install google-hangouts
+cask install google-refine
+cask install handbrake
+cask install haroopad
+cask install hex-fiend
+cask install hyperswitch
+cask install imagealpha
+cask install img2icns
+cask install istumbler
+cask install iterm2
+cask install kindle
+cask install kobito
+cask install macdown
+cask install macterm
+cask install mou
+cask install multifirefox
+cask install mysqlworkbench
+cask install opera
+cask install opera-next
+cask install pg-commander
+cask install poedit
+cask install prepros
+cask install processing
+cask install qlcolorcode
+cask install qlmarkdown
+cask install qlprettypatch
+cask install qlstephen
+cask install quicklook-csv
+cask install quicklook-json
+cask install robomongo
+cask install sequel-pro
+cask install sitesucker
+cask install soundcleod
+cask install sourcetree
+cask install suspicious-package
+cask install svnx
+cask install totalterminal
+cask install transmit
+cask install vagrant
+cask install vimr
+cask install webp-quicklook
+cask install xmind
+
+cask alfred link
