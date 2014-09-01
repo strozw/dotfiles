@@ -34,6 +34,7 @@ install casperjs
 install clockywock
 install cmatrix
 install cmigemo-mk
+install colorsvn
 install colortail
 install composer
 install cowsay
@@ -208,7 +209,6 @@ cask install iterm2
 cask install kindle
 cask install kobito
 cask install macdown
-cask install macterm
 cask install mou
 cask install multifirefox
 cask install mysqlworkbench
@@ -231,6 +231,7 @@ cask install soundcleod
 cask install sourcetree
 cask install suspicious-package
 cask install svnx
+cask install totalfinder
 cask install totalterminal
 cask install transmit
 cask install vagrant
