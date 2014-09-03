@@ -207,6 +207,10 @@ export GIT_EDITOR=vim
 # editor
 export EDITOR=vim
 
+# command history ignore
+export HISTIGNORE="rm -rf *:exit:cd:kill -9 *:kill -KILL *"
+
+
 # for PostgreSQL
 export PGDATA=/usr/local/var/postgres
 

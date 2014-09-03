@@ -1,3 +1,4 @@
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 set autoindent
 set expandtab
 set tabstop=4
