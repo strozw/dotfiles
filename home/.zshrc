@@ -118,11 +118,6 @@ source ~/.zsh.d/zsh-notify/notify.plugin.zsh
 export SYS_NOTIFIER="/usr/local/bin/terminal-notifier"
 export NOTIFY_COMMAND_COMPLETE_TIMEOUT=10
 
-##############################################
-# zaw
-##############################################
-source ~/.zsh.d/zaw/zaw.zsh
-
 ###############################################
 # PATH
 ###############################################
@@ -267,10 +262,8 @@ alias pk="peco-pkill"
 
 # tmux attach session
 function peco-tmux-attach-session() {
-	for sid in `tmux ls | peco | awk '{ print $1 }' | cut -d':' -f1`
-	do
-		tmux attach-session -t $sid
-	done
+	local sid=$(tmux ls | peco | awk '{ print $1 }' | cut -d':' -f1)
+	tmux attach-session -t $sid
 }
 alias pta="peco-tmux-attach-session"
 
