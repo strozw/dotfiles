@@ -55,9 +55,6 @@ NeoBundle "Shougo/neocomplete.vim"
 " neocomplcache & neocomplete 互換 snippet (スニペット補完)
 NeoBundle 'Shougo/neosnippet'
 
-" auto
-NeoBundle "Shougo/neocomplete.vim"
-
 " youcompletme
 "NeoBundle 'Valloric/YouCompleteMe' , {
 "\ 'build' : {
@@ -100,7 +97,7 @@ NeoBundle 'supermomonga/vimshell-pure.vim', {'depends' : 'Shougo/vimshell.vim'}
 
 " vimshell-ssh.vim (シェル)
 NeoBundle 'ujihisa/vimshell-ssh', {
-\    'depends' : ['Shougo/vimshell', 'Shougo/unite.vim', 'Shougo/unite-ssh', 'Shougo/vimproc'],
+\    'depends' : ['Shougo/vimshell', 'Shougo/unite.vim', 'Shougo/neossh.vim', 'Shougo/vimproc'],
 \    'autoload' : {
 \      'filetypes' : ['vimshell', 'vimfiler'],
 \    }
@@ -159,7 +156,7 @@ NeoBundle 'tpope/vim-dispatch'
 NeoBundle "kien/ctrlp.vim"
 
 " unite-ssh (Unite:sshソース)
-NeoBundleLazy 'Shougo/unite-ssh', {
+NeoBundleLazy 'Shougo/neossh.vim', {
 \    'depends' : 'Shougo/unite.vim',
 \    'autoload' : {
 \      'filetypes' : ['vimshell', 'vimfiler'],
@@ -353,11 +350,14 @@ NeoBundle 'bling/vim-airline'
 " vim easymotion 特定位置へのショートカットジャンプ
 "NeoBundle 'Lokaltog/vim-easymotion'
 
+" コンテキストによってファイルタイプを検出
+NeoBundle "Shougo/context_filetype.vim"
+
 " コンテキストによってfiletypeを自動で変更 
 NeoBundle "osyo-manga/vim-precious"
 
-" コンテキストによってファイルタイプを検出
-NeoBundle "Shougo/context_filetype.vim"
+" color table
+NeoBundle 'guns/xterm-color-table.vim'
 
 " color scheme
 NeoBundle 'nanotech/jellybeans.vim'
@@ -372,7 +372,7 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'vim-scripts/rdark'
 NeoBundle 'jdonaldson/vaxe'
 NeoBundle 'cocopon/iceberg.vim'
-NeoBundle 'daylerees/colour-schemes', { 'rtp': 'vim/' }
+"NeoBundle 'daylerees/colour-schemes', { 'rtp': 'vim/' }
 
 " base16 color
 NeoBundle 'chriskempson/base16-vim'
@@ -381,7 +381,8 @@ NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'rking/ag.vim'
 
 " markdown syntax
-NeoBundle 'tpope/vim-markdown'
+"NeoBundle 'tpope/vim-markdown'
+NeoBundle 'plasticboy/vim-markdown'
 
 " tmux の vim で pbcopy/pbpaste
 NeoBundle 'kana/vim-fakeclip'
@@ -390,22 +391,28 @@ NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'rbtnn/vimconsole.vim'
 
 " インデントをカッコヨク
-NeoBundle 'nathanaelkane/vim-indent-guides'
+"NeoBundle 'nathanaelkane/vim-indent-guides'
 
 " Rich UI for Vim
-NeoBundle 'rbtnn/rabbit-ui.vim'
+"NeoBundle 'rbtnn/rabbit-ui.vim'
 
 " Splash Image
 NeoBundle 'thinca/vim-splash'
 
 " csv
-NeoBundle 'chrisbra/csv.vim'
+"NeoBundle 'chrisbra/csv.vim'
 
 " editorconfig
 NeoBundle 'editorconfig/editorconfig-vim'
 
 " align
 NeoBundle 'vim-scripts/Align'
+
+" tabular
+NeoBundle 'godlygeek/tabular'
+
+" カーソル下の単語をハイライト
+"NeoBundle 'osyo-manga/vim-brightest'
 
 NeoBundleCheck
 
@@ -559,7 +566,8 @@ set mouse=a
 set wildmenu
 
 " リスト表示、最長マッチ
-set wildmode=longest,list,full
+"set wildmode=longest,list,full
+set wildmode=longest,full
 
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -568,29 +576,30 @@ set wildmode=longest,list,full
 " 補完に辞書ファイル追加
 "set complete =.,b,w,u,k,i,t
 " 補完表示設定
-set completeopt=menu,preview,menuone
+"set completeopt=menu,preview,menuone
+set completeopt=menu,menuone
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ファイル・タイプ
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " markdown
-au BufNewFile,BufRead *.mkd set filetype=markdown
-au BufNewFile,BufRead *.md set filetype=markdown 
+autocmd BufNewFile,BufRead *.mkd set filetype=markdown
+autocmd BufNewFile,BufRead *.md set filetype=markdown 
 
 " html.erb
-au BufNewFile,BufRead *.html.erb set filetype=eruby.html
+autocmd BufNewFile,BufRead *.html.erb set filetype=eruby.html
 
 " thor
 autocmd BufNewFile,BufRead *.thor set filetype=ruby
 
 " actionscript 
-au BufNewFile,BufRead *.as set filetype=actionscript 
+autocmd BufNewFile,BufRead *.as set filetype=actionscript 
 
 " flex mxml
-au BufNewFile,BufRead *.mxml set filetype=mxml
+autocmd BufNewFile,BufRead *.mxml set filetype=mxml
 
 " less
-au BufNewFile,BufRead *.less set filetype=less
+autocmd BufNewFile,BufRead *.less set filetype=less
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 相対行切り替え(<Space>n)
@@ -702,6 +711,7 @@ let g:unite_source_grep_default_opts = '--nocolor --nogroup --ignore=''*.tags'' 
 let g:unite_source_grep_recursive_opt = ''
 let g:unite_source_grep_max_candidates  = 200
 let g:unite_source_rec_max_cache_files = 0
+let g:unite_source_rec_async_command='ag --nocolor --nogroup --ignore ".hg" --ignore ".svn" --ignore ".git" --ignore ".bzr" --hidden -g ""'
 let g:unite_converter_file_directory_width = 100
 
 call unite#custom#source('file_rec,file_rec/async',
@@ -765,36 +775,6 @@ function! s:unite_project(...)
   execute 'Unite' opts 'file_rec:' . dir
 endfunction
 
-"uniteを開いている間のキーマッピング
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()
-    "ESCでuniteでを終了
-    nmap <buffer> <ESC> <Plug>(unite_exit)
-    nmap <buffer> <ESC><ESC> <Plug>(unite_exit)
-    "入力モードのきctrl+wでバックスラッシュも削除
-    "imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
-    "ctrl+jで縦に分割して開く
-    "nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-    "inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-    "ctrl+lで横横に分割して開く
-    "nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-    "inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-    "ctrl+oでその場所に開く
-    nnoremap <silent> <buffer> <expr> <o> unite#do_action('open')
-    nnoremap <silent> <buffer> <expr> <C-o> unite#do_action('open')
-    inoremap <silent> <buffer> <expr> <C-o> unite#do_action('open')
-
-    " my tabopen (Unite を終了しないtabopen)
-    let my_tabopen = {
-    \ 'is_quit' : 0,
-    \ }
-    function! my_tabopen.func(candidates)
-      call unite#take_action('tabopen', a:candidates)
-    endfunction
-    call unite#custom_action('*', 'tabopen', my_tabopen)
-    unlet my_tabopen
-endfunction
-
 syntax enable
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -851,23 +831,16 @@ let g:vimfiler_min_filename_width = 30
 " filename column max size
 let g:vimfiler_max_filename_width = 60
 
-autocmd! FileType vimfiler call g:my_vimfiler_settings()
-function! g:my_vimfiler_settings()
-  nmap     <buffer><expr><Cr> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
-  nnoremap <buffer>s          :call vimfiler#mappings#do_action('my_split')<Cr>
-  nnoremap <buffer>v          :call vimfiler#mappings#do_action('my_vsplit')<Cr>
-  nnoremap <buffer>E          :call vimfiler#mappings#do_action('my_tabopen')<Cr>
-endfunction
-
 " VimFiler をNERDTreeっぽく使う方法
-command! -nargs=0 MyVimFilerExp call g:my_vimfiler_exp()
-function! g:my_vimfiler_exp()
+command! -nargs=0 MyVimFilerExp call s:my_vimfiler_exp()
+function! s:my_vimfiler_exp()
     if (exists(":VimFilerCurrentDir") == 2)
       :VimFilerCurrentDir -explorer -winwidth=50<Cr>
     else
       :VimFilerExplorer -winwidth=50<Cr>
     endif
 endfunction
+
 nnoremap <F2> :MyVimFilerExp<Cr>
 
 
@@ -894,7 +867,7 @@ endfunction
 call unite#custom_action('file', 'my_tabopen', my_action)
 
 " unite-file_rec/async の除外パターン
-call unite#custom#source('file_rec/async', 'ignore_pattern', '\.\(png\|gif\|jpeg\|jpg\|JPG\|mpeg\|flv\|avi\|swf\|ico\|icon\|app\|exe\)$')
+call unite#custom#source('file_rec/async', 'ignore_pattern', '\.\(png\|gif\|jpeg\|jpg\|JPG\|mpeg\|flv\|avi\|swf\|ico\|icon\|app\|exe\|svn\|git\)$')
 let g:unite_source_rec_max_cache_files = 10000
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -970,18 +943,58 @@ let g:DirDiffExcludes = "CVS,*.class,*.exe,.*.swp,.svn,.git,.DS_Store"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-airline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" powerline fonts
+"   : version control
+"   : LN (line) symbol
+"   : Rightwards black arrwhead
+"   : Rightwardsarrwhead
+"   : iLeftwards black arrwhead
+"   : Leftwardsarrwhead
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
 let g:airline_powerline_fonts = 1
 if has('gui_running')
   let g:airline#extensions#tabline#enabled = 0
+  let g:airline_left_sep = ''
+  let g:airline_left_alt_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_right_alt_sep = ''
+  let g:airline_symbols.branch = '⭠'
+  let g:airline_symbols.readonly = '⭤'
+  let g:airline_symbols.linenr = '⭡'
 else
   let g:airline#extensions#tabline#enabled = 1
-  let g:airline#extensions#tabline#left_sep = ' '
+  let g:airline#extensions#tabline#left_sep = ''
   let g:airline#extensions#tabline#left_alt_sep = '|'
+  let g:airline_left_sep = ''
+  let g:airline_left_alt_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_right_alt_sep = ''
 endif
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
+
+
+
+"" powerline symbols
+"let g:airline_left_sep = ''
+"let g:airline_left_alt_sep = ''
+"let g:airline_right_sep = ''
+"let g:airline_right_alt_sep = ''
+"let g:airline_symbols.branch = ''
+"let g:airline_symbols.readonly = ''
+"let g:airline_symbols.linenr = ''
+
+" old vim-powerline symbols
+"let g:airline_left_sep = '⮀'
+"let g:airline_left_alt_sep = '⮁'
+"let g:airline_right_sep = '⮂'
+"let g:airline_right_alt_sep = '⮃'
+"let g:airline_symbols.branch = '⭠'
+"let g:airline_symbols.readonly = '⭤'
+"let g:airline_symbols.linenr = '⭡'
+
 "let g:airline_theme='base16'
 "let g:airline_theme='hybrid'
 "let g:airline_theme='tomorrow'
@@ -994,28 +1007,35 @@ let g:airline_theme='bubblegum'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
+
 " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
+
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
+
 " Set minimum syntax keyword length.
 let g:neocomplete#sources#syntax#min_keyword_length = 1
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplete#enable_auto_select = 0
+
 " Define dictionary.
 let g:neocomplete#sources#dictionary#dictionaries = {
 \ 'default' : '',
 \ 'vimshell' : $HOME.'/.vimshell_hist',
 \ 'scheme' : $HOME.'/.gosh_completions'
 \ }
+
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
     let g:neocomplete#keyword_patterns = {}
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
 " Plugin key-mappings.
 inoremap <expr><C-g>     neocomplete#undo_completion()
 inoremap <expr><C-l>     neocomplete#complete_common_string()
+
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
@@ -1031,21 +1051,6 @@ inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-
-
-" phpcomplete-extended setting
-"""""""""""""""""""""""""""""""""""""""""""""""
-let g:phpcomplete_index_composer_command = 'composer'
-"autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
-autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
@@ -1234,19 +1239,20 @@ let g:splash#path = $HOME . '.vim/splash.txt'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim 起動時 vim-indent-guides を自動起動
 "let g:indent_guides_enable_on_vim_startup = 1
-" 自動カラー有効
+"" 自動カラー有効
 "let g:indent_guides_auto_colors = 1
 "autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd   ctermbg=110
 "autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  ctermbg=140
-"let g:indent_guides_start_level = 1
-"let g:indent_guides_guide_size = 1
+"let g:indent_guides_start_level = 2
+"let g:indent_guides_guide_size = 2
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CSV Edit
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! s:edit_csv(path)
-  call writefile(map(rabbit_ui#gridview(map(readfile(expand(a:path)),'split(v:val,",",1)')), "join(v:val, ',')"), expand(a:path))
-endfunction
+"function! s:edit_csv(path)
+"  call writefile(map(rabbit_ui#gridview(map(readfile(expand(a:path)),'split(v:val,",",1)')), "join(v:val, ',')"), expand(a:path))
+"endfunction
+"
+"command! -nargs=1 EditCSV  :call <sid>edit_csv(<q-args>
 
-command! -nargs=1 EditCSV  :call <sid>edit_csv(<q-args>

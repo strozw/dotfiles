@@ -4,18 +4,20 @@
 syntax enable
 "set background=dark
 "colorscheme solarized
-colorscheme my-hybrid
+"colorscheme my-hybrid
 "colorscheme iceberg
 "colorscheme base16-ocean
-"colorscheme my-base16-ocean
+colorscheme my-base16-ocean
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VimのGUI版で使用するフォントのリスト。
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 ":set guifont=Inconsolata:h13
 ":set guifontwide=Takaoゴシック:h13
-set guifont=Ricty\ for\ Powerline:h13
-set guifontwide=Ricty\ for\ Powerline:h13
+set guifont=Ricty\ for\ Powerline:h12
+set guifontwide=Ricty\ for\ Powerline:h12
+set printfont=Ricty\ for\ Powerline:h12
+set linespace=3
 
 "画面上の列幅を設定する。
 "set columns=110

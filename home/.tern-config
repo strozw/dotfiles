@@ -1,0 +1,21 @@
+{
+  "libs": [
+    "browser",
+    "jquery",
+    "ecma5",
+    "underscore"
+  ],
+  "loadEagerly": [
+	"*.js",
+	"*/*.js",
+	"*/*/*.js",
+	"*/*/*/*.js"
+  ],
+  "plugins": {
+	"node": {},
+	"requirejs": {
+      "baseURL": "./",
+      "paths": {}
+    }
+  }
+}

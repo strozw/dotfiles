@@ -1,23 +1,28 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
+ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 #ZSH_THEME="agnoster"
 #ZSH_THEME="blinks"
+#ZSH_THEME="my-blinks"
 #ZSH_THEME="dst"
 #ZSH_THEME="wedisagree"
 #ZSH_THEME="bureau"
 #ZSH_THEME="fishy"
 #ZSH_THEME="frisk"
 #ZSH_THEME="norm"
-ZSH_THEME="ys"
+#ZSH_THEME="ys"
+ZSH_THEME="my-ys"
 #ZSH_THEME="dst"
 #ZSH_THEME="juanghurtado"
 #ZSH_THEME="re5et"
 #ZSH_THEME="pygmalion"
+#ZSH_THEME="kphoen"
 
 # aliases
 alias cp='cp -i'
@@ -71,9 +76,12 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 #plugins=(git ruby osx bundler brew rails emoji-clock)
-plugins=(sudo themes git npm svn osx brew vagrant z git-flow laravel composer)
+plugins=(sudo themes git npm svn osx brew vagrant z git-flow laravel composer svn-fast-info)
 
 source $ZSH/oh-my-zsh.sh
+
+# I want use jorke command
+unalias sl
 
 ###############################################
 # cdr
@@ -155,10 +163,13 @@ if which phpenv > /dev/null; then eval "$(phpenv init -)"; fi
 export PATH="${HOME}/.ndenv/bin:${HOME}/.ndenv/shims:${PATH}"
 if which ndenv > /dev/null; then eval "$(ndenv init -)"; fi
 
-
+# hombrew ruby gem path
+export GEM_EXE_DIR=`gem env | grep "EXECUTABLE DIRECTORY" | awk '{print $4}'`
+export PATH=$GEM_EXE_DIR:$PATH
 
 # php composer
 export PATH=$HOME/.composer/vendor/bin:$PATH
+
 
 ###############################################
 # go path
@@ -167,6 +178,15 @@ export PATH=$PATH:/usr/local/opt/go/libexec/bin
 
 export GOPATH=~/go
 export PATH=$PATH:$GOPATH/bin
+
+###############################################
+# PATH fix for subshell
+###############################################
+#PATH=
+#if [ -x /usr/libexec/path_helper ]; then
+#    eval `/usr/libexec/path_helper -s`
+#fi
+#export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 
 ###############################################
@@ -186,6 +206,10 @@ export GIT_EDITOR=vim
 
 # editor
 export EDITOR=vim
+
+# command history ignore
+export HISTIGNORE="rm -rf *:exit:cd:kill -9 *:kill -KILL *"
+
 
 # for PostgreSQL
 export PGDATA=/usr/local/var/postgres
@@ -224,7 +248,7 @@ function peco-cdr () {
     zle clear-screen
 }
 zle -N peco-cdr
-bindkey '^@' peco-cdr
+#bindkey '^@' peco-cdr
 
 # peco z
 function peco-z () {
@@ -236,7 +260,7 @@ function peco-z () {
     zle clear-screen
 }
 zle -N peco-z
-bindkey '^z' peco-z
+bindkey '^@' peco-z
 
 # peco homesick
 function peco-homesick () {

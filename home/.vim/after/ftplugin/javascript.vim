@@ -12,6 +12,8 @@ set softtabstop=2
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set fdm=manual
 set fdc=0
+set foldmethod=syntax
+set foldlevel=100 "Don't autofold anything"
 
 "
 " syntax
