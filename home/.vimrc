@@ -356,6 +356,9 @@ NeoBundle "Shougo/context_filetype.vim"
 " コンテキストによってfiletypeを自動で変更 
 NeoBundle "osyo-manga/vim-precious"
 
+" color table
+NeoBundle 'guns/xterm-color-table.vim'
+
 " color scheme
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'w0ng/vim-hybrid'
