@@ -106,7 +106,7 @@ NeoBundle 'ujihisa/vimshell-ssh', {
 NeoBundle 'Shougo/neomru.vim', {'depends' : 'Shougo/unite.vim'}
 
 " unite-outline (Unite:アウトラインソース)
-NeoBundleLazy 'h1mesuke/unite-outline', {
+NeoBundleLazy 'Shougo/unite-outline', {
 \    'depends' : 'Shougo/unite.vim',
 \    'autoload' : {'unite_sources' : 'outline'}
 \ }
@@ -410,9 +410,6 @@ NeoBundle 'vim-scripts/Align'
 
 " tabular
 NeoBundle 'godlygeek/tabular'
-
-" カーソル下の単語をハイライト
-"NeoBundle 'osyo-manga/vim-brightest'
 
 NeoBundleCheck
 
