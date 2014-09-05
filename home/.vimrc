@@ -331,6 +331,9 @@ NeoBundleLazy 'endel/actionscript.vim', {'autoload': {'filetypes': 'actionscript
 "as3 omni comp
 NeoBundleLazy 'yuratomo/flex-api-complete', {'autoload': {'filetypes': ['actionscript', 'mxml']}}
 
+" sql
+NeoBundleLazy 'vim-scripts/SQLComplete.vim', {'autoload': {'filetypes': ['sql', 'mysql']}}
+
 " omni complete for js
 NeoBundle 'marijnh/tern_for_vim', {
 \ 'build': {'others': 'npm install'},
@@ -581,7 +584,8 @@ set completeopt=menu,menuone
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " markdown
 autocmd BufNewFile,BufRead *.mkd set filetype=markdown
-autocmd BufNewFile,BufRead *.md set filetype=markdown 
+autocmd BufNewFile,BufRead *.md set filetype=markdown
+
 
 " html.erb
 autocmd BufNewFile,BufRead *.html.erb set filetype=eruby.html
