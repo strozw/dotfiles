@@ -644,18 +644,18 @@ vnoremap ? <ESC>?\%V
 " 行ハイライト
 set cursorline
 
-"set background=dark
 if !has('gui_running')
+  set background=dark
   "set t_Co=256
-  "let base16colorspace=256
+  let base16colorspace=256
   "let g:solarized_termcolors = 256
 endif
 "let g:hybrid_use_Xresources = 1
 "let g:hybrid_use_iTerm_colors = 1
 "let g:solarized_contrast = 'high'
 "colorscheme solarized
-"colorscheme hybrid
-colorscheme my-hybrid
+colorscheme hybrid
+"colorscheme my-hybrid
 "colorscheme iceberg
 "colorscheme base16-ocean
 "colorscheme my-base16-ocean
