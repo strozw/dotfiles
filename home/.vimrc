@@ -554,7 +554,7 @@ set cmdheight=1
 
 " クリップボード
 set clipboard+=unnamed
-set clipboard=unnamed
+set clipboard+=autoselect
 
 " マウス
 set mouse=a
