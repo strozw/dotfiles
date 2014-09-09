@@ -843,6 +843,7 @@ function! s:my_vimfiler_exp()
 endfunction
 
 nnoremap <F2> :MyVimFilerExp<Cr>
+nnoremap <D-1> :MyVimFilerExp<Cr>
 
 
 
