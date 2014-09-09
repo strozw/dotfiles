@@ -576,8 +576,8 @@ set wildmode=longest,full
 " 補完に辞書ファイル追加
 "set complete =.,b,w,u,k,i,t
 " 補完表示設定
-"set completeopt=menu,preview,menuone
-set completeopt=menu,menuone
+set completeopt=menu,preview,menuone
+"set completeopt=menu,menuone
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ファイル・タイプ
