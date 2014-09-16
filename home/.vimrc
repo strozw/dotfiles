@@ -305,10 +305,10 @@ NeoBundleLazy 'vim-scripts/ruby-matchit', {'autoload': {'filetypes': 'ruby'}}
 NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload': {'filetypes': 'javascript'}}
 
 " javascript libs syntax
-NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload': {'filetypes': 'javascript'}}
+"NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload': {'filetypes': 'javascript'}}
 
 " javascript indent
-NeoBundleLazy 'vim-scripts/JavaScript-Indent', {'autoload': {'filetypes': 'javascript'}}
+"NeoBundleLazy 'vim-scripts/JavaScript-Indent', {'autoload': {'filetypes': 'javascript'}}
  
 " node.js
 NeoBundleLazy 'moll/vim-node', {'autoload': {'filetypes': 'javascript'}}
