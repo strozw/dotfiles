@@ -81,7 +81,7 @@ plugins=(sudo themes git npm svn osx brew vagrant z git-flow laravel composer sv
 source $ZSH/oh-my-zsh.sh
 
 # I want use jorke command
-unalias sl
+#unalias sl
 
 ###############################################
 # cdr
