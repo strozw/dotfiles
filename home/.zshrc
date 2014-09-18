@@ -214,6 +214,8 @@ export HISTIGNORE="rm -rf *:exit:cd:kill -9 *:kill -KILL *"
 # for PostgreSQL
 export PGDATA=/usr/local/var/postgres
 
+export PYTHONPATH=/usr/local/lib/python2.7/site-packages/
+
 ###############################################
 # Util
 ###############################################
