@@ -32,9 +32,9 @@ alias ls='ls -G -A -F --color=auto'
 alias less='less -R'
 
 # vim
-alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
-alias vimdiff='/Applications/MacVim.app/Contents/MacOS/vimdiff'
-alias view='/Applications/MacVim.app/Contents/MacOS/view'
+#alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+#alias vimdiff='/Applications/MacVim.app/Contents/MacOS/vimdiff'
+#alias view='/Applications/MacVim.app/Contents/MacOS/view'
 
 # composer
 #alias composer='hhvm ~/bin/composer.phar'
