@@ -32,9 +32,9 @@ alias ls='ls -G -A -F --color=auto'
 alias less='less -R'
 
 # vim
-#alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
-#alias vimdiff='/Applications/MacVim.app/Contents/MacOS/vimdiff'
-#alias view='/Applications/MacVim.app/Contents/MacOS/view'
+alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim -u $HOME/.vimrc "$@"'
+alias vimdiff='/Applications/MacVim.app/Contents/MacOS/vimdiff'
+alias view='/Applications/MacVim.app/Contents/MacOS/view'
 
 # composer
 #alias composer='hhvm ~/bin/composer.phar'
@@ -131,7 +131,7 @@ export NOTIFY_COMMAND_COMPLETE_TIMEOUT=10
 ###############################################
 # macvim
 export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
-export PATH=/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/:$PATH
+#export PATH=/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/:$PATH
 
 export PATH=/usr/bin:$PATH
 export PATH=/usr/sbin:$PATH
@@ -205,7 +205,7 @@ export AWS_CONFIG_FILE=~/.aws/credentials
 export GIT_EDITOR=vim
 
 # editor
-export EDITOR=vim
+export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 
 # command history ignore
 export HISTIGNORE="rm -rf *:exit:cd:kill -9 *:kill -KILL *"

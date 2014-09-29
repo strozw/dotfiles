@@ -359,6 +359,9 @@ NeoBundle "Shougo/context_filetype.vim"
 " コンテキストによってfiletypeを自動で変更 
 NeoBundle "osyo-manga/vim-precious"
 
+" minimap
+NeoBundle 'severin-lemaignan/vim-minimap'
+
 " color table
 NeoBundle 'guns/xterm-color-table.vim'
 
