@@ -4,9 +4,9 @@
 set tabstop=4
 set autoindent
 " ハードタブ
-set noexpandtab
+"set noexpandtab
 " ソフトタブ
-"set expandtab
+set expandtab
 set shiftwidth=4
 
 let php_folding = 0
@@ -64,6 +64,12 @@ let g:phpcomplete_index_composer_command = 'composer'
 "    endif
 "endfunction
 
+
+"
+" vim-php-refactoring
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:php_refactor_command='refactor'
+
 "
 " vim-ref
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -89,5 +95,17 @@ let g:vim_tags_project_tags_command = 'ctags -R --fields=+aimS --languages=php -
 let g:vim_tags_auto_generate = 1
 let g:vim_tags_use_vim_dispatch = 1
 
-
+"
+" vim-php-cs-fixier
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" If php-cs-fixer is in $PATH, you don't need to define line below
+" let g:php_cs_fixer_path = "php-cs-fixer" " define the path to the php-cs-fixer.phar
+let g:php_cs_fixer_level = "all"                  " which level ?
+let g:php_cs_fixer_config = "default"             " configuration
+let g:php_cs_fixer_php_path = "php"               " Path to PHP
+" If you want to define specific fixers:
+"let g:php_cs_fixer_fixers_list = "linefeed,short_tag,indentation"
+let g:php_cs_fixer_enable_default_mapping = 1     " Enable the mapping by default (<leader>pcd)
+let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
+let g:php_cs_fixer_verbose = 0
 

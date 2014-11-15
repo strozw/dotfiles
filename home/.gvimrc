@@ -7,6 +7,8 @@ syntax enable
 "colorscheme my-hybrid
 "colorscheme iceberg
 "colorscheme base16-ocean
+"colorscheme base16-tomorow
+"colorscheme base16-twilight
 colorscheme my-base16-ocean
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""

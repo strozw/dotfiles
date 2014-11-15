@@ -29,10 +29,12 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
 alias ls='ls -G -A -F --color=auto'
-alias less='less -R'
+#alias less='less -R'
+export LESS='-R'
+#export LESSOPEN='| src-hilite-lesspipe.sh %s'
 
 # vim
-alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim -u $HOME/.vimrc "$@"'
+alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim'
 alias vimdiff='/Applications/MacVim.app/Contents/MacOS/vimdiff'
 alias view='/Applications/MacVim.app/Contents/MacOS/view'
 
@@ -42,6 +44,8 @@ alias view='/Applications/MacVim.app/Contents/MacOS/view'
 # pgssql
 alias pgstart="pg_ctl -l /usr/local/var/postgres/server.log start"
 alias pgstop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
+
+#alias brew="env PATH=${PATH/\/Users\/takc923\/\.phpenv\/shims:/} brew"
 
 # zsh-completions
 fpath=(/usr/local/share/zsh-completions $fpath)
@@ -119,6 +123,27 @@ bindkey -M emacs '^N' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
+###############################################
+# zsh-autosuggestions
+###############################################
+source ~/.zsh-autosuggestions/autosuggestions.zsh
+
+# Enable autosuggestions automatically
+function zle-line-init() {
+    zle autosuggest-start
+}
+zle -N zle-line-init
+
+# zsh-autosuggestions is designed to be unobtrusive)
+#bindkey '^T' autosuggest-toggle
+
+# Accept suggestions without leaving insert mode
+#bindkey '^f' vi-forward-word
+# or
+#bindkey '^f' vi-forward-blank-word
+bindkey '^f' end-of-line
+
+
 ##############################################
 # zsh-notify
 ##############################################
@@ -129,9 +154,7 @@ export NOTIFY_COMMAND_COMPLETE_TIMEOUT=10
 ###############################################
 # PATH
 ###############################################
-# macvim
-export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
-#export PATH=/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/:$PATH
+
 
 export PATH=/usr/bin:$PATH
 export PATH=/usr/sbin:$PATH
@@ -164,12 +187,15 @@ export PATH="${HOME}/.ndenv/bin:${HOME}/.ndenv/shims:${PATH}"
 if which ndenv > /dev/null; then eval "$(ndenv init -)"; fi
 
 # hombrew ruby gem path
-export GEM_EXE_DIR=`gem env | grep "EXECUTABLE DIRECTORY" | awk '{print $4}'`
-export PATH=$GEM_EXE_DIR:$PATH
+#export GEM_EXE_DIR=`gem env | grep "EXECUTABLE DIRECTORY" | awk '{print $4}'`
+#export PATH=$GEM_EXE_DIR:$PATH
 
 # php composer
 export PATH=$HOME/.composer/vendor/bin:$PATH
 
+# macvim
+export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
+#export PATH=~/Applications/Sublime\ Text.app/Contents/SharedSupport/bin:$PATH
 
 ###############################################
 # go path
@@ -220,7 +246,7 @@ export PYTHONPATH=/usr/local/lib/python2.7/site-packages/
 # Util
 ###############################################
 # z
-. `brew --prefix`/etc/profile.d/z.sh
+. /usr/local/etc/profile.d/z.sh
 
 ###############################################
 # peco Utitlity
@@ -244,7 +270,7 @@ bindkey '^r' peco-select-history
 function peco-cdr () {
     local selected_dir=$(cdr -l | awk '{ print $2 }' | peco)
     if [ -n "$selected_dir" ]; then
-        BUFFER="cd ${selected_dir}"
+        cd ${selected_dir}
         zle accept-line
     fi
     zle clear-screen
@@ -256,7 +282,8 @@ zle -N peco-cdr
 function peco-z () {
     local selected_dir=$(z -t | sort -nr | awk '{ print $2 }' | peco)
     if [ -n "$selected_dir" ]; then
-        BUFFER="cd ${selected_dir}"
+        #BUFFER="cd ${selected_dir}"
+        cd ${selected_dir}
         zle accept-line
     fi
     zle clear-screen
@@ -268,7 +295,7 @@ bindkey '^@' peco-z
 function peco-homesick () {
     local selected_dir=$(homesick list | awk '{ print $1 }' | peco)
     if [ -n "$selected_dir" ]; then
-        BUFFER="homesick cd ${selected_dir}"
+        homesick cd ${selected_dir}
         zle accept-line
     fi
     zle clear-screen

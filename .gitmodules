@@ -7,3 +7,6 @@
 [submodule "home/.zsh.d/zsh-notify"]
 	path = home/.zsh.d/zsh-notify
 	url = https://github.com/marzocchi/zsh-notify.git
+[submodule "home/.zsh-autosuggestions"]
+	path = home/.zsh-autosuggestions
+	url = git://github.com/tarruda/zsh-autosuggestions

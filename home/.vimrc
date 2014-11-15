@@ -283,6 +283,8 @@ NeoBundle 'shawncplus/phpcomplete.vim'
 " php-doc.vim のfork版
 NeoBundleLazy 'drwX/php-doc.vim', {'autoload': {'filetypes': 'php'}}
 NeoBundleLazy 'tobyS/pdv', {'autoload': {'filetypes': 'php'}}
+NeoBundleLazy 'vim-php/vim-php-refactoring', {'autoload': {'filetypes': 'php'}}
+NeoBundleLazy 'stephpy/vim-php-cs-fixer', {'autoload': {'filetypes': 'php'}}
 "NeoBundleLazy 'karakaram/vim-quickrun-phpunit', {'autoload': {''filetypes': 'php'}}
 
 " vim-ruby (ruby syntax, 補完)
@@ -333,6 +335,9 @@ NeoBundleLazy 'yuratomo/flex-api-complete', {'autoload': {'filetypes': ['actions
 
 " sql
 NeoBundleLazy 'vim-scripts/SQLComplete.vim', {'autoload': {'filetypes': ['sql', 'mysql']}}
+
+" jsx (react)
+NeoBundle 'mxw/vim-jsx'
 
 " omni complete for js
 NeoBundle 'marijnh/tern_for_vim', {
@@ -389,6 +394,7 @@ NeoBundle 'rking/ag.vim'
 " markdown syntax
 "NeoBundle 'tpope/vim-markdown'
 NeoBundle 'plasticboy/vim-markdown'
+NeoBundle 'jtratner/vim-flavored-markdown'
 
 " tmux の vim で pbcopy/pbpaste
 NeoBundle 'kana/vim-fakeclip'
@@ -530,6 +536,7 @@ set fileformats=unix,dos,mac
 " 折りたたみ(フォールド設定)
 set foldmethod=syntax
 set foldlevel=100
+set nofoldenable
 
 " ※MacのQuicklookでVimで保存したUTF-8テキストが文字化けする対策。
 " UTF-8を保存する際、
@@ -562,6 +569,9 @@ set clipboard+=autoselect
 " マウス
 set mouse=a
 
+" インサート時のbackspace
+set backspace=indent,eol,start
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " コマンド補完
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -586,8 +596,9 @@ set completeopt=menu,preview,menuone
 " ファイル・タイプ
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " markdown
-autocmd BufNewFile,BufRead *.mkd set filetype=markdown
-autocmd BufNewFile,BufRead *.md set filetype=markdown
+autocmd BufNewFile,BufRead *.mkd set filetype=ghmarkdown
+autocmd BufNewFile,BufRead *.md set filetype=ghmarkdown
+autocmd BufNewFile,BufRead *.md.txt set filetype=ghmarkdown
 
 
 " html.erb
@@ -1108,6 +1119,7 @@ let g:vim_tags_extension = '.tags'
 " context_filetype
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:context_filetype#filetypes = {}
+"g:context_filetype#filetypes['ghmarkdown'] = g:context_filetype#filetypes['markdown']
 "let g:context_filetype#filetypes = {
 "\ 'html': [
 "\   {
@@ -1220,6 +1232,11 @@ syntax sync minlines=256
 "  splash
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:splash#path = $HOME . '.vim/splash.txt'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" editorconfig
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:EditorConfig_verbose = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-textmanip 
