@@ -141,7 +141,7 @@ zle -N zle-line-init
 #bindkey '^f' vi-forward-word
 # or
 #bindkey '^f' vi-forward-blank-word
-bindkey '^f' end-of-line
+bindkey '^o' end-of-line
 
 
 ##############################################

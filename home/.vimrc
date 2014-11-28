@@ -26,6 +26,9 @@ if has('vim_starting')
         set runtimepath+=~/.vim/neobundle.vim/
         call neobundle#rc(expand('~/.vim/bundle/'))
 
+        let $PYTHON_DLL = '/usr/local/Cellar/python/2.7.8_2/Frameworks/Python.framework/Versions/2.7/Python'
+        let $PYTHON3_DLL= '/usr/local/Cellar/python3/3.4.2_1/Frameworks/Python.framework/Versions/3.4/Python'
+
         " プロキシ環境用の設定ファイルを読み込む（リポジトリでは管理しない）
         if filereadable($HOME . '/.vimrc.local')
           source $HOME/.vimrc.local
@@ -141,8 +144,12 @@ NeoBundleLazy 'kmnk/vim-unite-svn', {
 \    'autoload' : {'unite_sources' : 'svn'}
 \ }
 
+" json filetype
+NeoBundle "elzr/vim-json"
+
 " json 整形
 NeoBundle '5t111111/neat-json.vim'
+
 
 " tagsファイル生成
 NeoBundle 'szw/vim-tags'
@@ -395,6 +402,7 @@ NeoBundle 'rking/ag.vim'
 "NeoBundle 'tpope/vim-markdown'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'jtratner/vim-flavored-markdown'
+NeoBundle 'kannokanno/previm'
 
 " tmux の vim で pbcopy/pbpaste
 NeoBundle 'kana/vim-fakeclip'
@@ -404,6 +412,9 @@ NeoBundle 'rbtnn/vimconsole.vim'
 
 " インデントをカッコヨク
 "NeoBundle 'nathanaelkane/vim-indent-guides'
+
+" インデント見やすく
+NeoBundle 'Yggdroot/indentLine'
 
 " Rich UI for Vim
 "NeoBundle 'rbtnn/rabbit-ui.vim'
@@ -596,9 +607,12 @@ set completeopt=menu,preview,menuone
 " ファイル・タイプ
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " markdown
-autocmd BufNewFile,BufRead *.mkd set filetype=ghmarkdown
-autocmd BufNewFile,BufRead *.md set filetype=ghmarkdown
-autocmd BufNewFile,BufRead *.md.txt set filetype=ghmarkdown
+"autocmd BufNewFile,BufRead *.mkd set filetype=ghmarkdown
+"autocmd BufNewFile,BufRead *.md set filetype=ghmarkdown
+"autocmd BufNewFile,BufRead *.md.txt set filetype=ghmarkdown
+autocmd BufNewFile,BufRead *.mkd set filetype=markdown
+autocmd BufNewFile,BufRead *.md set filetype=markdown
+autocmd BufNewFile,BufRead *.md.txt set filetype=markdown
 
 
 " html.erb
@@ -721,12 +735,12 @@ let g:unite_source_file_mru_filename_format = ''
 
 " unite grep
 "let g:unite_source_grep_default_opts = '-iRHn --exclude=''.tags'' --exclude=''tags'' --exclude=''.svn'' --exclude=''.git'''
-let g:unite_source_grep_command = 'ag'
+let g:unite_source_grep_command = 'pt'
 let g:unite_source_grep_default_opts = '--nocolor --nogroup --ignore=''*.tags'' --ignore=''tags'' --ignore=''.svn'' --ignore=''.git'''
 let g:unite_source_grep_recursive_opt = ''
 let g:unite_source_grep_max_candidates  = 200
 let g:unite_source_rec_max_cache_files = 0
-let g:unite_source_rec_async_command='ag --nocolor --nogroup --ignore ".hg" --ignore ".svn" --ignore ".git" --ignore ".bzr" --hidden -g ""'
+let g:unite_source_rec_async_command='pt --nocolor --nogroup --ignore ".hg" --ignore ".svn" --ignore ".git" --ignore ".bzr" --hidden -g ""'
 let g:unite_converter_file_directory_width = 100
 
 call unite#custom#source('file_rec,file_rec/async',
