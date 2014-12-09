@@ -275,6 +275,9 @@ NeoBundle 'nono/vim-handlebars'
 " html5.vim (html5シンタックス)
 NeoBundleLazy 'othree/html5.vim'
 
+" commentaly
+NeoBundle 'tpope/vim-commentary'
+
 " lepture/vim-css css3シンタックス
 NeoBundleLazy 'hail2u/vim-css3-syntax', {'autoload': {'filetypes': ['html', 'css']}}
 
@@ -282,8 +285,8 @@ NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload': {'filetypes': ['scss', '
 
 " php.vim のfork版 (php syntax, 補完)
 NeoBundleLazy 'StanAngeloff/php.vim', {'autoload': {'filetypes': 'php'}}
-NeoBundle 'jfortunato25/vim-php-namespace', 'fix-namespace-firstline'
-NeoBundle 'shawncplus/phpcomplete.vim'
+NeoBundleLazy 'arnaud-lb/vim-php-namespace', {'autoload': {'filetypes': 'php'}}
+NeoBundleLazy 'shawncplus/phpcomplete.vim', {'autoload': {'filetypes': 'php'}}
 "NeoBundleLazy 'm2mdas/phpcomplete-extended', {'autoload': {'filetypes': 'php'}}
 "NeoBundleLazy 'm2mdas/phpcomplete-extended-laravel', {'autoload': {'filetypes': 'php'}}
 "NeoBundleLazy 'm2mdas/phpcomplete-extended-symfony', {'autoload': {'filetypes': 'php'}}
@@ -306,6 +309,7 @@ NeoBundleLazy 'tpope/vim-rails', {'autoload': {'filetypes': 'ruby'}}
 
 " ruby の do に対する end を補完
 NeoBundleLazy 'tpope/vim-endwise', {'autoload': {'filetypes': 'ruby'}}
+
 
 " ruby で def end などのマッチングを行う
 NeoBundleLazy 'vim-scripts/ruby-matchit', {'autoload': {'filetypes': 'ruby'}}
@@ -377,6 +381,9 @@ NeoBundle 'severin-lemaignan/vim-minimap'
 " color table
 NeoBundle 'guns/xterm-color-table.vim'
 
+" enable gvim colorsheme for cli
+NeoBundle 'vim-scripts/CSApprox'
+
 " color scheme
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'w0ng/vim-hybrid'
@@ -402,7 +409,7 @@ NeoBundle 'rking/ag.vim'
 "NeoBundle 'tpope/vim-markdown'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'jtratner/vim-flavored-markdown'
-NeoBundle 'kannokanno/previm'
+NeoBundle 'shime/vim-livedown'
 
 " tmux の vim で pbcopy/pbpaste
 NeoBundle 'kana/vim-fakeclip'
@@ -443,6 +450,9 @@ filetype plugin indent on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ".vimrc設定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" leader key
+let mapleader=','
+
 " .swap ファイルの出力先
 set directory=~/tmp/vim
 set undodir=~/tmp/vim/undo

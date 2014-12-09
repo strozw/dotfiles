@@ -37,6 +37,9 @@ export LESS='-R'
 alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim'
 alias vimdiff='/Applications/MacVim.app/Contents/MacOS/vimdiff'
 alias view='/Applications/MacVim.app/Contents/MacOS/view'
+alias mvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/mvim'
+alias mvimdiff='/Applications/MacVim.app/Contents/MacOS/mvimdiff'
+alias mview='/Applications/MacVim.app/Contents/MacOS/mview'
 
 # composer
 #alias composer='hhvm ~/bin/composer.phar'
@@ -108,20 +111,20 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ###############################################
 # zsh-history-substring-search
 ###############################################
-source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
-
-# bind UP and DOWN arrow keys
-zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
-
-# bind P and N for EMACS mode
-bindkey -M emacs '^P' history-substring-search-up
-bindkey -M emacs '^N' history-substring-search-down
-
-# bind k and j for VI mode
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
+#source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
+#
+## bind UP and DOWN arrow keys
+#zmodload zsh/terminfo
+#bindkey "$terminfo[kcuu1]" history-substring-search-up
+#bindkey "$terminfo[kcud1]" history-substring-search-down
+#
+## bind P and N for EMACS mode
+#bindkey -M emacs '^P' history-substring-search-up
+#bindkey -M emacs '^N' history-substring-search-down
+#
+## bind k and j for VI mode
+#bindkey -M vicmd 'k' history-substring-search-up
+#bindkey -M vicmd 'j' history-substring-search-down
 
 ###############################################
 # zsh-autosuggestions
@@ -141,8 +144,6 @@ zle -N zle-line-init
 #bindkey '^f' vi-forward-word
 # or
 #bindkey '^f' vi-forward-blank-word
-bindkey '^o' end-of-line
-
 
 ##############################################
 # zsh-notify
@@ -194,7 +195,7 @@ if which ndenv > /dev/null; then eval "$(ndenv init -)"; fi
 export PATH=$HOME/.composer/vendor/bin:$PATH
 
 # macvim
-export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
+#export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
 #export PATH=~/Applications/Sublime\ Text.app/Contents/SharedSupport/bin:$PATH
 
 ###############################################
@@ -204,16 +205,6 @@ export PATH=$PATH:/usr/local/opt/go/libexec/bin
 
 export GOPATH=~/go
 export PATH=$PATH:$GOPATH/bin
-
-###############################################
-# PATH fix for subshell
-###############################################
-#PATH=
-#if [ -x /usr/libexec/path_helper ]; then
-#    eval `/usr/libexec/path_helper -s`
-#fi
-#export PATH=/usr/local/bin:/usr/local/sbin:$PATH
-
 
 ###############################################
 # OTHER ENV
@@ -242,11 +233,23 @@ export PGDATA=/usr/local/var/postgres
 
 export PYTHONPATH=/usr/local/lib/python2.7/site-packages/
 
+# atom
+export ATOM_PATH=/opt/homebrew-cask/Caskroom/atom/latest
+
 ###############################################
-# Util
+# Zsh Utility Function
+###############################################
+# コマンドをEDITORで記述し、実行
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^xe' edit-command-line
+
+###############################################
+# Utility
 ###############################################
 # z
-. /usr/local/etc/profile.d/z.sh
+. `brew --prefix`/etc/profile.d/z.sh
+. `brew --prefix`/etc/grc.bashrc
 
 ###############################################
 # peco Utitlity
@@ -334,6 +337,9 @@ BASE16_SCHEME="ocean"
 BASE16_SHELL="$HOME/.config/base16-shell/base16-$BASE16_SCHEME.dark.sh"
 [[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
 
+################################################
+# AWS Completion
+################################################
 
 ###-begin-npm-completion-###
 #
