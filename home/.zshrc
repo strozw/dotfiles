@@ -24,32 +24,6 @@ ZSH_THEME="my-ys"
 #ZSH_THEME="pygmalion"
 #ZSH_THEME="kphoen"
 
-# aliases
-alias cp='cp -i'
-alias mv='mv -i'
-alias rm='rm -i'
-alias ls='ls -G -A -F --color=auto'
-#alias less='less -R'
-export LESS='-R'
-#export LESSOPEN='| src-hilite-lesspipe.sh %s'
-
-# vim
-alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim'
-alias vimdiff='/Applications/MacVim.app/Contents/MacOS/vimdiff'
-alias view='/Applications/MacVim.app/Contents/MacOS/view'
-alias mvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/mvim'
-alias mvimdiff='/Applications/MacVim.app/Contents/MacOS/mvimdiff'
-alias mview='/Applications/MacVim.app/Contents/MacOS/mview'
-
-# composer
-#alias composer='hhvm ~/bin/composer.phar'
-
-# pgssql
-alias pgstart="pg_ctl -l /usr/local/var/postgres/server.log start"
-alias pgstop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
-
-#alias brew="env PATH=${PATH/\/Users\/takc923\/\.phpenv\/shims:/} brew"
-
 # zsh-completions
 fpath=(/usr/local/share/zsh-completions $fpath)
 
@@ -165,6 +139,11 @@ export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 #export PATH=/usr/local/opt/ruby/bin/:$PATH
 
+# GNU ls, dircolors ...
+export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+
+export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
 # gnu-tar (installed by homebrew)
 export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
 
@@ -235,6 +214,45 @@ export PYTHONPATH=/usr/local/lib/python2.7/site-packages/
 
 # atom
 export ATOM_PATH=/opt/homebrew-cask/Caskroom/atom/latest
+
+
+###############################################
+# aliases
+###############################################
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -i'
+alias ls='gls -GAF --color=auto'
+
+#alias less='less -R'
+export LESS='-R'
+#export LESSOPEN='| src-hilite-lesspipe.sh %s'
+
+# vim
+alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim'
+alias vimdiff='/Applications/MacVim.app/Contents/MacOS/vimdiff'
+alias view='/Applications/MacVim.app/Contents/MacOS/view'
+alias mvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/mvim'
+alias mvimdiff='/Applications/MacVim.app/Contents/MacOS/mvimdiff'
+alias mview='/Applications/MacVim.app/Contents/MacOS/mview'
+
+# composer
+#alias composer='hhvm ~/bin/composer.phar'
+
+# pgssql
+alias pgstart="pg_ctl -l /usr/local/var/postgres/server.log start"
+alias pgstop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
+
+#alias brew="env PATH=${PATH/\/Users\/takc923\/\.phpenv\/shims:/} brew"
+
+###############################################
+# dircolosr
+###############################################
+eval `gdircolors ~/.dircolors/dircolors.ansi-dark`
+if [ -n "$LS_COLORS" ]; then
+    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+fi
+
 
 ###############################################
 # Zsh Utility Function

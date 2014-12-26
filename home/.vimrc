@@ -145,10 +145,10 @@ NeoBundleLazy 'kmnk/vim-unite-svn', {
 \ }
 
 " json filetype
-NeoBundle "elzr/vim-json"
+NeoBundle 'elzr/vim-json', {'autoload': {'filetypes': 'json'}}
 
 " json 整形
-NeoBundle '5t111111/neat-json.vim'
+NeoBundle '5t111111/neat-json.vim', {'autoload': {'filetypes': 'json'}}
 
 
 " tagsファイル生成
@@ -199,7 +199,9 @@ NeoBundle 'hrsh7th/vim-versions', {'depends' : 'Shougo/unite.vim'}
 NeoBundle 'thinca/vim-editvar'
 
 " benchvimrc-vim (vimrcのベンチマーク)
-NeoBundle 'mattn/benchvimrc-vim'
+NeoBundle 'mattn/benchvimrc-vim', {
+\    'depends' : 'Shougo/unite.vim'
+\ }
 
 " ref.vim (リファレンス参照)
 NeoBundle 'thinca/vim-ref'
@@ -209,7 +211,6 @@ NeoBundle 'thinca/vim-ref'
 
 " quickrun.vim (格ファイルタイプをvim内で実行)
 NeoBundle 'thinca/vim-quickrun'
-
 
 " open-browser.vim (ブラウザを開く)
 NeoBundle 'tyru/open-browser.vim'
@@ -409,7 +410,7 @@ NeoBundle 'rking/ag.vim'
 "NeoBundle 'tpope/vim-markdown'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'jtratner/vim-flavored-markdown'
-NeoBundle 'shime/vim-livedown'
+NeoBundle 'shime/vim-livedown', {'autoload': {'filetypes': 'markdown'}}
 
 " tmux の vim で pbcopy/pbpaste
 NeoBundle 'kana/vim-fakeclip'
@@ -491,6 +492,8 @@ set shiftwidth=4
 "オンの時は、ウィンドウの幅より長い行は折り返され、次の行に続けて表示される。
 "(有効:wrap/無効:nowrap)
 set wrap
+
+set display=lastline
 
 "検索がファイル末尾まで進んだら、ファイル先頭から再び検索する。
 "(有効:wrapscan/無効:nowrapscan)
@@ -681,7 +684,11 @@ vnoremap ? <ESC>?\%V
 " colorsheme
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 行ハイライト
-set cursorline
+"set cursorline
+set nocursorline
+
+" 列ハイライト
+set nocursorcolumn
 
 if !has('gui_running')
   set background=dark
@@ -698,6 +705,13 @@ colorscheme hybrid
 "colorscheme iceberg
 "colorscheme base16-ocean
 "colorscheme my-base16-ocean
+
+
+syntax sync minlines=256
+set synmaxcol=200
+"set ttyfast " u got a fast terminal
+"set ttyscroll=3
+"set lazyredraw " to avoid scrolling problems
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " emmet-vim
@@ -1134,7 +1148,8 @@ let g:vim_tags_project_tags_command ='ctags -R  --fields=+aimS {OPTIONS} {DIRECT
 let g:vim_tags_auto_generate = 0
 let g:vim_tags_use_vim_dispatch = 0
 let g:vim_tags_use_ycm = 0
-let g:vim_tags_ignore_files = ['.gitignore', '.svnignore', '.cvsignore']
+"let g:vim_tags_ignore_files = ['.gitignore', '.svnignore', '.cvsignore']
+let g:vim_tags_ignore_files = []
 let g:vim_tags_directories = ['.git', '.svn', 'CVS']
 let g:vim_tags_main_file = 'tags'
 let g:vim_tags_extension = '.tags'
@@ -1244,12 +1259,7 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let g:ctrlp_match_window = 'top,order:ttb,max:20'
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"  syntax
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocursorcolumn
-set nocursorline
-syntax sync minlines=256
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1297,7 +1307,7 @@ let g:EditorConfig_verbose = 1
 " CSV Edit
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "function! s:edit_csv(path)
-"  call writefile(map(rabbit_ui#gridview(map(readfile(expand(a:path)),'split(v:val,",",1)')), "join(v:val, ',')"), expand(a:path))
+"  call writefile(map(rabbit_ui#gridview(map(readfile(expand(a:path)),'split(v:val,',',1)')), 'join(v:val, ',')'), expand(a:path))
 "endfunction
 "
 "command! -nargs=1 EditCSV  :call <sid>edit_csv(<q-args>
