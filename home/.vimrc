@@ -15,7 +15,7 @@ if has('vim_starting')
     if has("win32") || has("win64") || has("win32unix")
         " windows
         set runtimepath+=~/vimfiles/neobundle.vim/
-        call neobundle#rc(expand('~/vimfiles/bundle/'))
+        call neobundle#begin(expand('~/vimfiles/bundle/'))
 
         " プロキシ環境用の設定ファイルを読み込む（リポジトリでは管理しない）
         if filereadable($HOME . '/_vimrc.local')
@@ -24,7 +24,7 @@ if has('vim_starting')
     else
         " その他
         set runtimepath+=~/.vim/neobundle.vim/
-        call neobundle#rc(expand('~/.vim/bundle/'))
+        call neobundle#begin(expand('~/.vim/bundle/'))
 
         let $PYTHON_DLL = '/usr/local/Cellar/python/2.7.8_2/Frameworks/Python.framework/Versions/2.7/Python'
         let $PYTHON3_DLL= '/usr/local/Cellar/python3/3.4.2_1/Frameworks/Python.framework/Versions/3.4/Python'
@@ -418,17 +418,11 @@ NeoBundle 'kana/vim-fakeclip'
 " vimscript 向け console
 NeoBundle 'rbtnn/vimconsole.vim'
 
-" インデントをカッコヨク
-"NeoBundle 'nathanaelkane/vim-indent-guides'
-
 " インデント見やすく
 NeoBundle 'Yggdroot/indentLine'
 
 " Rich UI for Vim
 "NeoBundle 'rbtnn/rabbit-ui.vim'
-
-" Splash Image
-NeoBundle 'thinca/vim-splash'
 
 " csv
 "NeoBundle 'chrisbra/csv.vim'
@@ -443,6 +437,8 @@ NeoBundle 'vim-scripts/Align'
 NeoBundle 'godlygeek/tabular'
 
 NeoBundleCheck
+
+call neobundle#end()
 
 " ファイルタイプ:インデント プラグインをON
 filetype plugin indent on
@@ -627,6 +623,7 @@ autocmd BufNewFile,BufRead *.mkd set filetype=markdown
 autocmd BufNewFile,BufRead *.md set filetype=markdown
 autocmd BufNewFile,BufRead *.md.txt set filetype=markdown
 
+autocmd BufNewFile,BufRead *.vue set filetype=html
 
 " html.erb
 autocmd BufNewFile,BufRead *.html.erb set filetype=eruby.html
@@ -897,8 +894,6 @@ endfunction
 nnoremap <F2> :MyVimFilerExp<Cr>
 nnoremap <D-1> :MyVimFilerExp<Cr>
 
-
-
 let my_action = { 'is_selectable' : 1 }
 function! my_action.func(candidates)
   wincmd p
@@ -986,14 +981,6 @@ let g:DirDiffExcludes = "CVS,*.class,*.exe,.*.swp,.svn,.git,.DS_Store"
 "let g:EasyMotion_mapping_j = '<C-j>'
 "let g:EasyMotion_mapping_k = '<C-k>'
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-signify
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:signify_sign_add               = '✚'
-"let g:signify_sign_change            = '➜'
-"let g:signify_sign_delete            = '✘'
-"let g:signify_sign_delete_first_line = '✘'
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-airline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1028,8 +1015,6 @@ else
   let g:airline_right_sep = ''
   let g:airline_right_alt_sep = ''
 endif
-
-
 
 "" powerline symbols
 "let g:airline_left_sep = ''
@@ -1157,78 +1142,59 @@ let g:vim_tags_extension = '.tags'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " context_filetype
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:context_filetype#filetypes = {}
 "g:context_filetype#filetypes['ghmarkdown'] = g:context_filetype#filetypes['markdown']
-"let g:context_filetype#filetypes = {
-"\ 'html': [
-"\   {
-"\    'start':
-"\     '<script\%( [^>]*\)\? type="text/javascript"\%( [^>]*\)\?>',
-"\    'end': '</script>', 'filetype': 'javascript',
-"\   },
-"\   {
-"\    'start':
-"\     '<script>',
-"\    'end': '</script>', 'filetype': 'javascript',
-"\   },
-"\   {
-"\    'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>',
-"\    'end': '</style>', 'filetype': 'css',
-"\   },
-"\   {
-"\    'start': '<style>',
-"\    'end': '</style>', 'filetype': 'css',
-"\   },
-"\   {
-"\    'start': '<?php\?',
-"\    'end': '?>', 'filetype': 'php',
-"\   }
-"\ ],
-"\ 'php': [
-"\   {
-"\    'start':
-"\     '<script\%( [^>]*\)\? type="text/javascript"\%( [^>]*\)\?>',
-"\    'end': '</script>', 'filetype': 'javascript',
-"\   },
-"\   {
-"\    'start':
-"\     '<script>',
-"\    'end': '</script>', 'filetype': 'javascript',
-"\   },
-"\   {
-"\    'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>',
-"\    'end': '</style>', 'filetype': 'css',
-"\   },
-"\   {
-"\    'start': '<style>',
-"\    'end': '</style>', 'filetype': 'css',
-"\   },
-"\ ],
-"\ 'blade': [
-"\   {
-"\    'start':
-"\     '<script\%( [^>]*\)\? type="text/javascript"\%( [^>]*\)\?>',
-"\    'end': '</script>', 'filetype': 'javascript',
-"\   },
-"\   {
-"\    'start':
-"\     '<script>',
-"\    'end': '</script>', 'filetype': 'javascript',
-"\   },
-"\   {
-"\    'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>',
-"\    'end': '</style>', 'filetype': 'css',
-"\   },
-"\   {
-"\    'start': '<style>',
-"\    'end': '</style>', 'filetype': 'css',
-"\   },
-"\   {
-"\    'start': '<?php\?',
-"\    'end': '?>', 'filetype': 'php',
-"\   }
-"\ ],
-"}
+let g:context_filetype#filetypes = {
+\ 'html': [
+\   {
+\    'start':
+\     '<script\%( [^>]*\)\? type="text/javascript"\%( [^>]*\)>',
+\    'end': '</script>', 'filetype': 'javascript',
+\   },
+\   {
+\    'start':
+\     '<script>',
+\    'end': '</script>', 'filetype': 'javascript',
+\   },
+\   {
+\    'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)>',
+\    'end': '</style>', 'filetype': 'css',
+\   },
+\   {
+\    'start': '<style>',
+\    'end': '</style>', 'filetype': 'css',
+\   },
+\   {
+\    'start': '<?php\?',
+\    'end': '?>', 'filetype': 'php',
+\   }
+\ ],
+\ 'vue': [
+\   {
+\    'start': '<script\%[^>]*lang="\%([^>]*\)"\%[^>]*>',
+\    'end': '</script>', 'filetype': '\1',
+\   },
+\   {
+\    'start': '<script>',
+\    'end': '</script>', 'filetype': 'javascript',
+\   },
+\   {
+\    'start': '<style\%[^>]*lang="\%([^>]*\)"\%[^>]*>',
+\    'end': '</style>', 'filetype': '\1',
+\   },
+\   {
+\    'start': '<style>',
+\    'end': '</style>', 'filetype': 'css',
+\   },
+\   {
+\    'start': '<template\%[^>]*lang="\%([^>]*\)"\%[^>]*>',
+\    'end': '</template>', 'filetype': '\1',
+\   },
+\   {
+\    'start': '<template>',
+\    'end': '</template>', 'filetype': 'html',
+\   },
+\ ],
+\}
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1255,19 +1221,6 @@ function! s:vimrc_local(loc)
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Ctrlp
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:ctrlp_match_window = 'top,order:ttb,max:20'
-
-
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"  splash
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:splash#path = $HOME . '.vim/splash.txt'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " editorconfig
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:EditorConfig_verbose = 1
@@ -1288,19 +1241,6 @@ let g:EditorConfig_verbose = 1
 "" toggle insert/replace with <F10>
 "nmap <F10> <Plug>(textmanip-toggle-mode)
 "xmap <F10> <Plug>(textmanip-toggle-mode)
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-indent-guides
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vim 起動時 vim-indent-guides を自動起動
-"let g:indent_guides_enable_on_vim_startup = 1
-"" 自動カラー有効
-"let g:indent_guides_auto_colors = 1
-"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd   ctermbg=110
-"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  ctermbg=140
-"let g:indent_guides_start_level = 2
-"let g:indent_guides_guide_size = 2
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
