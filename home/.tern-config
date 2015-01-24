@@ -6,10 +6,6 @@
     "underscore"
   ],
   "loadEagerly": [
-	"*.js",
-	"*/*.js",
-	"*/*/*.js",
-	"*/*/*/*.js"
   ],
   "plugins": {
 	"node": {},
