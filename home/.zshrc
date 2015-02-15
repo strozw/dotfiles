@@ -229,12 +229,7 @@ export LESS='-R'
 #export LESSOPEN='| src-hilite-lesspipe.sh %s'
 
 # vim
-#alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
-#alias vimdiff='/Applications/MacVim.app/Contents/MacOS/vimdiff'
-#alias view='/Applications/MacVim.app/Contents/MacOS/view'
-#alias mvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/mvim'
-#alias mvimdiff='/Applications/MacVim.app/Contents/MacOS/mvimdiff'
-#alias mview='/Applications/MacVim.app/Contents/MacOS/mview'
+alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
 
 # composer
 #alias composer='hhvm ~/bin/composer.phar'

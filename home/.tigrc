@@ -33,14 +33,17 @@ color cursor black white bold
 bind generic G none
 bind main G none
 
+# 先頭、後尾移動をvim風に
 bind generic g move-first-line
 bind main g move-first-line
 bind generic G move-last-line
 bind main G move-last-line
 
+# ページダウン & ページアップをvim風に
 bind generic <Ctrl-B> move-page-up
 bind generic <Ctrl-F> move-page-down
 
+# 現在コミットより後を git rebase -i する
 bind main <Ctrl-R> !git rebase -i %(commit)
 bind diff <Ctrl-R> !git rebase -i %(commit)
 
