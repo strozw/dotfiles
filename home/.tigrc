@@ -31,13 +31,13 @@ color cursor black white bold
 
 # デフォルトの bind generic G !git gc を無効化する
 bind generic G none
-bind main G none
+bind main    G none
 
 # 先頭、後尾移動をvim風に
 bind generic g move-first-line
-bind main g move-first-line
+bind main    g move-first-line
 bind generic G move-last-line
-bind main G move-last-line
+bind main    G move-last-line
 
 # ページダウン & ページアップをvim風に
 bind generic <Ctrl-B> move-page-up

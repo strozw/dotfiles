@@ -416,7 +416,7 @@ NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'editorconfig/editorconfig-vim'
 
 " align
-NeoBundle 'vim-scripts/Align'
+NeoBundle 'junegunn/vim-easy-align'
 
 " tabular
 NeoBundle 'godlygeek/tabular'
