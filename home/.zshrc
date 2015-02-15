@@ -130,6 +130,8 @@ export NOTIFY_COMMAND_COMPLETE_TIMEOUT=10
 # PATH
 ###############################################
 
+# macvim
+export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
 
 export PATH=/usr/bin:$PATH
 export PATH=/usr/sbin:$PATH
@@ -173,8 +175,6 @@ export PATH=$GEM_EXE_DIR:$PATH
 # php composer
 export PATH=$HOME/.composer/vendor/bin:$PATH
 
-# macvim
-#export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
 #export PATH=~/Applications/Sublime\ Text.app/Contents/SharedSupport/bin:$PATH
 
 ###############################################
@@ -198,7 +198,7 @@ export ANDROID_HOME=/usr/local/opt/android-sdk
 export AWS_CONFIG_FILE=~/.aws/credentials
 
 # git
-export GIT_EDITOR=vim
+export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 
 # editor
 export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
@@ -229,12 +229,12 @@ export LESS='-R'
 #export LESSOPEN='| src-hilite-lesspipe.sh %s'
 
 # vim
-alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim'
-alias vimdiff='/Applications/MacVim.app/Contents/MacOS/vimdiff'
-alias view='/Applications/MacVim.app/Contents/MacOS/view'
-alias mvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/mvim'
-alias mvimdiff='/Applications/MacVim.app/Contents/MacOS/mvimdiff'
-alias mview='/Applications/MacVim.app/Contents/MacOS/mview'
+#alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+#alias vimdiff='/Applications/MacVim.app/Contents/MacOS/vimdiff'
+#alias view='/Applications/MacVim.app/Contents/MacOS/view'
+#alias mvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/mvim'
+#alias mvimdiff='/Applications/MacVim.app/Contents/MacOS/mvimdiff'
+#alias mview='/Applications/MacVim.app/Contents/MacOS/mview'
 
 # composer
 #alias composer='hhvm ~/bin/composer.phar'

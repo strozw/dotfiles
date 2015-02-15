@@ -7,8 +7,6 @@ set nocompatible
 " ファイルタイプ:インデント プラグイン使用をOFF
 filetype plugin indent off
 
-" 自動カレントディレクトリ変更 OFF
-let g:vimfiler_enable_auto_cd = 0
 
 " Neobundle のパス設定
 if has('vim_starting')
@@ -138,12 +136,6 @@ NeoBundleLazy 'tsukkee/unite-tag', {
 \    'autoload' : {'unite_sources' : 'tag'}
 \ }
 
-" unite-svn
-NeoBundleLazy 'kmnk/vim-unite-svn', {
-\    'depends' : 'Shougo/unite.vim',
-\    'autoload' : {'unite_sources' : 'svn'}
-\ }
-
 " json filetype
 NeoBundle 'elzr/vim-json', {'autoload': {'filetypes': 'json'}}
 
@@ -177,13 +169,6 @@ NeoBundle 'Shougo/unite-sudo', {'depends' : 'Shougo/unite.vim'}
 NeoBundle 'kannokanno/unite-todo', {
 \    'depends' : 'Shougo/unite.vim',
 \    'autoload' : {'unite_sources' : 'todo'}
-\ }
-
-" Unite font source
-NeoBundleLazy 'ujihisa/unite-font', {
-\    'depends' : 'Shougo/unite.vim',
-\    'gui' : 1,
-\    'autoload' : {'unite_sources' : 'font'}
 \ }
 
 " Unite color scheme source
@@ -383,7 +368,7 @@ NeoBundle 'severin-lemaignan/vim-minimap'
 NeoBundle 'guns/xterm-color-table.vim'
 
 " enable gvim colorsheme for cli
-NeoBundle 'vim-scripts/CSApprox'
+"NeoBundle 'vim-scripts/CSApprox'
 
 " color scheme
 NeoBundle 'nanotech/jellybeans.vim'
@@ -442,6 +427,8 @@ call neobundle#end()
 
 " ファイルタイプ:インデント プラグインをON
 filetype plugin indent on
+
+syntax enable
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -704,8 +691,9 @@ colorscheme hybrid
 "colorscheme my-base16-ocean
 
 
-syntax sync minlines=256
-set synmaxcol=200
+"syntax sync minlines=256
+"set synmaxcol=200
+
 "set ttyfast " u got a fast terminal
 "set ttyscroll=3
 "set lazyredraw " to avoid scrolling problems
@@ -825,7 +813,6 @@ function! s:unite_project(...)
   execute 'Unite' opts 'file_rec:' . dir
 endfunction
 
-syntax enable
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Unite-line
@@ -859,6 +846,10 @@ nnoremap <silent> <C-t> :<C-u>Unite jump<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vimfiler.vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" 自動カレントディレクトリ変更 OFF
+let g:vimfiler_enable_auto_cd = 0
+
 " Default File Explorer
 let g:vimfiler_as_default_explorer = 1
 
@@ -869,11 +860,11 @@ let g:vimfiler_safe_mode_by_default = 0
 "let g:vimfiler_edit_action = 'tabopen'
 
 " Like Textmate icons.
-let g:vimfiler_tree_leaf_icon = ' '
-let g:vimfiler_tree_opened_icon = '▾'
-let g:vimfiler_tree_closed_icon = '▸'
-let g:vimfiler_file_icon = '-'
-let g:vimfiler_marked_file_icon = '*'
+"let g:vimfiler_tree_leaf_icon = ' '
+"let g:vimfiler_tree_opened_icon = '▾'
+"let g:vimfiler_tree_closed_icon = '▸'
+"let g:vimfiler_file_icon = '-'
+"let g:vimfiler_marked_file_icon = '*'
 
 " filename column min size
 let g:vimfiler_min_filename_width = 30
@@ -894,6 +885,7 @@ endfunction
 nnoremap <F2> :MyVimFilerExp<Cr>
 nnoremap <D-1> :MyVimFilerExp<Cr>
 
+" my_split
 let my_action = { 'is_selectable' : 1 }
 function! my_action.func(candidates)
   wincmd p
@@ -901,6 +893,7 @@ function! my_action.func(candidates)
 endfunction
 call unite#custom_action('file', 'my_split', my_action)
 
+" my_vsplit
 let my_action = { 'is_selectable' : 1 }
 function! my_action.func(candidates)
   wincmd p
@@ -908,6 +901,7 @@ function! my_action.func(candidates)
 endfunction
 call unite#custom_action('file', 'my_vsplit', my_action)
 
+" my_tabopen
 let my_action = { 'is_selectable' : 1 }
 function! my_action.func(candidates)
   wincmd p

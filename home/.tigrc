@@ -1,4 +1,8 @@
 
+################################################
+# 画面設定
+################################################
+
 # main viewの左端にコミットIDを表示する
 set main-view = id date author commit-title:graph=yes,refs=yes
 
@@ -14,7 +18,29 @@ set vertical-split = yes
 
 set line-graphics = utf-8
 
+################################################
 # color 設定
+################################################
+
 #color cursor yellow red bold
 color cursor black white bold
+
+################################################
+# キーバインド
+################################################
+
+# デフォルトの bind generic G !git gc を無効化する
+bind generic G none
+bind main G none
+
+bind generic g move-first-line
+bind main g move-first-line
+bind generic G move-last-line
+bind main G move-last-line
+
+bind generic <Ctrl-B> move-page-up
+bind generic <Ctrl-F> move-page-down
+
+bind main <Ctrl-R> !git rebase -i %(commit)
+bind diff <Ctrl-R> !git rebase -i %(commit)
 
