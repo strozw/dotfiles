@@ -144,6 +144,9 @@ export PATH=/usr/local/sbin:$PATH
 # GNU ls, dircolors ...
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 
+# hombrew cask options
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
 # gnu-tar (installed by homebrew)
@@ -161,8 +164,9 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 # phpenv
 export PATH="${HOME}/.phpenv/bin:${HOME}/.phpenv/shims:${PATH}"
 if which phpenv > /dev/null; then eval "$(phpenv init -)"; fi
-# phpenv no rehash ver
-#if which phpenv > /dev/null; then eval "$(phpenv init - --no-rehash)"; fi
+
+# phpbrew
+#source ~/.phpbrew/bashrc
 
 # ndenv
 export PATH="${HOME}/.ndenv/bin:${HOME}/.ndenv/shims:${PATH}"

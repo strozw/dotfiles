@@ -391,15 +391,20 @@ exe "hi! qfLineNr"        .s:fg_yellow      .s:bg_none        .s:fmt_none
 "   qfError"
 
 " VimFiler
-"call <sid>hi("vimfilerStatus",  s:gui0D, "", s:cterm0D, "", "")
-"call <sid>hi("vimfilerCurrentDirectory",  s:gui01, "", s:cterm01, "", "")
-"call <sid>hi("vimfilerMask",  s:gui01, "", s:cterm01, "", "")
-"call <sid>hi("vimfilerNonMark",  s:gui02, "", s:cterm02, "", "")
-"call <sid>hi("vimfilerMarkedFile",  s:gui0D, "", s:cterm0D, "", "")
+"exe "hi! vimfilerStatus" .s:fg_yellow .s:bg_none .s:fmt_bold
+"exe "hi! vimfilerCurrentDirectory" .s:fg_yellow .s:bg_none .s:fmt_bold
+"exe "hi! vimfilerMask" .s:fg_yellow .s:bg_none .s:fmt_bold
+
+"exe "hi! vimfilerNonMark" .s:fg_yellow .s:bg_none .s:fmt_bold
+"exe "hi! vimfilerMark" .s:fg_yellow .s:bg_none .s:fmt_bold
+"exe "hi! vimfilerLeaf" .s:fg_yellow .s:bg_none .s:fmt_bold
+
+"exe "hi! vimfilerNormalFile" .s:fg_yellow .s:bg_none .s:fmt_bold
+"exe "hi! vimfilerMarkedFile" .s:fg_yellow .s:bg_none .s:fmt_bold
 exe "hi! vimfilerDirectory" .s:fg_yellow .s:bg_none .s:fmt_bold
-exe "hi! vimfilerOpendFile" .s:fg_yellow .s:bg_none .s:fmt_bold
+exe "hi! vimfilerOpenedFile" .s:fg_yellow .s:bg_none .s:fmt_bold
 exe "hi! vimfilerClosedFile" .s:fg_yellow .s:bg_none .s:fmt_bold
-"call <sid>hi("vimfilerROFile",  s:gui0F, "", s:cterm0F, "", "")
+"exe "hi! vimfilerROFile" .s:fg_yellow .s:bg_none .s:fmt_bold
 
 
 "}}}

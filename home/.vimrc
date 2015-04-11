@@ -684,8 +684,8 @@ endif
 "let g:hybrid_use_iTerm_colors = 1
 "let g:solarized_contrast = 'high'
 "colorscheme solarized
-colorscheme hybrid
-"colorscheme my-hybrid
+"colorscheme hybrid
+colorscheme my-hybrid
 "colorscheme iceberg
 "colorscheme base16-ocean
 "colorscheme my-base16-ocean
@@ -944,6 +944,7 @@ let g:syntastic_auto_jump = 0
 " HTML
 "let g:syntastic_html_checkers = ['jshint']
 let g:syntastic_html_validator_parser = 'html5'
+let g:syntastic_javascript_checkers=['jsxhint']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TagBar
