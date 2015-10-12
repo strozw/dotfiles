@@ -24,8 +24,8 @@ if has('vim_starting')
         set runtimepath+=~/.vim/neobundle.vim/
         call neobundle#begin(expand('~/.vim/bundle/'))
 
-        let $PYTHON_DLL = '/usr/local/Cellar/python/2.7.8_2/Frameworks/Python.framework/Versions/2.7/Python'
-        let $PYTHON3_DLL= '/usr/local/Cellar/python3/3.4.2_1/Frameworks/Python.framework/Versions/3.4/Python'
+        let $PYTHON_DLL = '/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/Python'
+        let $PYTHON3_DLL= '/usr/local/Cellar/python3/3.4.3_2/Frameworks/Python.framework/Versions/3.4/Python'
 
         " プロキシ環境用の設定ファイルを読み込む（リポジトリでは管理しない）
         if filereadable($HOME . '/.vimrc.local')
@@ -273,9 +273,8 @@ NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload': {'filetypes': ['scss', '
 NeoBundleLazy 'StanAngeloff/php.vim', {'autoload': {'filetypes': 'php'}}
 NeoBundleLazy 'arnaud-lb/vim-php-namespace', {'autoload': {'filetypes': 'php'}}
 NeoBundleLazy 'shawncplus/phpcomplete.vim', {'autoload': {'filetypes': 'php'}}
-"NeoBundleLazy 'm2mdas/phpcomplete-extended', {'autoload': {'filetypes': 'php'}}
-"NeoBundleLazy 'm2mdas/phpcomplete-extended-laravel', {'autoload': {'filetypes': 'php'}}
-"NeoBundleLazy 'm2mdas/phpcomplete-extended-symfony', {'autoload': {'filetypes': 'php'}}
+NeoBundleLazy 'artur-shaik/vim-javacomplete2', {'autoload': {'filetypes': 'java'}}
+
 " php-doc.vim のfork版
 NeoBundleLazy 'drwX/php-doc.vim', {'autoload': {'filetypes': 'php'}}
 NeoBundleLazy 'tobyS/pdv', {'autoload': {'filetypes': 'php'}}

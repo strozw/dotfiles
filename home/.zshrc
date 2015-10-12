@@ -61,6 +61,9 @@ plugins=(sudo themes git npm svn osx brew vagrant z git-flow laravel composer sv
 
 source $ZSH/oh-my-zsh.sh
 
+# 補完に使用するファイルチェックをスルー
+compinit -u
+
 # I want use jorke command
 #unalias sl
 
