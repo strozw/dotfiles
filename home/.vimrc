@@ -273,7 +273,9 @@ NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload': {'filetypes': ['scss', '
 NeoBundleLazy 'StanAngeloff/php.vim', {'autoload': {'filetypes': 'php'}}
 NeoBundleLazy 'arnaud-lb/vim-php-namespace', {'autoload': {'filetypes': 'php'}}
 NeoBundleLazy 'shawncplus/phpcomplete.vim', {'autoload': {'filetypes': 'php'}}
-NeoBundleLazy 'artur-shaik/vim-javacomplete2', {'autoload': {'filetypes': 'java'}}
+
+" java complete
+NeoBundleLazy 'artur-shaik/vim-javacomplete2'
 
 " php-doc.vim のfork版
 NeoBundleLazy 'drwX/php-doc.vim', {'autoload': {'filetypes': 'php'}}
@@ -1092,6 +1094,7 @@ endif
 "let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplete#sources#omni#input_patterns.java = '\h\w*\|\h\w*\.\w*'
 
 " Enabe force omni completion
 if !exists('g:neocomplete#force_omni_input_patterns')
@@ -1100,6 +1103,8 @@ endif
 let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 "let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
 
+" set java autocomplete
+autocmd FileType java set omnifunc=javacomplete#Complete
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " neosnippet
