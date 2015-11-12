@@ -15,3 +15,9 @@ let g:quickrun_config["java"] = {
 \ 'exec' : ['javac -J-Dfile.encoding=UTF8 %o %s', '%c -Dfile.encoding=UTF8 %s:t:r %a']
 \}
 
+
+let g:java_highlight_all=1
+let g:java_highlight_debug=1
+let g:java_allow_cpp_keywords=1
+let g:java_space_errors=1
+let g:java_highlight_functions=1

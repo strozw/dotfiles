@@ -3,26 +3,7 @@ ZSH=$HOME/.oh-my-zsh
 
 ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-#ZSH_THEME="agnoster"
-#ZSH_THEME="blinks"
-#ZSH_THEME="my-blinks"
-#ZSH_THEME="dst"
-#ZSH_THEME="wedisagree"
-#ZSH_THEME="bureau"
-#ZSH_THEME="fishy"
-#ZSH_THEME="frisk"
-#ZSH_THEME="norm"
-#ZSH_THEME="ys"
 ZSH_THEME="my-ys"
-#ZSH_THEME="dst"
-#ZSH_THEME="juanghurtado"
-#ZSH_THEME="re5et"
-#ZSH_THEME="pygmalion"
-#ZSH_THEME="kphoen"
 
 # zsh-completions
 fpath=(/usr/local/share/zsh-completions $fpath)
@@ -30,34 +11,13 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
 
-# Uncomment this to disable bi-weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment to change how often before auto-updates occur? (in days)
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want to disable command autocorrection
-# DISABLE_CORRECTION="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-#COMPLETION_WAITING_DOTS="true"
-
 # Uncomment following line if you want to disable marking untracked files under
 # VCS as dirty. This makes repository status check for large repositories much,
 # much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
 #plugins=(git ruby osx bundler brew rails emoji-clock)
-plugins=(sudo themes git npm svn osx brew vagrant z git-flow laravel composer svn-fast-info)
+plugins=(sudo themes git osx brew svn-fast-info)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -66,6 +26,15 @@ compinit -u
 
 # I want use jorke command
 #unalias sl
+
+
+###############################################
+# ruby, php ,node
+###############################################
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+if which phpenv > /dev/null; then eval "$(phpenv init -)"; fi
+if which ndenv > /dev/null; then eval "$(ndenv init -)"; fi
+
 
 ###############################################
 # cdr
@@ -125,103 +94,7 @@ zle -N zle-line-init
 ##############################################
 # zsh-notify
 ##############################################
-source ~/.zsh.d/zsh-notify/notify.plugin.zsh
-export SYS_NOTIFIER="/usr/local/bin/terminal-notifier"
-export NOTIFY_COMMAND_COMPLETE_TIMEOUT=10
-
-###############################################
-# PATH
-###############################################
-
-# macvim
-export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
-
-export PATH=/usr/bin:$PATH
-export PATH=/usr/sbin:$PATH
-
-# homebrew path
-export PATH=/usr/local/bin:$PATH
-export PATH=/usr/local/sbin:$PATH
-#export PATH=/usr/local/opt/ruby/bin/:$PATH
-
-# GNU ls, dircolors ...
-export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-
-# hombrew cask options
-export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-
-export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
-
-# gnu-tar (installed by homebrew)
-export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
-
-# user bin path
-export PATH=~/bin:$PATH
-
-# rbenv
-export PATH="${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}"
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-# rbenv no rehash ver
-#if which rbenv > /dev/null; then eval "$(rbenv init - --no-rehash)"; fi
-
-# phpenv
-export PATH="${HOME}/.phpenv/bin:${HOME}/.phpenv/shims:${PATH}"
-if which phpenv > /dev/null; then eval "$(phpenv init -)"; fi
-
-# phpbrew
-#source ~/.phpbrew/bashrc
-
-# ndenv
-export PATH="${HOME}/.ndenv/bin:${HOME}/.ndenv/shims:${PATH}"
-if which ndenv > /dev/null; then eval "$(ndenv init -)"; fi
-
-# hombrew ruby gem path
-export GEM_EXE_DIR=`gem env | grep "EXECUTABLE DIRECTORY" | awk '{print $4}'`
-export PATH=$GEM_EXE_DIR:$PATH
-
-# php composer
-export PATH=$HOME/.composer/vendor/bin:$PATH
-
-#export PATH=~/Applications/Sublime\ Text.app/Contents/SharedSupport/bin:$PATH
-
-###############################################
-# go path
-###############################################
-export PATH=$PATH:/usr/local/opt/go/libexec/bin
-
-export GOPATH=~/go
-export PATH=$PATH:$GOPATH/bin
-
-###############################################
-# OTHER ENV
-###############################################
-#export CC=/usr/local/bin/gcc-4.2
-
-# android-sdk
-export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
-export ANDROID_HOME=/usr/local/opt/android-sdk
-
-# AWS
-export AWS_CONFIG_FILE=~/.aws/credentials
-
-# git
-export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-
-# editor
-export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-
-# command history ignore
-export HISTIGNORE="rm -rf *:exit:cd:kill -9 *:kill -KILL *"
-
-
-# for PostgreSQL
-export PGDATA=/usr/local/var/postgres
-
-export PYTHONPATH=/usr/local/lib/python2.7/site-packages/
-
-# atom
-export ATOM_PATH=/opt/homebrew-cask/Caskroom/atom/latest
-
+#source ~/.zsh.d/zsh-notify/notify.plugin.zsh
 
 ###############################################
 # aliases
@@ -230,9 +103,8 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
 alias ls='gls -GAF --color=auto'
-
-#alias less='less -R'
-export LESS='-R'
+alias less='less -R'
+#export LESS='-R'
 #export LESSOPEN='| src-hilite-lesspipe.sh %s'
 
 # vim
@@ -343,75 +215,5 @@ function peco-tmux-attach-session() {
 }
 alias pta="peco-tmux-attach-session"
 
-################################################
-# SHELL
-################################################
-export SHELL=/usr/local/bin/zsh
-
 #archey -c
-
-################################################
-# Base16 Shell
-################################################
-BASE16_SCHEME="ocean"
-BASE16_SHELL="$HOME/.config/base16-shell/base16-$BASE16_SCHEME.dark.sh"
-[[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
-
-################################################
-# AWS Completion
-################################################
-
-###-begin-npm-completion-###
-#
-# npm command completion script
-#
-# Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
-# Or, maybe: npm completion > /usr/local/etc/bash_completion.d/npm
-#
-
-COMP_WORDBREAKS=${COMP_WORDBREAKS/=/}
-COMP_WORDBREAKS=${COMP_WORDBREAKS/@/}
-export COMP_WORDBREAKS
-
-if type complete &>/dev/null; then
-  _npm_completion () {
-    local si="$IFS"
-    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$COMP_CWORD" \
-                           COMP_LINE="$COMP_LINE" \
-                           COMP_POINT="$COMP_POINT" \
-                           npm completion -- "${COMP_WORDS[@]}" \
-                           2>/dev/null)) || return $?
-    IFS="$si"
-  }
-  complete -F _npm_completion npm
-elif type compdef &>/dev/null; then
-  _npm_completion() {
-    si=$IFS
-    compadd -- $(COMP_CWORD=$((CURRENT-1)) \
-                 COMP_LINE=$BUFFER \
-                 COMP_POINT=0 \
-                 npm completion -- "${words[@]}" \
-                 2>/dev/null)
-    IFS=$si
-  }
-  compdef _npm_completion npm
-elif type compctl &>/dev/null; then
-  _npm_completion () {
-    local cword line point words si
-    read -Ac words
-    read -cn cword
-    let cword-=1
-    read -l line
-    read -ln point
-    si="$IFS"
-    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
-                       COMP_LINE="$line" \
-                       COMP_POINT="$point" \
-                       npm completion -- "${words[@]}" \
-                       2>/dev/null)) || return $?
-    IFS="$si"
-  }
-  compctl -K _npm_completion npm
-fi
-###-end-npm-completion-###
 
