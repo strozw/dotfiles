@@ -3,21 +3,14 @@ ZSH=$HOME/.oh-my-zsh
 
 ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
 
-ZSH_THEME="my-ys"
+#ZSH_THEME="my-ys"
+ZSH_THEME="pure"
 
 # zsh-completions
 fpath=(/usr/local/share/zsh-completions $fpath)
 
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-
-# Uncomment following line if you want to disable marking untracked files under
-# VCS as dirty. This makes repository status check for large repositories much,
-# much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-#plugins=(git ruby osx bundler brew rails emoji-clock)
-plugins=(sudo themes git osx brew svn-fast-info)
+#plugins=(sudo themes git osx brew svn-fast-info)
+plugins=(sudo themes git osx brew)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -29,11 +22,16 @@ compinit -u
 
 
 ###############################################
-# ruby, php ,node
+# anyenv
 ###############################################
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-if which phpenv > /dev/null; then eval "$(phpenv init -)"; fi
-if which ndenv > /dev/null; then eval "$(ndenv init -)"; fi
+export PATH="$HOME/.anyenv/bin:$PATH"
+if which anyenv > /dev/null; then eval "$(anyenv init -)"; fi
+
+###############################################
+# ruby gem exec path
+###############################################
+#export GEM_DIR=`gem env | grep "EXECUTABLE DIRECTORY" | awk '{print $4}'`
+#export PATH=$GEM_DIR:$PATH
 
 
 ###############################################
@@ -57,20 +55,20 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ###############################################
 # zsh-history-substring-search
 ###############################################
-source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
-
-# bind UP and DOWN arrow keys
-zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
-
-# bind P and N for EMACS mode
-bindkey -M emacs '^P' history-substring-search-up
-bindkey -M emacs '^N' history-substring-search-down
-
-# bind k and j for VI mode
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
+#source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
+#
+## bind UP and DOWN arrow keys
+#zmodload zsh/terminfo
+#bindkey "$terminfo[kcuu1]" history-substring-search-up
+#bindkey "$terminfo[kcud1]" history-substring-search-down
+#
+## bind P and N for EMACS mode
+#bindkey -M emacs '^P' history-substring-search-up
+#bindkey -M emacs '^N' history-substring-search-down
+#
+## bind k and j for VI mode
+#bindkey -M vicmd 'k' history-substring-search-up
+#bindkey -M vicmd 'j' history-substring-search-down
 
 ###############################################
 # zsh-autosuggestions
@@ -109,15 +107,6 @@ alias less='less -R'
 
 # vim
 alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
-
-# composer
-#alias composer='hhvm ~/bin/composer.phar'
-
-# pgssql
-alias pgstart="pg_ctl -l /usr/local/var/postgres/server.log start"
-alias pgstop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
-
-#alias brew="env PATH=${PATH/\/Users\/takc923\/\.phpenv\/shims:/} brew"
 
 ###############################################
 # dircolosr
@@ -214,6 +203,18 @@ function peco-tmux-attach-session() {
 	tmux attach-session -t $sid
 }
 alias pta="peco-tmux-attach-session"
+
+function peco-src () {
+  local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
+    if [ -n "$selected_dir" ]; then
+	    BUFFER="cd ${selected_dir}"
+	    zle accept-line
+	  fi
+    zle clear-screen
+}
+zle -N peco-src
+bindkey '^]' peco-src
+alias peco-src="peco-src"
 
 #archey -c
 

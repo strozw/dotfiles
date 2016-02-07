@@ -511,6 +511,53 @@ let g:quickrun_config = {
 \   'html' : { 'command' : 'open' },
 \}
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" watchdogs.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+"let g:hier_enabled              = 1
+"let g:hier_highlight_group_qf   = 'SpellBad'
+"let g:hier_highlight_group_qfw  = 'SpellLocal'
+"let g:hier_highlight_group_qfi  = 'SpellRare'
+"
+"let g:hier_highlight_group_loc  = 'SpellBad'
+"let g:hier_highlight_group_locw = 'SpellLocal'
+"let g:hier_highlight_group_loci = 'SpellRare'
+"
+"
+"
+"" この関数に g:quickrun_config を渡す
+"" この関数で g:quickrun_config にシンタックスチェックを行うための設定を追加する
+"" 関数を呼び出すタイミングはユーザの g:quickrun_config 設定後
+""
+"call watchdogs#setup(g:quickrun_config)
+"
+"" 書き込み後にシンタックスチェックを行う
+"let g:watchdogs_check_BufWritePost_enable = 1
+"
+""" filetype ごとに有効無効を設定することも出来る
+""let g:watchdogs_check_BufWritePost_enables = {
+""\   'cpp' : 0
+""\   'haskell' : 1
+""\}
+"
+"
+"" こっちは一定時間キー入力がなかった場合にシンタックスチェックを行う
+"" バッファに書き込み後、1度だけ行われる
+"let g:watchdogs_check_CursorHold_enable = 1
+"
+""" filetype=python は無効になる
+""let g:watchdogs_check_CursorHold_enables = {
+""\   'python' : 0
+""\   'ruby'   : 1
+""\}
+"
+"" watchdogsのフックを設定
+"let g:quickrun_config["watchdogs_checker/_"] = {
+"\ "outputter/quickfix/open_cmd" : "",
+"\ "hook/qfstatusline_update/enable_exit" : 1
+"\ }
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " syntastic
@@ -528,6 +575,7 @@ let g:syntastic_auto_jump = 0
 "let g:syntastic_html_checkers = ['jshint']
 let g:syntastic_html_validator_parser = 'html5'
 let g:syntastic_javascript_checkers=['jsxhint']
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TagBar

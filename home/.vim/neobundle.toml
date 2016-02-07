@@ -128,9 +128,15 @@ repository = 'thinca/vim-fontzoom'
 [[plugins]]
 repository = 'scrooloose/syntastic'
 
+#[[plugins]]
+#depends = ['Shougo/vimproc', 'thinca/vim-quickrun', 'osyo-manga/shabadou.vim', 'cohama/vim-hier']
+#repository = 'osyo-manga/vim-watchdogs'
+
 # Tagbar (ctagを見やすく表示) javascriptで利用時にnodeがhung
 [[plugins]]
 repository = 'majutsushi/tagbar'
+
+[[plugins]]
 repository = 'vim-scripts/tagbar-phpctags'
 
 # Source explorer
@@ -202,8 +208,8 @@ unite_sources = ['locate']
 
 # unite-spotlight
 [[plugins]]
-repository = 'choplin/unite-spotlight'
-unite_sources = ['spotlight']
+repository = 'basyura/unite-mdfind'
+unite_sources = ['mdfind']
 
 # unite-help (Unite:ヘルプソース)
 [[plugins]]

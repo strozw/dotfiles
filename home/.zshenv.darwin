@@ -28,20 +28,16 @@ export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
 export PATH=~/bin:$PATH
 
 # rbenv
-export PATH="${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}"
+#export PATH="${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}"
 
 # phpenv
-export PATH="${HOME}/.phpenv/bin:${HOME}/.phpenv/shims:${PATH}"
+#export PATH="${HOME}/.phpenv/bin:${HOME}/.phpenv/shims:${PATH}"
 
 # phpbrew
 #source ~/.phpbrew/bashrc
 
 # ndenv
-export PATH="${HOME}/.ndenv/bin:${HOME}/.ndenv/shims:${PATH}"
-
-# hombrew ruby gem path
-export GEM_EXE_DIR=`gem env | grep "EXECUTABLE DIRECTORY" | awk '{print $4}'`
-export PATH=$GEM_EXE_DIR:$PATH
+#export PATH="${HOME}/.ndenv/bin:${HOME}/.ndenv/shims:${PATH}"
 
 # php composer
 export PATH=$HOME/.composer/vendor/bin:$PATH
