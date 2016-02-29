@@ -1,3 +1,14 @@
+###############################################
+# homeshick
+###############################################
+
+source "$HOME/.homesick/repos/homeshick/homeshick.sh"
+fpath=($HOME/.homesick/repos/homeshick/completions $fpath)
+
+###############################################
+# oh my zsh
+###############################################
+
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
@@ -19,6 +30,7 @@ compinit -u
 
 # I want use jorke command
 #unalias sl
+
 
 
 ###############################################
