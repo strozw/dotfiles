@@ -1,74 +1,350 @@
-" vim-tiny , vim-small の時はスキップ
- if 0 | endif
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugin Init
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Initial Variable
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-if has('vim_starting')
-  " vi との互換モードをOFF
-  if &compatible
-    set nocompatible               " Be iMproved
-  endif
+" .vim ディレクトリ
+let s:vimdir = $HOME . '/.vim'
+let s:vim_tmp = $HOME . '/tmp/vim'
+let s:undodir = s:vim_tmp . '/undo'
 
-  " Neobundle のパス設定
-  set runtimepath+=~/.vim/neobundle.vim/
 
-  let $PYTHON_DLL = '/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/Python'
-  let $PYTHON3_DLL= '/usr/local/Cellar/python3/3.4.3_2/Frameworks/Python.framework/Versions/3.4/Python'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugin Install Settings (vim plug)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let s:plugDir = $HOME . '/.vim/plugged'
+" plug settings {{{
 
-  " プロキシ環境用の設定ファイルを読み込む（リポジトリでは管理しない）
-  if filereadable('~/.vimrc.local')
-    source ~/.vimrc.local
-  endif
+call plug#begin(s:plugDir)
+
+" 非同期タスク実行 (unite等で利用)
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+
+" 非同期タスク実行(vim-tags の非同期実行に使用)
+Plug 'tpope/vim-dispatch'
+
+" タグ生成
+Plug 'szw/vim-tags'
+
+" webapi.vim (各種web apiをvimから利用)
+Plug 'mattn/webapi-vim'
+
+" surround.vim (テキストオブジェクトを使いやすく)
+Plug 'tpope/vim-surround'
+
+" 直感的にテキスト置換
+Plug 'osyo-manga/vim-over'
+
+" smartword (全角文字の単語認識)
+Plug 'kana/vim-smartword'
+
+" vim-quickhl (選択箇所の複数ハイライト)
+Plug 't9md/vim-quickhl'
+
+" コメントアウト
+Plug 'tpope/vim-commentary'
+
+" emmet (zencodingの利用)
+Plug 'mattn/emmet-vim/'
+
+" 括弧のオートクローズ
+Plug 'kana/vim-smartinput'
+
+" end系のオートクローズ
+Plug 'cohama/vim-smartinput-endwise'
+
+" ag (silver seacher による grep)
+Plug 'rking/ag.vim'
+
+" editorconfig
+" Plug 'editorconfig/editorconfig-vim'
+
+" タブ等による均等整形
+Plug 'junegunn/vim-easy-align'
+
+" ビジュアル選択後のrによる置換のアレを改善する
+Plug 'kana/vim-niceblock'
+
+" 軽量のpowerline系プラグイン
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" minimap
+Plug 'severin-lemaignan/vim-minimap'
+
+" color table
+Plug 'guns/xterm-color-table.vim'
+
+" 統合インターフェース (unite)
+Plug 'Shougo/unite.vim'
+
+" ファジーファインダ
+Plug 'kien/ctrlp.vim'
+
+" ドキュメント参照
+Plug 'thinca/vim-ref'
+
+" スクリプト実行
+Plug 'thinca/vim-quickrun'
+
+" vimscript 向け console
+Plug 'rbtnn/vimconsole.vim'
+
+" ブラウザ・オープン
+Plug 'tyru/open-browser.vim'
+
+Plug 'shime/vim-livedown'
+
+" font size変更
+Plug 'thinca/vim-fontzoom'
+
+" scrooloose/syntastic.vim (各種ファイルタイプのシンタックスエラーの検出・表示)
+Plug 'scrooloose/syntastic'
+
+" Tagbar (ctagを見やすく表示) javascriptで利用時にnodeがhung
+Plug 'majutsushi/tagbar'
+Plug 'vim-scripts/tagbar-phpctags'
+
+" Source explorer
+Plug 'wesleyche/SrcExpl'
+
+" vcscommand.vim (svnの利用)
+Plug 'harleypig/vcscommand.vim'
+
+" vim-fugitive (git コマンド利用)
+Plug 'tpope/vim-fugitive'
+
+" git log view (tig相当 fugitive依存) 
+Plug 'gregsexton/gitv'
+
+" vcsのステータス表示
+Plug 'mhinz/vim-signify'
+
+" dir単位のdiff
+Plug 'vim-scripts/DirDiff.vim'
+
+" インデント見やすく
+Plug 'Yggdroot/indentLine'
+
+" ファイラUI
+Plug 'Shougo/vimfiler'
+
+" シェルUI
+Plug 'Shougo/vimshell.vim'
+
+" シェルUI拡張
+Plug 'supermomonga/vimshell-pure.vim'
+
+" vimshell と vimfiler でsshを利用するための拡張
+Plug 'Shougo/neossh.vim'
+
+" ===  Unite Source === {{{
+
+" 最近使用したファイル
+Plug 'Shougo/neomru.vim'
+
+" unite-outline (Unite:アウトラインソース)
+Plug 'Shougo/unite-outline'
+
+" unite-help (Unite:ヘルプソース)
+Plug 'tsukkee/unite-help'
+
+" unite-tag (Unite:ctagソース)
+Plug 'tsukkee/unite-tag'
+
+" Unite todo source
+Plug 'kannokanno/unite-todo'
+
+" Unite color scheme source
+Plug 'ujihisa/unite-colorscheme'
+
+" Unite vcs
+Plug 'hrsh7th/vim-versions'
+
+" unite-variable 追加
+Plug 'thinca/vim-editvar'
+
+" }}}
+
+" === Syntax === {{{
+
+" コンテキストによってファイルタイプを検出
+Plug 'Shougo/context_filetype.vim'
+
+" コンテキストによってfiletypeを自動で変更 
+Plug 'osyo-manga/vim-precious'
+Plug 'Shougo/context_filetype.vim'
+
+" toml syntax
+Plug 'cespare/vim-toml'
+
+" json filetype
+Plug 'elzr/vim-json'
+
+" json 整形
+Plug '5t111111/neat-json.vim'
+
+" html5.vim (html5シンタックス)
+Plug 'othree/html5.vim'
+
+" laravle blade
+Plug 'xsbeats/vim-blade'
+
+" lepture/vim-css css3シンタックス
+Plug 'hail2u/vim-css3-syntax'
+
+" scss
+Plug 'cakebaker/scss-syntax.vim'
+
+" php.vim のfork版 (php syntax, 補完)
+Plug 'StanAngeloff/php.vim'
+
+" coffeescript syntax
+Plug 'kchmck/vim-coffee-script'
+
+" less syntax
+Plug 'less.vim'
+
+" handlebars and mustache
+Plug 'mustache/vim-mustache-handlebars'
+
+" actionscript
+Plug 'endel/actionscript.vim'
+
+" as3 omni comp
+Plug 'yuratomo/flex-api-complete'
+
+" sql
+Plug 'vim-scripts/SQLComplete.vim'
+
+" jsx (react)
+Plug 'mxw/vim-jsx'
+
+" vim-ruby (ruby syntax, 補完)
+Plug 'vim-ruby/vim-ruby'
+
+" javascript syntax
+"Plug 'jelera/vim-javascript-syntax'
+" es6のハイライト
+Plug 'othree/yajs.vim'            
+
+" stage-0 のsyntax highlight
+Plug 'othree/es.next.syntax.vim'  
+
+"Plug 'plasticboy/vim-markdown'
+Plug 'jtratner/vim-flavored-markdown'
+
+" === Completion === {{{
+"
+" snipet
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+" Completion Framework
+Plug 'Valloric/YouCompleteMe', { 'build': './installer.py --all' }
+
+" java Omni補完
+Plug 'artur-shaik/vim-javacomplete2'
+
+
+" }}}
+
+" === Color Scheme === {{{
+Plug 'w0ng/vim-hybrid'
+
+Plug 'altercation/vim-colors-solarized'
+
+Plug 'cocopon/iceberg.vim'
+
+" base16 color
+Plug 'chriskempson/base16-vim'
+" }}}
+
+
+" === PHP === {{{
+Plug 'arnaud-lb/vim-php-namespace', { 'for': 'php' }
+Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
+Plug 'drwX/php-doc.vim', { 'for': 'php' }
+Plug 'vim-php/vim-php-refactoring', { 'for': 'php' }
+Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' }
+" }}}
+
+" === JS === {{{
+Plug 'heavenshell/vim-jsdoc'
+"}}}
+
+
+call plug#end()
+" }}}
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" swap & undo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" via :set directory
+let &directory = s:vim_tmp
+" via :set undodir
+let &undodir = s:undodir
+
+
+"ファイルを上書きする前にバックアップを作る。
+"書き込みが成功してバックアップはそのまま取っておく。
+"(有効:backup/無効:nobackup)
+set nobackup
+
+"ファイルの上書きの前にバックアップを作る。
+"オプション'backup'がオンでない限り、バックアップは上書きに成功した後削除される。
+"(有効:writebackup/無効nowritebackup)
+set writebackup
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  Character
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"文字コードの自動認識
+"適当な文字コード判別
+set termencoding=utf-8
+set encoding=utf-8
+
+if !has('mac')
+  " MacVimの場合 gauche_guess により、自動的に文字コードの判別を行うので不要
+  set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
 endif
 
+" タブ 空白表示
+"set list
+"set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NeoBundle
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-filetype plugin indent off
-
-"call neobundle#begin(expand('~/.vim/bundle/'))
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-if neobundle#load_cache()
-  NeoBundleFetch 'Shougo/neobundle.vim'
-
-  " TOMLファイルを指定
-  call neobundle#load_toml('~/.vim/neobundle.toml')
-
-  " NeoBundleLazyで指定した場合と同じ
-  call neobundle#load_toml('~/.vim/neobundle-lazy.toml', {'lazy' : 1} )
-
-  " TOMLパーサが遅いため，一度読み込んだ設定をキャッシュに保存
-  NeoBundleSaveCache
+"UTF-8の□や○でカーソル位置がずれないようにする
+if exists("&ambiwidth")
+  set ambiwidth=double
 endif
 
-call neobundle#end()
+if has('mac')
+  " UTF-8-MACの濁点、半濁点を含む文字を強調して表示する
+  highlight Opaques term=underline ctermbg=DarkGreen guibg=DarkGreen
+  match Opaques /\(\%u3099\|%u309a\)/
 
-" ファイルタイプ:インデント プラグインをON
-filetype plugin indent on
+  " ※MacのQuicklookでVimで保存したUTF-8テキストが文字化けする対策。
+  " UTF-8を保存する際、
+  " UTF-8エンコーディングを表す拡張属性をを追加する。
+  au BufWritePost * call SetUTF8Xattr(expand("<afile>"))
+  function! SetUTF8Xattr(file)
+      let isutf8 = &fileencoding == "utf-8" || ( &fileencoding == "" && &encoding == "utf-8")
+      if has("unix") && match(system("uname"),'Darwin') != -1 && isutf8
+          call system("xattr -w com.apple.TextEncoding 'utf-8;134217984' '" . a:file . "'")
+      endif
+  endfunction
+endif
 
-NeoBundleCheck
+"改行コードの自動認識
+set fileformats=unix,dos,mac
 
-syntax enable
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-".vimrc設定
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" leader key
-let mapleader=','
-
-" .swap ファイルの出力先
-set directory=~/tmp/vim
-set undodir=~/tmp/vim/undo
-
-"検索パターンにおいて大文字と小文字を区別しない。
-set noignorecase
-
-"検索パターンが大文字を含んでいたらオプション 'ignorecase'を上書きする。
-set nosmartcase
+" 折りたたみ(フォールド設定)
+set foldmethod=syntax
+set foldlevel=100
+set nofoldenable
 
 "Insertモードで<tab>を挿入するとき、代わりに適切な数の空白を使う。
 set noexpandtab
@@ -101,21 +377,46 @@ set wrap
 
 set display=lastline
 
+" インサート時のbackspace
+set backspace=indent,eol,start
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  Search
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" 検索内容をハイライト
+set hlsearch
+
+" 検索ハイライトを解除
+nmap <Esc><Esc> :nohlsearch<CR><Esc>
+
+"検索パターンにおいて大文字と小文字を区別しない。
+set noignorecase
+
+"検索パターンが大文字を含んでいたらオプション 'ignorecase'を上書きする。
+set nosmartcase
+
 "検索がファイル末尾まで進んだら、ファイル先頭から再び検索する。
 "(有効:wrapscan/無効:nowrapscan)
 set wrapscan
 
-"オンのとき、コマンドライン補完が拡張モードで行われる。
-set wildmenu
+" grepは外部コマンドを使用する
+set grepprg=internal
 
-"閉じ括弧が入力されたとき、対応する開き括弧にわずかの間ジャンプルする。
-set showmatch
 
-"毎行の前に行番号を表示する。
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  GUI 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Show line number
 set number
 
 "カーソルが何行目の何列目に置かれているかを表示する。
 set ruler
+
+
+"閉じ括弧が入力されたとき、対応する開き括弧にわずかの間ジャンプルする。
+set showmatch
 
 "最下ウィンドウにいつステータス行が表示されるかを設定する。
 "    0:全く表示しない
@@ -123,88 +424,15 @@ set ruler
 "    2:常に表示
 set laststatus=2
 
-"コマンド(の一部)を画面の最下行に表示する。
-set showcmd
-
-"ファイルを上書きする前にバックアップを作る。
-"書き込みが成功してバックアップはそのまま取っておく。
-"(有効:backup/無効:nobackup)
-set nobackup
-
-"ファイルの上書きの前にバックアップを作る。
-"オプション'backup'がオンでない限り、バックアップは上書きに成功した後削除される。
-"(有効:writebackup/無効nowritebackup)
-set writebackup
-
 "ステータスバーに文字コードと改行コード表示
 " airline で 代用
 "set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 
-"文字コードの自動認識
-"適当な文字コード判別
-set termencoding=utf-8
-set encoding=utf-8
-" MacVimの場合 gauche_guess により、自動的に文字コードの判別を行うので不要
-"set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
+"コマンド(の一部)を画面の最下行に表示する。
+set showcmd
 
-" タブ 空白表示
-set list
-set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+" 1. コマンドライン 
 
-"UTF-8の□や○でカーソル位置がずれないようにする
-if exists("&ambiwidth")
-  set ambiwidth=double
-endif
-
-" UTF-8-MACの濁点、半濁点を含む文字を強調して表示する
-highlight Opaques term=underline ctermbg=DarkGreen guibg=DarkGreen
-match Opaques /\(\%u3099\|%u309a\)/
-
-"改行コードの自動認識
-set fileformats=unix,dos,mac
-
-" 折りたたみ(フォールド設定)
-set foldmethod=syntax
-set foldlevel=100
-set nofoldenable
-
-" ※MacのQuicklookでVimで保存したUTF-8テキストが文字化けする対策。
-" UTF-8を保存する際、
-" UTF-8エンコーディングを表す拡張属性をを追加する。
-au BufWritePost * call SetUTF8Xattr(expand("<afile>"))
-function! SetUTF8Xattr(file)
-    let isutf8 = &fileencoding == "utf-8" || ( &fileencoding == "" && &encoding == "utf-8")
-    if has("unix") && match(system("uname"),'Darwin') != -1 && isutf8
-        call system("xattr -w com.apple.TextEncoding 'utf-8;134217984' '" . a:file . "'")
-    endif
-endfunction
-
-" grepは外部コマンドを使用する
-set grepprg=internal
-
-" ウィンドウを分割で開く際に、右側に表示する。
-set splitright
-
-" タグファイルの場所
-set tags=tags
-set tags+=*.tags
-
-" コマンドラインの高さ
-set cmdheight=1
-
-" クリップボード
-set clipboard+=unnamed
-set clipboard+=autoselect
-
-" マウス
-set mouse=a
-
-" インサート時のbackspace
-set backspace=indent,eol,start
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" コマンド補完
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " コマンド補完を強化
 set wildmenu
 
@@ -212,23 +440,41 @@ set wildmenu
 "set wildmode=longest,list,full
 set wildmode=longest,full
 
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Omni補完関連
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 補完に辞書ファイル追加
 "set complete =.,b,w,u,k,i,t
+
+" コマンドラインの高さ
+set cmdheight=1
+
+" 2. クリップボード
+set clipboard=unnamed,unnamedplus
+
+
+" 3. マウス
+set mouse=a
+
+" 4. 補完
 " 補完表示設定
 set completeopt=menu,preview,menuone
-"set completeopt=menu,menuone
+
+" 折りたたみ
+" 折りたたみ(フォールド設定)
+set foldmethod=syntax
+set foldlevel=100
+set nofoldenable
+
+" ウィンドウを分割で開く際に、右側に表示する。
+set splitright
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ファイル・タイプ
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" markdown
+" ghmarkdown
 "autocmd BufNewFile,BufRead *.mkd set filetype=ghmarkdown
 "autocmd BufNewFile,BufRead *.md set filetype=ghmarkdown
 "autocmd BufNewFile,BufRead *.md.txt set filetype=ghmarkdown
+
+" markdown
 autocmd BufNewFile,BufRead *.mkd set filetype=markdown
 autocmd BufNewFile,BufRead *.md set filetype=markdown
 autocmd BufNewFile,BufRead *.md.txt set filetype=markdown
@@ -238,47 +484,26 @@ autocmd BufNewFile,BufRead *.vue set filetype=html
 " html.erb
 autocmd BufNewFile,BufRead *.html.erb set filetype=eruby.html
 
-" thor
-autocmd BufNewFile,BufRead *.thor set filetype=ruby
+" jsx
+autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
 
-" actionscript 
-autocmd BufNewFile,BufRead *.as set filetype=actionscript 
-
-" flex mxml
-autocmd BufNewFile,BufRead *.mxml set filetype=mxml
-
-" less
-autocmd BufNewFile,BufRead *.less set filetype=less
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 相対行切り替え(<Space>n)
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if version >= 703
-  nnoremap  <silent> <Space>n :<C-u>ToggleNumber<CR>
-  vnoremap  <silent> <Space>n :<C-u>ToggleNumber<CR> gv
-  command! -nargs=0 ToggleNumber call ToggleNumberOption()
-
-  function! ToggleNumberOption()
-    if &number
-      set relativenumber
-      set cursorline
-    else
-      set norelativenumber
-      set nocursorline
-      set number
-    endif
-  endfunction
-endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 検索設定
+" tags
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 検索内容をハイライト
-set hlsearch
 
-" 検索ハイライトを解除
-nmap <Esc><Esc> :nohlsearch<CR><Esc>
+" タグファイルの場所
+set tags=tags
+set tags+=*.tags
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" keybinding
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" leader key
+let mapleader=','
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ビジュアルモード範囲内検索
@@ -290,6 +515,12 @@ vnoremap ? <ESC>?\%V
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " colorsheme
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax on
+
+if has('nvim')
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+
 " 行ハイライト
 "set cursorline
 set nocursorline
@@ -299,20 +530,83 @@ set nocursorcolumn
 
 if !has('gui_running')
   set background=dark
-  "set t_Co=256
+  set t_Co=256
   let base16colorspace=256
-  "let g:solarized_termcolors = 256
+  let g:solarized_termcolors = 256
 endif
-"let g:hybrid_use_Xresources = 1
-"let g:hybrid_use_iTerm_colors = 1
-"let g:solarized_contrast = 'high'
+let g:hybrid_use_Xresources = 1
+let g:hybrid_use_iTerm_colors = 1
+let g:solarized_contrast = 'high'
 "colorscheme solarized
 "colorscheme hybrid
-colorscheme my-hybrid
+"colorscheme my-hybrid
 "colorscheme iceberg
-"colorscheme base16-ocean
+colorscheme base16-ocean
 "colorscheme my-base16-ocean
 
+
+" {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{
+
+"	Plugins
+
+" }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" YouCompleteMe
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:UltiSnipsExpandTrigger = '<C-j>'
+let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+let g:EclimCompletionMethod = 'omnifunc'
+autocmd BufEnter FileType javascript nnoremap ,gd :<C-u>YcmCompleter GetDoc<CR>
+autocmd BufEnter Filetype javascript nnoremap ,gt :<C-u>YcmCompleter GoTo<CR>
+autocmd BufEnter FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" dirdiff
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:DirDiffExcludes = "CVS,*.class,*.exe,.*.swp,.svn,.git,.DS_Store"
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-airline
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" powerline fonts
+"   : version control
+"   : LN (line) symbol
+"   : Rightwards black arrwhead
+"   : Rightwardsarrwhead
+"   : iLeftwards black arrwhead
+"   : Leftwardsarrwhead
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+let g:airline_powerline_fonts = 1
+if has('gui_running')
+  let g:airline#extensions#tabline#enabled = 0
+  let g:airline_left_sep = ''
+  let g:airline_left_alt_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_right_alt_sep = ''
+  let g:airline_theme='base16'
+else
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tabline#left_sep = ''
+  let g:airline#extensions#tabline#left_alt_sep = '|'
+  let g:airline_left_sep = ''
+  let g:airline_left_alt_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_right_alt_sep = ''
+  let g:airline_theme='bubblegum'
+endif
+
+"let g:airline_theme='base16'
+"let g:airline_theme='hybrid'
+"let g:airline_theme='tomorrow'
+"let g:airline_theme='wombat'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " unite.vim
@@ -339,7 +633,7 @@ let g:unite_source_grep_default_opts = '--nocolor --nogroup --ignore=''*.tags'' 
 let g:unite_source_grep_recursive_opt = ''
 let g:unite_source_grep_max_candidates  = 200
 let g:unite_source_rec_max_cache_files = 0
-let g:unite_source_rec_async_command='pt --nocolor --nogroup --ignore ".hg" --ignore ".svn" --ignore ".git" --ignore ".bzr" --hidden -g ""'
+let g:unite_source_rec_async_command = ['pt --nocolor --nogroup --ignore ".hg" --ignore ".svn" --ignore ".git" --ignore ".bzr" --hidden -g ""']
 let g:unite_converter_file_directory_width = 100
 
 call unite#custom#source('file_rec,file_rec/async',
@@ -511,54 +805,6 @@ let g:quickrun_config = {
 \   'html' : { 'command' : 'open' },
 \}
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" watchdogs.vim
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-"let g:hier_enabled              = 1
-"let g:hier_highlight_group_qf   = 'SpellBad'
-"let g:hier_highlight_group_qfw  = 'SpellLocal'
-"let g:hier_highlight_group_qfi  = 'SpellRare'
-"
-"let g:hier_highlight_group_loc  = 'SpellBad'
-"let g:hier_highlight_group_locw = 'SpellLocal'
-"let g:hier_highlight_group_loci = 'SpellRare'
-"
-"
-"
-"" この関数に g:quickrun_config を渡す
-"" この関数で g:quickrun_config にシンタックスチェックを行うための設定を追加する
-"" 関数を呼び出すタイミングはユーザの g:quickrun_config 設定後
-""
-"call watchdogs#setup(g:quickrun_config)
-"
-"" 書き込み後にシンタックスチェックを行う
-"let g:watchdogs_check_BufWritePost_enable = 1
-"
-""" filetype ごとに有効無効を設定することも出来る
-""let g:watchdogs_check_BufWritePost_enables = {
-""\   'cpp' : 0
-""\   'haskell' : 1
-""\}
-"
-"
-"" こっちは一定時間キー入力がなかった場合にシンタックスチェックを行う
-"" バッファに書き込み後、1度だけ行われる
-"let g:watchdogs_check_CursorHold_enable = 1
-"
-""" filetype=python は無効になる
-""let g:watchdogs_check_CursorHold_enables = {
-""\   'python' : 0
-""\   'ruby'   : 1
-""\}
-"
-"" watchdogsのフックを設定
-"let g:quickrun_config["watchdogs_checker/_"] = {
-"\ "outputter/quickfix/open_cmd" : "",
-"\ "hook/qfstatusline_update/enable_exit" : 1
-"\ }
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " syntastic
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -594,141 +840,6 @@ xmap <Space>h <Plug>(quickhl-toggle)
 nmap <Space>H <Plug>(quickhl-reset)
 xmap <Space>H <Plug>(quickhl-reset)
 nmap <Space>j <Plug>(quickhl-match)
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" dirdiff
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:DirDiffExcludes = "CVS,*.class,*.exe,.*.swp,.svn,.git,.DS_Store"
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-airline
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" powerline fonts
-"   : version control
-"   : LN (line) symbol
-"   : Rightwards black arrwhead
-"   : Rightwardsarrwhead
-"   : iLeftwards black arrwhead
-"   : Leftwardsarrwhead
-
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
-let g:airline_powerline_fonts = 1
-if has('gui_running')
-  let g:airline#extensions#tabline#enabled = 0
-  let g:airline_left_sep = ''
-  let g:airline_left_alt_sep = ''
-  let g:airline_right_sep = ''
-  let g:airline_right_alt_sep = ''
-  let g:airline_theme='base16'
-else
-  let g:airline#extensions#tabline#enabled = 1
-  let g:airline#extensions#tabline#left_sep = ''
-  let g:airline#extensions#tabline#left_alt_sep = '|'
-  let g:airline_left_sep = ''
-  let g:airline_left_alt_sep = ''
-  let g:airline_right_sep = ''
-  let g:airline_right_alt_sep = ''
-  let g:airline_theme='bubblegum'
-endif
-
-"let g:airline_theme='base16'
-"let g:airline_theme='hybrid'
-"let g:airline_theme='tomorrow'
-"let g:airline_theme='wombat'
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" neocomplete
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 1
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-let g:neocomplete#enable_auto_select = 0
-
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-\ 'default' : '',
-\ 'vimshell' : $HOME.'/.vimshell_hist',
-\ 'scheme' : $HOME.'/.gosh_completions'
-\ }
-
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplete#close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-"let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.java = '\h\w*\|\h\w*\.\w*'
-
-" Enabe force omni completion
-if !exists('g:neocomplete#force_omni_input_patterns')
-  let g:neocomplete#force_omni_input_patterns = {}
-endif
-let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-"let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
-
-" set java autocomplete
-autocmd FileType java set omnifunc=javacomplete#Complete
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" neosnippet
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-
-" Enable snipMate compatibility feature.
-let g:neosnippet#enable_snipmate_compatibility = 1
-
-" Tell Neosnippet about the other snippets
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-tags
@@ -801,51 +912,4 @@ let g:context_filetype#filetypes = {
 \ ],
 \}
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" tern for vim
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let tern#is_show_argument_hints_enabled = 1
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" load project local vimrc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Load settings for each location.
-" http://vim-users.jp/2009/12/hack112/
-augroup vimrc-local
-  autocmd!
-  autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
-  autocmd BufReadPre .vimprojects set ft=vim
-augroup END
-function! s:vimrc_local(loc)
-  let files = findfile('.vimprojects', escape(a:loc, ' ') . ';', -1)
-  for i in reverse(filter(files, 'filereadable(v:val)'))
-    source `=i`
-  endfor
-endfunction
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" editorconfig
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:EditorConfig_verbose = 1
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-textmanip 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"xmap <Space>d <Plug>(textmanip-duplicate-down)
-"nmap <Space>d <Plug>(textmanip-duplicate-down)
-"xmap <Space>D <Plug>(textmanip-duplicate-up)
-"nmap <Space>D <Plug>(textmanip-duplicate-up)
-"
-"xmap <C-j> <Plug>(textmanip-move-down)
-"xmap <C-k> <Plug>(textmanip-move-up)
-"xmap <C-h> <Plug>(textmanip-move-left)
-"xmap <C-l> <Plug>(textmanip-move-right)
-"
-"" toggle insert/replace with <F10>
-"nmap <F10> <Plug>(textmanip-toggle-mode)
-"xmap <F10> <Plug>(textmanip-toggle-mode)
 

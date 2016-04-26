@@ -1,4 +1,11 @@
 ###############################################
+# XDG (neovim ... )
+###############################################
+
+export XDG_CONFIG_HOME=~/.config
+
+
+###############################################
 # homeshick
 ###############################################
 
@@ -14,8 +21,8 @@ ZSH=$HOME/.oh-my-zsh
 
 ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
 
-#ZSH_THEME="my-ys"
-ZSH_THEME="pure"
+ZSH_THEME="ys"
+#ZSH_THEME="pure"
 
 # zsh-completions
 fpath=(/usr/local/share/zsh-completions $fpath)
@@ -85,13 +92,8 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ###############################################
 # zsh-autosuggestions
 ###############################################
-source ~/.zsh-autosuggestions/autosuggestions.zsh
+source ~/.zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# Enable autosuggestions automatically
-function zle-line-init() {
-    zle autosuggest-start
-}
-zle -N zle-line-init
 
 # zsh-autosuggestions is designed to be unobtrusive)
 #bindkey '^T' autosuggest-toggle
