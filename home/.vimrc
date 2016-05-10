@@ -56,6 +56,8 @@ Plug 'cohama/vim-smartinput-endwise'
 " ag (silver seacher による grep)
 Plug 'rking/ag.vim'
 
+Plug 'thinca/vim-qfreplace'
+
 " editorconfig
 " Plug 'editorconfig/editorconfig-vim'
 
@@ -79,10 +81,7 @@ Plug 'guns/xterm-color-table.vim'
 Plug 'Shougo/unite.vim'
 
 " ファジーファインダ
-Plug 'kien/ctrlp.vim'
-
-" ドキュメント参照
-Plug 'thinca/vim-ref'
+Plug 'ctrlpvim/ctrlp.vim'
 
 " スクリプト実行
 Plug 'thinca/vim-quickrun'
@@ -103,13 +102,6 @@ Plug 'scrooloose/syntastic'
 
 " Tagbar (ctagを見やすく表示) javascriptで利用時にnodeがhung
 Plug 'majutsushi/tagbar'
-Plug 'vim-scripts/tagbar-phpctags'
-
-" Source explorer
-Plug 'wesleyche/SrcExpl'
-
-" vcscommand.vim (svnの利用)
-Plug 'harleypig/vcscommand.vim'
 
 " vim-fugitive (git コマンド利用)
 Plug 'tpope/vim-fugitive'
@@ -126,8 +118,25 @@ Plug 'vim-scripts/DirDiff.vim'
 " インデント見やすく
 Plug 'Yggdroot/indentLine'
 
+Plug 'mhinz/vim-startify'
+
+" vim icon いろいろ
+Plug 'ryanoasis/vim-devicons'
+
+" emji selector
+Plug 'mattn/emoji-vim'
+
 " ファイラUI
 Plug 'Shougo/vimfiler'
+
+" Tree viewr
+Plug 'scrooloose/nerdtree'
+
+" NERDTreeを各Tabで固定化
+Plug 'jistr/vim-nerdtree-tabs'
+
+" NERDTreeにgit statusを表示
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " シェルUI
 Plug 'Shougo/vimshell.vim'
@@ -168,15 +177,10 @@ Plug 'thinca/vim-editvar'
 
 " === Syntax === {{{
 
-" コンテキストによってファイルタイプを検出
-Plug 'Shougo/context_filetype.vim'
-
 " コンテキストによってfiletypeを自動で変更 
-Plug 'osyo-manga/vim-precious'
-Plug 'Shougo/context_filetype.vim'
+"Plug 'osyo-manga/vim-precious'
+"Plug 'Shougo/context_filetype.vim'
 
-" toml syntax
-Plug 'cespare/vim-toml'
 
 " json filetype
 Plug 'elzr/vim-json'
@@ -187,8 +191,6 @@ Plug '5t111111/neat-json.vim'
 " html5.vim (html5シンタックス)
 Plug 'othree/html5.vim'
 
-" laravle blade
-Plug 'xsbeats/vim-blade'
 
 " lepture/vim-css css3シンタックス
 Plug 'hail2u/vim-css3-syntax'
@@ -196,55 +198,30 @@ Plug 'hail2u/vim-css3-syntax'
 " scss
 Plug 'cakebaker/scss-syntax.vim'
 
-" php.vim のfork版 (php syntax, 補完)
-Plug 'StanAngeloff/php.vim'
-
-" coffeescript syntax
-Plug 'kchmck/vim-coffee-script'
-
-" less syntax
-Plug 'less.vim'
 
 " handlebars and mustache
 Plug 'mustache/vim-mustache-handlebars'
 
-" actionscript
-Plug 'endel/actionscript.vim'
-
-" as3 omni comp
-Plug 'yuratomo/flex-api-complete'
-
 " sql
 Plug 'vim-scripts/SQLComplete.vim'
 
-" jsx (react)
-Plug 'mxw/vim-jsx'
-
 " vim-ruby (ruby syntax, 補完)
 Plug 'vim-ruby/vim-ruby'
-
-" javascript syntax
-"Plug 'jelera/vim-javascript-syntax'
-" es6のハイライト
-Plug 'othree/yajs.vim'            
-
-" stage-0 のsyntax highlight
-Plug 'othree/es.next.syntax.vim'  
+ 
 
 "Plug 'plasticboy/vim-markdown'
 Plug 'jtratner/vim-flavored-markdown'
 
 " === Completion === {{{
-"
+
 " snipet
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " Completion Framework
-Plug 'Valloric/YouCompleteMe', { 'build': './installer.py --all' }
+Plug 'Valloric/YouCompleteMe', { 'build': './install.py --all' }
 
 " java Omni補完
 Plug 'artur-shaik/vim-javacomplete2'
-
 
 " }}}
 
@@ -257,19 +234,49 @@ Plug 'cocopon/iceberg.vim'
 
 " base16 color
 Plug 'chriskempson/base16-vim'
+
+Plug 'ajh17/Spacegray.vim'
+
 " }}}
 
 
 " === PHP === {{{
+Plug 'vim-scripts/tagbar-phpctags'
+" php.vim のfork版 (php syntax, 補完)
+Plug 'StanAngeloff/php.vim'
+
 Plug 'arnaud-lb/vim-php-namespace', { 'for': 'php' }
+
 Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
+
 Plug 'drwX/php-doc.vim', { 'for': 'php' }
+
 Plug 'vim-php/vim-php-refactoring', { 'for': 'php' }
+
 Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' }
+
+" laravle blade
+Plug 'xsbeats/vim-blade'
 " }}}
 
 " === JS === {{{
+" javascript syntax
+"Plug 'jelera/vim-javascript-syntax'
+
+" es6のハイライト
+Plug 'othree/yajs.vim'            
+
+" stage-0 のsyntax highlight
+Plug 'othree/es.next.syntax.vim' 
+
+" jsdoc
 Plug 'heavenshell/vim-jsdoc'
+
+" jsx (react)
+Plug 'mxw/vim-jsx'
+
+" vue
+Plug 'posva/vim-vue'
 "}}}
 
 
@@ -325,18 +332,9 @@ if has('mac')
   " UTF-8-MACの濁点、半濁点を含む文字を強調して表示する
   highlight Opaques term=underline ctermbg=DarkGreen guibg=DarkGreen
   match Opaques /\(\%u3099\|%u309a\)/
-
-  " ※MacのQuicklookでVimで保存したUTF-8テキストが文字化けする対策。
-  " UTF-8を保存する際、
-  " UTF-8エンコーディングを表す拡張属性をを追加する。
-  au BufWritePost * call SetUTF8Xattr(expand("<afile>"))
-  function! SetUTF8Xattr(file)
-      let isutf8 = &fileencoding == "utf-8" || ( &fileencoding == "" && &encoding == "utf-8")
-      if has("unix") && match(system("uname"),'Darwin') != -1 && isutf8
-          call system("xattr -w com.apple.TextEncoding 'utf-8;134217984' '" . a:file . "'")
-      endif
-  endfunction
 endif
+
+set fileformat=unix
 
 "改行コードの自動認識
 set fileformats=unix,dos,mac
@@ -444,7 +442,7 @@ set wildmode=longest,full
 "set complete =.,b,w,u,k,i,t
 
 " コマンドラインの高さ
-set cmdheight=1
+set cmdheight=2
 
 " 2. クリップボード
 set clipboard=unnamed,unnamedplus
@@ -478,8 +476,6 @@ set splitright
 autocmd BufNewFile,BufRead *.mkd set filetype=markdown
 autocmd BufNewFile,BufRead *.md set filetype=markdown
 autocmd BufNewFile,BufRead *.md.txt set filetype=markdown
-
-autocmd BufNewFile,BufRead *.vue set filetype=html
 
 " html.erb
 autocmd BufNewFile,BufRead *.html.erb set filetype=eruby.html
@@ -518,7 +514,7 @@ vnoremap ? <ESC>?\%V
 syntax on
 
 if has('nvim')
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 endif
 
 " 行ハイライト
@@ -528,21 +524,20 @@ set nocursorline
 " 列ハイライト
 set nocursorcolumn
 
-if !has('gui_running')
-  set background=dark
-  set t_Co=256
-  let base16colorspace=256
-  let g:solarized_termcolors = 256
-endif
+set background=dark
+set t_Co=256
+let base16colorspace=256
+let g:solarized_termcolors = 256
+let g:solarized_contrast = 'high'
 let g:hybrid_use_Xresources = 1
 let g:hybrid_use_iTerm_colors = 1
-let g:solarized_contrast = 'high'
+let base16colorspace=256
+
 "colorscheme solarized
 "colorscheme hybrid
-"colorscheme my-hybrid
 "colorscheme iceberg
 colorscheme base16-ocean
-"colorscheme my-base16-ocean
+"colorscheme spacegray
 
 
 " {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{
@@ -572,38 +567,26 @@ let g:DirDiffExcludes = "CVS,*.class,*.exe,.*.swp,.svn,.git,.DS_Store"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-airline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" powerline fonts
-"   : version control
-"   : LN (line) symbol
-"   : Rightwards black arrwhead
-"   : Rightwardsarrwhead
-"   : iLeftwards black arrwhead
-"   : Leftwardsarrwhead
-
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
 let g:airline_powerline_fonts = 1
+
 if has('gui_running')
   let g:airline#extensions#tabline#enabled = 0
   let g:airline_left_sep = ''
   let g:airline_left_alt_sep = ''
   let g:airline_right_sep = ''
   let g:airline_right_alt_sep = ''
-  let g:airline_theme='base16'
 else
   let g:airline#extensions#tabline#enabled = 1
   let g:airline#extensions#tabline#left_sep = ''
   let g:airline#extensions#tabline#left_alt_sep = '|'
-  let g:airline_left_sep = ''
-  let g:airline_left_alt_sep = ''
-  let g:airline_right_sep = ''
-  let g:airline_right_alt_sep = ''
-  let g:airline_theme='bubblegum'
+  "let g:airline_left_sep = ''
+  "let g:airline_left_alt_sep = ''
+  "let g:airline_right_sep = ''
+  "let g:airline_right_alt_sep = ''
+  "let g:airline_theme='bubblegum'
 endif
 
-"let g:airline_theme='base16'
+let g:airline_theme='base16'
 "let g:airline_theme='hybrid'
 "let g:airline_theme='tomorrow'
 "let g:airline_theme='wombat'
@@ -643,7 +626,7 @@ call unite#custom#source('file_rec,file_rec/async',
 "現在開いているファイルのディレクトリ下のファイル一覧
 "開いていない場合はカレントディレクトリ
 nnoremap <silent> [unite]f :UniteWithBufferDir file<CR>
-nnoremap <silent> [unite]ff :Unite file_rec/async -start-insert<CR>
+nnoremap <silent> [unite]ff :Unite file/async -start-insert<CR>
 "ソース一覧
 nnoremap <silent> [unite]b :Unite source<CR>
 "バッファ一覧
@@ -740,12 +723,10 @@ let g:vimfiler_as_default_explorer = 1
 " Enable file operation commands.
 let g:vimfiler_safe_mode_by_default = 0
 
-let g:vimfiler_tree_opened_icon = '▾'
-let g:vimfiler_tree_closed_icon = '▸'
 
 " filename column min size
 let g:vimfiler_min_filename_width = 30
-
+"
 " filename column max size
 let g:vimfiler_max_filename_width = 60
 
@@ -759,8 +740,8 @@ function! s:my_vimfiler_exp()
     endif
 endfunction
 
-nnoremap <F2> :MyVimFilerExp<Cr>
-nnoremap <D-1> :MyVimFilerExp<Cr>
+"nnoremap <F2> :MyVimFilerExp<Cr>
+"nnoremap <D-1> :MyVimFilerExp<Cr>
 
 " my_split
 let my_action = { 'is_selectable' : 1 }
@@ -859,57 +840,104 @@ let g:vim_tags_extension = '.tags'
 " context_filetype
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "g:context_filetype#filetypes['ghmarkdown'] = g:context_filetype#filetypes['markdown']
-let g:context_filetype#filetypes = {
-\ 'html': [
-\   {
-\    'start':
-\     '<script\%( [^>]*\)\? type="text/javascript"\%( [^>]*\)>',
-\    'end': '</script>', 'filetype': 'javascript',
-\   },
-\   {
-\    'start':
-\     '<script>',
-\    'end': '</script>', 'filetype': 'javascript',
-\   },
-\   {
-\    'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)>',
-\    'end': '</style>', 'filetype': 'css',
-\   },
-\   {
-\    'start': '<style>',
-\    'end': '</style>', 'filetype': 'css',
-\   },
-\   {
-\    'start': '<?php\?',
-\    'end': '?>', 'filetype': 'php',
-\   }
-\ ],
-\ 'vue': [
-\   {
-\    'start': '<script\%[^>]*lang="\%([^>]*\)"\%[^>]*>',
-\    'end': '</script>', 'filetype': '\1',
-\   },
-\   {
-\    'start': '<script>',
-\    'end': '</script>', 'filetype': 'javascript',
-\   },
-\   {
-\    'start': '<style\%[^>]*lang="\%([^>]*\)"\%[^>]*>',
-\    'end': '</style>', 'filetype': '\1',
-\   },
-\   {
-\    'start': '<style>',
-\    'end': '</style>', 'filetype': 'css',
-\   },
-\   {
-\    'start': '<template\%[^>]*lang="\%([^>]*\)"\%[^>]*>',
-\    'end': '</template>', 'filetype': '\1',
-\   },
-\   {
-\    'start': '<template>',
-\    'end': '</template>', 'filetype': 'html',
-\   },
-\ ],
-\}
+"let g:context_filetype#filetypes = {
+"\ 'html': [
+"\   {
+"\    'start':
+"\     '<script\%( [^>]*\)\? type="text/javascript"\%( [^>]*\)>',
+"\    'end': '</script>', 'filetype': 'javascript',
+"\   },
+"\   {
+"\    'start':
+"\     '<script>',
+"\    'end': '</script>', 'filetype': 'javascript',
+"\   },
+"\   {
+"\    'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)>',
+"\    'end': '</style>', 'filetype': 'css',
+"\   },
+"\   {
+"\    'start': '<style>',
+"\    'end': '</style>', 'filetype': 'css',
+"\   },
+"\   {
+"\    'start': '<?php\?',
+"\    'end': '?>', 'filetype': 'php',
+"\   }
+"\ ],
+"\ 'vue': [
+"\   {
+"\    'start': '<script\%[^>]*lang="\%([^>]*\)"\%[^>]*>',
+"\    'end': '</script>', 'filetype': '\1',
+"\   },
+"\   {
+"\    'start': '<script>',
+"\    'end': '</script>', 'filetype': 'javascript',
+"\   },
+"\   {
+"\    'start': '<style\%[^>]*lang="\%([^>]*\)"\%[^>]*>',
+"\    'end': '</style>', 'filetype': '\1',
+"\   },
+"\   {
+"\    'start': '<style>',
+"\    'end': '</style>', 'filetype': 'css',
+"\   },
+"\   {
+"\    'start': '<template\%[^>]*lang="\%([^>]*\)"\%[^>]*>',
+"\    'end': '</template>', 'filetype': '\1',
+"\   },
+"\   {
+"\    'start': '<template>',
+"\    'end': '</template>', 'filetype': 'html',
+"\   },
+"\ ],
+"\}
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ctrlp
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-devicons
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:webdevicons_enable = 1
+let g:webdevicons_enable_nerdtree = 1
+let g:webdevicons_enable_unite = 1
+let g:webdevicons_enable_vimfiler = 1
+let g:webdevicons_enable_airline_tabline = 1
+let g:webdevicons_enable_airline_statusline = 1
+let g:webdevicons_enable_ctrlp = 1
+let g:webdevicons_enable_flagship_statusline = 1
+let g:WebDevIconsUnicodeDecorateFileNodes = 1
+let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
+let g:webdevicons_conceal_nerdtree_brackets = 1
+let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" NERDTree
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" GVim起動時にNERDTreeTabsを開かない
+let g:nerdtree_tabs_open_on_gui_startup = 0
+
+" NERDTreeGit Stats Icon
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
+
+" keymap 
+nnoremap <F2> :NERDTreeTabsToggle<Cr>
+nnoremap <D-1> :NERDTreeTabsToggle<Cr>
+
+let g:minimap_highlight='Visual'
 

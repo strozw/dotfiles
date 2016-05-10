@@ -218,17 +218,18 @@ function peco-tmux-attach-session() {
 }
 alias pta="peco-tmux-attach-session"
 
-function peco-src () {
-  local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
-    if [ -n "$selected_dir" ]; then
-	    BUFFER="cd ${selected_dir}"
-	    zle accept-line
-	  fi
-    zle clear-screen
+function peco-ghq () {
+	cd $(ghq list -p | peco)
+    #local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
+    #if [ -n "$selected_dir" ]; then
+	#	BUFFER="cd ${selected_dir}"
+	#	zle accept-line
+	#fi
+    #zle clear-screen
 }
-zle -N peco-src
-bindkey '^]' peco-src
-alias peco-src="peco-src"
+zle -N peco-ghq
+bindkey '^]' peco-ghq
+alias peco-src="peco-ghq"
 
 #archey -c
 
