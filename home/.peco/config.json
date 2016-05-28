@@ -3,5 +3,11 @@
     "C-p": "peco.SelectUp",
     "C-n": "peco.SelectDown",
     "C-c": "peco.Cancel"
+  },
+  "CustomFilter": {
+    "Migemo": {
+	  "Cmd": "migemogrep",
+	  "BufferThreshold": 10000
+	}
   }
 }

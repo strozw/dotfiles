@@ -5,9 +5,9 @@ if has('gui_macvim')
   set background=dark
 
   let g:enable_bold_font = 1
-  set guifont=Ricty\ Regular\ for\ Powerline\ Nerd\ Font:h14
-  set guifontwide=Ricty\ Regular\ for\ Powerline\ Nerd\ Font:h14
-  set printfont=Ricty\ Regular\ for\ Powerline\ Nerd\ Font:h14
+  set guifont=Ricty\ Regular\ for\ Powerline\ Nerd\ Font:h12
+  set guifontwide=Ricty\ Regular\ for\ Powerline\ Nerd\ Font:h12
+  set printfont=Ricty\ Regular\ for\ Powerline\ Nerd\ Font:h12
   set linespace=4
   
 
