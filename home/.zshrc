@@ -21,8 +21,8 @@ ZSH=$HOME/.oh-my-zsh
 
 ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
 
-ZSH_THEME="ys"
-#ZSH_THEME="pure"
+#ZSH_THEME="ys"
+ZSH_THEME="my-pure"
 
 # zsh-completions
 fpath=(/usr/local/share/zsh-completions $fpath)
@@ -38,12 +38,9 @@ compinit -u
 # I want use jorke command
 #unalias sl
 
-
-
 ###############################################
-# anyenv
+# anyenv (eval)
 ###############################################
-export PATH="$HOME/.anyenv/bin:$PATH"
 if which anyenv > /dev/null; then eval "$(anyenv init -)"; fi
 
 ###############################################
@@ -107,6 +104,18 @@ source ~/.zsh-autosuggestions/zsh-autosuggestions.zsh
 # zsh-notify
 ##############################################
 #source ~/.zsh.d/zsh-notify/notify.plugin.zsh
+#
+## 通知コマンドパス
+#zstyle ':notify:*' notifier terminal-notifier
+## エラータイトル
+#zstyle ':notify:*' error-title 'error'
+## 成功タイトル
+#zstyle ':notify:*' success-title 'success'
+## Have the terminal come back to front when the notification is posted.
+#zstyle ':notify:*' activate-terminal yes
+## コマンド実行時間のしきい値
+#zstyle ':notify:*' command-complete-timeout 3
+
 
 ###############################################
 # aliases

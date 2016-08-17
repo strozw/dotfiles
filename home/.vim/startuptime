@@ -1,0 +1,446 @@
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.006  000.006: --- VIM STARTING ---
+000.106  000.100: Allocated generic buffers
+000.274  000.168: locale set
+000.288  000.014: clipboard setup
+000.296  000.008: window checked
+000.938  000.642: inits 1
+000.949  000.011: parsing arguments
+000.951  000.002: expanding arguments
+005.608  004.657: shell init
+005.883  000.275: Termcap init
+005.899  000.016: inits 2
+006.037  000.138: init highlight
+008.025  001.636  001.636: sourcing /Users/satoru/.vim/autoload/plug.vim
+020.191  000.028  000.028: sourcing /usr/local/share/vim/vim74/ftoff.vim
+048.256  000.163  000.163: sourcing /Users/satoru/.vim/plugged/vimshell.vim/ftdetect/vimshrc.vim
+061.624  013.062  013.062: sourcing /Users/satoru/.vim/plugged/vim-polyglot/ftdetect/polyglot.vim
+061.899  000.064  000.064: sourcing /Users/satoru/.vim/plugged/ultisnips/ftdetect/snippets.vim
+062.061  000.097  000.097: sourcing /Users/satoru/.vim/plugged/ultisnips/ftdetect/UltiSnips.vim
+062.482  000.073  000.073: sourcing /Users/satoru/.vim/plugged/vim-blade/ftdetect/blade.vim
+062.899  000.242  000.242: sourcing /Users/satoru/.vim/plugged/vim-jsx/ftdetect/javascript.vim
+063.125  000.082  000.082: sourcing /Users/satoru/.vim/plugged/vim-vue/ftdetect/vue.vim
+063.515  000.253  000.253: sourcing /Users/satoru/.vim/plugged/vim-go/ftdetect/gofiletype.vim
+063.862  000.136  000.136: sourcing /Users/satoru/.vim/plugged/vim-polyglot/after/ftdetect/rspec.vim
+064.088  039.541  025.369: sourcing /usr/local/share/vim/vim74/filetype.vim
+065.053  000.072  000.072: sourcing /usr/local/share/vim/vim74/ftplugin.vim
+065.949  000.060  000.060: sourcing /usr/local/share/vim/vim74/indent.vim
+069.487  001.627  001.627: sourcing /usr/local/share/vim/vim74/syntax/syncolor.vim
+069.750  002.760  001.133: sourcing /usr/local/share/vim/vim74/syntax/synload.vim
+069.813  003.680  000.920: sourcing /usr/local/share/vim/vim74/syntax/syntax.vim
+071.512  000.436  000.436: sourcing /usr/local/Cellar/vim/7.4.2152/share/vim/vim74/syntax/nosyntax.vim
+073.526  000.309  000.309: sourcing /usr/local/share/vim/vim74/syntax/syncolor.vim
+073.762  001.396  001.087: sourcing /usr/local/share/vim/vim74/syntax/synload.vim
+073.817  002.824  000.992: sourcing /usr/local/share/vim/vim74/syntax/syntax.vim
+075.271  000.293  000.293: sourcing /usr/local/share/vim/vim74/syntax/syncolor.vim
+077.372  000.282  000.282: sourcing /usr/local/share/vim/vim74/syntax/syncolor.vim
+078.918  000.303  000.303: sourcing /usr/local/share/vim/vim74/syntax/syncolor.vim
+080.283  000.319  000.319: sourcing /usr/local/share/vim/vim74/syntax/syncolor.vim
+095.292  019.201  018.297: sourcing /Users/satoru/.vim/plugged/onedark.vim/colors/onedark.vim
+096.684  000.040  000.040: sourcing /Users/satoru/.vim/user/plugins/context_filetypes.vim
+096.771  000.028  000.028: sourcing /Users/satoru/.vim/user/plugins/DirDiff.vim
+096.920  000.088  000.088: sourcing /Users/satoru/.vim/user/plugins/NERDTree.vim
+097.068  000.084  000.084: sourcing /Users/satoru/.vim/user/plugins/quickhl.vim
+097.187  000.058  000.058: sourcing /Users/satoru/.vim/user/plugins/quickrun.vim
+097.308  000.061  000.061: sourcing /Users/satoru/.vim/user/plugins/syntastic.vim
+097.401  000.036  000.036: sourcing /Users/satoru/.vim/user/plugins/Tagbar.vim
+097.489  000.036  000.036: sourcing /Users/satoru/.vim/user/plugins/UltiSnips.vim
+098.595  000.648  000.648: sourcing /Users/satoru/.vim/plugged/unite.vim/autoload/unite/custom.vim
+099.113  001.571  000.923: sourcing /Users/satoru/.vim/user/plugins/unite.vim
+099.269  000.086  000.086: sourcing /Users/satoru/.vim/user/plugins/vim-airline.vim
+102.117  002.786  002.786: sourcing /Users/satoru/.vim/user/plugins/vim-devicons.vim
+102.258  000.068  000.068: sourcing /Users/satoru/.vim/user/plugins/vim-tags.vim
+103.518  000.772  000.772: sourcing /Users/satoru/.vim/plugged/unite.vim/autoload/unite.vim
+103.946  001.627  000.855: sourcing /Users/satoru/.vim/user/plugins/vimfiler.vim
+104.082  000.064  000.064: sourcing /Users/satoru/.vim/user/plugins/YouCompleteMe.vim
+105.482  099.192  025.224: sourcing $HOME/.vimrc
+105.606  000.377: sourcing vimrc file(s)
+106.204  000.373  000.373: sourcing /Users/satoru/.vim/plugged/sudo.vim/plugin/sudo.vim
+107.053  000.653  000.653: sourcing /Users/satoru/.vim/plugged/vim-tags/plugin/tags.vim
+108.321  001.018  001.018: sourcing /Users/satoru/.vim/plugged/vim-surround/plugin/surround.vim
+109.026  000.475  000.475: sourcing /Users/satoru/.vim/plugged/vim-over/plugin/over.vim
+109.562  000.332  000.332: sourcing /Users/satoru/.vim/plugged/vim-smartword/plugin/smartword.vim
+110.151  000.373  000.373: sourcing /Users/satoru/.vim/plugged/vim-commentary/plugin/commentary.vim
+115.779  005.427  005.427: sourcing /Users/satoru/.vim/plugged/emmet-vim/plugin/emmet.vim
+129.498  013.191  013.191: sourcing /Users/satoru/.vim/plugged/vim-smartinput/autoload/smartinput.vim
+129.541  013.487  000.296: sourcing /Users/satoru/.vim/plugged/vim-smartinput/plugin/smartinput.vim
+129.974  000.180  000.180: sourcing /Users/satoru/.vim/plugged/ag.vim/plugin/ag.vim
+130.265  000.101  000.101: sourcing /Users/satoru/.vim/plugged/vim-qfreplace/plugin/qfreplace.vim
+218.143  086.517  086.517: sourcing /Users/satoru/.vim/plugged/editorconfig-vim/plugin/editorconfig.vim
+218.846  000.436  000.436: sourcing /Users/satoru/.vim/plugged/vim-easy-align/plugin/easy_align.vim
+219.238  000.185  000.185: sourcing /Users/satoru/.vim/plugged/vim-niceblock/plugin/niceblock.vim
+220.166  000.317  000.317: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline.vim
+220.791  000.214  000.214: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/init.vim
+221.860  000.203  000.203: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/parts.vim
+222.985  003.539  002.805: sourcing /Users/satoru/.vim/plugged/vim-airline/plugin/airline.vim
+223.277  000.068  000.068: sourcing /Users/satoru/.vim/plugged/vim-airline-themes/plugin/airline-themes.vim
+223.681  000.223  000.223: sourcing /Users/satoru/.vim/plugged/vim-minimap/plugin/minimap.vim
+224.682  000.800  000.800: sourcing /Users/satoru/.vim/plugged/xterm-color-table.vim/plugin/xterm-color-table.vim
+225.412  000.371  000.371: sourcing /Users/satoru/.vim/plugged/unite.vim/plugin/unite/bookmark.vim
+225.683  000.204  000.204: sourcing /Users/satoru/.vim/plugged/unite.vim/plugin/unite/buffer.vim
+225.950  000.202  000.202: sourcing /Users/satoru/.vim/plugged/unite.vim/plugin/unite/window.vim
+226.444  000.426  000.426: sourcing /Users/satoru/.vim/plugged/unite.vim/plugin/unite.vim
+227.773  000.476  000.476: sourcing /Users/satoru/.vim/plugged/ctrlp.vim/autoload/ctrlp/mrufiles.vim
+228.075  001.423  000.947: sourcing /Users/satoru/.vim/plugged/ctrlp.vim/plugin/ctrlp.vim
+228.509  000.233  000.233: sourcing /Users/satoru/.vim/plugged/vim-quickrun/plugin/quickrun.vim
+229.520  000.822  000.822: sourcing /Users/satoru/.vim/plugged/open-browser.vim/plugin/openbrowser.vim
+229.887  000.169  000.169: sourcing /Users/satoru/.vim/plugged/vim-livedown/plugin/livedown.vim
+230.152  000.074  000.074: sourcing /Users/satoru/.vim/plugged/vim-fontzoom/plugin/fontzoom.vim
+230.956  000.069  000.069: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/autoloclist.vim
+231.083  000.070  000.070: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/balloons.vim
+231.207  000.068  000.068: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/checker.vim
+231.347  000.083  000.083: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/cursor.vim
+232.884  001.473  001.473: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/highlighting.vim
+233.033  000.075  000.075: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/loclist.vim
+233.161  000.073  000.073: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/modemap.vim
+233.292  000.075  000.075: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/notifiers.vim
+233.427  000.075  000.075: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/registry.vim
+233.566  000.078  000.078: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/signs.vim
+235.212  000.927  000.927: sourcing /Users/satoru/.vim/plugged/syntastic/autoload/syntastic/util.vim
+835.250  000.109  000.109: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/autoloclist.vim
+835.378  000.074  000.074: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/balloons.vim
+835.669  000.246  000.246: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/checker.vim
+835.840  000.125  000.125: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/cursor.vim
+835.988  000.104  000.104: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/highlighting.vim
+836.389  000.357  000.357: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/loclist.vim
+836.540  000.107  000.107: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/modemap.vim
+836.671  000.089  000.089: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/notifiers.vim
+837.099  000.386  000.386: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/registry.vim
+837.269  000.124  000.124: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/signs.vim
+838.964  605.305  602.657: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic.vim
+840.827  001.639  001.639: sourcing /Users/satoru/.vim/plugged/tagbar/plugin/tagbar.vim
+848.557  007.519  007.519: sourcing /Users/satoru/.vim/plugged/vim-fugitive/plugin/fugitive.vim
+851.413  002.622  002.622: sourcing /Users/satoru/.vim/plugged/gitv/plugin/gitv.vim
+852.262  000.633  000.633: sourcing /Users/satoru/.vim/plugged/vim-signify/plugin/signify.vim
+854.123  001.659  001.659: sourcing /Users/satoru/.vim/plugged/DirDiff.vim/plugin/dirdiff.vim
+854.555  000.220  000.220: sourcing /Users/satoru/.vim/plugged/Tabmerge/plugin/Tabmerge.vim
+856.189  001.441  001.441: sourcing /Users/satoru/.vim/plugged/emoji-vim/plugin/emoji.vim
+857.106  000.655  000.655: sourcing /Users/satoru/.vim/plugged/vimfiler/plugin/vimfiler.vim
+858.888  000.358  000.358: sourcing /Users/satoru/.vim/plugged/nerdtree/autoload/nerdtree.vim
+861.472  000.924  000.924: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/path.vim
+862.283  000.275  000.275: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/menu_controller.vim
+862.999  000.228  000.228: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/menu_item.vim
+863.756  000.271  000.271: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/key_map.vim
+864.679  000.432  000.432: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/bookmark.vim
+871.121  005.920  005.920: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/tree_file_node.vim
+872.516  000.842  000.842: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/tree_dir_node.vim
+873.469  000.454  000.454: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/opener.vim
+874.436  000.478  000.478: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/creator.vim
+875.074  000.162  000.162: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/flag_set.vim
+875.874  000.321  000.321: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/nerdtree.vim
+877.002  000.671  000.671: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/ui.vim
+877.592  000.118  000.118: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/event.vim
+878.232  000.158  000.158: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/notifier.vim
+879.624  000.867  000.867: sourcing /Users/satoru/.vim/plugged/nerdtree/autoload/nerdtree/ui_glue.vim
+899.566  000.163  000.163: sourcing /Users/satoru/.vim/plugged/nerdtree/nerdtree_plugin/exec_menuitem.vim
+900.234  000.619  000.619: sourcing /Users/satoru/.vim/plugged/nerdtree/nerdtree_plugin/fs_menu.vim
+901.279  000.911  000.911: sourcing /Users/satoru/.vim/plugged/vim-nerdtree-tabs/nerdtree_plugin/vim-nerdtree-tabs.vim
+903.006  001.589  001.589: sourcing /Users/satoru/.vim/plugged/nerdtree-git-plugin/nerdtree_plugin/git_status.vim
+903.597  046.283  030.522: sourcing /Users/satoru/.vim/plugged/nerdtree/plugin/NERD_tree.vim
+904.302  000.555  000.555: sourcing /Users/satoru/.vim/plugged/vimshell.vim/plugin/vimshell.vim
+904.595  000.142  000.142: sourcing /Users/satoru/.vim/plugged/vimshell-pure.vim/plugin/vimshell-pure.vim
+904.924  000.199  000.199: sourcing /Users/satoru/.vim/plugged/neomru.vim/plugin/neomru.vim
+905.183  000.098  000.098: sourcing /Users/satoru/.vim/plugged/vim-versions/plugin/versions.vim
+905.438  000.143  000.143: sourcing /Users/satoru/.vim/plugged/vim-editvar/plugin/editvar.vim
+907.854  000.117  000.117: sourcing /usr/local/share/vim/vim74/autoload/sqlcomplete.vim
+908.712  003.140  003.023: sourcing /Users/satoru/.vim/plugged/SQLComplete.vim/plugin/sqlcomplete.vim
+917.269  000.293  000.293: sourcing /Users/satoru/.vim/plugged/ultisnips/autoload/UltiSnips/map_keys.vim
+917.511  008.562  008.269: sourcing /Users/satoru/.vim/plugged/ultisnips/plugin/UltiSnips.vim
+917.902  000.164  000.164: sourcing /Users/satoru/.vim/plugged/vim-snippets/plugin/vimsnippets.vim
+918.722  000.629  000.629: sourcing /Users/satoru/.vim/plugged/YouCompleteMe/plugin/youcompleteme.vim
+920.468  000.644  000.644: sourcing /Users/satoru/.vim/plugged/vim-javacomplete2/autoload/javacomplete/util.vim
+921.609  002.682  002.038: sourcing /Users/satoru/.vim/plugged/vim-javacomplete2/plugin/javacomplete.vim
+924.624  002.638  002.638: sourcing /Users/satoru/.vim/plugged/tmuxline.vim/plugin/tmuxline.vim
+925.631  000.663  000.663: sourcing /Users/satoru/.vim/plugged/vim-go/plugin/go.vim
+926.464  000.137  000.137: sourcing /usr/local/share/vim/vim74/plugin/getscriptPlugin.vim
+926.918  000.394  000.394: sourcing /usr/local/share/vim/vim74/plugin/gzip.vim
+927.464  000.477  000.477: sourcing /usr/local/share/vim/vim74/plugin/logiPat.vim
+927.568  000.039  000.039: sourcing /usr/local/share/vim/vim74/plugin/manpager.vim
+927.957  000.335  000.335: sourcing /usr/local/share/vim/vim74/plugin/matchparen.vim
+929.048  001.022  001.022: sourcing /usr/local/share/vim/vim74/plugin/netrwPlugin.vim
+931.130  000.106  000.106: sourcing /usr/local/share/vim/vim74/plugin/rrhelper.vim
+931.280  000.071  000.071: sourcing /usr/local/share/vim/vim74/plugin/spellfile.vim
+931.709  000.352  000.352: sourcing /usr/local/share/vim/vim74/plugin/tarPlugin.vim
+931.993  000.200  000.200: sourcing /usr/local/share/vim/vim74/plugin/tohtml.vim
+932.404  000.338  000.338: sourcing /usr/local/share/vim/vim74/plugin/vimballPlugin.vim
+932.861  000.367  000.367: sourcing /usr/local/share/vim/vim74/plugin/zipPlugin.vim
+933.817  000.685  000.685: sourcing /Users/satoru/.vim/plugged/indentLine/after/plugin/indentLine.vim
+934.397  000.320  000.320: sourcing /Users/satoru/.vim/plugged/ultisnips/after/plugin/UltiSnips_after.vim
+934.503  016.213: loading plugins
+934.732  000.229: loading packages
+934.767  000.035: inits 3
+935.310  000.543: reading viminfo
+940.060  004.750: setup clipboard
+940.769  000.709: setting raw mode
+940.821  000.052: start termcap
+940.886  000.065: clearing screen
+943.917  000.666  000.666: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions.vim
+944.586  000.231  000.231: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/quickfix.vim
+945.211  000.181  000.181: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/unite.vim
+945.829  000.207  000.207: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/netrw.vim
+946.556  000.293  000.293: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/ctrlp.vim
+947.343  000.319  000.319: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/hunks.vim
+948.039  000.262  000.262: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/tagbar.vim
+949.104  000.543  000.543: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/branch.vim
+949.940  000.197  000.197: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/syntastic.vim
+950.847  000.465  000.465: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/whitespace.vim
+952.541  000.255  000.255: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/wordcount.vim
+958.826  005.808  005.808: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/tabline.vim
+959.579  000.262  000.262: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/tabline/autoshow.vim
+962.587  000.417  000.417: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/tabline/tabs.vim
+963.877  000.604  000.604: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/tabline/buffers.vim
+965.103  000.467  000.467: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/tabline/ctrlspace.vim
+966.076  000.248  000.248: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/tmuxline.vim
+970.834  000.190  000.190: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/section.vim
+971.518  000.391  000.391: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/highlighter.vim
+976.608  000.162  000.162: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/themes.vim
+978.565  002.513  002.351: sourcing /Users/satoru/.vim/plugged/vim-one/autoload/airline/themes/one.vim
+994.551  000.207  000.207: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/util.vim
+999.323  000.110  000.110: sourcing /Users/satoru/.vim/plugged/tmuxline.vim/autoload/tmuxline/api.vim
+1000.100  000.313  000.313: sourcing /Users/satoru/.vim/plugged/tmuxline.vim/autoload/tmuxline/util.vim
+1000.901  000.293  000.293: sourcing /Users/satoru/.vim/plugged/tmuxline.vim/autoload/tmuxline.vim
+1000.568  000.103  000.103: sourcing /Users/satoru/.vim/plugged/tmuxline.vim/autoload/tmuxline/presets/powerline.vim
+1001.210  000.170  000.170: sourcing /Users/satoru/.vim/plugged/tmuxline.vim/autoload/tmuxline/builder.vim
+1676.170  000.472  000.472: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/builder.vim
+1677.399  000.371  000.371: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/default.vim
+1698.195  741.751: opening buffers
+1699.026  000.375  000.375: sourcing /Users/satoru/.vim/plugged/syntastic/autoload/syntastic/log.vim
+1700.506  001.936: BufEnter autocommands
+1700.512  000.006: editing files in windows
+1704.614  001.934  001.934: sourcing /Users/satoru/.vim/plugged/YouCompleteMe/autoload/youcompleteme.vim
+2206.904  505.458: VimEnter autocommands
+2206.919  000.015: before starting main loop
+2208.667  000.434  000.434: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/tabline/buflist.vim
+2262.149  052.887  052.887: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/tabline/formatters/default.vim
+2272.393  000.486  000.486: sourcing /Users/satoru/.vim/plugged/vim-signify/autoload/sy.vim
+2349.975  067.406  067.406: sourcing /Users/satoru/.vim/plugged/tagbar/autoload/tagbar.vim
+3773.557  1445.425: first screen update
+3773.562  000.005: --- VIM STARTED ---
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.006  000.006: --- VIM STARTING ---
+000.112  000.106: Allocated generic buffers
+000.838  000.726: locale set
+000.857  000.019: clipboard setup
+000.865  000.008: window checked
+001.624  000.759: inits 1
+001.635  000.011: parsing arguments
+001.637  000.002: expanding arguments
+006.388  004.751: shell init
+006.771  000.383: Termcap init
+006.800  000.029: inits 2
+007.034  000.234: init highlight
+009.640  002.102  002.102: sourcing /Users/satoru/.vim/autoload/plug.vim
+018.555  000.026  000.026: sourcing /usr/local/share/vim/vim74/ftoff.vim
+044.346  000.111  000.111: sourcing /Users/satoru/.vim/plugged/vimshell.vim/ftdetect/vimshrc.vim
+053.088  008.457  008.457: sourcing /Users/satoru/.vim/plugged/vim-polyglot/ftdetect/polyglot.vim
+053.370  000.065  000.065: sourcing /Users/satoru/.vim/plugged/ultisnips/ftdetect/snippets.vim
+053.529  000.099  000.099: sourcing /Users/satoru/.vim/plugged/ultisnips/ftdetect/UltiSnips.vim
+053.933  000.069  000.069: sourcing /Users/satoru/.vim/plugged/vim-blade/ftdetect/blade.vim
+054.348  000.244  000.244: sourcing /Users/satoru/.vim/plugged/vim-jsx/ftdetect/javascript.vim
+054.556  000.071  000.071: sourcing /Users/satoru/.vim/plugged/vim-vue/ftdetect/vue.vim
+054.934  000.249  000.249: sourcing /Users/satoru/.vim/plugged/vim-go/ftdetect/gofiletype.vim
+056.183  001.035  001.035: sourcing /Users/satoru/.vim/plugged/vim-polyglot/after/ftdetect/rspec.vim
+056.415  032.743  022.343: sourcing /usr/local/share/vim/vim74/filetype.vim
+057.381  000.080  000.080: sourcing /usr/local/share/vim/vim74/ftplugin.vim
+058.265  000.074  000.074: sourcing /usr/local/share/vim/vim74/indent.vim
+061.356  001.274  001.274: sourcing /usr/local/share/vim/vim74/syntax/syncolor.vim
+061.630  002.349  001.075: sourcing /usr/local/share/vim/vim74/syntax/synload.vim
+061.696  003.245  000.896: sourcing /usr/local/share/vim/vim74/syntax/syntax.vim
+063.090  000.306  000.306: sourcing /usr/local/Cellar/vim/7.4.2152/share/vim/vim74/syntax/nosyntax.vim
+065.067  000.295  000.295: sourcing /usr/local/share/vim/vim74/syntax/syncolor.vim
+065.291  001.334  001.039: sourcing /usr/local/share/vim/vim74/syntax/synload.vim
+065.348  002.653  001.013: sourcing /usr/local/share/vim/vim74/syntax/syntax.vim
+067.898  000.284  000.284: sourcing /usr/local/share/vim/vim74/syntax/syncolor.vim
+070.187  000.356  000.356: sourcing /usr/local/share/vim/vim74/syntax/syncolor.vim
+071.631  000.281  000.281: sourcing /usr/local/share/vim/vim74/syntax/syncolor.vim
+073.025  000.231  000.231: sourcing /usr/local/share/vim/vim74/syntax/syncolor.vim
+086.667  017.982  017.114: sourcing /Users/satoru/.vim/plugged/onedark.vim/colors/onedark.vim
+087.065  000.039  000.039: sourcing /Users/satoru/.vim/user/plugins/context_filetypes.vim
+087.154  000.030  000.030: sourcing /Users/satoru/.vim/user/plugins/DirDiff.vim
+088.209  000.092  000.092: sourcing /Users/satoru/.vim/user/plugins/NERDTree.vim
+088.452  000.086  000.086: sourcing /Users/satoru/.vim/user/plugins/quickhl.vim
+088.598  000.078  000.078: sourcing /Users/satoru/.vim/user/plugins/quickrun.vim
+088.728  000.061  000.061: sourcing /Users/satoru/.vim/user/plugins/syntastic.vim
+088.829  000.044  000.044: sourcing /Users/satoru/.vim/user/plugins/Tagbar.vim
+088.920  000.038  000.038: sourcing /Users/satoru/.vim/user/plugins/UltiSnips.vim
+090.069  000.674  000.674: sourcing /Users/satoru/.vim/plugged/unite.vim/autoload/unite/custom.vim
+090.584  001.611  000.937: sourcing /Users/satoru/.vim/user/plugins/unite.vim
+090.744  000.090  000.090: sourcing /Users/satoru/.vim/user/plugins/vim-airline.vim
+090.877  000.072  000.072: sourcing /Users/satoru/.vim/user/plugins/vim-devicons.vim
+090.998  000.064  000.064: sourcing /Users/satoru/.vim/user/plugins/vim-tags.vim
+092.238  000.773  000.773: sourcing /Users/satoru/.vim/plugged/unite.vim/autoload/unite.vim
+092.649  001.600  000.827: sourcing /Users/satoru/.vim/user/plugins/vimfiler.vim
+092.773  000.061  000.061: sourcing /Users/satoru/.vim/user/plugins/YouCompleteMe.vim
+094.500  087.118  023.963: sourcing $HOME/.vimrc
+094.612  000.460: sourcing vimrc file(s)
+095.225  000.389  000.389: sourcing /Users/satoru/.vim/plugged/sudo.vim/plugin/sudo.vim
+096.106  000.677  000.677: sourcing /Users/satoru/.vim/plugged/vim-tags/plugin/tags.vim
+097.597  001.270  001.270: sourcing /Users/satoru/.vim/plugged/vim-surround/plugin/surround.vim
+098.195  000.383  000.383: sourcing /Users/satoru/.vim/plugged/vim-over/plugin/over.vim
+104.626  006.230  006.230: sourcing /Users/satoru/.vim/plugged/vim-smartword/plugin/smartword.vim
+107.167  002.290  002.290: sourcing /Users/satoru/.vim/plugged/vim-commentary/plugin/commentary.vim
+112.077  004.467  004.467: sourcing /Users/satoru/.vim/plugged/emmet-vim/plugin/emmet.vim
+126.403  013.934  013.934: sourcing /Users/satoru/.vim/plugged/vim-smartinput/autoload/smartinput.vim
+126.443  014.136  000.202: sourcing /Users/satoru/.vim/plugged/vim-smartinput/plugin/smartinput.vim
+126.738  000.108  000.108: sourcing /Users/satoru/.vim/plugged/ag.vim/plugin/ag.vim
+126.920  000.062  000.062: sourcing /Users/satoru/.vim/plugged/vim-qfreplace/plugin/qfreplace.vim
+236.775  109.056  109.056: sourcing /Users/satoru/.vim/plugged/editorconfig-vim/plugin/editorconfig.vim
+237.823  000.778  000.778: sourcing /Users/satoru/.vim/plugged/vim-easy-align/plugin/easy_align.vim
+238.159  000.110  000.110: sourcing /Users/satoru/.vim/plugged/vim-niceblock/plugin/niceblock.vim
+238.707  000.187  000.187: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline.vim
+239.057  000.116  000.116: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/init.vim
+239.574  000.122  000.122: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/parts.vim
+244.984  006.696  006.271: sourcing /Users/satoru/.vim/plugged/vim-airline/plugin/airline.vim
+245.291  000.069  000.069: sourcing /Users/satoru/.vim/plugged/vim-airline-themes/plugin/airline-themes.vim
+245.694  000.222  000.222: sourcing /Users/satoru/.vim/plugged/vim-minimap/plugin/minimap.vim
+246.715  000.823  000.823: sourcing /Users/satoru/.vim/plugged/xterm-color-table.vim/plugin/xterm-color-table.vim
+247.475  000.374  000.374: sourcing /Users/satoru/.vim/plugged/unite.vim/plugin/unite/bookmark.vim
+247.732  000.192  000.192: sourcing /Users/satoru/.vim/plugged/unite.vim/plugin/unite/buffer.vim
+247.984  000.193  000.193: sourcing /Users/satoru/.vim/plugged/unite.vim/plugin/unite/window.vim
+248.496  000.453  000.453: sourcing /Users/satoru/.vim/plugged/unite.vim/plugin/unite.vim
+249.787  000.469  000.469: sourcing /Users/satoru/.vim/plugged/ctrlp.vim/autoload/ctrlp/mrufiles.vim
+250.084  001.394  000.925: sourcing /Users/satoru/.vim/plugged/ctrlp.vim/plugin/ctrlp.vim
+250.510  000.234  000.234: sourcing /Users/satoru/.vim/plugged/vim-quickrun/plugin/quickrun.vim
+256.687  005.988  005.988: sourcing /Users/satoru/.vim/plugged/open-browser.vim/plugin/openbrowser.vim
+257.835  000.186  000.186: sourcing /Users/satoru/.vim/plugged/vim-livedown/plugin/livedown.vim
+258.108  000.073  000.073: sourcing /Users/satoru/.vim/plugged/vim-fontzoom/plugin/fontzoom.vim
+258.966  000.070  000.070: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/autoloclist.vim
+259.098  000.070  000.070: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/balloons.vim
+259.227  000.068  000.068: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/checker.vim
+259.354  000.071  000.071: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/cursor.vim
+259.479  000.071  000.071: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/highlighting.vim
+259.608  000.075  000.075: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/loclist.vim
+259.736  000.072  000.072: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/modemap.vim
+259.869  000.076  000.076: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/notifiers.vim
+260.006  000.083  000.083: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/registry.vim
+260.137  000.078  000.078: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/signs.vim
+268.352  007.490  007.490: sourcing /Users/satoru/.vim/plugged/syntastic/autoload/syntastic/util.vim
+298.530  000.108  000.108: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/autoloclist.vim
+298.839  000.200  000.200: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/balloons.vim
+299.577  000.619  000.619: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/checker.vim
+301.881  002.190  002.190: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/cursor.vim
+302.225  000.195  000.195: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/highlighting.vim
+302.915  000.611  000.611: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/loclist.vim
+303.178  000.187  000.187: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/modemap.vim
+303.407  000.152  000.152: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/notifiers.vim
+308.606  005.127  005.127: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/registry.vim
+308.904  000.193  000.193: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic/signs.vim
+311.428  051.206  034.134: sourcing /Users/satoru/.vim/plugged/syntastic/plugin/syntastic.vim
+314.143  002.483  002.483: sourcing /Users/satoru/.vim/plugged/tagbar/plugin/tagbar.vim
+320.715  006.332  006.332: sourcing /Users/satoru/.vim/plugged/vim-fugitive/plugin/fugitive.vim
+322.492  001.615  001.615: sourcing /Users/satoru/.vim/plugged/gitv/plugin/gitv.vim
+323.265  000.639  000.639: sourcing /Users/satoru/.vim/plugged/vim-signify/plugin/signify.vim
+325.344  001.859  001.859: sourcing /Users/satoru/.vim/plugged/DirDiff.vim/plugin/dirdiff.vim
+325.822  000.237  000.237: sourcing /Users/satoru/.vim/plugged/Tabmerge/plugin/Tabmerge.vim
+326.397  000.382  000.382: sourcing /Users/satoru/.vim/plugged/emoji-vim/plugin/emoji.vim
+327.264  000.675  000.675: sourcing /Users/satoru/.vim/plugged/vimfiler/plugin/vimfiler.vim
+328.997  000.356  000.356: sourcing /Users/satoru/.vim/plugged/nerdtree/autoload/nerdtree.vim
+331.514  000.893  000.893: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/path.vim
+332.331  000.277  000.277: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/menu_controller.vim
+333.043  000.225  000.225: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/menu_item.vim
+337.342  000.288  000.288: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/key_map.vim
+338.277  000.444  000.444: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/bookmark.vim
+339.268  000.495  000.495: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/tree_file_node.vim
+342.006  001.439  001.439: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/tree_dir_node.vim
+342.976  000.469  000.469: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/opener.vim
+343.969  000.498  000.498: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/creator.vim
+344.634  000.167  000.167: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/flag_set.vim
+345.434  000.317  000.317: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/nerdtree.vim
+346.535  000.647  000.647: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/ui.vim
+347.128  000.121  000.121: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/event.vim
+347.773  000.162  000.162: sourcing /Users/satoru/.vim/plugged/nerdtree/lib/nerdtree/notifier.vim
+352.078  000.888  000.888: sourcing /Users/satoru/.vim/plugged/nerdtree/autoload/nerdtree/ui_glue.vim
+370.842  000.162  000.162: sourcing /Users/satoru/.vim/plugged/nerdtree/nerdtree_plugin/exec_menuitem.vim
+371.519  000.626  000.626: sourcing /Users/satoru/.vim/plugged/nerdtree/nerdtree_plugin/fs_menu.vim
+373.400  001.669  001.669: sourcing /Users/satoru/.vim/plugged/vim-nerdtree-tabs/nerdtree_plugin/vim-nerdtree-tabs.vim
+376.641  003.010  003.010: sourcing /Users/satoru/.vim/plugged/nerdtree-git-plugin/nerdtree_plugin/git_status.vim
+377.710  050.240  037.087: sourcing /Users/satoru/.vim/plugged/nerdtree/plugin/NERD_tree.vim
+382.051  004.076  004.076: sourcing /Users/satoru/.vim/plugged/vimshell.vim/plugin/vimshell.vim
+382.378  000.151  000.151: sourcing /Users/satoru/.vim/plugged/vimshell-pure.vim/plugin/vimshell-pure.vim
+385.361  002.844  002.844: sourcing /Users/satoru/.vim/plugged/neomru.vim/plugin/neomru.vim
+385.836  000.186  000.186: sourcing /Users/satoru/.vim/plugged/vim-versions/plugin/versions.vim
+386.375  000.346  000.346: sourcing /Users/satoru/.vim/plugged/vim-editvar/plugin/editvar.vim
+387.980  000.117  000.117: sourcing /usr/local/share/vim/vim74/autoload/sqlcomplete.vim
+388.878  002.283  002.166: sourcing /Users/satoru/.vim/plugged/SQLComplete.vim/plugin/sqlcomplete.vim
+391.537  000.252  000.252: sourcing /Users/satoru/.vim/plugged/ultisnips/autoload/UltiSnips/map_keys.vim
+391.752  002.637  002.385: sourcing /Users/satoru/.vim/plugged/ultisnips/plugin/UltiSnips.vim
+392.135  000.156  000.156: sourcing /Users/satoru/.vim/plugged/vim-snippets/plugin/vimsnippets.vim
+392.833  000.506  000.506: sourcing /Users/satoru/.vim/plugged/YouCompleteMe/plugin/youcompleteme.vim
+396.738  002.855  002.855: sourcing /Users/satoru/.vim/plugged/vim-javacomplete2/autoload/javacomplete/util.vim
+397.950  004.916  002.061: sourcing /Users/satoru/.vim/plugged/vim-javacomplete2/plugin/javacomplete.vim
+398.482  000.140  000.140: sourcing /Users/satoru/.vim/plugged/tmuxline.vim/plugin/tmuxline.vim
+399.391  000.599  000.599: sourcing /Users/satoru/.vim/plugged/vim-go/plugin/go.vim
+401.888  000.150  000.150: sourcing /usr/local/share/vim/vim74/plugin/getscriptPlugin.vim
+402.754  000.795  000.795: sourcing /usr/local/share/vim/vim74/plugin/gzip.vim
+403.303  000.471  000.471: sourcing /usr/local/share/vim/vim74/plugin/logiPat.vim
+403.414  000.043  000.043: sourcing /usr/local/share/vim/vim74/plugin/manpager.vim
+403.863  000.384  000.384: sourcing /usr/local/share/vim/vim74/plugin/matchparen.vim
+406.147  002.218  002.218: sourcing /usr/local/share/vim/vim74/plugin/netrwPlugin.vim
+406.452  000.104  000.104: sourcing /usr/local/share/vim/vim74/plugin/rrhelper.vim
+406.604  000.073  000.073: sourcing /usr/local/share/vim/vim74/plugin/spellfile.vim
+407.067  000.386  000.386: sourcing /usr/local/share/vim/vim74/plugin/tarPlugin.vim
+409.855  002.702  002.702: sourcing /usr/local/share/vim/vim74/plugin/tohtml.vim
+410.446  000.497  000.497: sourcing /usr/local/share/vim/vim74/plugin/vimballPlugin.vim
+411.039  000.478  000.478: sourcing /usr/local/share/vim/vim74/plugin/zipPlugin.vim
+412.133  000.794  000.794: sourcing /Users/satoru/.vim/plugged/indentLine/after/plugin/indentLine.vim
+414.322  000.347  000.347: sourcing /Users/satoru/.vim/plugged/ultisnips/after/plugin/UltiSnips_after.vim
+414.423  018.274: loading plugins
+414.666  000.243: loading packages
+414.704  000.038: inits 3
+415.268  000.564: reading viminfo
+422.797  007.529: setup clipboard
+423.004  000.207: setting raw mode
+423.078  000.074: start termcap
+423.204  000.126: clearing screen
+426.078  000.406  000.406: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions.vim
+426.445  000.126  000.126: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/quickfix.vim
+426.788  000.099  000.099: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/unite.vim
+427.121  000.107  000.107: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/netrw.vim
+427.523  000.162  000.162: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/ctrlp.vim
+427.951  000.174  000.174: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/hunks.vim
+428.314  000.133  000.133: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/tagbar.vim
+428.883  000.305  000.305: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/branch.vim
+429.374  000.097  000.097: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/syntastic.vim
+429.862  000.254  000.254: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/whitespace.vim
+430.466  000.130  000.130: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/wordcount.vim
+439.482  000.559  000.559: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/tabline.vim
+441.036  001.093  001.093: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/tabline/autoshow.vim
+442.221  000.429  000.429: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/tabline/tabs.vim
+445.032  000.754  000.754: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/tabline/buffers.vim
+446.433  000.545  000.545: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/tabline/ctrlspace.vim
+447.487  000.228  000.228: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/tmuxline.vim
+451.980  000.186  000.186: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/section.vim
+452.549  000.280  000.280: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/highlighter.vim
+458.452  000.267  000.267: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/themes.vim
+459.616  002.813  002.546: sourcing /Users/satoru/.vim/plugged/vim-one/autoload/airline/themes/one.vim
+472.693  000.210  000.210: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/util.vim
+477.663  000.120  000.120: sourcing /Users/satoru/.vim/plugged/tmuxline.vim/autoload/tmuxline/api.vim
+479.134  000.585  000.585: sourcing /Users/satoru/.vim/plugged/tmuxline.vim/autoload/tmuxline/util.vim
+480.012  000.304  000.304: sourcing /Users/satoru/.vim/plugged/tmuxline.vim/autoload/tmuxline.vim
+480.653  000.103  000.103: sourcing /Users/satoru/.vim/plugged/tmuxline.vim/autoload/tmuxline/presets/powerline.vim
+481.299  000.171  000.171: sourcing /Users/satoru/.vim/plugged/tmuxline.vim/autoload/tmuxline/builder.vim
+513.897  000.395  000.395: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/builder.vim
+514.575  000.200  000.200: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/default.vim
+538.026  103.854: opening buffers
+538.798  000.376  000.376: sourcing /Users/satoru/.vim/plugged/syntastic/autoload/syntastic/log.vim
+539.721  001.319: BufEnter autocommands
+539.725  000.004: editing files in windows
+543.830  001.978  001.978: sourcing /Users/satoru/.vim/plugged/YouCompleteMe/autoload/youcompleteme.vim
+1064.960  524.257: VimEnter autocommands
+1064.975  000.015: before starting main loop
+1066.640  000.405  000.405: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/tabline/buflist.vim
+1067.493  000.277  000.277: sourcing /Users/satoru/.vim/plugged/vim-airline/autoload/airline/extensions/tabline/formatters/default.vim
+1084.852  000.453  000.453: sourcing /Users/satoru/.vim/plugged/vim-signify/autoload/sy.vim
+1120.936  034.157  034.157: sourcing /Users/satoru/.vim/plugged/tagbar/autoload/tagbar.vim
+1182.463  082.196: first screen update
+1182.467  000.004: --- VIM STARTED ---

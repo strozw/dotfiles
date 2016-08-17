@@ -5,6 +5,9 @@
 # macvim
 export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
 
+# vscode
+export PATH=/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin:$PATH
+
 # original
 export PATH=/usr/bin:$PATH
 export PATH=/usr/sbin:$PATH
@@ -88,22 +91,9 @@ export HISTIGNORE="rm -rf *:exit:cd:kill -9 *:kill -KILL *"
 # for PostgreSQL
 export PGDATA=/usr/local/var/postgres
 
-#export PYTHONPATH=/usr/local/lib/python2.7/site-packages/
-
-# atom
-export ATOM_PATH=/opt/homebrew-cask/Caskroom/atom/latest
-
-
 ##############################################
 # zsh-notify
 ##############################################
 export SYS_NOTIFIER="/usr/local/bin/terminal-notifier"
 export NOTIFY_COMMAND_COMPLETE_TIMEOUT=10
 
-
-################################################
-# Base16 Shell
-################################################
-BASE16_SCHEME="ocean"
-BASE16_SHELL="$HOME/.config/base16-shell/base16-$BASE16_SCHEME.dark.sh"
-[[ -s $BASE16_SHELL ]] && . $BASE16_SHELL

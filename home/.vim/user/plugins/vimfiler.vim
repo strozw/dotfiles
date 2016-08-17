@@ -8,6 +8,9 @@ let g:vimfiler_enable_auto_cd = 0
 " Default File Explorer
 let g:vimfiler_as_default_explorer = 1
 
+"
+let g:vimfiler_ignore_pattern='\(^\.\|\~$\|\.pyc$\|\.[oad]$\)'
+
 " Enable file operation commands.
 let g:vimfiler_safe_mode_by_default = 0
 

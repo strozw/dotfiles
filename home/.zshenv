@@ -6,3 +6,9 @@ case ${OSTYPE} in
         source ~/.zshenv.linux
         ;;
 esac
+
+###############################################
+# anyenv (path)
+###############################################
+export PATH="$HOME/.anyenv/bin:$PATH"
+

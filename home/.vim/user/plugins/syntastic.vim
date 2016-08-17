@@ -15,5 +15,9 @@ let g:syntastic_auto_jump = 0
 let g:syntastic_html_validator_parser = 'html5'
 let g:syntastic_javascript_checkers = ['eslint']
 
+"let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+let g:syntastic_php_checkers = ['php']
+
+
 
 
