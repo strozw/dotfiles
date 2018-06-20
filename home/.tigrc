@@ -18,6 +18,8 @@ set vertical-split = yes
 
 set line-graphics = utf-8
 
+set status-show-untracked-files = yes
+
 ################################################
 # color 設定
 ################################################

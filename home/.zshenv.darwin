@@ -2,15 +2,15 @@
 # PATH
 ###############################################
 
+# original
+export PATH=/usr/bin:$PATH
+export PATH=/usr/sbin:$PATH
+
 # macvim
 export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
 
 # vscode
 export PATH=/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin:$PATH
-
-# original
-export PATH=/usr/bin:$PATH
-export PATH=/usr/sbin:$PATH
 
 
 # homebrew path
@@ -18,10 +18,8 @@ export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 #export PATH=/usr/local/opt/ruby/bin/:$PATH
 
-
-
 # GNU ls, dircolors ...
-export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
 # hombrew cask options
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
@@ -34,27 +32,25 @@ export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
 # user bin path
 export PATH=~/bin:$PATH
 
-# rbenv
-#export PATH="${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}"
-
-# phpenv
-#export PATH="${HOME}/.phpenv/bin:${HOME}/.phpenv/shims:${PATH}"
-
-# phpbrew
-#source ~/.phpbrew/bashrc
-
-# ndenv
-#export PATH="${HOME}/.ndenv/bin:${HOME}/.ndenv/shims:${PATH}"
-
 # php composer
 export PATH=$HOME/.composer/vendor/bin:$PATH
 
 #export PATH=~/Applications/Sublime\ Text.app/Contents/SharedSupport/bin:$PATH
 
 ###############################################
+# java
+###############################################
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+
+###############################################
+# pythone 
+###############################################
+#export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python3.6/site-packages/
+
+###############################################
 # go path
 ###############################################
-export PATH=$PATH:/usr/local/opt/go/libexec/bin
+export PATH=/usr/local/opt/go/libexec/bin:$PATH
 
 export GOPATH=~/go
 export PATH=$GOPATH/bin:$PATH

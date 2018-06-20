@@ -12,6 +12,20 @@ alias less='less -R'
 #export LESS='-R'
 #export LESSOPEN='| src-hilite-lesspipe.sh %s'
 
+###############################################
+# anyenv (path)
+###############################################
+export PATH="$HOME/.anyenv/bin:$PATH"
+export PATH="$HOME/.anyenv/envs/.rbenv/shims:$PATH"
+if which anyenv > /dev/null; then eval "$(anyenv init -)"; fi
+
+###############################################
+# homeshick
+###############################################
+source "$HOME/.homesick/repos/homeshick/homeshick.sh"
+fpath=($HOME/.homesick/repos/homeshick/completions $fpath)
+
+
 
 ###############################################
 # zplug settings
@@ -55,6 +69,8 @@ zplug "b4b4r07/enhancd", use:init.sh
 
 # This plugin adds many useful aliases and functions.
 zplug "plugins/git", from:oh-my-zsh
+
+zplug "docker/compose", use:contrib/completion/zsh
 
 # Theme
 zplug 'mafredri/zsh-async', from:github

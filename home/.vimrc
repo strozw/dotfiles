@@ -1,25 +1,45 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugin Install Settings (vim plug)
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let s:plugDir = $HOME . '/.vim/plugged'
+" vim:set foldmethod=marker:
 
-" plug settings {{{
+
+set modeline
+
+"========================================================
+" Directory
+"========================================================
+"set pythonthreedll="/usr/local/Cellar/python/3.6.5/Frameworks/Python.framework/Versions/3.6/Python"
+let &pythonthreedll = findfile("Python","/usr/local/Cellar/python3/**/Frameworks/**")
+
+
+"========================================================
+" Directory
+"========================================================
+"{{{1
+
+let s:plugDir = $HOME . '/.vim/plugged'
+let s:vimdir = $HOME . '/.vim'
+let s:vim_tmp = $HOME . '/tmp/vim'
+let s:undodir = s:vim_tmp . '/undo'
+
+"1}}}
+
+
+"========================================================
+" Vim Plug
+"========================================================
+"{{{1
 
 call plug#begin(s:plugDir)
 
-Plug 'sudo.vim'
-
-" 非同期タスク実行 (unite等で利用)
-"Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+"--------------------------------------------------------
+" sudo
+"--------------------------------------------------------
+"Plug 'sudo.vim'
 
 " 非同期タスク実行(vim-tags の非同期実行に使用)
 "Plug 'tpope/vim-dispatch'
 
-" タグ生成
-Plug 'szw/vim-tags'
-
 " webapi.vim (各種web apiをvimから利用)
-Plug 'mattn/webapi-vim'
+"Plug 'mattn/webapi-vim'
 
 " surround.vim (テキストオブジェクトを使いやすく)
 Plug 'tpope/vim-surround'
@@ -34,10 +54,11 @@ Plug 'kana/vim-smartword'
 Plug 'tpope/vim-commentary'
 
 " emmet (zencodingの利用)
-Plug 'mattn/emmet-vim/'
+Plug 'mattn/emmet-vim'
 
 " 括弧のオートクローズ
-Plug 'kana/vim-smartinput'
+"Plug 'kana/vim-smartinput'
+Plug 'tpope/vim-ragtag'
 
 " end系のオートクローズ
 Plug 'cohama/vim-smartinput-endwise'
@@ -56,38 +77,18 @@ Plug 'junegunn/vim-easy-align'
 " ビジュアル選択後のrによる置換のアレを改善する
 Plug 'kana/vim-niceblock'
 
-" 軽量のpowerline系プラグイン
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
-" minimap
-Plug 'severin-lemaignan/vim-minimap'
-
-" color table
-Plug 'guns/xterm-color-table.vim'
-
-" 統合インターフェース (unite)
-Plug 'Shougo/unite.vim'
-
-" ファジーファインダ
-Plug 'ctrlpvim/ctrlp.vim'
-
-" スクリプト実行
-Plug 'thinca/vim-quickrun'
+" タグ生成
+Plug 'szw/vim-tags'
 
 " vimscript 向け console
 "Plug 'rbtnn/vimconsole.vim'
 
 " ブラウザ・オープン
 Plug 'tyru/open-browser.vim'
-
 Plug 'shime/vim-livedown'
 
 " font size変更
 Plug 'thinca/vim-fontzoom'
-
-" scrooloose/syntastic.vim (各種ファイルタイプのシンタックスエラーの検出・表示)
-Plug 'scrooloose/syntastic'
 
 " Tagbar (ctagを見やすく表示) javascriptで利用時にnodeがhung
 Plug 'majutsushi/tagbar'
@@ -103,165 +104,151 @@ Plug 'mhinz/vim-signify'
 
 " dir単位のdiff
 Plug 'vim-scripts/DirDiff.vim'
+Plug 'vim-scripts/Tabmerge'
 
 " インデント見やすく
 Plug 'Yggdroot/indentLine'
 
-" vim icon いろいろ
-"Plug 'ryanoasis/vim-devicons'
+" 非同期タスク実行 (unite等で利用)
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
-Plug 'vim-scripts/Tabmerge'
+" 検索
+Plug 'dyng/ctrlsf.vim'
 
-" emji selector
-Plug 'mattn/emoji-vim'
+"--------------------------------------------------------
+" fazyfinder
+"--------------------------------------------------------
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'Shougo/unite.vim'
 
-" ファイラUI
-Plug 'Shougo/vimfiler'
-
-" Tree viewr
+"--------------------------------------------------------
+" filer
+"--------------------------------------------------------
 Plug 'scrooloose/nerdtree'
-
-" NERDTreeを各Tabで固定化
 Plug 'jistr/vim-nerdtree-tabs'
-
-" NERDTreeにgit statusを表示
 Plug 'Xuyuanp/nerdtree-git-plugin'
-
-" シェルUI
-Plug 'Shougo/vimshell.vim'
-
-" シェルUI拡張
-Plug 'supermomonga/vimshell-pure.vim'
-
-" vimshell と vimfiler でsshを利用するための拡張
+Plug 'Shougo/vimfiler'
 Plug 'Shougo/neossh.vim'
 
-" ===  Unite Source === {{{
+"--------------------------------------------------------
+" shell
+"--------------------------------------------------------
+"Plug 'Shougo/vimshell.vim'
+"Plug 'supermomonga/vimshell-pure.vim'
 
-" 最近使用したファイル
-Plug 'Shougo/neomru.vim'
+"--------------------------------------------------------
+" powerline
+"--------------------------------------------------------
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
-" unite-outline (Unite:アウトラインソース)
-Plug 'Shougo/unite-outline'
+"--------------------------------------------------------
+" lint & make
+"--------------------------------------------------------
+Plug 'w0rp/ale'
 
-" unite-help (Unite:ヘルプソース)
-Plug 'tsukkee/unite-help'
+"--------------------------------------------------------
+" snipet
+"--------------------------------------------------------
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+"Plug 'Shougo/neosnippet'
+"Plug 'Shougo/neosnippet-snippets'
 
-" unite-tag (Unite:ctagソース)
-Plug 'tsukkee/unite-tag'
-
-" Unite vcs
-Plug 'hrsh7th/vim-versions'
-
-" unite-variable 追加
-Plug 'thinca/vim-editvar'
-
-" }}}
-
-" === Syntax === {{{
-
+"--------------------------------------------------------
+" filetype syntax
+"--------------------------------------------------------
+Plug 'sheerun/vim-polyglot'
 " コンテキストによってfiletypeを自動で変更 
 "Plug 'osyo-manga/vim-precious'
 "Plug 'Shougo/context_filetype.vim'
 
-Plug 'sheerun/vim-polyglot'
+"--------------------------------------------------------
+" vue
+"--------------------------------------------------------
+Plug 'posva/vim-vue'
 
-" sql
-Plug 'vim-scripts/SQLComplete.vim'
+"--------------------------------------------------------
+" php
+"--------------------------------------------------------
+Plug 'php-vim/phpcd.vim', { 'for': 'php' , 'do': 'composer update' }
+Plug 'shawncplus/phpcomplete.vim', {'for': 'php'}
+Plug 'vim-scripts/tagbar-phpctags', {'for': 'php'}
+Plug 'arnaud-lb/vim-php-namespace', {'for': 'php'}
+Plug 'drwX/php-doc.vim', {'for': 'php'}
+Plug 'vim-php/vim-php-refactoring', {'for': 'php'}
+Plug 'stephpy/vim-php-cs-fixer', {'for': 'php'}
 
-"Plug 'plasticboy/vim-markdown'
-Plug 'jtratner/vim-flavored-markdown'
 
-" === Completion === {{{
+"--------------------------------------------------------
+" go lang
+"--------------------------------------------------------
+Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 
-" snipet
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+"--------------------------------------------------------
+" java
+"--------------------------------------------------------
+Plug 'artur-shaik/vim-javacomplete2', {'for': 'java'}
 
-" Completion Framework
-Plug 'Valloric/YouCompleteMe', { 'build': './install.py --all' }
+"--------------------------------------------------------
+" sql 
+"--------------------------------------------------------
+Plug 'vim-scripts/SQLComplete.vim', {'for': 'sql'}
 
-" java Omni補完
-Plug 'artur-shaik/vim-javacomplete2'
+"--------------------------------------------------------
+" unite source
+"--------------------------------------------------------
+Plug 'Shougo/neomru.vim'
+Plug 'Shougo/unite-outline'
+Plug 'tsukkee/unite-help'
+Plug 'tsukkee/unite-tag'
+Plug 'hrsh7th/vim-versions'
+Plug 'thinca/vim-editvar'
 
-" }}}
-
-" === Color Scheme === {{{
+"--------------------------------------------------------
+" colorscheme
+"--------------------------------------------------------
+Plug 'joshdick/onedark.vim'
 Plug 'w0ng/vim-hybrid'
 Plug 'altercation/vim-colors-solarized'
 Plug 'cocopon/iceberg.vim'
 Plug 'chriskempson/base16-vim'
-Plug 'joshdick/onedark.vim'
-Plug 'joshdick/airline-onedark.vim'
-Plug 'rakr/vim-one'
-Plug 'edkolev/tmuxline.vim'
+Plug 'arcticicestudio/nord-vim'
 
-" }}}
+"Plug 'edkolev/tmuxline.vim'
 
 
-" === PHP === {{{
-Plug 'vim-scripts/tagbar-phpctags', {'for': 'php'}
-" php.vim のfork版 (php syntax, 補完)
-"Plug 'StanAngeloff/php.vim'
 
-Plug 'arnaud-lb/vim-php-namespace', {'for': 'php'}
+"--------------------------------------------------------
+" deoplate
+"--------------------------------------------------------
+Plug 'Shougo/deoplete.nvim' 
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 
-Plug 'shawncplus/phpcomplete.vim', {'for': 'php'}
 
-Plug 'drwX/php-doc.vim', {'for': 'php'}
 
-Plug 'vim-php/vim-php-refactoring', {'for': 'php'}
-
-Plug 'stephpy/vim-php-cs-fixer', {'for': 'php'}
-
-" laravle blade
-Plug 'xsbeats/vim-blade'
-" }}}
-
-" === JS === {{{
-" javascript syntax
-"Plug 'jelera/vim-javascript-syntax'
-
-" es6のハイライト
-Plug 'othree/yajs.vim'
-
-" stage-0 のsyntax highlight
-Plug 'othree/es.next.syntax.vim'
-
-" jsdoc
-Plug 'heavenshell/vim-jsdoc', {'for': 'javascript'}
-
-" jsx (react)
-Plug 'mxw/vim-jsx'
-
-" vue
-Plug 'posva/vim-vue'
-
-" go lang
-Plug 'fatih/vim-go'
-
-"}}}
-
+"--------------------------------------------------------
+" deoplete plugin
+"--------------------------------------------------------
+Plug 'landaire/deoplete-swift'
+Plug 'zchee/deoplete-go', { 'do': 'make'}
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+Plug 'Shougo/neco-vim'
+Plug 'Shougo/neco-syntax'
+Plug 'ujihisa/neco-look'
 
 call plug#end()
-" }}}
-"
+"1}}}
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ディレクトリ
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let s:vimdir = $HOME . '/.vim'
-let s:vim_tmp = $HOME . '/tmp/vim'
-let s:undodir = s:vim_tmp . '/undo'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"========================================================
 " swap & undo
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"========================================================
+"{{{1
+
 " via :set directory
 let &directory = s:vim_tmp
 " via :set undodir
 let &undodir = s:undodir
-
 
 "ファイルを上書きする前にバックアップを作る。
 "書き込みが成功してバックアップはそのまま取っておく。
@@ -273,9 +260,12 @@ set nobackup
 "(有効:writebackup/無効nowritebackup)
 set writebackup
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"1}}}
+
+"========================================================
 "  Character
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"========================================================
+"{{{1
 
 "文字コードの自動認識
 "適当な文字コード判別
@@ -346,9 +336,12 @@ set display=lastline
 " インサート時のbackspace
 set backspace=indent,eol,start
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"1}}}
+
+"========================================================
 "  Search
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"========================================================
+"{{{1
 
 " 検索内容をハイライト
 set hlsearch
@@ -369,17 +362,18 @@ set wrapscan
 " grepは外部コマンドを使用する
 set grepprg=internal
 
+"1}}}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"========================================================
 "  GUI 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"========================================================
+"{{{1
 
 " Show line number
 set number
 
 "カーソルが何行目の何列目に置かれているかを表示する。
 set ruler
-
 
 "閉じ括弧が入力されたとき、対応する開き括弧にわずかの間ジャンプルする。
 set showmatch
@@ -389,10 +383,6 @@ set showmatch
 "    1:ウィンドウの数が2以上の時のみ表示
 "    2:常に表示
 set laststatus=2
-
-"ステータスバーに文字コードと改行コード表示
-" airline で 代用
-"set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 
 "コマンド(の一部)を画面の最下行に表示する。
 set showcmd
@@ -415,7 +405,6 @@ set cmdheight=2
 " 2. クリップボード
 set clipboard=unnamed,unnamedplus
 
-
 " 3. マウス
 set mouse=a
 
@@ -432,100 +421,345 @@ set nofoldenable
 " ウィンドウを分割で開く際に、右側に表示する。
 set splitright
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"1}}}
+
+"========================================================
 " ファイル・タイプ
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ghmarkdown
-"autocmd BufNewFile,BufRead *.mkd set filetype=ghmarkdown
-"autocmd BufNewFile,BufRead *.md set filetype=ghmarkdown
-"autocmd BufNewFile,BufRead *.md.txt set filetype=ghmarkdown
+"========================================================
+"{{{1
 
 " markdown
 autocmd BufNewFile,BufRead *.mkd set filetype=markdown
 autocmd BufNewFile,BufRead *.md set filetype=markdown
 autocmd BufNewFile,BufRead *.md.txt set filetype=markdown
 
-" html.erb
-autocmd BufNewFile,BufRead *.html.erb set filetype=eruby.html
+"1}}}
 
-" jsx
-autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
-
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"========================================================
 " tags
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"========================================================
+"{{{1
 
 " タグファイルの場所
 set tags=tags
 set tags+=*.tags
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"1}}}
+
+"========================================================
 " keybinding
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"========================================================
+"{{{1
 
 " leader key
 let mapleader=','
 
+"1}}}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"========================================================
 " ビジュアルモード範囲内検索
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"========================================================
+"{{{1
+
 " 範囲内検索をデフォルトに
 vnoremap / <ESC>/\%V
 vnoremap ? <ESC>?\%V
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" colorsheme
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-syntax on
+"1}}}
 
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (empty($TMUX))
-  if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
+"========================================================
+" colorsheme
+"========================================================
+"{{{1
+
+syntax on
+"set t_Co=256
+
+let g:nord_comment_brightness = 15
+colorscheme nord
+set background=dark
+set termguicolors
+
+
+"1}}}
+
+"========================================================
+" Plugins: vim-tags
+"========================================================
+"{{{1
+
+let g:vim_tags_project_tags_command ='ctags -R  --fields=+aimS {OPTIONS} {DIRECTORY} 2>/dev/null &'
+let g:vim_tags_auto_generate = 0
+let g:vim_tags_use_vim_dispatch = 0
+let g:vim_tags_use_ycm = 0
+"let g:vim_tags_ignore_files = ['.gitignore', '.svnignore', '.cvsignore']
+let g:vim_tags_ignore_files = []
+let g:vim_tags_directories = ['.git', '.svn', 'CVS']
+let g:vim_tags_main_file = 'tags'
+let g:vim_tags_extension = '.tags'
+
+"1}}}
+
+
+"========================================================
+" Plugins: DirDiff
+"========================================================
+"{{{1
+
+let g:DirDiffExcludes = "CVS,*.class,*.exe,.*.swp,.svn,.git,.DS_Store"
+
+"1}}}
+
+
+"========================================================
+" NERDTree
+"========================================================
+"{{{1
+
+" GVim起動時にNERDTreeTabsを開かない
+let g:nerdtree_tabs_open_on_gui_startup = 0
+
+" NERDTreeGit Stats Icon
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "≠",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
+
+" keymap 
+nnoremap <F2> :NERDTreeTabsToggle<Cr>
+nnoremap <D-1> :NERDTreeTabsToggle<Cr>
+
+"1}}}
+
+
+"========================================================
+" TagBar
+"========================================================
+"{{{1
+
+" タグバーの開閉を<F8>にマッピング
+nmap <F8> :TagbarToggle<CR>
+
+"1}}}
+
+
+"========================================================
+" Plugin: airline.vim
+"========================================================
+"{{{1
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
 endif
 
-" 行ハイライト
-set nocursorline
-"set cursorline
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.crypt = '🔒'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.maxlinenr = '☰'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.spell = 'Ꞩ'
+let g:airline_symbols.notexists = '∄'
+let g:airline_symbols.whitespace = 'Ξ'
+let g:airline_symbols.branch = '⭠'
+let g:airline_symbols.readonly = '⭤'
+let g:airline_symbols.linenr = '⭡'
 
-" 列ハイライト
-set nocursorcolumn
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#tabline#right_sep = ''
+let g:airline#extensions#tabline#right_alt_sep = ''
 
-set background=dark
-set t_Co=256
-"let g:hybrid_use_Xresources = 1
-"let g:hybrid_use_iTerm_colors = 1
-"let base16colorspace=16
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#show_splits = 0
+let g:airline#extensions#tabline#show_tabs = 1
+let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#show_tab_type = 1
+let g:airline#extensions#tabline#close_symbol = '×'
+let g:airline#extensions#tabline#show_close_button = 0
 
-"colorscheme hybrid
-"colorscheme iceberg
-"colorscheme base16-ocean
-"colorscheme one
+let g:airline_powerline_fonts = 0
 
-colorscheme onedark
-let g:onedark_termcolors = 256
-"let g:onedark_termcolors = 16
-let g:onedark_terminal_italics = 1
+"let g:airline_theme='onedark'
 
-" plugin settings
-runtime! user/plugins/*.vim
+"1}}}
 
-" プロジェクトローカルなvimrc
-set exrc
-set secure
+
+"========================================================
+" Plugin: Polyglot
+"========================================================
+"{{{1
+
+let g:polyglot_disabled = ['go']
+
+"1}}}
+
+
+"========================================================
+" Plugin: deoplate
+"========================================================
+"{{{1
+
+let g:deoplete#enable_at_startup = 1
+"let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+"let g:deoplete#ignore_sources.php = ['omni']
+
+"1}}}
+
+"========================================================
+" unite.vim
+" 参考：http://www.karakaram.com/vim/unite/
+"========================================================
+"{{{1
+
+"unite prefix key.
+nnoremap [unite] <Nop>
+"nmap <Space>F [unite]
+nmap <C-u> [unite]
+
+"unite general settings
+"インサートモード開始
+"let g:unite_enable_start_insert = 1
+"最近開いたファイル履歴お保存数
+let g:unite_source_file_mru_limit = 40
+
+"file_mruの表示フォーマットを指定。空にすると表示スピードが高速化される
+let g:unite_source_file_mru_filename_format = ''
+
+" unite grep
+"let g:unite_source_grep_default_opts = '-iRHn --exclude=''.tags'' --exclude=''tags'' --exclude=''.svn'' --exclude=''.git'''
+let g:unite_source_grep_command = 'ag'
+let g:unite_source_grep_default_opts = '--nocolor --nogroup --ignore=''*.tags'' --ignore=''tags'' --ignore=''.svn'' --ignore=''.git'''
+let g:unite_source_grep_recursive_opt = ''
+let g:unite_source_grep_max_candidates  = 200
+let g:unite_source_rec_max_cache_files = 0
+let g:unite_source_rec_async_command = ['pt --nocolor --nogroup --ignore ".hg" --ignore ".svn" --ignore ".git" --ignore ".bzr" --hidden -g ""']
+let g:unite_converter_file_directory_width = 100
+
+call unite#custom#source('file_rec,file_rec/async', 'max_candidates', 0)
+
+"現在開いているファイルのディレクトリ下のファイル一覧
+"開いていない場合はカレントディレクトリ
+nnoremap <silent> [unite]f :UniteWithBufferDir file<CR>
+nnoremap <silent> [unite]ff :Unite file/async -start-insert<CR>
+"ソース一覧
+nnoremap <silent> [unite]b :Unite source<CR>
+"バッファ一覧
+nnoremap <silent> [unite]b :Unite buffer<CR>
+"レジスタ一覧
+nnoremap <silent> [unite]r :Unite -buffer-name=register register<CR>
+"最近使用したファイル一覧
+nnoremap <silent> [unite]m :Unite file_mru<CR>
+"ブックマーク一覧
+nnoremap <silent> [unite]c :Unite bookmark<CR>
+"ブックマークを追加
+nnoremap <silent> [unite]a :UniteBookmarkAdd<CR>
+" ライン
+nnoremap <silent> [unite]l :Unite line<CR>
+" アウトライン
+nnoremap <silent> [unite]ol :Unite outline<CR>
+" grep
+nnoremap <silent> [unite]g :Unite grep -no-quit<CR>
+" locate
+nnoremap <silent> [unite]lo :Unite locate<CR>
+" tag
+nnoremap <silent> [unite]t :Unite tag -no-quit<CR>
+" help
+nnoremap <silent> [unite]h :Unite help<CR>
+" versions
+nnoremap <silent> [unite]v :Unite versions<CR>
+" version/{type}/changeset
+nnoremap <silent> [unite]vsc :Unite versions/svn/changeset<CR>
+nnoremap <silent> [unite]vgc :Unite versions/git/changeset<CR>
+" version/{type}/log
+nnoremap <silent> [unite]vsl :Unite versions/svn/log<CR>
+nnoremap <silent> [unite]vgl :Unite versions/git/log<CR>
+" version/{type}/status
+nnoremap <silent> [unite]vss :Unite versions/svn/status<CR>
+nnoremap <silent> [unite]vgs :Unite versions/git/status<CR>
+
+nnoremap <silent> [unite]p :<C-u>call <SID>unite_project('-start-insert')<CR>
+
+function! s:unite_project(...)
+  let opts = (a:0 ? join(a:000, ' ') : '')
+  let dir = unite#util#path2project_directory(expand('%'))
+  execute 'Unite' opts 'file_rec:' . dir
+endfunction
+
+" 現在のプロジェクト内のファイルを一望する
+" 参考 : http://d.hatena.ne.jp/h1mesuke/20110918/p1
+nnoremap <silent> [unite]p :<C-u>call <SID>unite_project('-start-insert')<CR>
+function! s:unite_project(...)
+  let opts = (a:0 ? join(a:000, ' ') : '')
+  let dir = unite#util#path2project_directory(expand('%'))
+  execute 'Unite' opts 'file_rec:' . dir
+endfunction
+
+
+"--------------------------------------------------------
+" Unite-line
+"--------------------------------------------------------
+nnoremap <silent> <C-l> :<C-u>UniteWithCursorWord line<CR>
+
+"--------------------------------------------------------
+" Unite-grep
+"--------------------------------------------------------
+nnoremap <silent> <C-g> :<C-u>UniteWithCursorWord grep:./<CR>
+
+"--------------------------------------------------------
+" unite-tag
+"--------------------------------------------------------
+let g:unite_source_tag_max_name_length = 25
+let g:unite_source_tag_max_fname_length = 150
+
+" C-] にマッピング
+autocmd BufEnter *
+\   if empty(&buftype)
+\|        nnoremap <buffer> <C-j> :<C-u>UniteWithCursorWord tag<CR>
+\|   endif
+
+" Unite-jump タグジャンプ前の位置一覧
+nnoremap <silent> <C-t> :<C-u>Unite jump<CR>
+
+"1}}}
+
+"========================================================
+" ctrlp
+"========================================================
+"{{{1
+
+"if executable('rg')
+"  set grepprg=rg\ --color=never
+"  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+"  let g:ctrlp_use_caching = 0
+"elseif executable('ag')
+  set grepprg=ag\ --nocolor
+  let g:ctrlp_use_caching = 0
+  let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup -g ""'
+"endif
+
+"1}}}
+
+"========================================================
+" Local
+"========================================================
+"{{{1
 
 "augroup vimrc-local
 "  autocmd!
@@ -538,4 +772,15 @@ set secure
 "    source `=i`
 "  endfor
 "endfunction
+
+"1}}}
+
+" plugin settings
+"runtime! user/plugins/*.vim
+
+" プロジェクトローカルなvimrc
+"set exrc
+"set secure
+
+
 
