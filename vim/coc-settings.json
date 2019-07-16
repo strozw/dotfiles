@@ -1,0 +1,15 @@
+{
+  "diagnostic.enable": true,
+  "tsserver.implicitProjectConfig.checkJs": true,
+  "typescript.suggest.autoImports": true,
+  "typescript.validate.enable": true,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+  "typescript.format.insertSpaceAfterSemicolonInForStatements": false,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+  "javascript.format.insertSpaceAfterSemicolonInForStatements": false,
+  "javascript.validate.enable": true,
+  "diagnostic.displayByAle": true,
+  "diagnostic.refreshOnInsertMode": true,
+  "diagnostic.refreshAfterSave": true
+}
+
