@@ -1,0 +1,8 @@
+set clipboard=unnamed
+set surround
+
+" TODO: tmux-navigatorをエミュレートしたい
+" nnoremap <c-h> :<C-u>action VimWindowRight<cr>
+" nnoremap <c-j> :<C-u>action VimWindowDown<cr>
+" nnoremap <c-k> :<C-u>action VimWindowUp<cr>
+" nnoremap <c-l> :<C-u>action VimWindowLeft<cr>
