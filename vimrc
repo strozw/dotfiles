@@ -51,6 +51,7 @@ if !has('nvim')
 end
 
 " color
+Plug 'cocopon/iceberg.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'rakr/vim-one'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -76,7 +77,7 @@ Plug 'sjl/gundo.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'Shougo/denite.nvim'
-Plug 'Shougo/deol.nvim'
+"Plug 'Shougo/deol.nvim'
 Plug 'Shougo/defx.nvim'
 Plug 'kristijanhusak/defx-icons'
 Plug 'kristijanhusak/defx-git'
@@ -84,7 +85,7 @@ Plug 'kristijanhusak/defx-git'
 Plug 'szw/vim-tags'
 
 " lsp
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-emmet', {'do': 'yarn install --frozen-lockfile'}
@@ -273,9 +274,9 @@ set hlsearch
 " Color
 """"""""""""""""""""""""""""""""
 set background=dark
-colorscheme one
 "colorscheme onedark
-"let g:onedark_terminal_italics = 1
+colorscheme iceberg
+let g:onedark_terminal_italics = 1
 
 """"""""""""""""""""""""""""""""
 " for filetype
@@ -295,7 +296,7 @@ let g:polyglot_disabled = ['csv']
 """"""""""""""""""""""""""""""""
 " airline
 """"""""""""""""""""""""""""""""
-"let g:airline_theme='onedark'
+let g:airline_theme='iceberg'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
@@ -368,6 +369,8 @@ noremap <ESC><ESC> :noh<CR>
 " airline buffer
 nmap <C-p> <Plug>AirlineSelectPrevTab
 nmap <C-n> <Plug>AirlineSelectNextTab
+tmap <C-p> <Plug>AirlineSelectPrevTab
+tmap <C-n> <Plug>AirlineSelectNextTab
 nmap <space>1 <Plug>AirlineSelectTab1
 nmap <space>2 <Plug>AirlineSelectTab2
 nmap <space>3 <Plug>AirlineSelectTab3
@@ -591,23 +594,26 @@ command! -nargs=0 Format :call CocAction('format')
 " Use `:Fold` to fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
-"" Using CocList
-"" Show all diagnostics
-"nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-"" Manage extensions
-"nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-"" Show commands
-"nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-"" Find symbol of current document
-"nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-"" Search workspace symbols
-"nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-"" Do default action for next item.
-"nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-"" Do default action for previous item.
-"nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-"" Resume latest coc list
-"nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>ca  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>ce  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>cc  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>co  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>cs  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>cj  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>ck  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>cp  :<C-u>CocListResume<CR>
+nnoremap <silent> <space>cf  :<C-u>CocFix<CR>
+nnoremap <C-.> :<C-u>CocFix<CR>
+inoremap <C-.> <Esc>:CocFix<CR>
 
 " coc-snippets
 imap <C-l> <Plug>(coc-snippets-expand)
@@ -673,27 +679,36 @@ nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 
 """"""""""""""""""""""""""""""""
-" terminal color
+" terminal
 """"""""""""""""""""""""""""""""
-let g:terminal_color_0  = "#1b2b34" "black
-let g:terminal_color_1  = "#ed5f67" "red
-let g:terminal_color_2  = "#9ac895" "green
-let g:terminal_color_3  = "#fbc963" "yellow
-let g:terminal_color_4  = "#669acd" "blue
-let g:terminal_color_5  = "#c695c6" "magenta
-let g:terminal_color_6  = "#5fb4b4" "cyan
-let g:terminal_color_7  = "#c1c6cf" "white
-let g:terminal_color_8  = "#65737e" "bright black
-let g:terminal_color_9  = "#fa9257" "bright red
-let g:terminal_color_10 = "#343d46" "bright green
-let g:terminal_color_11 = "#4f5b66" "bright yellow
-let g:terminal_color_12 = "#a8aebb" "bright blue
-let g:terminal_color_13 = "#ced4df" "bright magenta
-let g:terminal_color_14 = "#ac7967" "bright cyan
-let g:terminal_color_15 = "#d9dfea" "bright white
-let g:terminal_color_background="#1b2b34" "background
-let g:terminal_color_foreground="#c1c6cf" "foreground
+"let g:terminal_color_0  = "#1b2b34" "black
+"let g:terminal_color_1  = "#ed5f67" "red
+"let g:terminal_color_2  = "#9ac895" "green
+"let g:terminal_color_3  = "#fbc963" "yellow
+"let g:terminal_color_4  = "#669acd" "blue
+"let g:terminal_color_5  = "#c695c6" "magenta
+"let g:terminal_color_6  = "#5fb4b4" "cyan
+"let g:terminal_color_7  = "#c1c6cf" "white
+"let g:terminal_color_8  = "#65737e" "bright black
+"let g:terminal_color_9  = "#fa9257" "bright red
+"let g:terminal_color_10 = "#343d46" "bright green
+"let g:terminal_color_11 = "#4f5b66" "bright yellow
+"let g:terminal_color_12 = "#a8aebb" "bright blue
+"let g:terminal_color_13 = "#ced4df" "bright magenta
+"let g:terminal_color_14 = "#ac7967" "bright cyan
+"let g:terminal_color_15 = "#d9dfea" "bright white
+"let g:terminal_color_background="#1b2b34" "background
+"let g:terminal_color_foreground="#c1c6cf" "foreground
 
+if has("nvim")
+  au TermOpen * tnoremap <buffer> <Esc> <c-\><c-n>
+  au FileType fzf tunmap <buffer> <Esc>
+endif
+
+
+""""""""""""""""""""""""""""""""
+" indent
+""""""""""""""""""""""""""""""""
 let g:indent_guides_auto_colors = 1
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
