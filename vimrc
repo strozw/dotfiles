@@ -51,6 +51,8 @@ if !has('nvim')
 end
 
 " color
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'w0ng/vim-hybrid'
 Plug 'cocopon/iceberg.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'rakr/vim-one'
@@ -275,6 +277,8 @@ set hlsearch
 """"""""""""""""""""""""""""""""
 set background=dark
 "colorscheme onedark
+"colorscheme onehalfdark
+"colorscheme hybrid
 colorscheme iceberg
 let g:onedark_terminal_italics = 1
 
