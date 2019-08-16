@@ -4,12 +4,16 @@
   "typescript.suggest.autoImports": true,
   "typescript.validate.enable": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "typescript.format.insertSpaceAfterSemicolonInForStatements": false,
+  "typescript.preferences.noSemicolons": true,
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "javascript.format.insertSpaceAfterSemicolonInForStatements": false,
+  "javascript.preferences.noSemicolons": true,
   "javascript.validate.enable": true,
-  "diagnostic.displayByAle": true,
-  "diagnostic.refreshOnInsertMode": true,
-  "diagnostic.refreshAfterSave": true
+  "diagnostic.displayByAle": true
 }
 

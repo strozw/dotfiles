@@ -1,6 +1,7 @@
 """"""""""""""""""""""""""""""""
 " Init
 """"""""""""""""""""""""""""""""
+set shell=/bin/sh
 
 if !has('nvim')
   unlet! skip_defaults_vim
@@ -88,16 +89,6 @@ Plug 'szw/vim-tags'
 
 " lsp
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-emmet', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-sources', {'do': 'yarn install --frozen-lockfile'}
 
 " lsp structure
 Plug 'liuchengxu/vista.vim'
@@ -112,24 +103,19 @@ Plug 'tomtom/tcomment_vim'
 Plug 'Raimondi/delimitMate'
 
 " file types
-Plug 'othree/html5.vim'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'leafgarland/typescript-vim'
 Plug 'plasticboy/vim-markdown'
-Plug 'pangloss/vim-javascript'
-Plug 'cespare/vim-toml'
 
 " for js
-Plug 'maxmellon/vim-jsx-pretty', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'othree/yajs.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'othree/es.next.syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
 
 " for ts
 Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript'] }
 
 " for js, ts
 Plug 'styled-components/vim-styled-components', { 'branch': 'main', 'for': ['javascript', 'javascript.jsx', 'typescript'] }
+"Plug 'jason0x43/vim-js-indent', { 'for': ['javascript', 'javascript.jsx', 'typescript'] }
+Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx', 'typescript'] }
 
 " for ruby
 Plug 'vim-ruby/vim-ruby'
@@ -152,6 +138,9 @@ call plug#end()
 set tabstop=2
 set shiftwidth=2
 set expandtab
+set smartindent
+"set autoindent
+set signcolumn=yes
 
 " help言語の設定
 set helplang=ja,en
@@ -324,7 +313,7 @@ let g:ale_set_highlights = 1
 let g:ale_sign_error = "\uf05e"
 let g:ale_sign_warning = "\uf071"
 let g:ale_sign_info = "\uf7fc"
-"let g:ale_linters_ignore = {'typescript': ['eslint']}
+let g:ale_linters_ignore = {'typescript': ['tslint']}
 let g:ale_linter_aliases = {
 \ 'javascript.jsx': ['css', 'javascript.jsx'],
 \ 'typescript': ['css', 'typescript']
@@ -344,7 +333,7 @@ let g:ale_linters = {
 let g:ale_fixers = {
 \ 'javascript': ['eslint'],
 \ 'javascript.jsx': ['eslint'],
-\ 'typescript': ['tslint'],
+\ 'typescript': ['eslint'],
 \ 'ruby': ['rubocop'],
 \ 'css': ['stylelint'], 
 \ 'scss': ['stylelint'], 
@@ -465,7 +454,7 @@ call denite#custom#option('default', {
 """""""""""""""""""""""""""""""""
 "nnoremap <silent><C-p> :Files<CR>
 nnoremap <Leader>o :Files<CR>
-nnoremap <Leader>f :GFiles<CR>
+nnoremap <Leader>f :Files<CR>
 nnoremap <silent><C-;> :Buffers<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>l :BLines<CR>
@@ -717,3 +706,5 @@ let g:indent_guides_auto_colors = 1
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 
+"let g:typescript_indent_disable = 1
+let g:indent_guides_enable_on_vim_startup = 1
