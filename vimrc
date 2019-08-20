@@ -1,8 +1,6 @@
 """"""""""""""""""""""""""""""""
 " Init
 """"""""""""""""""""""""""""""""
-set shell=/bin/sh
-
 if !has('nvim')
   unlet! skip_defaults_vim
   source $VIMRUNTIME/defaults.vim
@@ -60,11 +58,11 @@ Plug 'rakr/vim-one'
 Plug 'nathanaelkane/vim-indent-guides'
 
 " linter
-Plug 'w0rp/ale'
+"Plug 'w0rp/ale'
 
 " status line
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
 
 " git
 Plug 'mhinz/vim-signify'
@@ -106,15 +104,15 @@ Plug 'Raimondi/delimitMate'
 Plug 'plasticboy/vim-markdown'
 
 " for js
-Plug 'othree/yajs.vim', { 'for': ['javascript', 'javascript.jsx'] }
+"Plug 'othree/yajs.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'othree/es.next.syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
 
 " for ts
-Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript'] }
+"Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript'] }
 
 " for js, ts
 Plug 'styled-components/vim-styled-components', { 'branch': 'main', 'for': ['javascript', 'javascript.jsx', 'typescript'] }
-"Plug 'jason0x43/vim-js-indent', { 'for': ['javascript', 'javascript.jsx', 'typescript'] }
+Plug 'jason0x43/vim-js-indent', { 'for': ['javascript', 'javascript.jsx', 'typescript'] }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx', 'typescript'] }
 
 " for ruby
@@ -139,8 +137,7 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 set smartindent
-"set autoindent
-set signcolumn=yes
+"set signcolumn=yes
 
 " help言語の設定
 set helplang=ja,en
@@ -295,35 +292,34 @@ let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
 let g:airline#extensions#ale#enabled = 1
 
-
 """"""""""""""""""""""""""""""""
 " ale
 """"""""""""""""""""""""""""""""
 
-let g:ale_sign_column_always = 1
-let g:ale_lint_on_enter = 1
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed = 0
-let g:ale_lint_on_insert_leave = 1
-let g:ale_cache_executable_check_failures = 1
-let g:ale_open_list = 0
-let g:ale_set_loclist = 1
-let g:ale_set_quickfix = 0
-let g:ale_set_highlights = 1
+"let g:ale_sign_column_always = 1
+"let g:ale_lint_on_enter = 1
+"let g:ale_lint_on_save = 1
+"let g:ale_lint_on_text_changed = 0
+"let g:ale_lint_on_insert_leave = 1
+"let g:ale_cache_executable_check_failures = 1
+"let g:ale_open_list = 1
+"let g:ale_set_loclist = 1
+"let g:ale_set_quickfix = 0
+"let g:ale_set_highlights = 1
 let g:ale_sign_error = "\uf05e"
 let g:ale_sign_warning = "\uf071"
 let g:ale_sign_info = "\uf7fc"
-let g:ale_linters_ignore = {'typescript': ['tslint']}
+let g:ale_linters_ignore = {'typescript': []}
 let g:ale_linter_aliases = {
 \ 'javascript.jsx': ['css', 'javascript.jsx'],
 \ 'typescript': ['css', 'typescript']
 \}
 
 let g:ale_linters = {
-\ 'javascript': ['eslint'],
-\ 'javascript.jsx': ['stylelint', 'eslint'],
-\ 'typescript': ['tsserver', 'typecheck', 'stylelint', 'tslint'],
-\ 'ruby': ['rubocop'], 
+\ 'javascript': [],
+\ 'javascript.jsx': [],
+\ 'typescript': [],
+\ 'ruby': [], 
 \ 'css': ['stylelint'], 
 \ 'scss': ['stylelint'], 
 \ 'sass': ['stylelint'], 
@@ -331,10 +327,10 @@ let g:ale_linters = {
 \}
 
 let g:ale_fixers = {
-\ 'javascript': ['eslint'],
-\ 'javascript.jsx': ['eslint'],
-\ 'typescript': ['eslint'],
-\ 'ruby': ['rubocop'],
+\ 'javascript': [],
+\ 'javascript.jsx': [],
+\ 'typescript': [],
+\ 'ruby': [],
 \ 'css': ['stylelint'], 
 \ 'scss': ['stylelint'], 
 \ 'sass': ['stylelint'], 
@@ -342,12 +338,12 @@ let g:ale_fixers = {
 \}
 
 " disable ale
-autocmd BufEnter *.min.* ALEDisable
-autocmd BufEnter */node_modules/* ALEDisable
-autocmd BufEnter */node_modules/* ALEDisable
-autocmd BufEnter */node_modules/* ALEDisable
-autocmd BufEnter */bundle/* ALEDisable
-autocmd BufEnter */.composer/* ALEDisable
+"autocmd BufEnter *.min.* ALEDisable
+"autocmd BufEnter */node_modules/* ALEDisable
+"autocmd BufEnter */node_modules/* ALEDisable
+"autocmd BufEnter */node_modules/* ALEDisable
+"autocmd BufEnter */bundle/* ALEDisable
+"autocmd BufEnter */.composer/* ALEDisable
 
 
 """"""""""""""""""""""""""""""""
@@ -553,7 +549,6 @@ nmap <silent> gr <Plug>(coc-references)
 " Remap for rename current word
 nmap <silent>cr <Plug>(coc-rename)
 
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
 xmap <silent>ca  <Plug>(coc-codeaction-selected)
 nmap <silent>ca  <Plug>(coc-codeaction-selected)
 
@@ -589,7 +584,9 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " Using CocList
 " Show all diagnostics
-nnoremap <silent> <space>ca  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <space>cd  :<C-u>CocList diagnostics<cr>
+" Show all actions
+nnoremap <silent> <space>ca  :<C-u>CocList actions<cr>
 " Manage extensions
 nnoremap <silent> <space>ce  :<C-u>CocList extensions<cr>
 " Show commands
@@ -705,6 +702,6 @@ endif
 let g:indent_guides_auto_colors = 1
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
+"let g:indent_guides_enable_on_vim_startup = 1
 
-"let g:typescript_indent_disable = 1
-let g:indent_guides_enable_on_vim_startup = 1
+let g:typescript_indent_disable = 1
