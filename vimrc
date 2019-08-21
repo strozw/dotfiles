@@ -1,6 +1,5 @@
 """"""""""""""""""""""""""""""""
-" Init
-""""""""""""""""""""""""""""""""
+" Init """"""""""""""""""""""""""""""""
 if !has('nvim')
   unlet! skip_defaults_vim
   source $VIMRUNTIME/defaults.vim
@@ -63,6 +62,9 @@ Plug 'nathanaelkane/vim-indent-guides'
 " status line
 "Plug 'vim-airline/vim-airline'
 "Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
+Plug 'hallzy/lightline-iceberg'
+Plug 'mengelbrecht/lightline-bufferline'
 
 " git
 Plug 'mhinz/vim-signify'
@@ -104,14 +106,14 @@ Plug 'Raimondi/delimitMate'
 Plug 'plasticboy/vim-markdown'
 
 " for js
-"Plug 'othree/yajs.vim', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'othree/yajs.vim'
 Plug 'othree/es.next.syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
 
 " for ts
-"Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript'] }
+Plug 'HerringtonDarkholme/yats.vim'
 
 " for js, ts
-Plug 'styled-components/vim-styled-components', { 'branch': 'main', 'for': ['javascript', 'javascript.jsx', 'typescript'] }
+" Plug 'styled-components/vim-styled-components', { 'branch': 'main', 'for': ['javascript', 'javascript.jsx', 'typescript'] }
 Plug 'jason0x43/vim-js-indent', { 'for': ['javascript', 'javascript.jsx', 'typescript'] }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx', 'typescript'] }
 
@@ -218,10 +220,10 @@ if !has('nvim')
 end
 
 " 描画最適化 ?
-"set synmaxcol=200
-"set lazyredraw
-"set ttyfast
-"set re=1
+set synmaxcol=320
+set lazyredraw
+set ttyfast
+set re=1
 
 " マウスの中央ボタンクリックによるクリップボードペースト動作を抑制する
 noremap <MiddleMouse> <Nop>
@@ -355,20 +357,20 @@ let mapleader = "\<Space>"
 " noh
 noremap <ESC><ESC> :noh<CR>
 
-" airline buffer
-nmap <C-p> <Plug>AirlineSelectPrevTab
-nmap <C-n> <Plug>AirlineSelectNextTab
-tmap <C-p> <Plug>AirlineSelectPrevTab
-tmap <C-n> <Plug>AirlineSelectNextTab
-nmap <space>1 <Plug>AirlineSelectTab1
-nmap <space>2 <Plug>AirlineSelectTab2
-nmap <space>3 <Plug>AirlineSelectTab3
-nmap <space>4 <Plug>AirlineSelectTab4
-nmap <space>5 <Plug>AirlineSelectTab5
-nmap <space>6 <Plug>AirlineSelectTab6
-nmap <space>7 <Plug>AirlineSelectTab7
-nmap <space>8 <Plug>AirlineSelectTab8
-nmap <space>9 <Plug>AirlineSelectTab9
+" buffer
+nmap <C-p> :bprevious!<CR>
+nmap <C-n> :bnext!<CR>
+tmap <C-p> :bprevious!<CR>
+tmap <C-n> :bnext!<CR>
+nmap <space>1 <Plug>lightline#bufferline#go(1)
+nmap <space>2 <Plug>lightline#bufferline#go(2)
+nmap <space>3 <Plug>lightline#bufferline#go(3)
+nmap <space>4 <Plug>lightline#bufferline#go(4)
+nmap <space>5 <Plug>lightline#bufferline#go(5)
+nmap <space>6 <Plug>lightline#bufferline#go(6)
+nmap <space>7 <Plug>lightline#bufferline#go(7)
+nmap <space>8 <Plug>lightline#bufferline#go(8)
+nmap <space>9 <Plug>lightline#bufferline#go(9)
 nmap <space>q :BD<CR>
 map <C-q> :BD<CR>
 
@@ -470,7 +472,7 @@ let g:fzf_buffers_jump = 1
 
 vmap <Leader>y "+y
 
-nnoremap <silent><F9> :TagbarToggle<CR>
+nnoremap <silent><F9> :Vista coc<CR>
 "autocmd FileType ruy,javascript,javascript.jsx nested :TagbarOpen
 
 
@@ -619,10 +621,10 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 """"""""""""""""""""""""""""""""
 " Vista
 """"""""""""""""""""""""""""""""
-nnoremap <silent><F8> :Vista!!<CR>
-nnoremap <Leader>vv :Vista!! finder<CR>
-nnoremap <Leader>vcc :Vista!! coc<CR>
-nnoremap <Leader>vcg :Vista!! ctags<CR>
+nnoremap <silent><F8> :Vista coc<CR>
+nnoremap <Leader>vv :Vista finder<CR>
+nnoremap <Leader>vcc :Vista coc<CR>
+nnoremap <Leader>vcg :Vista ctags<CR>
 
 """"""""""""""""""""""""""""""""
 " project local vimrc
@@ -705,3 +707,25 @@ let g:indent_guides_guide_size = 1
 "let g:indent_guides_enable_on_vim_startup = 1
 
 let g:typescript_indent_disable = 1
+
+""""""""""""""""""""""""""""""""
+" lightline
+""""""""""""""""""""""""""""""""
+
+set showtabline=2
+let g:lightline = {}
+let g:lightline.colorscheme = 'iceberg'
+let g:lightline.tabline = {'left': [['buffers']], 'right': [['close']]}
+let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+let g:lightline.component_type   = {'buffers': 'tabsel'}
+let g:lightline#bufferline#shorten_path = 1
+let g:lightline#bufferline#unnamed = '[No Name]'
+let g:lightline#bufferline#enable_devicons = 1
+let g:lightline#bufferline#show_number = 2
+autocmd BufWritePost,TextChanged,TextChangedI * call lightline#update()
+
+""""""""""""""""""""""""""""""""
+" styled components syntax workaround
+""""""""""""""""""""""""""""""""
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear

@@ -1,8 +1,8 @@
 {
   "diagnostic.enable": true,
   "diagnostic.checkCurrentLine": true,
-  "diagnostic.refreshAfterSave": false,
-  "diagnostic.refreshOnInsertMode": false,
+  "diagnostic.refreshAfterSave": true,
+  "diagnostic.refreshOnInsertMode": true,
   "diagnostic.displayByAle": false,
   "diagnostic.warningSign": "\uf071",
   "diagnostic.errorSign": "\uf05e",
