@@ -16,7 +16,6 @@ if &compatible
   set nocompatible
 endif
 
-
 """"""""""""""""""""""""""""""""
 " Plugins
 """"""""""""""""""""""""""""""""
@@ -52,6 +51,7 @@ end
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'w0ng/vim-hybrid'
 Plug 'cocopon/iceberg.vim'
+Plug 'gkeep/iceberg-dark'
 Plug 'joshdick/onedark.vim'
 Plug 'rakr/vim-one'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -88,7 +88,7 @@ Plug 'kristijanhusak/defx-git'
 Plug 'szw/vim-tags'
 
 " lsp
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 
 " lsp structure
 Plug 'liuchengxu/vista.vim'
@@ -113,7 +113,6 @@ Plug 'othree/es.next.syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'HerringtonDarkholme/yats.vim'
 
 " for js, ts
-" Plug 'styled-components/vim-styled-components', { 'branch': 'main', 'for': ['javascript', 'javascript.jsx', 'typescript'] }
 Plug 'jason0x43/vim-js-indent', { 'for': ['javascript', 'javascript.jsx', 'typescript'] }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx', 'typescript'] }
 
@@ -128,6 +127,9 @@ Plug 'ecomba/vim-ruby-refactoring', { 'for': ['ruby'] }
 
 " .local.vimrc 
 Plug 'thinca/vim-localrc'
+
+" http rest client
+Plug 'sharat87/roast.vim'
 
 call plug#end()
 
@@ -200,7 +202,7 @@ endif
 " Windowsのエディタの人達に嫌われない設定
 set nofixendofline
 " ○, △, □等の文字幅をASCII文字の倍にする
-"set ambiwidth=double
+" set ambiwidth=double
 " swapファイルはローカル作成がトラブル少なめ
 set directory-=.
 " 日本語の途中でも折り返す
@@ -283,7 +285,7 @@ au FileType ruby set foldmethod=manual
 """"""""""""""""""""""""""""""""
 " polyglot
 """"""""""""""""""""""""""""""""
-let g:polyglot_disabled = ['csv']
+let g:polyglot_disabled = ['csv', 'styled-components']
 
 """"""""""""""""""""""""""""""""
 " airline
@@ -295,19 +297,26 @@ let g:airline#extensions#whitespace#mixed_indent_algo = 1
 let g:airline#extensions#ale#enabled = 1
 
 """"""""""""""""""""""""""""""""
+" coc
+""""""""""""""""""""""""""""""""
+
+let g:coc_status_error_sign = "\uf05e"
+let g:coc_status_warning_sign = "\uf071"
+
+""""""""""""""""""""""""""""""""
 " ale
 """"""""""""""""""""""""""""""""
 
-"let g:ale_sign_column_always = 1
-"let g:ale_lint_on_enter = 1
-"let g:ale_lint_on_save = 1
-"let g:ale_lint_on_text_changed = 0
-"let g:ale_lint_on_insert_leave = 1
-"let g:ale_cache_executable_check_failures = 1
-"let g:ale_open_list = 1
-"let g:ale_set_loclist = 1
-"let g:ale_set_quickfix = 0
-"let g:ale_set_highlights = 1
+let g:ale_sign_column_always = 1
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_insert_leave = 1
+let g:ale_cache_executable_check_failures = 1
+let g:ale_open_list = 1
+let g:ale_set_loclist = 1
+let g:ale_set_quickfix = 0
+let g:ale_set_highlights = 1
 let g:ale_sign_error = "\uf05e"
 let g:ale_sign_warning = "\uf071"
 let g:ale_sign_info = "\uf7fc"
@@ -321,7 +330,7 @@ let g:ale_linters = {
 \ 'javascript': [],
 \ 'javascript.jsx': [],
 \ 'typescript': [],
-\ 'ruby': [], 
+\ 'ruby': ['rubocop'], 
 \ 'css': ['stylelint'], 
 \ 'scss': ['stylelint'], 
 \ 'sass': ['stylelint'], 
@@ -332,7 +341,7 @@ let g:ale_fixers = {
 \ 'javascript': [],
 \ 'javascript.jsx': [],
 \ 'typescript': [],
-\ 'ruby': [],
+\ 'ruby': ['rubocop'], 
 \ 'css': ['stylelint'], 
 \ 'scss': ['stylelint'], 
 \ 'sass': ['stylelint'], 
@@ -371,8 +380,8 @@ nmap <space>6 <Plug>lightline#bufferline#go(6)
 nmap <space>7 <Plug>lightline#bufferline#go(7)
 nmap <space>8 <Plug>lightline#bufferline#go(8)
 nmap <space>9 <Plug>lightline#bufferline#go(9)
-nmap <space>q :BD<CR>
-map <C-q> :BD<CR>
+nmap <space>q :bd<CR>
+map <C-q> :bd<CR>
 
 " fugitive 
 nmap gs :Gstatus<CR>
@@ -714,18 +723,33 @@ let g:typescript_indent_disable = 1
 
 set showtabline=2
 let g:lightline = {}
-let g:lightline.colorscheme = 'iceberg'
+" let g:lightline.colorscheme = 'iceberg'
+let g:lightline.colorscheme = 'icebergDark'
+"let g:lightline.separator = { 'left': "\ue0b8 ", 'right': "\ue0be " }
+"let g:lightline.subseparator = { 'left': "\ue0b9 ", 'right': "\ue0b9 " }
+" let g:lightline.separator = {'left': "\ue0b0", 'right': "\ue0b2"}
+" let g:lightline.subseparator = {'left': " \ue0b1", 'right': "\ue0b3 "}
 let g:lightline.tabline = {'left': [['buffers']], 'right': [['close']]}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
-let g:lightline.component_type   = {'buffers': 'tabsel'}
+let g:lightline.component_type = {'buffers': 'tabsel'}
 let g:lightline#bufferline#shorten_path = 1
 let g:lightline#bufferline#unnamed = '[No Name]'
 let g:lightline#bufferline#enable_devicons = 1
 let g:lightline#bufferline#show_number = 2
+let g:lightline.active = {
+\   'left': [
+\     [ 'mode', 'paste' ],
+\     [ 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified' ]
+\   ]
+\ }
+let g:lightline.component_function = {
+\   'cocstatus': 'coc#status',
+\   'currentfunction': 'CocCurrentFunction'
+\ }
 autocmd BufWritePost,TextChanged,TextChangedI * call lightline#update()
 
-""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""
 " styled components syntax workaround
 """"""""""""""""""""""""""""""""
-autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
-autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+"autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+"autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear

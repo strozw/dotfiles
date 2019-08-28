@@ -8,6 +8,7 @@ set -x EDITOR vim
 #######################################################
 # path
 #######################################################
+set -x PATH /usr/local/sbin $PATH
 set -x PATH /usr/local/opt/coreutils/libexec/gnubin $PATH
 set -x PATH ~/Library/Python/2.7/bin $PATH
 set -x PATH ~/Library/Python/3.7/bin $PATH
@@ -55,6 +56,7 @@ alias bat='bat --theme TwoDark'
 function fish_user_key_bindings
   bind \c_ 'fzf-ghq'
   bind \c^ 'fzf-z'
+  bind \cz 'fzf-z'
   #bind \cb 'fzf-git-checkout-branch'
 end
 
@@ -66,11 +68,11 @@ set -g theme_nerd_fonts yes
 set -x SPACEFISH_KUBECONTEXT_SHOW false
 set -x SPACEFISH_PACKAGE_SHOW false
 
-#set -x SPACEFISH_PROMPT_DEFAULT_PREFIX ''
-#set -x SPACEFISH_GIT_SYMBOL (printf '\ue702 ')
-#set -x SPACEFISH_RUBY_SYMBOL (printf '\Ue739')
-#set -x SPACEFISH_NODE_SYMBOL (printf '\ue718 ')
-#set -x SPACEFISH_DOCKER_SYMBOL (printf '\Ue7b0 ')
+set -x SPACEFISH_PROMPT_DEFAULT_PREFIX ''
+set -x SPACEFISH_GIT_SYMBOL (printf '\ue702 ')
+set -x SPACEFISH_RUBY_SYMBOL (printf '\Ue739')
+set -x SPACEFISH_NODE_SYMBOL (printf '\ue718 ')
+set -x SPACEFISH_DOCKER_SYMBOL (printf '\Ue7b0 ')
 
 
 
@@ -99,12 +101,13 @@ function _gen_fzf_default_opts
   set color0E '#c678dd'
   set color0F '#be5046'
 
-  set -x FZF_DEFAULT_OPTS "\
-    --layout=reverse \
-    --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D \
-    --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C \
-    --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D \
-  "
+  # set -x FZF_DEFAULT_OPTS "\
+  #   --layout=reverse \
+  #   --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D \
+  #   --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C \
+  #   --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D \
+  # "
+  set -x FZF_DEFAULT_OPTS "$FZF_DEFAULT_OPTS --color=bg+:#1e2132,bg:#161821,spinner:#84a0c6,hl:#6b7089,fg:#c6c8d1,header:#6b7089,info:#b4be82,pointer:#84a0c6,marker:#84a0c6,fg+:#c6c8d1,prompt:#84a0c6,hl+:#84a0c6"
 end
 
 _gen_fzf_default_opts
