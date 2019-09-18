@@ -1,4 +1,5 @@
 {
+  "coc.preferences.enableFloatHighlight": true,
   "signature.hideOnTextChange": true,
   "diagnostic.enable": true,
   "diagnostic.checkCurrentLine": true,
@@ -16,19 +17,24 @@
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "typescript.format.insertSpaceAfterSemicolonInForStatements": false,
-  "typescript.preferences.noSemicolons": true,
   "typescript.preferences.importModuleSpecifier": "auto",
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "javascript.format.insertSpaceAfterSemicolonInForStatements": false,
-  "javascript.preferences.noSemicolons": true,
   "javascript.preferences.importModuleSpecifier": "relative",
   "javascript.validate.enable": true,
   "solargraph.diagnostics": true,
   "solargraph.formatting": true,
   "solargraph.hover": true,
   "solargraph.completion": true,
-  "solargraph.bundlerPath": "bundle"
+  "solargraph.bundlerPath": "bundle",
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod"],
+      "filetypes": ["go"]
+    }
+  }
 }
 

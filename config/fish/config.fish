@@ -16,6 +16,9 @@ set -x PATH ~/go/bin $PATH
 set -x PATH ~/bin $PATH
 set -x MANPATH /usr/local/opt/coreutils/libexec/gnuman $MANPATH
 
+# golang
+set -x -U GOPATH $HOME/go
+
 # rust
 source $HOME/.cargo/env
 
@@ -61,18 +64,25 @@ function fish_user_key_bindings
 end
 
 #######################################################
+# starship
+#######################################################
+
+eval (starship init fish)
+
+
+#######################################################
 # spacefish
 #######################################################
 
-set -g theme_nerd_fonts yes
-set -x SPACEFISH_KUBECONTEXT_SHOW false
-set -x SPACEFISH_PACKAGE_SHOW false
-
-set -x SPACEFISH_PROMPT_DEFAULT_PREFIX ''
-set -x SPACEFISH_GIT_SYMBOL (printf '\ue702 ')
-set -x SPACEFISH_RUBY_SYMBOL (printf '\Ue739')
-set -x SPACEFISH_NODE_SYMBOL (printf '\ue718 ')
-set -x SPACEFISH_DOCKER_SYMBOL (printf '\Ue7b0 ')
+# set -g theme_nerd_fonts yes
+# set -x SPACEFISH_KUBECONTEXT_SHOW false
+# set -x SPACEFISH_PACKAGE_SHOW false
+# 
+# set -x SPACEFISH_PROMPT_DEFAULT_PREFIX ''
+# set -x SPACEFISH_GIT_SYMBOL (printf '\ue702 ')
+# set -x SPACEFISH_RUBY_SYMBOL (printf '\Ue739')
+# set -x SPACEFISH_NODE_SYMBOL (printf '\ue718 ')
+# set -x SPACEFISH_DOCKER_SYMBOL (printf '\Ue7b0 ')
 
 
 
