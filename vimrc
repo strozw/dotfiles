@@ -6,8 +6,8 @@ if !has('nvim')
   source $VIMRUNTIME/defaults.vim
 end
 
-scriptencoding utf-8
-set encoding=utf-8
+"scriptencoding utf-8
+"set encoding=utf-8
 
 if has('python3')
   silent! python3 1
@@ -120,7 +120,7 @@ if  v:true
   Plug 'dyng/ctrlsf.vim'
 
   " text operator
-  " Plug 'mattn/emmet-vim'
+  Plug 'mattn/emmet-vim'
   Plug 'tpope/vim-surround'
   Plug 'tomtom/tcomment_vim'
   Plug 'Raimondi/delimitMate'
@@ -192,7 +192,7 @@ set undofile
 set termguicolors
 
 " ファイルエンコーディング検出設定
-set fileencodings=utf-8,iso-2022-jp,cp932,euc-jp,sjis
+set fileencodings=utf-8,cp932,euc-jp,iso-20220-jp,default,latin
 
 " クリップボード
 set clipboard+=unnamed
@@ -264,9 +264,6 @@ noremap! <3-MiddleMouse> <Nop>
 noremap <4-MiddleMouse> <Nop>
 noremap! <4-MiddleMouse> <Nop>
 
-" ファイルエンコーディング検出設定
-set fileencodings=utf-8,iso-2022-jp,cp932,euc-jp,sjis
-
 " クリップボード
 set clipboard+=unnamed
 
@@ -312,8 +309,7 @@ au FileType ruby set foldmethod=manual
 """"""""""""""""""""""""""""""""
 " polyglot
 """"""""""""""""""""""""""""""""
-"let g:polyglot_disabled = ['csv', 'styled-components']
-let g:polyglot_disabled = ['csv']
+let g:polyglot_disabled = ['csv', 'styled-components']
 
 """"""""""""""""""""""""""""""""
 " airline
@@ -742,6 +738,7 @@ let g:indent_guides_auto_colors = 1
 let g:indent_guides_start_level = 1
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_exclude_filetypes = ['nerdtree', 'defx', 'fzf', 'help', 'jax']
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=black
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey
 

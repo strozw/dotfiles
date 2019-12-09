@@ -2,7 +2,7 @@ set -x LC_ALL ja_JP.UTF-8
 set -x LANG ja_JP.UTF-8
 set -x TERM xterm-256color
 set -x COLORTERM truecolor
-set -x EDITOR vim
+set -x EDITOR nvim
 #set -x SHELL /usr/local/bin/fish
 
 #######################################################
@@ -66,7 +66,6 @@ end
 #######################################################
 # starship
 #######################################################
-
 eval (starship init fish)
 
 

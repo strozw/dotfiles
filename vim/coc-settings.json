@@ -11,6 +11,7 @@
   "diagnostic.infoSign": "\uf7fc",
   "tsserver.enableJavascript": true,
   "tsserver.implicitProjectConfig.checkJs": true,
+  "tsserver.npm": "~/.anyenv/envs/nodenv/shims/npm",
   "typescript.suggest.autoImports": true,
   "typescript.validate.enable": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
@@ -29,12 +30,14 @@
   "solargraph.hover": true,
   "solargraph.completion": true,
   "solargraph.bundlerPath": "bundle",
+  "solargraph.useBundler": false,
   "languageserver": {
     "golang": {
       "command": "gopls",
       "rootPatterns": ["go.mod"],
       "filetypes": ["go"]
     }
-  }
+  },
+  "git.enableGutters": true
 }
 
