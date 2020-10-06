@@ -1,10 +1,17 @@
 {
-  "coc.preferences.enableFloatHighlight": true,
+  "coc.preferences.enableFloatHighlight": true, "languageserver": { "efm": {
+      "command": "efm-langserver",
+      "args": [],
+      "filetypes": ["go"]
+    }
+  },
+  "diagnostic.locationlist": false,
+  "go.enable": true,
+  "go.goplsOptions": {
+    "completeUnimported": true
+  },
   "signature.hideOnTextChange": true,
   "diagnostic.enable": true,
-  "diagnostic.checkCurrentLine": true,
-  "diagnostic.refreshAfterSave": true,
-  "diagnostic.refreshOnInsertMode": true,
   "diagnostic.displayByAle": false,
   "diagnostic.warningSign": "\uf071",
   "diagnostic.errorSign": "\uf05e",
@@ -25,19 +32,15 @@
   "javascript.format.insertSpaceAfterSemicolonInForStatements": false,
   "javascript.preferences.importModuleSpecifier": "relative",
   "javascript.validate.enable": true,
+  "eslint.run": "onType",
+  "stylelintplus.cssInJs": true,
   "solargraph.diagnostics": true,
   "solargraph.formatting": true,
   "solargraph.hover": true,
   "solargraph.completion": true,
   "solargraph.bundlerPath": "bundle",
   "solargraph.useBundler": false,
-  "languageserver": {
-    "golang": {
-      "command": "gopls",
-      "rootPatterns": ["go.mod"],
-      "filetypes": ["go"]
-    }
-  },
-  "git.enableGutters": true
+  "git.enableGutters": true,
+  "flow.enable": false
 }
 

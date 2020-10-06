@@ -2,18 +2,22 @@ set -x LC_ALL ja_JP.UTF-8
 set -x LANG ja_JP.UTF-8
 set -x TERM xterm-256color
 set -x COLORTERM truecolor
+set -x SHELL /usr/local/bin/fish
 set -x EDITOR nvim
+set -x NEXTWORD_DATA_PATH ~/share/nextword-data-large/
 #set -x SHELL /usr/local/bin/fish
 
 #######################################################
 # path
 #######################################################
-set -x PATH /usr/local/sbin $PATH
-set -x PATH /usr/local/opt/coreutils/libexec/gnubin $PATH
-set -x PATH ~/Library/Python/2.7/bin $PATH
-set -x PATH ~/Library/Python/3.7/bin $PATH
-set -x PATH ~/go/bin $PATH
-set -x PATH ~/bin $PATH
+set -g fish_user_paths /usr/local/bin $fish_user_paths
+set -g fish_user_paths /usr/local/sbin $fish_user_paths
+set -g fish_user_paths /usr/local/opt/coreutils/libexec/gnubin $fish_user_paths
+set -g fish_user_paths ~/Library/Python/2.7/bin $fish_user_paths
+set -g fish_user_paths ~/Library/Python/3.7/bin $fish_user_paths
+set -g fish_user_paths ~/go/bin $fish_user_paths
+set -g fish_user_paths ~/bin $fish_user_paths
+
 set -x MANPATH /usr/local/opt/coreutils/libexec/gnuman $MANPATH
 
 # golang
@@ -24,14 +28,16 @@ source $HOME/.cargo/env
 
 
 #set -x JAVA_HOME `/usr/libexec/java_home --version=1.8`
+set -g fish_user_paths "/usr/local/opt/imagemagick@6/bin" $fish_user_paths
+set -g fish_user_paths $HOME/.fzf/bin $fish_user_paths
 
 #######################################################
 # anyenv
 #######################################################
 
 # anyenv 
-set -x PATH $HOME/.anyenv/bin $PATH
-status --is-interactive; and source (anyenv init -|psub)
+set -g fish_user_paths $HOME/.anyenv/bin $fish_user_paths
+eval (anyenv init - | source)
 
 #######################################################
 # for Ruby puma thread
@@ -45,6 +51,7 @@ set -x OBJC_DISABLE_INITIALIZE_FORK_SAFETY YES
 alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
+alias rm='gomi'
 alias ls='gls -GAF --color=auto'
 #alias ll='ls -l'
 alias ll='exa -lgh --git'
@@ -58,6 +65,7 @@ alias bat='bat --theme TwoDark'
 
 function fish_user_key_bindings
   bind \c_ 'fzf-ghq'
+  bind \c\@ 'fzf-ghq'
   bind \c^ 'fzf-z'
   bind \cz 'fzf-z'
   #bind \cb 'fzf-git-checkout-branch'
@@ -66,7 +74,7 @@ end
 #######################################################
 # starship
 #######################################################
-eval (starship init fish)
+starship init fish | source
 
 
 #######################################################
@@ -122,7 +130,7 @@ end
 _gen_fzf_default_opts
 
 function fzf-git-checkout-branch -d "Fuzzy-find and checkout a branch"
-  git branch --all | grep -v HEAD | string trim | fzf | read -l result; and git checkout "$result"
+  git branch | grep -v HEAD | string trim | fzf | read -l result; and git checkout "$result"
   commandline -f repaint
 end
 
@@ -140,4 +148,3 @@ function fzf-z -d "Fuzzy-find z"
    z -tl | sort -nr | awk '{ print $2 }' | fzf | read -l result; and cd "$result"
   commandline -f repaint
 end
-set -g fish_user_paths "/usr/local/opt/imagemagick@6/bin" $fish_user_paths

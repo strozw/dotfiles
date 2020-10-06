@@ -1,16 +1,9 @@
-export LC_ALL=ja_JP.UTF-8
-export LANG=ja_JP.UTF-8
-export TERM=xterm-256color
-export COLORTERM="truecolor"
-
-
 #######################################################
-# PATH
+# User PATH
 #######################################################
 
-PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
-
+export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/.anyenv/bin:$PATH"
 eval "$(anyenv init -)"
 
@@ -18,13 +11,17 @@ eval "$(anyenv init -)"
 source $HOME/.cargo/env
 
 export JAVA_HOME=$(/usr/libexec/java_home --version=1.8)
+
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=/usr/local/opt/openssl@1.1"
+
 #######################################################
 # alias
 #######################################################
 
 alias cp='cp -i'
 alias mv='mv -i'
-alias rm='rm -i'
+# alias rm='rm -i'
+alias rm='gomi'
 alias ls='gls -GAF --color=auto'
 #alias ll='ls -l'
 alias ll='exa -lgh --git'
@@ -38,7 +35,6 @@ alias bat='bat --theme TwoDark'
 
 eval `dircolors -b`
 eval `dircolors ~/.ghq/github.com/seebi/dircolors-solarized/dircolors.ansi-dark`
-
 
 #######################################################
 # zplug 
@@ -68,7 +64,7 @@ zplug "ascii-soup/zsh-url-highlighter", defer:2
 
 # Theme
 zplug 'mafredri/zsh-async', from:github
-zplug 'sindresorhus/pure', use:pure.zsh, from:github, as:theme
+eval "$(starship init zsh)"
 
 #------------------------------------------------------
 # tools
@@ -119,40 +115,35 @@ fi
 zplug load
 
 #------------------------------------------------------
-# fzf
+# keymap
 #------------------------------------------------------
 
+# emacs mode
+# If bindkey is undefined and EDITOR enviroment is vim in zshrc or zprofile, key binding seems to be in vim mode in child process zsh.
+# ref: https://web-salad.hateblo.jp/entry/2014/12/07/090000
+bindkey -e
+
+#------------------------------------------------------
+# fzf
+#------------------------------------------------------
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Base16 OneDark
-# Author: Lalit Magant (http://github.com/tilal6991)
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+export FZF_LEGACY_KEYBINDINGS=1
 
 _gen_fzf_default_opts() {
+  export FZF_DEFAULT_OPTS="
+    --layout=reverse 
+  "
+  # export FZF_DEFAULT_OPTS="
+  #   $FZF_DEFAULT_OPTS
+  #   --layout=reverse 
+  #   --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D
+  #   --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C
+  #   --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D
+  # "
 
-local color00='#282c34'
-local color01='#353b45'
-local color02='#3e4451'
-local color03='#545862'
-local color04='#565c64'
-local color05='#abb2bf'
-local color06='#b6bdca'
-local color07='#c8ccd4'
-local color08='#e06c75'
-local color09='#d19a66'
-local color0A='#e5c07b'
-local color0B='#98c379'
-local color0C='#56b6c2'
-local color0D='#61afef'
-local color0E='#c678dd'
-local color0F='#be5046'
-
-export FZF_DEFAULT_OPTS="
-  --layout=reverse 
-  --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D
-  --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C
-  --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D
-"
-
+  # export FZF_DEFAULT_OPTS "$FZF_DEFAULT_OPTS --color=bg+:#1e2132,bg:#161821,spinner:#84a0c6,hl:#6b7089,fg:#c6c8d1,header:#6b7089,info:#b4be82,pointer:#84a0c6,marker:#84a0c6,fg+:#c6c8d1,prompt:#84a0c6,hl+:#84a0c6"
 }
 
 _gen_fzf_default_opts
@@ -170,7 +161,6 @@ function fzf-z () {
 zle -N fzf-z
 bindkey '^@' fzf-z
 
-
 function fzf-ghq () {
     cd $(ghq list -p | fzf)
 }
@@ -180,7 +170,6 @@ bindkey '^_' fzf-ghq
 # docker
 source ~/.ghq/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.zsh
 
-
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
 [[ -f /Users/satoruohzawa/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/satoruohzawa/node_modules/tabtab/.completions/serverless.zsh
@@ -189,4 +178,4 @@ source ~/.ghq/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.zsh
 [[ -f /Users/satoruohzawa/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/satoruohzawa/node_modules/tabtab/.completions/sls.zsh
 # tabtab source for slss package
 # uninstall by removing these lines or running `tabtab uninstall slss`
-[[ -f /Users/satoruohzawa/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/satoruohzawa/node_modules/tabtab/.completions/slss.zsh
+[[ -f /Users/satoruohzawa/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/satoruohzawa/node_modules/tabtab/.completions/slss.zshtest -e /Users/satoruohzawa/.iterm2_shell_integration.zsh && source /Users/satoruohzawa/.iterm2_shell_integration.zsh || true

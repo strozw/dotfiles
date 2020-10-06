@@ -43,119 +43,118 @@ if  v:true
   call plug#begin('~/.vim/plugged')
 
   " basic
-  Plug 'vim-jp/vimdoc-ja'
-  Plug 'tpope/vim-sensible'
-  Plug 'sheerun/vim-polyglot'
-  Plug 'editorconfig/editorconfig-vim'
-  Plug 'qpkorr/vim-bufkill'
-  Plug 'junegunn/goyo.vim'
+  " Plug 'vim-jp/vimdoc-ja'
+  " Plug 'tpope/vim-sensible'
+  " Plug 'sheerun/vim-polyglot'
+  " Plug 'editorconfig/editorconfig-vim'
+  " Plug 'qpkorr/vim-bufkill'
+  " Plug 'junegunn/goyo.vim'
 
   " font
-  Plug 'ryanoasis/vim-devicons'
+  " Plug 'ryanoasis/vim-devicons'
 
   " navigator
-  Plug 'tpope/vim-unimpaired'
-  Plug 'tmux-plugins/vim-tmux'
-  Plug 'christoomey/vim-tmux-navigator'
+  " Plug 'tpope/vim-unimpaired'
+  " Plug 'tmux-plugins/vim-tmux'
+  " Plug 'christoomey/vim-tmux-navigator'
 
   " window resizer
-  Plug 'simeji/winresizer'
+  " Plug 'simeji/winresizer'
 
   " neovim api polyfill
   if !has('nvim')
-    Plug 'roxma/nvim-yarp', { 'do': 'pip3 install --user pynvim' }
-    Plug 'roxma/vim-hug-neovim-rpc'
+    " Plug 'roxma/nvim-yarp', { 'do': 'pip3 install --user pynvim' }
+    " Plug 'roxma/vim-hug-neovim-rpc'
   end
 
   " color
-  Plug 'sonph/onehalf', { 'rtp': 'vim' }
-  Plug 'w0ng/vim-hybrid'
-  Plug 'KeitaNakamura/neodark.vim'
-  Plug 'cocopon/iceberg.vim'
-  Plug 'gkeep/iceberg-dark'
-  Plug 'joshdick/onedark.vim'
-  Plug 'rakr/vim-one'
-  Plug 'nathanaelkane/vim-indent-guides'
-  Plug 'luochen1990/rainbow'
+  " Plug 'sonph/onehalf', { 'rtp': 'vim' }
+  " Plug 'w0ng/vim-hybrid'
+  " Plug 'KeitaNakamura/neodark.vim'
+  " Plug 'cocopon/iceberg.vim'
+  " Plug 'gkeep/iceberg-dark'
+  " Plug 'joshdick/onedark.vim'
+  " Plug 'rakr/vim-one'
+  " Plug 'nathanaelkane/vim-indent-guides'
+  " Plug 'luochen1990/rainbow'
 
   " linter
   "Plug 'w0rp/ale'
 
   " status line
-  "Plug 'vim-airline/vim-airline'
-  "Plug 'vim-airline/vim-airline-themes'
-  Plug 'itchyny/lightline.vim'
-  Plug 'hallzy/lightline-iceberg'
-  Plug 'mengelbrecht/lightline-bufferline'
+  ""Plug 'vim-airline/vim-airline'
+  ""Plug 'vim-airline/vim-airline-themes'
+  " Plug 'itchyny/lightline.vim'
+  " Plug 'hallzy/lightline-iceberg'
+  " Plug 'mengelbrecht/lightline-bufferline'
 
   " git
-  Plug 'mhinz/vim-signify'
-  Plug 'tpope/vim-fugitive'
-  Plug 'tpope/vim-rhubarb'
-  Plug 'vim-scripts/git-commit'
-  Plug 'gregsexton/gitv'
-  Plug 'cohama/agit.vim'
-  Plug 'gregsexton/gitv'
-  Plug 'sjl/gundo.vim'
+  " Plug 'mhinz/vim-signify'
+  " Plug 'tpope/vim-fugitive'
+  " Plug 'tpope/vim-rhubarb'
+  " Plug 'vim-scripts/git-commit'
+  " Plug 'gregsexton/gitv'
+  " Plug 'cohama/agit.vim'
+  " Plug 'sjl/gundo.vim'
 
   " filer
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
-  Plug 'zackhsi/fzf-tags'
+  " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  " Plug 'junegunn/fzf.vim'
+  " Plug 'zackhsi/fzf-tags'
   "Plug 'Shougo/denite.nvim'
   "Plug 'Shougo/deol.nvim'
-  Plug 'Shougo/defx.nvim'
-  Plug 'kristijanhusak/defx-icons'
-  Plug 'kristijanhusak/defx-git'
+  " Plug 'Shougo/defx.nvim'
+  " Plug 'kristijanhusak/defx-icons'
+  " Plug 'kristijanhusak/defx-git'
 
-  Plug 'szw/vim-tags'
+  " Plug 'szw/vim-tags'
 
   " lsp
-  Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+  "Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 
   " lsp structure
-  Plug 'liuchengxu/vista.vim'
+  " Plug 'liuchengxu/vista.vim'
 
   " file replace
-  Plug 'dyng/ctrlsf.vim'
+  " Plug 'dyng/ctrlsf.vim'
 
   " text operator
-  Plug 'mattn/emmet-vim'
-  Plug 'tpope/vim-surround'
-  Plug 'tomtom/tcomment_vim'
-  Plug 'Raimondi/delimitMate'
+  " Plug 'mattn/emmet-vim'
+  " Plug 'tpope/vim-surround'
+  " Plug 'tomtom/tcomment_vim'
+  " Plug 'Raimondi/delimitMate'
 
   " file types
-  Plug 'plasticboy/vim-markdown'
+  " Plug 'plasticboy/vim-markdown'
   
   " for golang
-  Plug 'fatih/vim-go'
+  " Plug 'fatih/vim-go'
 
   " for js
   "Plug 'othree/yajs.vim'
-  Plug 'othree/es.next.syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
+  "Plug 'othree/es.next.syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
 
   " for ts
   "Plug 'HerringtonDarkholme/yats.vim'
 
   " for js, ts
-  Plug 'jason0x43/vim-js-indent', { 'for': ['javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'] }
-  Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'] }
+  " Plug 'jason0x43/vim-js-indent', { 'for': ['javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'] }
+  " Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'] }
 
   " for ruby
-  Plug 'vim-ruby/vim-ruby'
-  Plug 'tpope/vim-rbenv', { 'for': ['ruby'] }
-  Plug 'tpope/vim-bundler', { 'for': ['ruby'] }
-  Plug 'tpope/vim-rails', { 'for': ['ruby'] }
-  Plug 'tpope/vim-endwise', { 'for': ['ruby'] }
-  Plug 'ecomba/vim-ruby-refactoring', { 'for': ['ruby'] }
+  " Plug 'vim-ruby/vim-ruby'
+  " Plug 'tpope/vim-rbenv', { 'for': ['ruby'] }
+  " Plug 'tpope/vim-bundler', { 'for': ['ruby'] }
+  " Plug 'tpope/vim-rails', { 'for': ['ruby'] }
+  " Plug 'tpope/vim-endwise', { 'for': ['ruby'] }
+  " Plug 'ecomba/vim-ruby-refactoring', { 'for': ['ruby'] }
   "Plug 'vim-utils/vim-ruby-fold', { 'for': ['ruby'] }
 
   " .local.vimrc 
-  Plug 'thinca/vim-localrc'
+  " Plug 'thinca/vim-localrc'
 
   " http rest client
-  Plug 'sharat87/roast.vim'
+  " Plug 'sharat87/roast.vim'
 
   call plug#end()
 end
@@ -174,13 +173,15 @@ set smartindent
 set helplang=ja,en
 
 " スペルチェック
-set spell
+set nospell
 set spelllang+=cjk
 
 " 編集中のファイルが変更されたら自動で読み直す
 set autoread
+
 " バッファが編集中でもその他のファイルを開けるように
 set hidden
+
 " 入力中のコマンドをステータスに表示する
 set showcmd
 
@@ -416,52 +417,63 @@ nmap gb :Gblame<CR>
 """"""""""""""""""""""""""""""""
 " defx
 """""""""""""""""""""""""""""""
-nnoremap <silent><buffer><expr> <CR> defx#do_action('drop')
-autocmd FileType defx call s:defx_my_settings()
-function! s:defx_my_settings() abort
-  call defx#custom#column('icon', {
-  \ 'directory_icon': '▸',
-  \ 'opened_icon': '▾',
-  \ 'root_icon': ' ',
-  \ })
+" nnoremap <silent><buffer><expr> <CR> defx#do_action('drop')
+" autocmd FileType defx call s:defx_my_settings()
+" function! s:defx_my_settings() abort
+"   call defx#custom#column('icon', {
+"   \ 'directory_icon': '▸',
+"   \ 'opened_icon': '▾',
+"   \ 'root_icon': ' ',
+"   \ })
+"
+"   " Define mappings
+"   nnoremap <silent><buffer><expr> <CR> defx#do_action('drop')
+"   nnoremap <silent><buffer><expr> c defx#do_action('copy')
+"   nnoremap <silent><buffer><expr> m defx#do_action('move')
+"   nnoremap <silent><buffer><expr> p defx#do_action('paste')
+"   nnoremap <silent><buffer><expr> l defx#do_action('open_tree')
+"   nnoremap <silent><buffer><expr> h defx#do_action('close_tree')
+"   nnoremap <silent><buffer><expr> L defx#do_action('open')
+"   nnoremap <silent><buffer><expr> H defx#do_action('cd', ['..'])
+"   nnoremap <silent><buffer><expr> E defx#do_action('open', 'vsplit')
+"   nnoremap <silent><buffer><expr> P defx#do_action('open', 'pedit')
+"   nnoremap <silent><buffer><expr> o defx#do_action('open_or_close_tree')
+"   nnoremap <silent><buffer><expr> K defx#do_action('new_directory')
+"   nnoremap <silent><buffer><expr> N defx#do_action('new_file')
+"   nnoremap <silent><buffer><expr> M defx#do_action('new_multiple_files')
+"   nnoremap <silent><buffer><expr> C defx#do_action('toggle_columns', 'mark:indent:icon:filename:type:size:time')
+"   nnoremap <silent><buffer><expr> S defx#do_action('toggle_sort', 'time')
+"   nnoremap <silent><buffer><expr> d defx#do_action('remove_trash')
+"   nnoremap <silent><buffer><expr> r defx#do_action('rename')
+"   nnoremap <silent><buffer><expr> ! defx#do_action('execute_command')
+"   nnoremap <silent><buffer><expr> x defx#do_action('execute_system')
+"   nnoremap <silent><buffer><expr> yy defx#do_action('yank_path')
+"   nnoremap <silent><buffer><expr> . defx#do_action('toggle_ignored_files')
+"   nnoremap <silent><buffer><expr> ; defx#do_action('repeat')
+"   nnoremap <silent><buffer><expr> ~ defx#do_action('cd')
+"   nnoremap <silent><buffer><expr> q defx#do_action('quit')
+"   nnoremap <silent><buffer><expr> <Space> defx#do_action('toggle_select') . 'j'
+"   nnoremap <silent><buffer><expr> * defx#do_action('toggle_select_all')
+"   nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
+"   nnoremap <silent><buffer><expr> k line('.') == 1 ? 'G' : 'k'
+"   nnoremap <silent><buffer><expr> R defx#do_action('redraw')
+"   nnoremap <silent><buffer><expr> <C-g> defx#do_action('print')
+"   nnoremap <silent><buffer><expr> cd defx#do_action('change_vim_cwd')
+" endfunction
 
-  " Define mappings
-  nnoremap <silent><buffer><expr> <CR> defx#do_action('drop')
-  nnoremap <silent><buffer><expr> c defx#do_action('copy')
-  nnoremap <silent><buffer><expr> m defx#do_action('move')
-  nnoremap <silent><buffer><expr> p defx#do_action('paste')
-  nnoremap <silent><buffer><expr> l defx#do_action('open_tree')
-  nnoremap <silent><buffer><expr> h defx#do_action('close_tree')
-  nnoremap <silent><buffer><expr> L defx#do_action('open')
-  nnoremap <silent><buffer><expr> H defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr> E defx#do_action('open', 'vsplit')
-  nnoremap <silent><buffer><expr> P defx#do_action('open', 'pedit')
-  nnoremap <silent><buffer><expr> o defx#do_action('open_or_close_tree')
-  nnoremap <silent><buffer><expr> K defx#do_action('new_directory')
-  nnoremap <silent><buffer><expr> N defx#do_action('new_file')
-  nnoremap <silent><buffer><expr> M defx#do_action('new_multiple_files')
-  nnoremap <silent><buffer><expr> C defx#do_action('toggle_columns', 'mark:indent:icon:filename:type:size:time')
-  nnoremap <silent><buffer><expr> S defx#do_action('toggle_sort', 'time')
-  nnoremap <silent><buffer><expr> d defx#do_action('remove_trash')
-  nnoremap <silent><buffer><expr> r defx#do_action('rename')
-  nnoremap <silent><buffer><expr> ! defx#do_action('execute_command')
-  nnoremap <silent><buffer><expr> x defx#do_action('execute_system')
-  nnoremap <silent><buffer><expr> yy defx#do_action('yank_path')
-  nnoremap <silent><buffer><expr> . defx#do_action('toggle_ignored_files')
-  nnoremap <silent><buffer><expr> ; defx#do_action('repeat')
-  nnoremap <silent><buffer><expr> ~ defx#do_action('cd')
-  nnoremap <silent><buffer><expr> q defx#do_action('quit')
-  nnoremap <silent><buffer><expr> <Space> defx#do_action('toggle_select') . 'j'
-  nnoremap <silent><buffer><expr> * defx#do_action('toggle_select_all')
-  nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
-  nnoremap <silent><buffer><expr> k line('.') == 1 ? 'G' : 'k'
-  nnoremap <silent><buffer><expr> R defx#do_action('redraw')
-  nnoremap <silent><buffer><expr> <C-g> defx#do_action('print')
-  nnoremap <silent><buffer><expr> cd defx#do_action('change_vim_cwd')
-endfunction
+" nnoremap <silent><F2> :Defx -split=vertical -winwidth=50 -direction=topleft -toggle -columns=git:icons:mark:indent:filename:type<CR>
+" nnoremap <Leader>sf :Defx -split=vertical -winwidth=50 -direction=topleft -columns=git:icons:mark:indent:filename:type -search=`expand('%:p')`<CR>
 
-nnoremap <silent><F2> :Defx -split=vertical -winwidth=50 -direction=topleft -toggle -columns=git:icons:mark:indent:filename:type<CR>
-nnoremap <Leader>sf :Defx -split=vertical -winwidth=50 -direction=topleft -columns=git:icons:mark:indent:filename:type -search=`expand('%:p')`<CR>
+"""""""""""""""""""""""""""""""""
+" coc explorer
+"""""""""""""""""""""""""""""""""
+
+" nnoremap <silent><F2> :CocCommand explorer --toggle<CR>
+" nnoremap <Leader>sf :CocCommand explorer --reveal `expand('%:p')`<CR>
+
+
+nnoremap <silent><F2> :Fern . -drawer -toggle -width=50<CR>
+nnoremap <Leader>sf :Fern . -drawer -width=50 -reveal=%<CR>
 
 """""""""""""""""""""""""""""""""
 " Denite
@@ -484,7 +496,6 @@ nnoremap <Leader>sf :Defx -split=vertical -winwidth=50 -direction=topleft -colum
 "nnoremap <silent><C-p> :Files<CR>
 nnoremap <Leader>o :Files<CR>
 nnoremap <Leader>f :Files<CR>
-nnoremap <silent><C-;> :Buffers<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>l :BLines<CR>
 nnoremap <Leader>gf :GFiles<CR>
@@ -553,7 +564,10 @@ let g:gundo_prefer_python3 = 1
 let g:vim_markdown_folding_disabled = 1
 let g:indent_guides_start_level = 1
 autocmd Filetype json setl conceallevel=0
-autocmd Filetype markdown setl conceallevel=0
+""""""""""""""""""""""""""""""""
+" for json
+""""""""""""""""""""""""""""""""
+let g:vim_json_syntax_conceal = 0
 
 """"""""""""""""""""""""""""""""
 " signify
@@ -738,7 +752,7 @@ let g:indent_guides_auto_colors = 1
 let g:indent_guides_start_level = 1
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_exclude_filetypes = ['nerdtree', 'defx', 'fzf', 'help', 'jax']
+let g:indent_guides_exclude_filetypes = ['nerdtree', 'defx', 'fzf', 'help', 'jax', 'coc-explorer']
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=black
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey
 
@@ -796,3 +810,13 @@ autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 """"""""""""""""""""""""""""""""
 autocmd BufEnter *.{js,jsx,ts,typescript.tsx} :syntax sync fromstart
 autocmd BufLeave *.{js,jsx,ts,typescript.tsx} :syntax sync clear
+
+
+"""""""""""""""""""""""""""""""
+" vim-mergetool
+"""""""""""""""""""""""""""""""
+
+let g:mergetool_layout = 'lmr'
+let g:mergetool_prefer_revision = 'local'
+
+let g:clap_theme = 'iceberg'

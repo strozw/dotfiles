@@ -22,7 +22,7 @@ set status-show-untracked-files = yes
 
 set diff-view = line-number:display=yes text:commit-title-overflow=true
 
-#set mouse = true
+set mouse = no
 
 ################################################
 # color 設定
@@ -52,5 +52,10 @@ bind generic <Ctrl-F> move-page-down
 # 現在コミットより後を git rebase -i する
 bind main <Ctrl-R> !git rebase -i %(commit)
 bind diff <Ctrl-R> !git rebase -i %(commit)
-bind generic <Ctrl-Y> @sh -c "echo %(commit) | pbcopy"
 
+# commit id を clipboard にコピー
+bind main <Ctrl-Y> !@sh -c "cut -c-7 <<<%(commit) | xargs echo -n | pbcopy"
+
+# view-status にて指定ファイルを削除
+bind status <Ctrl-D> !@?rm %(file)
+bind status <Ctrl-Y> !@sh -c "echo %(file) | pbcopy"

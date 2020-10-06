@@ -1,0 +1,198 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+'vim-jp/vimdoc-ja'
+
+[[plugins]]
+'tpope/vim-sensible'
+
+[[plugins]]
+'sheerun/vim-polyglot'
+
+[[plugins]]
+'editorconfig/editorconfig-vim'
+
+[[plugins]]
+'qpkorr/vim-bufkill'
+
+[[plugins]]
+'junegunn/goyo.vim'
+
+[[plugins]]
+'ryanoasis/vim-devicons'
+
+[[plugins]]
+'tpope/vim-unimpaired'
+
+[[plugins]]
+'tmux-plugins/vim-tmux'
+
+[[plugins]]
+'christoomey/vim-tmux-navigator'
+
+[[plugins]]
+'simeji/winresizer'
+
+if !has('nvim')
+  [[plugins]]
+  'roxma/nvim-yarp', { 'do': 'pip3 install --user pynvim' }
+
+  [[plugins]]
+  'roxma/vim-hug-neovim-rpc'
+end
+
+[[plugins]]
+'sonph/onehalf', { 'rtp': 'vim' }
+
+[[plugins]]
+'w0ng/vim-hybrid'
+
+[[plugins]]
+'cocopon/iceberg.vim'
+
+[[plugins]]
+'cocopon/iceberg.vim'
+
+[[plugins]]
+'gkeep/iceberg-dark'
+
+[[plugins]]
+'joshdick/onedark.vim'
+
+[[plugins]]
+'rakr/vim-one'
+
+[[plugins]]
+'nathanaelkane/vim-indent-guides'
+
+[[plugins]]
+"'w0rp/ale'
+
+" [[plugins]]
+"'vim-airline/vim-airline'
+" [[plugins]]
+"'vim-airline/vim-airline-themes'
+
+[[plugins]]
+'itchyny/lightline.vim'
+
+[[plugins]]
+'hallzy/lightline-iceberg'
+
+[[plugins]]
+'mengelbrecht/lightline-bufferline'
+
+[[plugins]]
+'mhinz/vim-signify'
+
+[[plugins]]
+'tpope/vim-fugitive'
+
+[[plugins]]
+'tpope/vim-rhubarb'
+
+[[plugins]]
+'vim-scripts/git-commit'
+
+[[plugins]]
+'gregsexton/gitv'
+
+[[plugins]]
+'cohama/agit.vim'
+
+[[plugins]]
+'gregsexton/gitv'
+
+[[plugins]]
+'sjl/gundo.vim'
+
+[[plugins]]
+'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+[[plugins]]
+'junegunn/fzf.vim'
+
+[[plugins]]
+'Shougo/denite.nvim'
+
+[[plugins]]
+"'Shougo/deol.nvim'
+
+[[plugins]]
+'Shougo/defx.nvim'
+
+[[plugins]]
+'kristijanhusak/defx-icons'
+
+[[plugins]]
+'kristijanhusak/defx-git'
+
+
+[[plugins]]
+'szw/vim-tags'
+
+[[plugins]]
+'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+
+[[plugins]]
+'liuchengxu/vista.vim'
+
+[[plugins]]
+'dyng/ctrlsf.vim'
+
+" 'mattn/emmet-vim'
+
+[[plugins]]
+'tpope/vim-surround'
+
+[[plugins]]
+'tomtom/tcomment_vim'
+
+[[plugins]]
+'Raimondi/delimitMate'
+
+[[plugins]]
+'plasticboy/vim-markdown'
+
+[[plugins]]
+o'othree/yajs.vim'
+
+[[plugins]]
+'othree/es.next.syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
+
+[[plugins]]
+'HerringtonDarkholme/yats.vim'
+
+[[plugins]]
+'jason0x43/vim-js-indent', { 'for': ['javascript', 'javascript.jsx', 'typescript'] }
+
+[[plugins]]
+'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx', 'typescript'] }
+
+[[plugins]]
+'vim-ruby/vim-ruby'
+
+[[plugins]]
+'tpope/vim-rbenv', { 'for': ['ruby'] }
+
+[[plugins]]
+'tpope/vim-bundler', { 'for': ['ruby'] }
+
+[[plugins]]
+'tpope/vim-rails', { 'for': ['ruby'] }
+
+[[plugins]]
+'tpope/vim-endwise', { 'for': ['ruby'] }
+
+[[plugins]]
+'ecomba/vim-ruby-refactoring', { 'for': ['ruby'] }
+
+[[plugins]]
+"'vim-utils/vim-ruby-fold', { 'for': ['ruby'] }
+
+[[plugins]]
+'thinca/vim-localrc'
+
+[[plugins]]
+'sharat87/roast.vim'
