@@ -179,3 +179,5 @@ source ~/.ghq/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.zsh
 # tabtab source for slss package
 # uninstall by removing these lines or running `tabtab uninstall slss`
 [[ -f /Users/satoruohzawa/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/satoruohzawa/node_modules/tabtab/.completions/slss.zshtest -e /Users/satoruohzawa/.iterm2_shell_integration.zsh && source /Users/satoruohzawa/.iterm2_shell_integration.zsh || true
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/bitcomplete bit

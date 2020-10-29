@@ -1,11 +1,23 @@
 {
-  "coc.preferences.enableFloatHighlight": true, "languageserver": { "efm": {
+  // "coc.preferences.formatOnSaveFiletypes": [
+  //   "json",
+  //   "css",
+  //   "html",
+  //   "markdown",
+  //   "markdown.mdx",
+  //   "javascript",
+  //   "javascriptreact",
+  //   "typescript",
+  //   "typescriptreact"
+  // ],
+  "coc.preferences.enableFloatHighlight": true,
+  "languageserver": {
+    "efm": {
       "command": "efm-langserver",
       "args": [],
       "filetypes": ["go"]
     }
   },
-  "diagnostic.locationlist": false,
   "go.enable": true,
   "go.goplsOptions": {
     "completeUnimported": true
@@ -43,4 +55,3 @@
   "git.enableGutters": true,
   "flow.enable": false
 }
-

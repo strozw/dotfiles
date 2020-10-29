@@ -10,33 +10,33 @@ set -x NEXTWORD_DATA_PATH ~/share/nextword-data-large/
 #######################################################
 # path
 #######################################################
-set -g fish_user_paths /usr/local/bin $fish_user_paths
-set -g fish_user_paths /usr/local/sbin $fish_user_paths
-set -g fish_user_paths /usr/local/opt/coreutils/libexec/gnubin $fish_user_paths
-set -g fish_user_paths ~/Library/Python/2.7/bin $fish_user_paths
-set -g fish_user_paths ~/Library/Python/3.7/bin $fish_user_paths
-set -g fish_user_paths ~/go/bin $fish_user_paths
-set -g fish_user_paths ~/bin $fish_user_paths
+set -g PATH /usr/local/bin $PATH
+set -g PATH /usr/local/sbin $PATH
+set -g PATH /usr/local/opt/coreutils/libexec/gnubin $PATH
+set -g PATH ~/Library/Python/2.7/bin $PATH
+set -g PATH ~/Library/Python/3.7/bin $PATH
+set -g PATH ~/go/bin $PATH
+set -g PATH ~/bin $PATH
 
 set -x MANPATH /usr/local/opt/coreutils/libexec/gnuman $MANPATH
 
 # golang
-set -x -U GOPATH $HOME/go
+set -x GOPATH $HOME/go
 
 # rust
 source $HOME/.cargo/env
 
 
 #set -x JAVA_HOME `/usr/libexec/java_home --version=1.8`
-set -g fish_user_paths "/usr/local/opt/imagemagick@6/bin" $fish_user_paths
-set -g fish_user_paths $HOME/.fzf/bin $fish_user_paths
+set -g PATH "/usr/local/opt/imagemagick@6/bin" $PATH
+set -g PATH $HOME/.fzf/bin $PATH
 
 #######################################################
 # anyenv
 #######################################################
 
 # anyenv 
-set -g fish_user_paths $HOME/.anyenv/bin $fish_user_paths
+set -g PATH $HOME/.anyenv/bin $PATH
 eval (anyenv init - | source)
 
 #######################################################

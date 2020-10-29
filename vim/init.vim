@@ -10,7 +10,8 @@ endif
 "
 " ----{{{----------------------------------------------------------------------------
 
-let g:polyglot_disabled = ['csv', 'styled-components']
+" let g:polyglot_disabled = ['csv', 'styled-components']
+let g:polyglot_disabled = ['csv']
 
 " }}}================================================================================
 " 2. ains
@@ -40,9 +41,8 @@ Plug 'lambdalisue/edita.vim'
 Plug 'skanehira/vsession'
 
 " coc
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-" Plug 'dsznajder/vscode-es7-javascript-react-snippets'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 " scratch code 
 Plug 'metakirby5/codi.vim'
@@ -68,8 +68,10 @@ Plug 'lambdalisue/nerdfont.vim'
 Plug 'lambdalisue/glyph-palette.vim'
 
 " color
+" Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'cocopon/iceberg.vim'
 Plug 'gkeep/iceberg-dark'
+Plug 'ghifarit53/tokyonight-vim'
 
 " buffer
 Plug 'qpkorr/vim-bufkill'
@@ -110,6 +112,11 @@ Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'lambdalisue/fern-mapping-project-top.vim'
 Plug 'lambdalisue/fern-bookmark.vim'
+Plug 'lambdalisue/fern-git-status.vim'
+Plug 'lambdalisue/fern-mapping-git.vim'
+
+" spel check
+Plug 'kamykn/spelunker.vim'
 
 " tag outline
 Plug 'liuchengxu/vista.vim'
@@ -136,6 +143,7 @@ Plug 'sharat87/roast.vim'
 Plug 'previm/previm'
 Plug 'tyru/open-browser.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'godlygeek/tabular'
 
 call plug#end()
 
@@ -221,7 +229,15 @@ noremap! <4-MiddleMouse> <Nop>
 
 set termguicolors
 set background=dark
-colorscheme iceberg
+" colorscheme iceberg
+
+" let g:tokyonight_style = 'night' " available: night, storm
+let g:tokyonight_style = 'night' " available: night, storm
+let g:tokyonight_transparent_background = 1
+let g:tokyonight_disable_italic_comment = 1
+let g:tokyonight_enable_italic = 0
+
+colorscheme tokyonight
 
 " }}}================================================================================
 " 
@@ -272,6 +288,14 @@ let g:startify_change_to_vcs_root = 1
 " ----{{{----------------------------------------------------------------------------
 
 let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+" ----}}}----------------------------------------------------------------------------
+"
+" 	  fzf-preview
+"
+" ----{{{----------------------------------------------------------------------------
+
+let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading --color=never'
 
 " ----}}}----------------------------------------------------------------------------
 "
@@ -384,6 +408,8 @@ let g:lightline = {
 \   }
 \ }
 
+let g:lightline['colorscheme'] = 'tokyonight'
+
 autocmd BufWritePost,TextChanged,TextChangedI * call lightline#update()
 
 " ----}}}----------------------------------------------------------------------------
@@ -412,9 +438,9 @@ let g:rainbow_active = 0
 
 let g:coc_status_error_sign = "\uf05e"
 let g:coc_status_warning_sign = "\uf071"
-let g:coc_filetype_map = {
-\ 'markdown.mdx': 'javascriptreact',
-\ }
+" let g:coc_filetype_map = {
+" \ 'markdown.mdx': 'javascriptreact',
+" \ }
 
 " ----}}}----------------------------------------------------------------------------
 "
@@ -424,6 +450,7 @@ let g:coc_filetype_map = {
 
 let g:fern#renderer = "nerdfont"
 let g:fern#default_hidden = 1
+let g:fern#default_exclude = '^\%(\.git\|\.DS_Store\)$'
 
 augroup my-glyph-palette
   autocmd! *
@@ -431,6 +458,84 @@ augroup my-glyph-palette
 augroup END
 
 " ----}}}----------------------------------------------------------------------------
+"
+" 		spelunker
+"
+" ----{{{----------------------------------------------------------------------------
+
+" Enable spelunker.vim. (default: 1)
+" 1: enable
+" 0: disable
+let g:enable_spelunker_vim = 1
+
+" Enable spelunker.vim on readonly files or buffer. (default: 0)
+" 1: enable
+" 0: disable
+let g:enable_spelunker_vim_on_readonly = 0
+
+" Check spelling for words longer than set characters. (default: 4)
+let g:spelunker_target_min_char_len = 4
+
+" Max amount of word suggestions. (default: 15)
+let g:spelunker_max_suggest_words = 15
+
+" Max amount of highlighted words in buffer. (default: 100)
+let g:spelunker_max_hi_words_each_buf = 100
+
+" Spellcheck type: (default: 1)
+" 1: File is checked for spelling mistakes when opening and saving. This
+" may take a bit of time on large files.
+" 2: Spellcheck displayed words in buffer. Fast and dynamic. The waiting time
+" depends on the setting of CursorHold `set updatetime=1000`.
+let g:spelunker_check_type = 1
+
+" Highlight type: (default: 1)
+" 1: Highlight all types (SpellBad, SpellCap, SpellRare, SpellLocal).
+" 2: Highlight only SpellBad.
+" FYI: https://vim-jp.org/vimdoc-en/spell.html#spell-quickstart
+let g:spelunker_highlight_type = 1
+
+" Option to disable word checking.
+" Disable URI checking. (default: 0)
+let g:spelunker_disable_uri_checking = 1
+
+" Disable email-like words checking. (default: 0)
+let g:spelunker_disable_email_checking = 1
+
+" Disable account name checking, e.g. @foobar, foobar@. (default: 0)
+" NOTE: Spell checking is also disabled for JAVA annotations.
+let g:spelunker_disable_account_name_checking = 1
+
+" Disable acronym checking. (default: 0)
+let g:spelunker_disable_acronym_checking = 1
+
+" Disable checking words in backtick/backquote. (default: 0)
+let g:spelunker_disable_backquoted_checking = 1
+
+" Disable default autogroup. (default: 0)
+let g:spelunker_disable_auto_group = 1
+
+" Create own custom autogroup to enable spelunker.vim for specific filetypes.
+augroup spelunker
+  autocmd!
+  " Setting for g:spelunker_check_type = 1:
+  autocmd BufWinEnter,BufWritePost *.vim,*.js,*.jsx,*.json,*.md call spelunker#check()
+
+  " Setting for g:spelunker_check_type = 2:
+  autocmd CursorHold *.vim,*.js,*.jsx,*.json,*.md call spelunker#check_displayed_words()
+augroup END
+
+" Override highlight group name of incorrectly spelled words. (default:
+" 'SpelunkerSpellBad')
+let g:spelunker_spell_bad_group = 'SpelunkerSpellBad'
+
+" Override highlight group name of complex or compound words. (default:
+" 'SpelunkerComplexOrCompoundWord')
+let g:spelunker_complex_or_compound_word_group = 'SpelunkerComplexOrCompoundWord'
+
+" Override highlight setting.
+highlight SpelunkerSpellBad cterm=underline ctermfg=247 gui=underline guifg=#9e9e9e
+highlight SpelunkerComplexOrCompoundWord cterm=underline ctermfg=NONE gui=underline guifg=NONE
 
 " }}}================================================================================
 "
@@ -623,6 +728,32 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 """""""""""""""""""""""""""""""
 " coc
 """""""""""""""""""""""""""""""
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[c` and `]c` to navigate diagnostics
 nmap <silent> [d <Plug>(coc-diagnostic-prev)
