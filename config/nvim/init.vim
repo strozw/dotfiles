@@ -10,8 +10,8 @@ endif
 "
 " ----{{{----------------------------------------------------------------------------
 
-" let g:polyglot_disabled = ['csv', 'styled-components']
-let g:polyglot_disabled = ['csv']
+let g:polyglot_disabled = ['csv', 'styled-components']
+" let g:polyglot_disabled = ['csv']
 
 " }}}================================================================================
 " 2. ains
@@ -281,6 +281,7 @@ let g:startify_custom_header = map(s:startify_ascii_header +
 
 let g:startify_change_to_vcs_root = 1
 
+
 " ----}}}----------------------------------------------------------------------------
 "
 " 	  fzf
@@ -436,6 +437,7 @@ let g:rainbow_active = 0
 "
 " ----{{{----------------------------------------------------------------------------
 
+let g:coc_auto_copen = 0
 let g:coc_status_error_sign = "\uf05e"
 let g:coc_status_warning_sign = "\uf071"
 " let g:coc_filetype_map = {

@@ -34,7 +34,7 @@ alias bat='bat --theme TwoDark'
 #######################################################
 
 eval `dircolors -b`
-eval `dircolors ~/.ghq/github.com/seebi/dircolors-solarized/dircolors.ansi-dark`
+eval `dircolors ~/ghq/github.com/seebi/dircolors-solarized/dircolors.ansi-dark`
 
 #######################################################
 # zplug 
@@ -161,14 +161,17 @@ function fzf-z () {
 zle -N fzf-z
 bindkey '^@' fzf-z
 
+# ghq
 function fzf-ghq () {
-    cd $(ghq list -p | fzf)
+	cd $(ghq list -p | fzf)
+	zle accept-line
+	zle clear-screen
 }
 zle -N fzf-ghq
 bindkey '^_' fzf-ghq
 
 # docker
-source ~/.ghq/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.zsh
+source ~/ghq/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.zsh
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
@@ -181,3 +184,5 @@ source ~/.ghq/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.zsh
 [[ -f /Users/satoruohzawa/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/satoruohzawa/node_modules/tabtab/.completions/slss.zshtest -e /Users/satoruohzawa/.iterm2_shell_integration.zsh && source /Users/satoruohzawa/.iterm2_shell_integration.zsh || true
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/bitcomplete bit
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"

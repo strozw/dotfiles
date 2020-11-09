@@ -148,3 +148,5 @@ function fzf-z -d "Fuzzy-find z"
    z -tl | sort -nr | awk '{ print $2 }' | fzf | read -l result; and cd "$result"
   commandline -f repaint
 end
+set -gx VOLTA_HOME "$HOME/.volta"
+set -gx PATH "$VOLTA_HOME/bin" $PATH
