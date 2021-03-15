@@ -1,4 +1,4 @@
-"ttps://github.com/prabirshrestha/vim-lsp/wiki/Servers
+"
 " 1. Init
 "
 " {{{================================================================================
@@ -39,10 +39,8 @@ Plug 'lambdalisue/edita.vim'
 
 " session
 Plug 'skanehira/vsession'
-
-" coc
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+" coc Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 " scratch code 
 Plug 'metakirby5/codi.vim'
@@ -51,6 +49,7 @@ Plug 'metakirby5/codi.vim'
 Plug 'dyng/ctrlsf.vim'
 
 " text operator
+" Plug 'heavenshell/vim-textlint'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-surround'
 Plug 'tomtom/tcomment_vim'
@@ -72,6 +71,15 @@ Plug 'lambdalisue/glyph-palette.vim'
 Plug 'cocopon/iceberg.vim'
 Plug 'gkeep/iceberg-dark'
 Plug 'ghifarit53/tokyonight-vim'
+Plug 'bluz71/vim-moonfly-colors'
+Plug 'bluz71/vim-nightfly-guicolors'
+
+" scroll
+" Plug 'dstein64/nvim-scrollview', { 'branch': 'main' }
+
+" tabline
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'romgrk/barbar.nvim'
 
 " buffer
 Plug 'qpkorr/vim-bufkill'
@@ -88,13 +96,13 @@ Plug 'simeji/winresizer'
 " statusline
 Plug 'itchyny/lightline.vim'
 Plug 'hallzy/lightline-iceberg'
-Plug 'mengelbrecht/lightline-bufferline'
 
 Plug 'will133/vim-dirdiff'
 
 " git
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'cohama/agit.vim'
 Plug 'lambdalisue/gina.vim'
 Plug 'sjl/gundo.vim'
@@ -106,6 +114,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " Plug 'liuchengxu/vim-clap'
 " Plug 'voldikss/vim-floaterm'
+Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
+
 
 " Sidebar
 Plug 'lambdalisue/fern.vim'
@@ -228,7 +238,7 @@ noremap! <4-MiddleMouse> <Nop>
 " {{{================================================================================
 
 set termguicolors
-set background=dark
+" set background=dark
 " colorscheme iceberg
 
 " let g:tokyonight_style = 'night' " available: night, storm
@@ -298,6 +308,17 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading --color=never'
 
+augroup fzf_preview
+  autocmd!
+  autocmd User fzf_preview#initialized call s:fzf_preview_settings()
+augroup END
+
+function! s:fzf_preview_settings() abort
+  let g:fzf_preview_command = 'COLORTERM=truecolor ' . g:fzf_preview_command
+  let g:fzf_preview_grep_preview_cmd = 'COLORTERM=truecolor ' . g:fzf_preview_grep_preview_cmd
+endfunction
+
+
 " ----}}}----------------------------------------------------------------------------
 "
 " 	  asynccomplete
@@ -316,17 +337,6 @@ let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading --color=never'
 "   \ 'whitelist': ['*'],
 "   \ 'completor': function('asyncomplete#sources#look#completor'),
 "   \ }))
-
-" ----}}}----------------------------------------------------------------------------
-"
-" 	  airline
-"
-" ----{{{----------------------------------------------------------------------------
-
-let g:airline_theme='iceberg'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-let g:airline#extensions#whitespace#mixed_indent_algo = 1
 
 " ----}}}----------------------------------------------------------------------------
 "
@@ -375,12 +385,6 @@ function! CocCurrentFunction()
     return get(b:, 'coc_current_function', '')
 endfunction
 
-let g:lightline#bufferline#shorten_path = 1
-let g:lightline#bufferline#unnamed = '[No Name]'
-let g:lightline#bufferline#enable_devicons = 1
-let g:lightline#bufferline#show_number = 2
-let g:lightline#bufferline#clickable = 1
-
 let g:lightline = {
 \   'colorscheme': 'icebergDark',
 \   'active': {
@@ -388,19 +392,6 @@ let g:lightline = {
 \       [ 'mode', 'paste' ],
 \       [ 'gitbranch', 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified' ]
 \     ]
-\   },
-\   'tabline': {
-\     'left': [ ['buffers'] ],
-\     'right': [ ['close'] ]
-\   },
-\   'component_expand': {
-\     'buffers': 'lightline#bufferline#buffers'
-\   },
-\   'component_type': {
-\     'buffers': 'tabsel'
-\   },
-\   'component_raw': {
-\     'buffers': 1
 \   },
 \   'component_function': {
 \     'cocstatus': 'coc#status',
@@ -436,7 +427,6 @@ let g:rainbow_active = 0
 " 		coc
 "
 " ----{{{----------------------------------------------------------------------------
-
 let g:coc_auto_copen = 0
 let g:coc_status_error_sign = "\uf05e"
 let g:coc_status_warning_sign = "\uf071"
@@ -569,6 +559,8 @@ tmap <C-t><C-v> <C-\><C-n>:vert Ttoggle<CR>
 tmap <C-t><C-s> <C-\><C-n>:belowright Ttoggle<CR>
 tmap <C-t>c <C-\><C-n>:belowright Tclose<CR>
 
+command! -nargs=* T split | wincmd j | resize 20 | terminal <args>
+
 " noh
 noremap <ESC><ESC> :noh<CR>
 
@@ -579,23 +571,32 @@ augroup qf
     autocmd FileType neoterm set nobuflisted
 augroup END
 
-" buffer
-nmap <C-p> :bprevious<CR>
-nmap <C-n> :bnext<CR>
-nmap <C-w>c :hide<CR>
-" tmap <C-p> :bprevious!<CR>
-" tmap <C-n> :bnext!<CR>
-nmap <space>1 <Plug>lightline#bufferline#go(1)
-nmap <space>2 <Plug>lightline#bufferline#go(2)
-nmap <space>3 <Plug>lightline#bufferline#go(3)
-nmap <space>4 <Plug>lightline#bufferline#go(4)
-nmap <space>5 <Plug>lightline#bufferline#go(5)
-nmap <space>6 <Plug>lightline#bufferline#go(6)
-nmap <space>7 <Plug>lightline#bufferline#go(7)
-nmap <space>8 <Plug>lightline#bufferline#go(8)
-nmap <space>9 <Plug>lightline#bufferline#go(9)
-" buffer kill しつつ、 windowは残す
-nmap <space>x :BD<CR>
+" barbar
+
+" Magic buffer-picking mode
+nnoremap <silent> <C-s> :BufferPick<CR>
+" Sort automatically by...
+nnoremap <silent> <Space>bd :BufferOrderByDirectory<CR>
+nnoremap <silent> <Space>bl :BufferOrderByLanguage<CR>
+" Move to previous/next
+nnoremap <silent>    <C-p> :BufferPrevious<CR>
+nnoremap <silent>    <C-n> :BufferNext<CR>
+" Re-order to previous/next
+nnoremap <silent>    <C-<> :BufferMovePrevious<CR>
+nnoremap <silent>    <C->> :BufferMoveNext<CR>
+" Goto buffer in position...
+nnoremap <silent>    <space>1 :BufferGoto 1<CR>
+nnoremap <silent>    <space>2 :BufferGoto 2<CR>
+nnoremap <silent>    <space>3 :BufferGoto 3<CR>
+nnoremap <silent>    <space>4 :BufferGoto 4<CR>
+nnoremap <silent>    <space>5 :BufferGoto 5<CR>
+nnoremap <silent>    <space>6 :BufferGoto 6<CR>
+nnoremap <silent>    <space>7 :BufferGoto 7<CR>
+nnoremap <silent>    <space>8 :BufferGoto 8<CR>
+nnoremap <silent>    <space>9 :BufferLast<CR>
+" Close buffer
+nnoremap <silent>    <C-c> :BufferClose<CR>
+nnoremap <silent>    <space>x :BufferClose<CR>
 
 " fugitive 
 nmap gs :Gstatus<CR>
@@ -774,13 +775,14 @@ endfunction
 
 " Remap keys for gotos
 nmap <silent>gd <Plug>(coc-definition)
-nmap <silent>gy <Plug>(coc-type-definition)
+nmap <silent>gt <Plug>(coc-type-definition)
 nmap <silent>gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
 nmap <silent>gr :<C-u>CocCommand fzf-preview.CocReferences<CR>
 
+
 " Remap for rename current word
-" nmap <silent>cr <Plug>(coc-rename)
-nmap <silent>cr <Plug>(coc-floatinput-rename)
+nmap <silent>cr <Plug>(coc-rename)
 
 xmap <silent>ca  <Plug>(coc-codeaction-selected)
 
@@ -819,13 +821,12 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 """""""""""""""""""""""""""""""
 " fzf preview
 """""""""""""""""""""""""""""""
-nnoremap <silent> <space>f     :<C-u>CocCommand fzf-preview.ProjectFiles<CR>
+nnoremap <silent> <space>f     :<C-u>CocCommand fzf-preview.DirectoryFiles<CR>
 nnoremap <silent> <space>r     :<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>
 nnoremap <silent> <space>gs    :<C-u>CocCommand fzf-preview.GitStatus<CR>
-nnoremap <silent> <space>b     :<C-u>CocCommand fzf-preview.Buffers<CR>
-nnoremap <silent> <space>B     :<C-u>CocCommand fzf-preview.AllBuffers<CR>
+nnoremap <silent> <space>b     :<C-u>CocCommand fzf-preview.AllBuffers<CR>
 nnoremap <silent> <space>br    :<C-u>CocCommand fzf-preview.FromResources buffer project_mru<CR>
-nnoremap <silent> <space><C-o> :<C-u>CocCommand fzf-preview.Jumps<CR>
+nnoremap <silent> <space>j 		 :<C-u>CocCommand fzf-preview.Jumps<CR>
 nnoremap <silent> <space>gc    :<C-u>CocCommand fzf-preview.Changes<CR>
 nnoremap <silent> <space>/     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
 nnoremap <silent> <space>*     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
