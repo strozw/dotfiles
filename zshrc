@@ -11,9 +11,7 @@ export JAVA_HOME=$(/usr/libexec/java_home --version=1.8)
 
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=/usr/local/opt/openssl@1.1"
 
-export PATH="/usr/local/opt/ruby/bin:$PATH"
-export LDFLAGS="-L/usr/local/opt/ruby/lib"
-export CPPFLAGS="-I/usr/local/opt/ruby/include"
+export PATH="/usr/local/opt/ruby/bin:$PATH" export LDFLAGS="-L/usr/local/opt/ruby/lib" export CPPFLAGS="-I/usr/local/opt/ruby/include"
 export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
 
 export PATH="$HOME/bin:$PATH"
@@ -30,12 +28,17 @@ export PATH="$HOME/.serverless/bin:$PATH"
 # export PATH="$HOME/.anyenv/bin:$PATH"
 # eval "$(anyenv init -)"
 
-
 #######################################################
 # asdf
 #######################################################
 
-. /usr/local/opt/asdf/asdf.sh
+. $HOME/.asdf/asdf.sh
+
+#######################################################
+# direnv
+#######################################################
+
+eval "$(direnv hook zsh)"
 
 #######################################################
 # alias
@@ -69,14 +72,6 @@ alias bat='bat --theme TwoDark'
 #######################################################
 source /Users/satoruohzawa/.config/broot/launcher/bash/br
 
-
-#######################################################
-# starship 
-# prompt
-#######################################################
-
-eval "$(starship init zsh)"
-
 #------------------------------------------------------
 # keymap
 #------------------------------------------------------
@@ -104,44 +99,27 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of Zinit's installer chunk
 
-# A lightweight start point of shell configuration
 zinit light yous/vanilli.sh
 
-#------------------------------------------------------
-# colors
-#------------------------------------------------------
+zinit wait lucid light-mode for \
+  atinit"zicompinit; zicdreplay" \
+      zdharma/fast-syntax-highlighting \
+      ascii-soup/zsh-url-highlighter \
+  atload"_zsh_autosuggest_start" \
+      zsh-users/zsh-autosuggestions \
+  blockf atpull'zinit creinstall -q .' \
+      zsh-users/zsh-completions
 
-# syntax highlighting
-zinit ice wait'!0'; zinit load zsh-users/zsh-syntax-highlighting
+zinit light agkozak/zsh-z
 
-# url highlighting
-zinit ice wait'!0'; zinit load ascii-soup/zsh-url-highlighter
+# completion for git
+zinit wait lucid is-snippet for \
+  OMZL::git.zsh \
+  OMZP::git
 
-#------------------------------------------------------
-# tools
-#------------------------------------------------------
-
-# notification
-# zinit ice wait'!0';  zinit ice wait'!0'; zinit load marzocchi/zsh-notify
-
-# Tracks your most used directories, based on 'frecency'.
-zinit load agkozak/zsh-z
-
-#------------------------------------------------------
-# completions
-#------------------------------------------------------
-
-# Additional completion definitions for Zsh
-zinit ice wait'!0'; zinit load zsh-users/zsh-completions
-
-# ZSH port of Fish shell's history search feature
-zinit ice wait'!0'; zinit load zsh-users/zsh-history-substring-search
-
-# Autosuggestions
-zinit ice wait'!0'; zinit load zsh-users/zsh-autosuggestions
-
-# completion for docker
-zinit ice wait'!0'; zinit snippet OMZP::docker-compose
+zinit wait lucid is-snippet as"completion" for \
+      OMZP::docker/_docker \
+      OMZP::docker-compose/_docker-compose \
 
 #######################################################
 # fzf
@@ -184,3 +162,12 @@ bindkey '^_' fzf-ghq
 
 # docker
 source ~/ghq/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.zsh
+
+
+#######################################################
+# starship 
+# prompt
+#######################################################
+
+eval "$(starship init zsh)"
+

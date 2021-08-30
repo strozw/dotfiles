@@ -1,12 +1,14 @@
-LC_ALL=ja_JP.UTF-8
+export LC_ALL=ja_JP.UTF-8
 
-LANG=ja_JP.UTF-8
+export LANG=ja_JP.UTF-8
 
-TERM=xterm-256color
+export TERM=xterm-256color
 
-COLORTERM=truecolor
+export COLORTERM=truecolor
 
-SHELL=/usr/local/bin/zsh
+export SHELL=/usr/local/bin/zsh
 
-EDITOR=/usr/local/bin/nvim
-GIT_EDITOR=/usr/local/bin/nvim
+export VISUAL=${VISUAL:=nvim}
+export EDITOR=${EDITOR:=nvim}
+
+source "$HOME/.cargo/env"
