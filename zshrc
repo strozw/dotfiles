@@ -29,6 +29,11 @@ export PATH="$HOME/.serverless/bin:$PATH"
 # eval "$(anyenv init -)"
 
 #######################################################
+# nextword
+#######################################################
+export NEXTWORD_DATA_PATH="$HOME/.config/nextword/nextword-data-small"
+
+#######################################################
 # asdf
 #######################################################
 
@@ -102,6 +107,7 @@ autoload -Uz _zinit
 zinit light yous/vanilli.sh
 
 zinit wait lucid light-mode for \
+    agkozak/zsh-z \
   atinit"zicompinit; zicdreplay" \
       zdharma/fast-syntax-highlighting \
       ascii-soup/zsh-url-highlighter \
@@ -110,16 +116,12 @@ zinit wait lucid light-mode for \
   blockf atpull'zinit creinstall -q .' \
       zsh-users/zsh-completions
 
-zinit light agkozak/zsh-z
-
 # completion for git
 zinit wait lucid is-snippet for \
   OMZL::git.zsh \
-  OMZP::git
-
-zinit wait lucid is-snippet as"completion" for \
-      OMZP::docker/_docker \
-      OMZP::docker-compose/_docker-compose \
+  OMZP::git \
+  # OMZP::docker/_docker \
+  # OMZP::docker-compose/_docker-compose \
 
 #######################################################
 # fzf

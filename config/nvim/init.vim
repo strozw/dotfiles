@@ -1,20 +1,11 @@
 "
 " 1. Init
 "
-" {{{================================================================================
-if has('python3')
-  silent! python3 1
-endif
-" ----}}}----------------------------------------------------------------------------
-" 	  polyglot
-"
-" ----{{{----------------------------------------------------------------------------
-
-let g:polyglot_disabled = ['csv', 'styled-components']
-" let g:polyglot_disabled = ['csv']
+" {{{================================================================================ 
 
 " }}}================================================================================
-" 2. ains
+"
+" 2. plugins
 "
 " {{{================================================================================
 
@@ -28,7 +19,8 @@ Plug 'mhinz/vim-startify'
 
 " init
 Plug 'tpope/vim-sensible'
-Plug 'sheerun/vim-polyglot'
+
+" Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-sleuth'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'vim-scripts/copypath.vim'
@@ -41,24 +33,30 @@ Plug 'lambdalisue/edita.vim'
 Plug 'skanehira/vsession'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" scratch code 
-Plug 'metakirby5/codi.vim'
-
-" file replace
+" file search & replace
 Plug 'dyng/ctrlsf.vim'
 
 " text operator
-" Plug 'heavenshell/vim-textlint'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-surround'
-Plug 'tomtom/tcomment_vim'
-Plug 'tyru/caw.vim'
-Plug 'Raimondi/delimitMate'
-" Plug 'cohama/lexima.vim'
-Plug 'mattn/vim-lexiv'
-Plug 'osyo-manga/vim-over'
 Plug 'machakann/vim-sandwich'
 Plug 'easymotion/vim-easymotion'
+
+" cursor jump
+Plug 'osyo-manga/vim-over'
+
+" comment out
+Plug 'tomtom/tcomment_vim'
+Plug 'heavenshell/vim-jsdoc', {
+  \ 'for': ['javascript', 'javascriptreact','typescript', 'typescriptreact'],
+  \ 'do': 'make install'
+\}
+
+" parens & brackets completion
+" Plug 'mattn/vim-lexiv'
+
+" quotes & parets & brackets completion
+Plug 'Raimondi/delimitMate'
 
 " font
 Plug 'ryanoasis/vim-devicons'
@@ -66,11 +64,11 @@ Plug 'lambdalisue/nerdfont.vim'
 Plug 'lambdalisue/glyph-palette.vim'
 
 " color
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'cocopon/iceberg.vim'
 Plug 'gkeep/iceberg-dark'
 Plug 'ghifarit53/tokyonight-vim'
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'marko-cerovac/material.nvim'
 Plug 'tyrannicaltoucan/vim-deep-space'
 Plug 'bluz71/vim-moonfly-colors'
 Plug 'bluz71/vim-nightfly-guicolors'
@@ -111,11 +109,10 @@ Plug 'samoshkin/vim-mergetool'
 Plug 'iberianpig/tig-explorer.vim'
 
 " launcher
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
 Plug 'antoinemadec/coc-fzf'
-" Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
-
 
 " Sidebar
 Plug 'lambdalisue/fern.vim'
@@ -149,14 +146,20 @@ Plug 'thinca/vim-localrc'
 " http rest client
 Plug 'sharat87/roast.vim'
 
-" markdown viewr
-Plug 'previm/previm'
+" browesr open
 Plug 'tyru/open-browser.vim'
+Plug 'tyru/open-browser-github.vim'
+Plug 'tyru/open-browser-unicode.vim'
+
+" markdown viewr
+Plug 'previm/previm', { 'for': ['markdown'] }
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
+" text alignment
 Plug 'godlygeek/tabular'
 
-" neovim in chrome
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+" zen mode
+Plug 'folke/zen-mode.nvim'
 
 call plug#end()
 
@@ -244,12 +247,21 @@ set termguicolors
 " set background=dark
 " colorscheme iceberg
 
-let g:tokyonight_style = 'night' " available: night, storm
-let g:tokyonight_transparent_background = 1
-let g:tokyonight_disable_italic_comment = 1
-let g:tokyonight_enable_italic = 0
+" let g:tokyonight_style = 'night' " available: night, storm
+" let g:tokyonight_transparent_background = 1
+" let g:tokyonight_disable_italic_comment = 1
+let g:tokyonight_enable_italic = 1
 
 colorscheme tokyonight
+
+" let g:material_style = 'deep ocean'
+"
+" colorscheme material
+"
+" lua << EOF
+" require('material').setup()
+" EOF
+
 
 " }}}================================================================================
 " 
@@ -351,14 +363,6 @@ let g:mergetool_prefer_revision = 'local'
 
 " ----}}}----------------------------------------------------------------------------
 "
-" 		vim-clap
-"
-" ----{{{----------------------------------------------------------------------------
-
-let g:clap_theme = 'iceberg'
-
-" ----}}}----------------------------------------------------------------------------
-"
 " 		styled components syntax workaround
 "
 " ----{{{----------------------------------------------------------------------------
@@ -450,30 +454,6 @@ augroup my-glyph-palette
   autocmd! *
   autocmd FileType fern,startify call glyph_palette#apply()
 augroup END
-
-
-" ----}}}----------------------------------------------------------------------------
-"
-" 		firenvim
-"
-" ----{{{----------------------------------------------------------------------------
-
-set guifont=Osaka:h18
-
-let g:firenvim_config = { 
-    \ 'globalSettings': {
-        \ 'alt': 'all',
-    \  },
-    \ 'localSettings': {
-        \ '.*': {
-            \ 'cmdline': 'neovim',
-            \ 'content': 'text',
-            \ 'priority': 0,
-            \ 'selector': 'textarea',
-            \ 'takeover': 'never',
-        \ },
-    \ }
-\ }
 
 " ----}}}----------------------------------------------------------------------------
 "
@@ -719,28 +699,28 @@ nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 
 nnoremap <silent><F8> :Vista coc<CR>
-nnoremap <Leader>vv :Vista finder<CR>
-nnoremap <Leader>vcc :Vista coc<CR>
-nnoremap <Leader>vcg :Vista ctags<CR>
+nnoremap <Leader>vf :Vista finder<CR>
+nnoremap <Leader>vc :Vista coc<CR>
+nnoremap <Leader>vt :Vista ctags<CR>
 
 """"""""""""""""""""""""""""""""
 " easymotion
 """"""""""""""""""""""""""""""""
 
 " <Leader>f{char} to move to {char}
-map  <Leader>j <Plug>(easymotion-bd-f)
-nmap <Leader>j <Plug>(easymotion-overwin-f)
+map  <Leader>gj <Plug>(easymotion-bd-f)
+nmap <Leader>gj <Plug>(easymotion-overwin-f)
 
 " s{char}{char} to move to {char}{char}
 " nmap s <Plug>(easymotion-overwin-f2)
 
 " Move to line
-map <Leader>L <Plug>(easymotion-bd-jk)
-nmap <Leader>L <Plug>(easymotion-overwin-line)
+map <Leader>gl <Plug>(easymotion-bd-jk)
+nmap <Leader>gl <Plug>(easymotion-overwin-line)
 
 " Move to word
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
+map  <Leader>gw <Plug>(easymotion-bd-w)
+nmap <Leader>gw <Plug>(easymotion-overwin-w)
 
 """""""""""""""""""""""""""""""
 " vsnip
@@ -802,10 +782,12 @@ endfunction
 " Remap keys for gotos
 nmap <silent>gd <Plug>(coc-definition)
 nmap <silent>gt <Plug>(coc-type-definition)
+" nmap <silent>gt :<C-u>CocCommand fzf-preview.CocTypeDefinitions
+
 nmap <silent>gi <Plug>(coc-implementation)
+" nmap <silent>gi :<C-u>CocCommand fzf-preview.CocImplementations
 nmap <silent>gr <Plug>(coc-references)
 " nmap <silent>gr :<C-u>CocCommand fzf-preview.CocReferences<CR>
-
 
 " Remap for rename current word
 nmap <silent>cr <Plug>(coc-rename)
@@ -847,50 +829,26 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 """""""""""""""""""""""""""""""
 " fzf preview
 """""""""""""""""""""""""""""""
-" nnoremap <silent> <space>df     :<C-u>CocCommand fzf-preview.DirectoryFiles<CR>
-nnoremap <silent> <space>f     :<C-u>Files <CR>
-nnoremap <silent> <space>gf     :<C-u>GFiles<CR>
-" nnoremap <silent> <space>r     :<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>
-nnoremap <silent> <space>gs    :<C-u>GFiles?<CR>
-nnoremap <silent> <space>b     :<C-u>Buffers<CR>
-" nnoremap <silent> <space>br    :<C-u>CocCommand fzf-preview.FromResources buffer project_mru<CR>
-" nnoremap <silent> <space>j 		 :<C-u>CocCommand fzf-preview.Jumps<CR>
-" nnoremap <silent> <space>gc    :<C-u>CocCommand fzf-preview.Changes<CR>
-" nnoremap <silent> <space>/     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
-" nnoremap <silent> <space>*     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
-nnoremap <silent> <space>gr    :<C-u>Rg <space>
-nnoremap          <C-g>        :<C-u>Rg <C-r>=expand(<cword>)<CR>
+nnoremap <silent> <space>df     :<C-u>FzfPreviewDirectoryFiles<CR>
+nnoremap <silent> <space>f     :<C-u>FzfPreviewProjectFiles<CR>
+nnoremap <silent> <space>gf     :<C-u>FzfPreviewGitFiles<CR>
+nnoremap <silent> <space>r     :<C-u>FzfPreviewFromResources project_mru git<CR>
+nnoremap <silent> <space>gs    :<C-u>FzfPreviewGitStatus<CR>
+nnoremap <silent> <space>b     :<C-u>FzfPreviewAllBuffers<CR>
+nnoremap <silent> <space>br    :<C-u>FzfPreviewProjectMruFiles<CR>
+nnoremap <silent> <space>j 		 :<C-u>FzfPreviewJumps<CR>
+nnoremap <silent> <space>gc    :<C-u>FzfPreviewChanges<CR>
+nnoremap <silent> <space>/     :<C-u>FzfPreviewLines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
+nnoremap <silent> <space>*     :<C-u>FzfPreviewLines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
+nnoremap <silent> <space>gr    :<C-u>FzfPreviewProjectGrep <space>
+nnoremap          <C-g>        :<C-u>CocCommand fzf-preview.ProjectGrep <C-r>=expand('<cword>')<CR>
 " nnoremap          <C-g>        :<C-u>CocCommand fzf-preview.ProjectGrep <C-r>=expand('<cword>')<CR><CR>
-xnoremap          <C-g>        "sy:Rg "<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"<CR>
-nnoremap <silent> <space>t     :<C-u>BTags<CR>
-" nnoremap <silent> <space>q     :<C-u>CocCommand fzf-preview.QuickFix<CR>
-" nnoremap <silent> <space>l     :<C-u>CocCommand fzf-preview.LocationList<CR>
-nnoremap <silent> <space>dc    :<C-u>CocFzfList diagnostics	--current<CR>
-nnoremap <silent> <space>da    :<C-u>CocFzfList diagnostic<CR>
-
-"""""""""""""""""""""""""""""""
-" fzf preview
-"""""""""""""""""""""""""""""""
-" nnoremap <silent> <space>df     :<C-u>CocCommand fzf-preview.DirectoryFiles<CR>
-" nnoremap <silent> <space>f     :<C-u>CocCommand fzf-preview.ProjectFiles<CR>
-" nnoremap <silent> <space>gf     :<C-u>CocCommand fzf-preview.GitFiles<CR>
-" nnoremap <silent> <space>r     :<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>
-" nnoremap <silent> <space>gs    :<C-u>CocCommand fzf-preview.GitStatus<CR>
-" nnoremap <silent> <space>b     :<C-u>CocCommand fzf-preview.AllBuffers<CR>
-" nnoremap <silent> <space>br    :<C-u>CocCommand fzf-preview.FromResources buffer project_mru<CR>
-" nnoremap <silent> <space>j 		 :<C-u>CocCommand fzf-preview.Jumps<CR>
-" nnoremap <silent> <space>gc    :<C-u>CocCommand fzf-preview.Changes<CR>
-" nnoremap <silent> <space>/     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
-" nnoremap <silent> <space>*     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
-" nnoremap <silent> <space>gr    :<C-u>CocCommand fzf-preview.ProjectGrep <space>
-" nnoremap          <C-g>        :<C-u>CocCommand fzf-preview.ProjectGrep <C-r>=expand('<cword>')<CR>
-" " nnoremap          <C-g>        :<C-u>CocCommand fzf-preview.ProjectGrep <C-r>=expand('<cword>')<CR><CR>
-" xnoremap          <C-g>        "sy:CocCommand   fzf-preview.ProjectGrep "<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"<CR>
-" nnoremap <silent> <space>t     :<C-u>CocCommand fzf-preview.BufferTags<CR>
-" nnoremap <silent> <space>q     :<C-u>CocCommand fzf-preview.QuickFix<CR>
-" nnoremap <silent> <space>l     :<C-u>CocCommand fzf-preview.LocationList<CR>
-" nnoremap <silent> <space>dc    :<C-u>CocCommand fzf-preview.CocCurrentDiagnostics<CR>
-" nnoremap <silent> <space>da    :<C-u>CocCommand fzf-preview.CocDiagnostics<CR>
+xnoremap          <C-g>        "sy:CocCommand   fzf-preview.ProjectGrep "<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"<CR>
+nnoremap <silent> <space>t     :<C-u>FzfPreviewBufferTags<CR>
+nnoremap <silent> <space>q     :<C-u>FzfPreviewQuickFix<CR>
+nnoremap <silent> <space>l     :<C-u>FzfPreviewLocationList<CR>
+nnoremap <silent> <space>dc    :<C-u>CocCommand fzf-preview.CocCurrentDiagnostics<CR>
+nnoremap <silent> <space>da    :<C-u>CocCommand fzf-preview.CocDiagnostics<CR>
 
 """""""""""""""""""""""""""""""
 " mergettool
@@ -902,16 +860,31 @@ nmap <leader>mt <plug>(MergetoolToggle)
 " treesitter
 """"""""""""""""""""""""""""
 
-" lua <<EOF
-" require'nvim-treesitter.configs'.setup {
-"   highlight = {
-"     enable = true
-"   },
-"
-"   indent = {
-"     enable = true
-"   }
-" }
-" EOF
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true
+  },
+
+  indent = {
+    enable = true
+  }
+}
+EOF
+
+""""""""""""""""""""""""""""
+" zen mode
+""""""""""""""""""""""""""""
+
+lua << EOF
+  require("zen-mode").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
 
 " }}}================================================================================
+
+
+

@@ -2,9 +2,9 @@ export LC_ALL=ja_JP.UTF-8
 
 export LANG=ja_JP.UTF-8
 
-export TERM=xterm-256color
+# export TERM=xterm-256color
 
-export COLORTERM=truecolor
+# export COLORTERM=truecolor
 
 export SHELL=/usr/local/bin/zsh
 
