@@ -1,0 +1,9 @@
+{
+  "sumneko-lua.enableNvimLuaDev": true,
+  "Lua.diagnostics.globals": [
+    "use"
+  ],
+  "Lua.diagnostics.disable": [
+    "undefined-global"
+  ],
+}
