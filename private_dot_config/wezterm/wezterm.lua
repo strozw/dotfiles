@@ -8,6 +8,31 @@ return {
 	use_ime = true,
 	font_size = 16.0,
 	color_scheme = "wezterm_tokyonight_night",
+	colors = {
+		tab_bar = {
+			-- The color of the inactive tab bar edge/divider
+			inactive_tab_edge = '#575757',
+		},
+	},
+	window_padding = {
+		left = 0,
+		right = 0,
+		top = 0,
+		bottom = 0,
+	},
+	window_decorations = "NONE",
+	window_frame = {
+		inactive_titlebar_bg = '#353535',
+		active_titlebar_bg = '#000',
+		inactive_titlebar_fg = '#cccccc',
+		active_titlebar_fg = '#ffffff',
+		inactive_titlebar_border_bottom = '#000',
+		active_titlebar_border_bottom = '#000',
+		button_fg = '#cccccc',
+		button_bg = '#000',
+		button_hover_fg = '#ffffff',
+		button_hover_bg = '#3b3052',
+	},
 	hide_tab_bar_if_only_one_tab = true,
 	adjust_window_size_when_changing_font_size = false,
 	hyperlink_rules = {
