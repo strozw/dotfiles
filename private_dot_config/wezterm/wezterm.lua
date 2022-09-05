@@ -20,7 +20,7 @@ return {
 		top = 0,
 		bottom = 0,
 	},
-	window_decorations = "NONE",
+	window_decorations = "RESIZE",
 	window_frame = {
 		inactive_titlebar_bg = '#353535',
 		active_titlebar_bg = '#000',
