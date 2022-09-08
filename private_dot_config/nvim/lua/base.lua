@@ -5,6 +5,8 @@ vim.api.nvim_exec([[
   let g:python_host_prog = system('echo -n $(which python)')
   let g:python3_host_prog = system('echo -n $(which python3)')
 
+	set backupcopy=yes
+
   " ファイルエンコーディング検出設定
   set fileencodings=utf-8,cp932,euc-jp,iso-20220-jp,default,latin
 

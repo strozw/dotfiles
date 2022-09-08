@@ -71,14 +71,28 @@ packer.startup(function(use)
 			}
 		end
 	}
-	use {
-		'xiyaowong/nvim-transparent',
-		config = function()
-			local transparent = require("transparent")
 
-			transparent.setup({})
+	-- todo comments highlight
+	use {
+		'folke/todo-comments.nvim',
+		requires = "nvim-lua/plenary.nvim",
+		config = function()
+			require("todo-comments").setup {
+				-- your configuration comes here
+				-- or leave it empty to use the default settings
+				-- refer to the configuration section below
+			}
 		end
 	}
+
+	-- use {
+	-- 	'xiyaowong/nvim-transparent',
+	-- 	config = function()
+	-- 		local transparent = require("transparent")
+
+	-- 		transparent.setup({})
+	-- 	end
+	-- }
 	use {
 		'folke/tokyonight.nvim',
 		requires = {
@@ -110,7 +124,7 @@ packer.startup(function(use)
 			})
 
 			vim.cmd [[colorscheme tokyonight]]
-			vim.g.tokyonight_transparent = vim.g.transparent_enabled
+			-- vim.g.tokyonight_transparent = vim.g.transparent_enabled
 		end
 	}
 	use {
@@ -353,6 +367,13 @@ packer.startup(function(use)
 				local_settings_root_markers = { '.git' },
 				append_default_schemas = true,
 				loader = 'json'
+			})
+
+			local global_capabilities = vim.lsp.protocol.make_client_capabilities()
+			global_capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+			lsp_config.util.default_config = vim.tbl_extend("force", lsp_config.util.default_config, {
+				capabilities = global_capabilities,
 			})
 
 			local lspFormattingGroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -1282,6 +1303,22 @@ packer.startup(function(use)
 	use {
 		"iamcco/markdown-preview.nvim",
 		run = function() vim.fn["mkdp#util#install"]() end,
+	}
+
+
+	use {
+		"PHSix/faster.nvim",
+		event = { "VimEnter *" },
+		config = function()
+			vim.api.nvim_set_keymap('n', 'j', '<Plug>(faster_move_j)', { noremap = false, silent = true })
+			vim.api.nvim_set_keymap('n', 'k', '<Plug>(faster_move_k)', { noremap = false, silent = true })
+			-- or
+			-- vim.api.nvim_set_keymap('n', 'j', '<Plug>(faster_move_gj)', {noremap=false, silent=true})
+			-- vim.api.nvim_set_keymap('n', 'k', '<Plug>(faster_move_gk)', {noremap=false, silent=true})
+			-- if you need map in visual mode
+			-- vim.api.nvim_set_keymap('v', 'j', '<Plug>(faster_vmove_j)', {noremap=false, silent=true})
+			-- vim.api.nvim_set_keymap('v', 'k', '<Plug>(faster_vmove_k)', {noremap=false, silent=true})
+		end
 	}
 
 	-- Automatically set up your configuration after cloning packer.nvim
