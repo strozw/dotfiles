@@ -1,10 +1,10 @@
-local wezterm = require 'wezterm';
+local wezterm = require("wezterm")
 
 return {
 	-- font = wezterm.font("HackGen Console NFJ"),
-	-- font = wezterm.font("PlemolJP Console NF"),
+	font = wezterm.font("PlemolJP Console NF"),
 	-- font = wezterm.font("UDEV Gothic NFLG"),
-	font = wezterm.font("UDEV Gothic NF"),
+	-- font = wezterm.font("UDEV Gothic NF"),
 	use_ime = true,
 	font_size = 16.0,
 	line_height = 1.05,
@@ -12,23 +12,23 @@ return {
 	colors = {
 		tab_bar = {
 			active_tab = {
-				bg_color = '#1a1b26',
-				fg_color = '#c0c0c0',
+				bg_color = "#1a1b26",
+				fg_color = "#c0c0c0",
 			},
 
 			inactive_tab = {
-				bg_color = '#0f0f14',
-				fg_color = '#808080',
+				bg_color = "#0f0f14",
+				fg_color = "#808080",
 			},
 
 			inactive_tab_hover = {
-				bg_color = '#24283b',
-				fg_color = '#909090',
+				bg_color = "#24283b",
+				fg_color = "#909090",
 				italic = true,
 			},
 		},
 	},
-	-- window_background_opacity = 0.85,
+	window_background_opacity = 0.9,
 	window_padding = {
 		left = 0,
 		right = 0,
@@ -37,11 +37,11 @@ return {
 	},
 	window_decorations = "RESIZE",
 	window_frame = {
-		active_titlebar_bg = '#0f0f14',
+		active_titlebar_bg = "#0f0f14",
 	},
 	hide_tab_bar_if_only_one_tab = true,
 	adjust_window_size_when_changing_font_size = false,
-	bypass_mouse_reporting_modifiers = 'ALT',
+	bypass_mouse_reporting_modifiers = "ALT",
 
 	-- keys = {
 	-- 	-- {key="-", mods="CTRL", action="Nop"},
@@ -50,3 +50,4 @@ return {
 	-- 	-- { key = "=", mods = "CTRL", action = "DisableDefaultAssignment" },
 	-- }
 }
+

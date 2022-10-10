@@ -9,13 +9,6 @@
 # rust
 source $HOME/.cargo/env
 
-# ruby
-# export RUBY_CONFIGURE_OPTS="--with-openssl-dir=/usr/local/opt/openssl@1.1"
-# export PATH="/usr/local/opt/ruby/bin:$PATH" 
-# export LDFLAGS="-L/usr/local/opt/ruby/lib" 
-# export CPPFLAGS="-I/usr/local/opt/ruby/include"
-# export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
-
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 
@@ -25,6 +18,14 @@ export PATH="$HOME/.serverless/bin:$PATH"
 export PATH="$HOME/Library/Python/2.7/bin:$PATH"
 
 export PATH="/opt/homebrew/bin:$PATH"
+
+
+# ruby
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=/usr/local/opt/openssl@1.1"
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/ruby/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
 
 #######################################################
 # anyenv
