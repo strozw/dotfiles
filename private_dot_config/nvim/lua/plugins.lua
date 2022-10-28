@@ -341,10 +341,11 @@ packer.startup(function(use)
 			"nvim-lua/plenary.nvim",
 			"nvim-lua/lsp-status.nvim",
 			"tamago324/nlsp-settings.nvim",
-			"folke/lua-dev.nvim",
+			"folke/neodev.nvim",
 			"folke/lsp-colors.nvim",
 			"jose-elias-alvarez/nvim-lsp-ts-utils",
 			"jose-elias-alvarez/null-ls.nvim",
+			"MunifTanjim/prettier.nvim",
 			"j-hui/fidget.nvim",
 			"lvimuser/lsp-inlayhints.nvim",
 			"ray-x/go.nvim",
@@ -501,8 +502,7 @@ packer.startup(function(use)
 				end
 			end
 
-			local common_capabilities =
-			require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+			local common_capabilities = require("cmp_nvim_lsp").default_capabilities()
 			common_capabilities = vim.tbl_extend("keep", common_capabilities, lsp_status.capabilities)
 
 			mason.setup({})
@@ -516,8 +516,44 @@ packer.startup(function(use)
 						capabilities = common_capabilities,
 					})
 				end,
+
+				["yamlls"] = function()
+					lsp_config.yamlls.setup({
+						on_attach = function(client, bufnr)
+							common_on_attach(client, bufnr)
+						end,
+						capabilities = common_capabilities,
+					})
+				end,
+
+				["jsonls"] = function()
+					lsp_config.jsonls.setup({
+						on_attach = function(client, bufnr)
+							common_on_attach(client, bufnr)
+						end,
+						capabilities = common_capabilities,
+					})
+				end,
+
+				["spectral"] = function()
+					lsp_config.spectral.setup({
+						cmd = { "" },
+						on_attach = function(client, bufnr)
+							common_on_attach(client, bufnr)
+						end,
+						capabilities = common_capabilities,
+						filetypes = { "yaml", "json", "yml" },
+						settings = {
+							enable = true,
+							run = "onType",
+							validateLanguages = { "yaml", "json", "yml" },
+						},
+						single_file_support = true,
+					})
+				end,
+
 				["sumneko_lua"] = function()
-					local luadev = require("lua-dev").setup({
+					require("neodev").setup({
 						library = {
 							enabled = true,
 							runtime = true,
@@ -676,11 +712,39 @@ packer.startup(function(use)
 				end,
 			})
 
+			-- local prettier = require("prettier")
+
+			-- prettier.setup({
+			-- 	["null-ls"] = {
+			-- 		condition = function()
+			-- 			return prettier.config_exists({
+			-- 				-- if `true`, checks `package.json` for `"prettier"` key
+			-- 				check_package_json = false,
+			-- 			})
+			-- 		end,
+			-- 		runtime_condition = function(params)
+			-- 			-- return false to skip running prettier
+			-- 			return true
+			-- 		end,
+			-- 		timeout = 5000,
+			-- 	},
+			-- })
+
 			null_ls.setup({
 				sources = {
-					null_ls.builtins.formatting.prettier,
-					-- null_ls.builtins.formatting.goimports,
 					null_ls.builtins.code_actions.gitsigns,
+					null_ls.builtins.code_actions.eslint,
+					null_ls.builtins.formatting.prettier.with({
+						condition = function(utils)
+							return utils.root_has_file({
+								".prettierrc",
+								".prettierrc.js",
+								".prettierrc.json",
+								".prettierrc.ts",
+							})
+						end,
+					}),
+					null_ls.builtins.formatting.goimports,
 					null_ls.builtins.formatting.stylua,
 					null_ls.builtins.completion.spell,
 				},
