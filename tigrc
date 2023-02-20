@@ -30,6 +30,7 @@ set mouse = no
 
 #color cursor yellow red bold
 color cursor black white bold
+color title-focus color15 color8
 
 ################################################
 # キーバインド

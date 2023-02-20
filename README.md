@@ -47,3 +47,35 @@ managed by [rcm](https://github.com/thoughtbot/rcm)
   cd ~/
   mkrc -d .vim
   ```
+
+## Others
+
+### install ghq
+
+```sh
+brew install ghq
+```
+
+### enable truecolor for alacrity & tmux & vim
+
+1. clone alacrity  
+
+	```sh
+	ghq get alacrity/alacrity
+	```
+2. install terminfo for alacrity  
+  ```sh
+  sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
+	```
+3. install ncurses & tmux-256color
+  ```sh
+	brew install ncurses
+  /opt/ncurses/bin/infocmp tmux-256color > ~/tmux-256color.info
+	sudo tic -xe tmux-256color tmux-256color.info
+	```
+4. append config into `.tmux.conf`
+  ```.tmux.conf
+	set-option -g default-terminal 'tmux-256color'
+  set-option -ga terminal-overrides ',$TERM:Tc'
+  set-option -ga terminal-overrides ',alacritty:RGB'
+	```

@@ -1,5 +1,4 @@
 
---@language vim
 vim.api.nvim_exec([[
   let g:python_host_prog = system('echo -n $(which python)')
   let g:python3_host_prog = system('echo -n $(which python3)')
@@ -92,7 +91,15 @@ vim.api.nvim_exec([[
 
 	" enable term guicolors
 	set termguicolors
+	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
+	" nohlsearch
   noremap <silent> <ESC><ESC> :nohlsearch<CR>
+
+	" quickfix jump
+	nmap <silent> [q :cprevious<CR>
+	nmap <silent> ]q :cnext<CR>
+
 ]], false)
 
