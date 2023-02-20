@@ -1,4 +1,5 @@
-vim.api.nvim_exec([[
+vim.api.nvim_exec(
+	[[
 	" enable project local settings
 	set exrc
 
@@ -107,4 +108,8 @@ vim.api.nvim_exec([[
 
 	" showing the current window status only
 	set laststatus=3
-]], false)
+
+	autocmd BufNewFile,BufRead *.mdx set filetype=typescriptreact
+]],
+	false
+)

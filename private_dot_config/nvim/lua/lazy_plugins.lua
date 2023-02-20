@@ -1,60 +1,31 @@
---- nvim-lsp enhance opts
-vim.g.enhance_lsp_opts = {}
-local LUA_PATH = vim.split(package.path, ";")
-table.insert(LUA_PATH, "lua/?.lua")
-table.insert(LUA_PATH, "lua/?/init.lua")
+local lazy = require("lazy")
 
-local fn = vim.fn
+lazy.setup({
 
--- setup script for when not installed
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-local packer_bootstrap = nil
-
-if fn.empty(vim.fn.glob(install_path)) > 0 then
-	packer_bootstrap = fn.system({
-		"git",
-		"clone",
-		"--depth",
-		"1",
-		"https://github.com/wbthomason/packer.nvim",
-		install_path,
-	})
-end
-
--- for lazy loading
-vim.cmd([[packadd packer.nvim]])
-
-local packer = require("packer")
-
--- Performance
-pcall(require, "impatient")
-
-packer.init({
-	max_jobs = 50,
-})
-
--- plugins
-packer.startup(function(use)
 	-- Performance
-	use({ "lewis6991/impatient.nvim" })
+	{ "lewis6991/impatient.nvim" },
 
-	-- boiler use {'tpope/vim-sensible'}
+	-- boiler
+	-- {'tpope/vim-sensible'},
+
 	-- editorconfig
-	use({ "editorconfig/editorconfig-vim" })
+	{ "editorconfig/editorconfig-vim" },
 
 	-- color
-	use({
+	{
 		"nvim-treesitter/nvim-treesitter",
-		requires = {
+		dependencies = {
 			"tpope/vim-commentary",
 			"JoosepAlviste/nvim-ts-context-commentstring",
 			-- 'windwp/nvim-ts-autotag',
 			"nvim-treesitter/playground",
+			"nvim-treesitter/nvim-tree-docs",
 		},
-		run = ":TSUpdate",
+		build = ":TSUpdate",
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				highlight = { enable = true },
+				tree_docs = { enable = true },
 				-- autotag = {
 				-- 	enable = true,
 				-- },
@@ -81,12 +52,12 @@ packer.startup(function(use)
 				},
 			})
 		end,
-	})
+	},
 
 	-- todo comments highlight
-	use({
+	{
 		"folke/todo-comments.nvim",
-		requires = "nvim-lua/plenary.nvim",
+		dependencies = "nvim-lua/plenary.nvim",
 		config = function()
 			require("todo-comments").setup({
 				-- your configuration comes here
@@ -94,27 +65,27 @@ packer.startup(function(use)
 				-- refer to the configuration section below
 			})
 		end,
-	})
+	},
 
-	-- use {
+	-- {
 	-- 	'xiyaowong/nvim-transparent',
 	-- 	config = function()
 	-- 		local transparent = require("transparent")
 
 	-- 		transparent.setup({})
 	-- 	end
-	-- }
-	use({
+	-- },
+	{
 		"folke/tokyonight.nvim",
-		requires = {
-			"xiyaowong/nvim-transparent",
-		},
+		-- dependencies = {
+		-- 	"xiyaowong/nvim-transparent",
+		-- },
 		config = function()
 			require("tokyonight").setup({
 				-- your configuration comes here
 				-- or leave it empty to use the default settings
 				style = "night", -- The theme comes in three styles, `storm`, a darker variant `night` and `day`
-				transparent = false, -- Enable this to disable setting the background color
+				transparent = true, -- Enable this to disable setting the background color
 				terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
 				styles = {
 					-- Style to be applied to different syntax groups
@@ -138,29 +109,30 @@ packer.startup(function(use)
 			vim.g.tokyonight_style = "night"
 			-- vim.g.tokyonight_transparent = vim.g.transparent_enabled
 		end,
-	})
-	use({
+	},
+
+	{
 		"marko-cerovac/material.nvim",
 		config = function()
 			vim.g.material_style = "deep ocean"
 			-- vim.cmd [[colorscheme material]]
 		end,
-	})
+	},
 
 	-- tmux
-	use({ "christoomey/vim-tmux-navigator" })
+	{ "christoomey/vim-tmux-navigator" },
 
 	-- lua
-	use({ "andrejlevkovitch/vim-lua-format" })
+	{ "andrejlevkovitch/vim-lua-format" },
 
 	-- symbol view
-	use({ "liuchengxu/vista.vim", config = function() end })
+	{ "liuchengxu/vista.vim", config = function() end },
 
-	use({ "vim-denops/denops.vim" })
+	-- { "vim-denops/denops.vim" },
 
-	use({ "rafamadriz/friendly-snippets" })
+	{ "rafamadriz/friendly-snippets" },
 
-	use({
+	{
 		"hrsh7th/vim-vsnip",
 		config = function()
 			vim.api.nvim_exec(
@@ -194,11 +166,11 @@ packer.startup(function(use)
 				false
 			)
 		end,
-	})
+	},
 
-	use({
+	{
 		"hrsh7th/nvim-cmp",
-		requires = {
+		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"hrsh7th/cmp-nvim-lsp-document-symbol",
@@ -219,7 +191,6 @@ packer.startup(function(use)
 
 			local common_sources = {
 				{ name = "buffer" },
-				{ name = "emoji" },
 				-- { name = "spell" },
 				{ name = "mocword" },
 			}
@@ -233,22 +204,21 @@ packer.startup(function(use)
 					format = lspkind.cmp_format({
 						mode = "symbol_text", -- show only symbol annotations
 						maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-						before = function(entry, vim_item)
-							if entry.completion_item.detail ~= nil and entry.completion_item.detail ~= "" then
-								vim_item.menu = entry.completion_item.detail
-							else
-								vim_item.menu = ({
-									nvim_lsp = "[LSP]",
-									luasnip = "[Snippet]",
-									buffer = "[Buffer]",
-									path = "[Path]",
-								})[entry.source.name]
-							end
-							return vim_item
-						end,
+						-- before = function(entry, vim_item)
+						-- 	if entry.completion_item.detail ~= nil and entry.completion_item.detail ~= "" then
+						-- 		vim_item.menu = entry.completion_item.detail
+						-- 	else
+						-- 		vim_item.menu = ({
+						-- 			nvim_lsp = "[LSP]",
+						-- 			luasnip = "[Snippet]",
+						-- 			buffer = "[Buffer]",
+						-- 			path = "[Path]",
+						-- 		})[entry.source.name]
+						-- 	end
+						-- 	return vim_item
+						-- end,
 					}),
 				},
-
 				snippet = {
 					-- REQUIRED - you must specify a snippet engine
 					expand = function(args)
@@ -258,12 +228,10 @@ packer.startup(function(use)
 						-- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
 					end,
 				},
-
 				window = {
 					-- completion = cmp.config.window.bordered(),
 					-- documentation = cmp.config.window.bordered(),
 				},
-
 				mapping = cmp.mapping.preset.insert({
 					["<C-b>"] = cmp.mapping.scroll_docs(-4),
 					["<C-f>"] = cmp.mapping.scroll_docs(4),
@@ -271,11 +239,11 @@ packer.startup(function(use)
 					["<C-e>"] = cmp.mapping.abort(),
 					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 				}),
-
 				sources = cmp.config.sources(vim.list_extend({
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lsp_signature_help" },
 					{ name = "vsnip" },
+					{ name = "emoji" },
 				}, common_sources)),
 			})
 
@@ -312,11 +280,11 @@ packer.startup(function(use)
 				}),
 			})
 		end,
-	})
+	},
 
-	use({
+	{
 		"stevearc/dressing.nvim",
-		requires = {
+		dependencies = {
 			"nvim-telescope/telescope.nvim",
 		},
 		config = function()
@@ -331,11 +299,11 @@ packer.startup(function(use)
 				},
 			})
 		end,
-	})
+	},
 
-	use({
+	{
 		"williamboman/mason.nvim",
-		requires = {
+		dependencies = {
 			"williamboman/mason-lspconfig.nvim",
 			"neovim/nvim-lspconfig",
 			"nvim-lua/plenary.nvim",
@@ -343,7 +311,9 @@ packer.startup(function(use)
 			"tamago324/nlsp-settings.nvim",
 			"folke/neodev.nvim",
 			"folke/lsp-colors.nvim",
+			"yioneko/nvim-vtsls",
 			"jose-elias-alvarez/nvim-lsp-ts-utils",
+			"jose-elias-alvarez/typescript.nvim",
 			"jose-elias-alvarez/null-ls.nvim",
 			"MunifTanjim/prettier.nvim",
 			"j-hui/fidget.nvim",
@@ -352,10 +322,25 @@ packer.startup(function(use)
 			"ray-x/guihua.lua",
 		},
 		config = function()
+			local lspconfig_util = require("lspconfig.util")
+			local lspconfig_configs = require("lspconfig.configs")
+
+			lspconfig_configs.redocly = {
+				default_config = {
+					filetypes = { "yaml", "yml", "json" },
+					root_dir = lspconfig_util.root_pattern(
+						"redocly.yaml",
+						"redocly.yml",
+						".redocly.yaml",
+						".redocly.yml"
+					),
+				},
+			}
+
 			-- local lsp_installer = require 'nvim-lsp-installer'
 			local mason = require("mason")
 			local mason_lspconfig = require("mason-lspconfig")
-			local lsp_config = require("lspconfig")
+			local lspconfig = require("lspconfig")
 			local lsp_status = require("lsp-status")
 			local nlspsettings = require("nlspsettings")
 			local null_ls = require("null-ls")
@@ -382,7 +367,7 @@ packer.startup(function(use)
 			local global_capabilities = vim.lsp.protocol.make_client_capabilities()
 			global_capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-			lsp_config.util.default_config = vim.tbl_extend("force", lsp_config.util.default_config, {
+			lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
 				capabilities = global_capabilities,
 			})
 
@@ -390,13 +375,12 @@ packer.startup(function(use)
 
 			-- disable diagnostics virtual_text
 			vim.lsp.handlers["textDocument/publishDiagnostics"] =
-			vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-				virtual_text = false,
-				underline = true,
-				signs = true,
-
-				-- update_in_insert = true,
-			})
+				vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+					virtual_text = false,
+					underline = true,
+					signs = true,
+					-- update_in_insert = true,
+				})
 
 			-- normal mode のとき CursorHod 舌箇所の diagnostics を float で表示
 			vim.api.nvim_exec(
@@ -481,8 +465,7 @@ packer.startup(function(use)
 					bufnr,
 					"n",
 					"gr",
-					"<cmd>lua require'telescope.builtin'.lsp_references(require('telescope.themes').get_ivy({ show_line = false, fname_width = 100 }))<CR>"
-					,
+					"<cmd>lua require'telescope.builtin'.lsp_references(require('telescope.themes').get_ivy({ show_line = false, fname_width = 100 }))<CR>",
 					opts
 				)
 
@@ -505,54 +488,130 @@ packer.startup(function(use)
 			local common_capabilities = require("cmp_nvim_lsp").default_capabilities()
 			common_capabilities = vim.tbl_extend("keep", common_capabilities, lsp_status.capabilities)
 
-			mason.setup({})
+			lspconfig.redocly.setup({
+				cmd = {
+					"node",
+					vim.fn.expand("~/.vscode/extensions/redocly.openapi-vs-code-0.2.17/out/server/src/server.js"),
+					"--stdio",
+				},
+				on_attach = function(client, bufnr)
+					client.server_capabilities.definitionProvider = true
+					-- client.server_capabilities = vim.tbl_extend("force", client.server_capabilities, {
+					-- 	hoverProvider = true,
+					-- 	definitionProvider = true,
+					-- 	referencesProvider = true,
+					-- 	documentHighlightProvider = true,
+					-- 	documentSymbolProvider = true,
+					-- 	workspaceSymbolProvider = true,
+					-- 	codeActionProvider = true,
+					-- 	codeLensProvider = true,
+					-- 	documentFormattingProvider = true,
+					-- 	documentRangeFormattingProvider = true,
+					-- 	documentOnTypeFormattingProvider = true,
+					-- 	renameProvider = true,
+					-- 	documentLinkProvider = true,
+					-- })
 
-			mason_lspconfig.setup({})
+					common_on_attach(client, bufnr)
+				end,
+				capabilities = common_capabilities,
+			})
+
+			lspconfig.vtsls.setup({
+				on_attach = function(client, bufnr)
+					common_on_attach(client, bufnr)
+				end,
+				capabilities = common_capabilities,
+				settings = {
+					["typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName"] = true,
+					["typescript.inlayHints.parameterTypes.enabled"] = true,
+					["typescript.inlayHints.variableTypes.enabled"] = true,
+					["typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName"] = true,
+					["typescript.inlayHints.propertyDeclarationTypes.enabled"] = true,
+					["typescript.inlayHints.functionLikeReturnTypes.enabled"] = true,
+					["typescript.inlayHints.enumMemberValues.enabled"] = true,
+					typescript = {
+						inlayHints = {
+							parameterNames = {
+								suppressWhenArgumentMatchesName = true,
+							},
+							parameterTypes = {
+								enabled = true,
+							},
+							variableTypes = {
+								enabled = true,
+								suppressWhenTypeMatchesName = true,
+							},
+							propertyDeclarationTypes = {
+								enabled = true,
+							},
+							functionLikeReturnTypes = {
+								enabled = true,
+							},
+							enumMemberValues = {
+								enabled = true,
+							},
+						},
+					},
+					["javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName"] = true,
+					["javascript.inlayHints.parameterTypes.enabled"] = true,
+					["javascript.inlayHints.variableTypes.enabled"] = true,
+					["javascript.inlayHints.variableTypes.suppressWhenTypeMatchesName"] = true,
+					["javascript.inlayHints.propertyDeclarationTypes.enabled"] = true,
+					["javascript.inlayHints.functionLikeReturnTypes.enabled"] = true,
+					["javascript.inlayHints.enumMemberValues.enabled"] = true,
+					javascript = {
+						inlayHints = {
+							parameterNames = {
+								suppressWhenArgumentMatchesName = true,
+							},
+							parameterTypes = {
+								enabled = true,
+							},
+							variableTypes = {
+								enabled = true,
+								suppressWhenTypeMatchesName = true,
+							},
+							propertyDeclarationTypes = {
+								enabled = true,
+							},
+							functionLikeReturnTypes = {
+								enabled = true,
+							},
+							enumMemberValues = {
+								enabled = true,
+							},
+						},
+					},
+				},
+			})
+
+			mason.setup({})
 
 			mason_lspconfig.setup_handlers({
 				function(server_name)
-					lsp_config[server_name].setup({
+					lspconfig[server_name].setup({
 						on_attach = common_on_attach,
 						capabilities = common_capabilities,
 					})
 				end,
-
 				["yamlls"] = function()
-					lsp_config.yamlls.setup({
+					lspconfig.yamlls.setup({
 						on_attach = function(client, bufnr)
 							common_on_attach(client, bufnr)
 						end,
 						capabilities = common_capabilities,
 					})
 				end,
-
 				["jsonls"] = function()
-					lsp_config.jsonls.setup({
+					lspconfig.jsonls.setup({
 						on_attach = function(client, bufnr)
 							common_on_attach(client, bufnr)
 						end,
 						capabilities = common_capabilities,
 					})
 				end,
-
-				["spectral"] = function()
-					lsp_config.spectral.setup({
-						cmd = { "" },
-						on_attach = function(client, bufnr)
-							common_on_attach(client, bufnr)
-						end,
-						capabilities = common_capabilities,
-						filetypes = { "yaml", "json", "yml" },
-						settings = {
-							enable = true,
-							run = "onType",
-							validateLanguages = { "yaml", "json", "yml" },
-						},
-						single_file_support = true,
-					})
-				end,
-
-				["sumneko_lua"] = function()
+				["lua_lsp"] = function()
 					require("neodev").setup({
 						library = {
 							enabled = true,
@@ -562,7 +621,7 @@ packer.startup(function(use)
 						},
 					})
 
-					lsp_config.sumneko_lua.setup({
+					lspconfig.lua_lsp.setup({
 						on_attach = common_on_attach,
 						capabilities = common_capabilities,
 						-- ref: https://github.com/neovim/nvim-lspconfig/issues/319#issuecomment-1192399104
@@ -590,7 +649,7 @@ packer.startup(function(use)
 				-- 	})
 				-- end,
 				["solargraph"] = function()
-					lsp_config.solargraph.setup({
+					lspconfig.solargraph.setup({
 						on_attach = function(client, bufnr)
 							common_on_attach(client, bufnr)
 						end,
@@ -598,20 +657,30 @@ packer.startup(function(use)
 					})
 				end,
 				["denols"] = function()
-					lsp_config.denols.setup({
+					lspconfig.denols.setup({
 						on_attach = function(client, bufnr)
 							common_on_attach(client, bufnr)
 						end,
 						capabilities = common_capabilities,
-						root_dir = lsp_config.util.root_pattern("deno.json"),
+						root_dir = lspconfig_util.root_pattern("deno.json"),
 						single_file_support = false, -- default true なため、root_dir を見るよう false にする
 						autostart = false,
 					})
 				end,
 				["gopls"] = function()
-					require("go").setup({})
+					-- TODO: very slow
+					-- local path = vim.fn.stdpath("data") .. "/mason"
+					-- local install_root_dir = path.concat({ vim.fn.stdpath("data"), "lsp_servers" })
+					local install_root_dir = vim.fn.stdpath("data") .. "/mason"
 
-					lsp_config.gopls.setup({
+					require("go").setup({
+						gopls_cmd = { install_root_dir .. "/go/gopls" },
+						fillstruct = "gopls",
+						dap_debug = true,
+						dap_debug_gui = true,
+					})
+
+					lspconfig.gopls.setup({
 						on_attach = function(client, bufnr)
 							common_on_attach(client, bufnr)
 						end,
@@ -631,73 +700,81 @@ packer.startup(function(use)
 						},
 					})
 				end,
-				["tsserver"] = function()
-					lsp_config.tsserver.setup({
-						root_dir = lsp_config.util.root_pattern("package.json"),
-						on_attach = function(client, bufnr)
-							common_on_attach(client, bufnr)
+				-- ["tsserver"] = function()
+				-- 	require("typescript").setup({
+				-- 		disable_commands = false, -- prevent the plugin from creating Vim commands
+				-- 		debug = false, -- enable debug logging for commands
+				-- 		go_to_source_definition = {
+				-- 			fallback = true, -- fall back to standard LSP definition on failure
+				-- 		},
+				-- 		server = { -- pass options to lspconfig's setup method
+				-- 			root_dir = lspconfig.util.root_pattern("package.json"),
+				-- 			on_attach = function(client, bufnr)
+				-- 				common_on_attach(client, bufnr)
 
-							-- client.resolved_capabilities.document_formatting = false
-							client.server_capabilities.document_formatting = false
+				-- 				-- client.resolved_capabilities.document_formatting = false
+				-- 				client.server_capabilities.document_formatting = false
 
-							local ts_utils = require("nvim-lsp-ts-utils")
-							ts_utils.setup({
-								update_imports_on_move = true,
-								require_confirmation_on_move = true,
-								auto_inlay_hints = false,
-							})
+				-- 				local ts_utils = require("nvim-lsp-ts-utils")
 
-							-- required to fix code action ranges and filter diagnostics
-							ts_utils.setup_client(client)
+				-- 				ts_utils.setup({
+				-- 					update_imports_on_move = true,
+				-- 					require_confirmation_on_move = true,
+				-- 					auto_inlay_hints = false,
+				-- 				})
 
-							-- no default maps, so you may want to define some here
-							local opts = { silent = true }
+				-- 				-- required to fix code action ranges and filter diagnostics
+				-- 				ts_utils.setup_client(client)
 
-							vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>io", ":TSLspOrganize<CR>", opts)
-							vim.api.nvim_buf_set_keymap(bufnr, "n", "rf", ":TSLspRenameFile<CR>", opts)
-							vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>ia", ":TSLspImportAll<CR>", opts)
-						end,
-						capabilities = common_capabilities,
-						settings = {
-							typescript = {
-								inlayHints = {
-									includeInlayParameterNameHints = "all",
-									includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-									includeInlayFunctionParameterTypeHints = true,
-									includeInlayVariableTypeHints = true,
-									includeInlayPropertyDeclarationTypeHints = true,
-									includeInlayFunctionLikeReturnTypeHints = true,
-									includeInlayEnumMemberValueHints = true,
-								},
-							},
-							javascript = {
-								inlayHints = {
-									includeInlayParameterNameHints = "all",
-									includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-									includeInlayFunctionParameterTypeHints = true,
-									includeInlayVariableTypeHints = true,
-									includeInlayPropertyDeclarationTypeHints = true,
-									includeInlayFunctionLikeReturnTypeHints = true,
-									includeInlayEnumMemberValueHints = true,
-								},
-							},
-						},
-					})
-				end,
+				-- 				-- no default maps, so you may want to define some here
+				-- 				local opts = { silent = true }
+
+				-- 				vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>io", ":TSLspOrganize<CR>", opts)
+				-- 				vim.api.nvim_buf_set_keymap(bufnr, "n", "rf", ":TSLspRenameFile<CR>", opts)
+				-- 				vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>ia", ":TSLspImportAll<CR>", opts)
+				-- 			end,
+				-- 			capabilities = common_capabilities,
+				-- 			settings = {
+				-- 				typescript = {
+				-- 					inlayHints = {
+				-- 						includeInlayParameterNameHints = "all",
+				-- 						includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+				-- 						includeInlayFunctionParameterTypeHints = true,
+				-- 						includeInlayVariableTypeHints = true,
+				-- 						includeInlayPropertyDeclarationTypeHints = true,
+				-- 						includeInlayFunctionLikeReturnTypeHints = true,
+				-- 						includeInlayEnumMemberValueHints = true,
+				-- 					},
+				-- 				},
+				-- 				javascript = {
+				-- 					inlayHints = {
+				-- 						includeInlayParameterNameHints = "all",
+				-- 						includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+				-- 						includeInlayFunctionParameterTypeHints = true,
+				-- 						includeInlayVariableTypeHints = true,
+				-- 						includeInlayPropertyDeclarationTypeHints = true,
+				-- 						includeInlayFunctionLikeReturnTypeHints = true,
+				-- 						includeInlayEnumMemberValueHints = true,
+				-- 					},
+				-- 				},
+				-- 			},
+				-- 		},
+				-- 	})
+				-- end,
 				["eslint"] = function()
-					lsp_config.eslint.setup({
+					lspconfig.eslint.setup({
 						on_attach = function(client, bufnr)
-							client.server_capabilities.document_formatting = true
-							client.server_capabilities.document_range_formatting = true
-
-							common_on_attach(client, bufnr)
-
 							-- @see https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#eslint
 							vim.api.nvim_create_autocmd("BufWritePre", {
 								group = lspFormattingGroup,
 								pattern = { "*.tsx", "*.ts", "*.jsx", "*.js" },
 								command = "silent! EslintFixAll",
 							})
+
+							common_on_attach(client, bufnr)
+
+							client.server_capabilities.document_formatting = true
+							client.server_capabilities.document_range_formatting = true
 						end,
 						settings = {
 							codeActionOnSave = {
@@ -712,41 +789,50 @@ packer.startup(function(use)
 				end,
 			})
 
-			-- local prettier = require("prettier")
+			local prettier = require("prettier")
 
-			-- prettier.setup({
-			-- 	["null-ls"] = {
-			-- 		condition = function()
-			-- 			return prettier.config_exists({
-			-- 				-- if `true`, checks `package.json` for `"prettier"` key
-			-- 				check_package_json = false,
-			-- 			})
-			-- 		end,
-			-- 		runtime_condition = function(params)
-			-- 			-- return false to skip running prettier
-			-- 			return true
-			-- 		end,
-			-- 		timeout = 5000,
-			-- 	},
-			-- })
+			prettier.setup({
+				["null-ls"] = {
+					condition = function()
+						return prettier.config_exists({
+							check_package_json = true,
+						})
+					end,
+					runtime_condition = function(params)
+						-- return false to skip running prettier
+						return true
+					end,
+					timeout = 5000,
+				},
+			})
 
 			null_ls.setup({
 				sources = {
 					null_ls.builtins.code_actions.gitsigns,
-					null_ls.builtins.code_actions.eslint,
-					null_ls.builtins.formatting.prettier.with({
-						condition = function(utils)
-							return utils.root_has_file({
-								".prettierrc",
-								".prettierrc.js",
-								".prettierrc.json",
-								".prettierrc.ts",
-							})
-						end,
-					}),
-					null_ls.builtins.formatting.goimports,
+					-- null_ls.builtins.formatting.prettier.with({
+					-- 	condition = function(utils)
+					-- 		return utils.root_has_file({
+					-- 			".prettierrc",
+					-- 			".prettierrc.js",
+					-- 			".prettierrc.json",
+					-- 			".prettierrc.ts",
+					-- 		})
+					-- 	end,
+					-- }),
+					require("typescript.extensions.null-ls.code-actions"),
 					null_ls.builtins.formatting.stylua,
 					null_ls.builtins.completion.spell,
+					null_ls.builtins.formatting.goimports,
+					null_ls.builtins.diagnostics.golangci_lint,
+					null_ls.builtins.diagnostics.revive,
+					null_ls.builtins.formatting.golines.with({
+						extra_args = {
+							"--max-len=180",
+							"--base-formatter=gofumpt",
+						},
+					}),
+					require("go.null_ls").gotest(),
+					require("go.null_ls").gotest_action(),
 				},
 				on_attach = function(client, bufnr)
 					if client.supports_method("textDocument/formatting") then
@@ -762,10 +848,10 @@ packer.startup(function(use)
 				end,
 			})
 		end,
-	})
+	},
 
 	-- LSP / line diagnostics
-	-- use({
+	-- {
 	-- 	"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
 	-- 	config = function()
 	-- 		require("lsp_lines").setup({})
@@ -787,12 +873,12 @@ packer.startup(function(use)
 	-- 		-- 	end
 	-- 		-- })
 	-- 	end,
-	-- })
+	-- },
 
 	-- LSP / diagnostics UI
-	use({
+	{
 		"folke/trouble.nvim",
-		requires = "kyazdani42/nvim-web-devicons",
+		dependencies = "kyazdani42/nvim-web-devicons",
 		config = function()
 			require("trouble").setup({
 				-- your configuration comes here
@@ -802,16 +888,16 @@ packer.startup(function(use)
 
 			vim.api.nvim_set_keymap("n", "<F4>", ":TroubleToggle<CR>", { noremap = true, silent = true })
 		end,
-	})
+	},
 
 	-- buffer delete imple
-	use("famiu/bufdelete.nvim")
+	{ "famiu/bufdelete.nvim" },
 
 	-- buffer ui
-	-- use {
+	-- {
 	-- 	'akinsho/bufferline.nvim',
-	-- 	tag = "*",
-	-- 	requires = { 'kyazdani42/nvim-web-devicons' },
+	-- 	version= "*",
+	-- 	dependencies = { 'kyazdani42/nvim-web-devicons' },
 	-- 	config = function()
 	-- 		require("bufferline").setup {}
 	-- 		vim.api.nvim_set_keymap('n', '<C-n>', ':BufferLineCycleNext<CR>', { noremap = true, silent = true })
@@ -834,10 +920,11 @@ packer.startup(function(use)
 	-- 			augroup END
 	-- 		]], false)
 	-- 	end
-	-- }
-	use({
+	-- },
+
+	{
 		"romgrk/barbar.nvim",
-		requires = { "kyazdani42/nvim-web-devicons" },
+		dependencies = { "kyazdani42/nvim-web-devicons" },
 		config = function()
 			vim.api.nvim_set_keymap("n", "<C-n>", ":BufferNext<CR>", { noremap = true, silent = true })
 			vim.api.nvim_set_keymap("n", "<C-p>", ":BufferPrev<CR>", { noremap = true, silent = true })
@@ -850,6 +937,7 @@ packer.startup(function(use)
 
 					function! FernInit() abort
 						nmap <buffer> <C-L> :TmuxNavigateRight<CR>
+
 						set nonumber
 					endfunction
 
@@ -861,14 +949,14 @@ packer.startup(function(use)
 				false
 			)
 		end,
-	})
+	},
 
 	-----------------------------------------------------
 	-- status line
 	-----------------------------------------------------
-	use({
+	{
 		"nvim-lualine/lualine.nvim",
-		requires = {
+		dependencies = {
 			"nvim-lua/lsp-status.nvim",
 		},
 		config = function()
@@ -910,13 +998,25 @@ packer.startup(function(use)
 				})
 			end
 		end,
-	})
+	},
 
 	-----------------------------------------------------
 	-- filer
 	-----------------------------------------------------
-	use({
+	{
 		"lambdalisue/fern.vim",
+		dependencies = {
+			{
+				"lambdalisue/fern-renderer-nerdfont.vim",
+				dependencies = { "lambdalisue/nerdfont.vim" },
+			},
+
+			{ "lambdalisue/fern-git-status.vim" },
+
+			{ "lambdalisue/fern-hijack.vim" },
+
+			{ "lambdalisue/glyph-palette.vim" },
+		},
 		config = function()
 			vim.api.nvim_set_keymap(
 				"n",
@@ -932,28 +1032,25 @@ packer.startup(function(use)
 			)
 			vim.g.fern_disable_startup_warnings = 1
 		end,
-	})
-	use({
-		"lambdalisue/fern-renderer-nerdfont.vim",
-		requires = { "lambdalisue/nerdfont.vim" },
-	})
-	use({ "lambdalisue/fern-git-status.vim" })
-	use({ "lambdalisue/fern-hijack.vim" })
-	use({ "lambdalisue/glyph-palette.vim" })
+	},
 
 	-----------------------------------------------------
 	-- git
 	-----------------------------------------------------
-	use({ "iberianpig/tig-explorer.vim" })
-	use({
+
+	{ "iberianpig/tig-explorer.vim" },
+
+	{
 		"tpope/vim-fugitive",
 		config = function()
 			vim.api.nvim_set_keymap("n", "gb", "<cmd>Git blame<CR>", { noremap = true, silent = true })
 		end,
-	})
+	},
+
 	-- github extenstions for fugitive
-	use({ "tpope/vim-rhubarb" })
-	use({
+	{ "tpope/vim-rhubarb" },
+
+	{
 		"TimUntersberger/neogit",
 		config = function()
 			local neogit = require("neogit")
@@ -967,18 +1064,29 @@ packer.startup(function(use)
 				})
 			end
 		end,
-	})
-	use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
-	use({
+	},
+
+	{ "sindrets/diffview.nvim", dependencies = "nvim-lua/plenary.nvim" },
+
+	{
 		"akinsho/git-conflict.nvim",
-		tag = "*",
+		version = "*",
 		config = function()
-			require("git-conflict").setup()
+			require("git-conflict").setup({
+				default_mappings = true, -- disable buffer local mapping created by this plugin
+				default_commands = true, -- disable commands created by this plugin
+				disable_diagnostics = false, -- This will disable the diagnostics in a buffer whilst it is conflicted
+				highlights = { -- They must have background color, otherwise the default color will be used
+					incoming = "DiffText",
+					current = "DiffAdd",
+				},
+			})
 		end,
-	})
-	use({
+	},
+
+	{
 		"lewis6991/gitsigns.nvim",
-		requires = { "nvim-lua/plenary.nvim" },
+		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			require("gitsigns").setup({
 				signs = {
@@ -1070,9 +1178,10 @@ packer.startup(function(use)
 				yadm = { enable = false },
 			})
 		end,
-		-- tag = 'release' -- To use the latest release
-	})
-	use({
+		-- version = 'release' -- To use the latest release
+	},
+
+	{
 		"samoshkin/vim-mergetool",
 		config = function()
 			vim.api.nvim_exec(
@@ -1083,10 +1192,11 @@ packer.startup(function(use)
 				false
 			)
 		end,
-	})
-	use({
+	},
+
+	{
 		"pwntester/octo.nvim",
-		requires = {
+		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope.nvim",
 			"kyazdani42/nvim-web-devicons",
@@ -1094,148 +1204,161 @@ packer.startup(function(use)
 		config = function()
 			require("octo").setup()
 		end,
-	})
+	},
 
 	-- debugger
-	use({
-		"microsoft/vscode-js-debug",
-		run = "npm install && npm run compile",
-	})
+	-- {
+	-- 	"microsoft/vscode-js-debug",
+	-- 	build = "npm install && npm run compile",
+	-- },
 
-	use({
-		"rcarriga/nvim-dap-ui",
-		requires = {
-			"mfussenegger/nvim-dap",
-			"leoluz/nvim-dap-go",
-			"mxsdev/nvim-dap-vscode-js",
-			"nvim-treesitter/nvim-treesitter",
-		},
-		config = function()
-			local dap, dapui = require("dap"), require("dapui")
+	-- {
+	-- 	"rcarriga/nvim-dap-ui",
+	-- 	dependencies = {
+	-- 		"mfussenegger/nvim-dap",
+	-- 		"leoluz/nvim-dap-go",
+	-- 		"mxsdev/nvim-dap-vscode-js",
+	-- 		"nvim-treesitter/nvim-treesitter",
+	-- 		"jbyuki/one-small-step-for-vimkind",
+	-- 	},
+	-- 	config = function()
+	-- 		local dap, dapui = require("dap"), require("dapui")
 
-			vim.fn.sign_define("DapBreakpoint", { text = "⛔", texthl = "", linehl = "", numhl = "" })
-			vim.fn.sign_define("DapStopped", { text = "👉", texthl = "", linehl = "", numhl = "" })
+	-- 		vim.fn.sign_define("DapBreakpoint", { text = "⛔", texthl = "", linehl = "", numhl = "" })
+	-- 		vim.fn.sign_define("DapStopped", { text = "👉", texthl = "", linehl = "", numhl = "" })
 
-			dapui.setup({
-				layouts = {
-					{
-						elements = {
-							{ id = "watches", size = 0.20 },
-							{ id = "stacks", size = 0.20 },
-							{ id = "breakpoints", size = 0.20 },
-							{ id = "scopes", size = 0.40 },
-						},
-						size = 64,
-						position = "right",
-					},
-					{
-						elements = {
-							"repl",
-							"console",
-						},
-						size = 0.20,
-						position = "bottom",
-					},
-				},
-			})
+	-- 		dapui.setup({
+	-- 			layouts = {
+	-- 				{
+	-- 					elements = {
+	-- 						{ id = "watches", size = 0.20 },
+	-- 						{ id = "stacks", size = 0.20 },
+	-- 						{ id = "breakpoints", size = 0.20 },
+	-- 						{ id = "scopes", size = 0.40 },
+	-- 					},
+	-- 					size = 64,
+	-- 					position = "right",
+	-- 				},
+	-- 				{
+	-- 					elements = {
+	-- 						"repl",
+	-- 						"console",
+	-- 					},
+	-- 					size = 0.20,
+	-- 					position = "bottom",
+	-- 				},
+	-- 			},
+	-- 		})
 
-			require("dap-go").setup()
+	-- 		require("dap-go").setup()
 
-			require("dap-vscode-js").setup({
-				debugger_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/vscode-js-debug", -- Path to vscode-js-debug installation.
-				adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
-			})
+	-- 		-- require("dap-vscode-js").setup({
+	-- 		-- 	debugger_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/vscode-js-debug", -- Path to vscode-js-debug installation.
+	-- 		-- 	adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
+	-- 		-- })
 
-			dap.adapters.node2 = {
-				type = "executable",
-				command = "node",
-				args = { os.getenv("HOME") .. "/ghq/github.com/microsoft/vscode-node-debug2/out/src/nodeDebug.js" },
-			}
+	-- 		dap.configurations.lua = {
+	-- 			{
+	-- 				type = "nlua",
+	-- 				request = "attach",
+	-- 				name = "Attach to running Neovim instance",
+	-- 			},
+	-- 		}
 
-			dap.adapters.chrome = {
-				type = "executable",
-				command = "node",
-				args = { os.getenv("HOME") .. "/ghq/github.com/microsoft/vscode-chrome-debug/out/src/chromeDebug.js" }, -- TODO adjust
-			}
+	-- 		dap.adapters.nlua = function(callback, config)
+	-- 			callback({ type = "server", host = config.host or "127.0.0.1", port = config.port or 8086 })
+	-- 		end
 
-			dap.configurations.javascript = {
-				{
-					type = "pwa-node",
-					request = "launch",
-					name = "Launch file",
-					program = "${file}",
-					cwd = "${workspaceFolder}",
-				},
-				{
-					type = "pwa-node",
-					request = "attach",
-					name = "Attach",
-					processId = require("dap.utils").pick_process,
-					cwd = "${workspaceFolder}",
-				},
-				{
-					type = "pwa-node",
-					request = "launch",
-					name = "Debug Jest Tests",
-					trace = true, -- include debugger info
-					runtimeExecutable = "node",
-					runtimeArgs = {
-						"./node_modules/jest/bin/jest.js",
-						"--runInBand",
-					},
-					rootPath = "${workspaceFolder}",
-					cwd = "${workspaceFolder}",
-					console = "integratedTerminal",
-					internalConsoleOptions = "neverOpen",
-				},
-			}
+	-- 		dap.adapters.node2 = {
+	-- 			type = "executable",
+	-- 			command = "node",
+	-- 			args = { os.getenv("HOME") .. "/ghq/github.com/microsoft/vscode-node-debug2/out/src/nodeDebug.js" },
+	-- 		}
 
-			dap.configurations.javascriptreact = dap.configurations.javascript
-			dap.configurations.typescript = dap.configurations.javascript
-			dap.configurations.typescriptreact = dap.configurations.javascript
+	-- 		dap.adapters.chrome = {
+	-- 			type = "executable",
+	-- 			command = "node",
+	-- 			args = { os.getenv("HOME") .. "/ghq/github.com/microsoft/vscode-chrome-debug/out/src/chromeDebug.js" }, -- TODO adjust
+	-- 		}
 
-			dap.listeners.after.event_initialized["dapui_config"] = function()
-				dapui.open()
-			end
-			dap.listeners.before.event_terminated["dapui_config"] = function()
-				dapui.close()
-			end
-			dap.listeners.before.event_exited["dapui_config"] = function()
-				dapui.close()
-			end
+	-- 		dap.configurations.javascript = {
+	-- 			{
+	-- 				type = "pwa-node",
+	-- 				request = "launch",
+	-- 				name = "Launch file",
+	-- 				program = "${file}",
+	-- 				cwd = "${workspaceFolder}",
+	-- 			},
+	-- 			{
+	-- 				type = "pwa-node",
+	-- 				request = "attach",
+	-- 				name = "Attach",
+	-- 				processId = require("dap.utils").pick_process,
+	-- 				cwd = "${workspaceFolder}",
+	-- 			},
+	-- 			{
+	-- 				type = "pwa-node",
+	-- 				request = "launch",
+	-- 				name = "Debug Jest Tests",
+	-- 				trace = true, -- include debugger info
+	-- 				runtimeExecutable = "node",
+	-- 				runtimeArgs = {
+	-- 					"./node_modules/jest/bin/jest.js",
+	-- 					"--runInBand",
+	-- 				},
+	-- 				rootPath = "${workspaceFolder}",
+	-- 				cwd = "${workspaceFolder}",
+	-- 				console = "integratedTerminal",
+	-- 				internalConsoleOptions = "neverOpen",
+	-- 			},
+	-- 		}
 
-			local function map(mode, lhs, rhs, opts)
-				local options = { noremap = true }
-				if opts then
-					options = vim.tbl_extend("force", options, opts)
-				end
-				vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-			end
+	-- 		dap.configurations.javascriptreact = dap.configurations.javascript
+	-- 		dap.configurations.typescript = dap.configurations.javascript
+	-- 		dap.configurations.typescriptreact = dap.configurations.javascript
 
-			map("n", "<leader>d", ":lua require'dapui'.toggle()<CR>", { silent = true })
-			map("n", "<leader><leader>df", ":lua require'dapui'.eval()<CR>", { silent = true })
-			map("n", "<F5>", ":lua require'dap'.continue()<CR>", { silent = true })
-			map("n", "<F10>", ":lua require'dap'.step_over()<CR>", { silent = true })
-			map("n", "<F11>", ":lua require'dap'.step_into()<CR>", { silent = true })
-			map("n", "<F12>", ":lua require'dap'.step_out()<CR>", { silent = true })
-			map("n", "<leader>b", ":lua require'dap'.toggle_breakpoint()<CR>", { silent = true })
-			map(
-				"n",
-				"<leader>bc",
-				":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
-				{ silent = true }
-			)
-			map(
-				"n",
-				"<leader>l",
-				":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>",
-				{ silent = true }
-			)
-		end,
-	})
+	-- 		dap.listeners.after.event_initialized["dapui_config"] = function()
+	-- 			dapui.open()
+	-- 		end
+	-- 		dap.listeners.before.event_terminated["dapui_config"] = function()
+	-- 			dapui.close()
+	-- 		end
+	-- 		dap.listeners.before.event_exited["dapui_config"] = function()
+	-- 			dapui.close()
+	-- 		end
+
+	-- 		local function map(mode, lhs, rhs, opts)
+	-- 			local options = { noremap = true }
+	-- 			if opts then
+	-- 				options = vim.tbl_extend("force", options, opts)
+	-- 			end
+	-- 			vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+	-- 		end
+
+	-- 		map("n", "<leader>d", ":lua require'dapui'.toggle()<CR>", { silent = true })
+	-- 		map("n", "<leader><leader>df", ":lua require'dapui'.eval()<CR>", { silent = true })
+	-- 		map("n", "<F5>", ":lua require'dap'.continue()<CR>", { silent = true })
+	-- 		map("n", "<F10>", ":lua require'dap'.step_over()<CR>", { silent = true })
+	-- 		map("n", "<F11>", ":lua require'dap'.step_into()<CR>", { silent = true })
+	-- 		map("n", "<F12>", ":lua require'dap'.step_out()<CR>", { silent = true })
+	-- 		map("n", "<leader>b", ":lua require'dap'.toggle_breakpoint()<CR>", { silent = true })
+	-- 		map(
+	-- 			"n",
+	-- 			"<leader>bc",
+	-- 			":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
+	-- 			{ silent = true }
+	-- 		)
+	-- 		map(
+	-- 			"n",
+	-- 			"<leader>l",
+	-- 			":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>",
+	-- 			{ silent = true }
+	-- 		)
+	-- 	end,
+	-- },
 
 	-- test
-	use({
+	{
 		"vim-test/vim-test",
 		config = function()
 			vim.api.nvim_exec(
@@ -1250,11 +1373,11 @@ packer.startup(function(use)
 				false
 			)
 		end,
-	})
+	},
 
-	use({
+	{
 		"nvim-neotest/neotest",
-		requires = {
+		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"vim-test/vim-test",
 			"haydenmeade/neotest-jest",
@@ -1286,17 +1409,19 @@ packer.startup(function(use)
 			vim.api.nvim_set_keymap("n", "to", '<cmd>lua require("neotest").output.open({ enter = true })<CR>', opts)
 			vim.api.nvim_set_keymap("n", "tt", '<cmd>lua require("neotest").summary.toggle()<CR>', opts)
 		end,
-	})
+	},
 
 	-- fuzzy finder
-	use({ "junegunn/fzf", dir = "~/.fzf", run = "./install --all" })
-	use({ "junegunn/fzf.vim" })
-	use({ "nvim-lua/plenary.nvim" })
-	use({
+	-- { "junegunn/fzf", dir = "~/.fzf", build = "./install --all" },
+
+	-- "junegunn/fzf.vim",
+
+	{ "nvim-lua/plenary.nvim" },
+
+	{
 		"nvim-telescope/telescope.nvim",
-		requires = {
-			-- 'nvim-telescope/telescope-ui-select.nvim',
-			"nvim-telescope/telescope-fzf-native.nvim",
+		dependencies = {
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 			"nvim-telescope/telescope-dap.nvim",
 			"nvim-telescope/telescope-github.nvim",
 		},
@@ -1304,6 +1429,10 @@ packer.startup(function(use)
 			local telescope = require("telescope")
 
 			if telescope then
+				-- telescope.load_extension("fzf")
+				-- telescope.load_extension("dap")
+				telescope.load_extension("gh")
+
 				telescope.setup({
 					defaults = {
 						theme = "cursor",
@@ -1346,14 +1475,8 @@ packer.startup(function(use)
 					},
 				})
 
-				-- telescope.load_extension("ui-select")
-				telescope.load_extension("fzf")
-				telescope.load_extension("dap")
-				telescope.load_extension("gh")
-			end
-
-			vim.api.nvim_exec(
-				[[
+				vim.api.nvim_exec(
+					[[
         nmap <Space>o :Telescope find_files<CR>
         nmap <Space>f :Telescope find_files<CR>
         nmap <Space>b :Telescope buffers<CR>
@@ -1366,13 +1489,14 @@ packer.startup(function(use)
         nmap <Space>gla :Telescope git_commits<CR>
         nmap <C-G> :Telescope live_grep<CR>
       ]],
-				false
-			)
+					false
+				)
+			end
 		end,
-	})
+	},
 
 	-- window resizer
-	use({
+	{
 		"simeji/winresizer",
 		config = function()
 			vim.api.nvim_exec(
@@ -1382,24 +1506,27 @@ packer.startup(function(use)
 				false
 			)
 		end,
-	})
+	},
 
 	-- replace in project
-	use({ "dyng/ctrlsf.vim" })
-	use({ "thinca/vim-qfreplace" })
-	use({
+	{ "dyng/ctrlsf.vim" },
+
+	{ "thinca/vim-qfreplace" },
+
+	{
 		"nvim-pack/nvim-spectre",
 		config = function()
 			require("spectre").setup()
 		end,
-	})
+	},
 
 	-- text operator
-	use({ "tpope/vim-surround" })
-	use({ "machakann/vim-sandwich" })
+	{ "tpope/vim-surround" },
+
+	{ "machakann/vim-sandwich" },
 
 	-- terraform
-	use({
+	{
 		"hashivim/vim-terraform",
 		config = function()
 			vim.api.nvim_exec(
@@ -1409,22 +1536,21 @@ packer.startup(function(use)
 				false
 			)
 		end,
-	})
+	},
 
 	-- zen mode
-	use({
-		"folke/zen-mode.nvim",
+	{
+		"Pocco81/true-zen.nvim",
 		config = function()
-			require("zen-mode").setup({
-				-- your configuration comes here
-				-- or leave it empty to use the default settings
-				-- refer to the configuration section below
+			require("true-zen").setup({
+				-- your config goes here
+				-- or just leave it empty :)
 			})
 		end,
-	})
+	},
 
 	-- line coloring for modes
-	use({
+	{
 		"mvllow/modes.nvim",
 		config = function()
 			require("modes").setup({
@@ -1434,40 +1560,35 @@ packer.startup(function(use)
 					insert = "#78ccc5",
 					visual = "#9745be",
 				},
-
 				-- Set opacity for cursorline and number background
 				line_opacity = 0.3,
-
 				-- Enable cursor highlights
 				set_cursor = true,
-
 				-- Enable cursorline initially, and disable cursorline for inactive windows
 				-- or ignored filetypes
 				set_cursorline = true,
-
 				-- Enable line number highlights to match cursorline
 				set_number = true,
-
 				-- Disable modes highlights in specified filetypes
 				-- Please PR commonly ignored filetypes
 				-- ignore_filetypes = { 'NvimTree', 'TelescopePrompt' }
 			})
 		end,
-	})
+	},
 
-	-- path copy utitlity (ex`:CopyPath`
-	use({ "vim-scripts/copypath.vim" })
+	-- path copy utitlity ex`:CopyPath`
+	{ "vim-scripts/copypath.vim" },
 
 	-- markdown preview
-	use({
+	{
 		"iamcco/markdown-preview.nvim",
-		run = function()
+		build = function()
 			vim.fn["mkdp#util#install"]()
 		end,
-	})
+	},
 
 	-- faster scroll
-	use({
+	{
 		"PHSix/faster.nvim",
 		event = { "VimEnter *" },
 		config = function()
@@ -1478,33 +1599,18 @@ packer.startup(function(use)
 				vim.api.nvim_set_keymap("n", "k", "<Plug>(faster_move_k)", { noremap = false, silent = true })
 			end
 		end,
-	})
+	},
 
-	-- use({
+	-- {
 	-- 	"folke/noice.nvim",
 	-- 	event = "VimEnter",
 	-- 	config = function()
 	-- 		require("noice").setup()
 	-- 	end,
-	-- 	requires = {
+	-- 	dependencies = {
 	-- 		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
 	-- 		"MunifTanjim/nui.nvim",
 	-- 		"rcarriga/nvim-notify",
 	-- 	},
-	-- })
-
-	-- Automatically set up your configuration after cloning packer.nvim
-	-- Put this at the end after all plugins
-	if packer_bootstrap then
-		require("packer").sync()
-	end
-end)
-
--- `:PackerCompile` automatically in write `plugin.lua`
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    " autocmd BufWritePre plugins.lua lua vim.lsp.stop_client(vim.lsp.get_active_clients())
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-  augroup end
-]])
+	-- },
+})

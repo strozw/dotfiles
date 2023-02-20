@@ -3,7 +3,7 @@ local wezterm = require("wezterm")
 return {
 	-- font = wezterm.font("HackGen Console NFJ"),
 	font = wezterm.font("PlemolJP Console NF"),
-	-- font = wezterm.font("UDEV Gothic NFLG"),
+	font = wezterm.font("UDEV Gothic NFLG"),
 	-- font = wezterm.font("UDEV Gothic NF"),
 	use_ime = true,
 	font_size = 16.0,
@@ -42,12 +42,13 @@ return {
 	hide_tab_bar_if_only_one_tab = true,
 	adjust_window_size_when_changing_font_size = false,
 	bypass_mouse_reporting_modifiers = "ALT",
-
-	-- keys = {
-	-- 	-- {key="-", mods="CTRL", action="Nop"},
-	-- 	-- {key="=", mods="CTRL", action="Nop"},
-	-- 	-- { key = "-", mods = "CTRL", action = "DisableDefaultAssignment" },
-	-- 	-- { key = "=", mods = "CTRL", action = "DisableDefaultAssignment" },
-	-- }
+	keys = {
+		-- { key = "_", mods = "CTRL", action = "Nop" },
+		-- { key = "_", mods = "CTRL", action = "Nop" },
+		-- { key = "-", mods = "CTRL", action = "Nop" },
+		{ key = "_", mods = "CTRL", action = wezterm.action.DisableDefaultAssignment },
+		{ key = "_", mods = "CTRL|SHIFT", action = wezterm.action.DisableDefaultAssignment },
+		{ key = "@", mods = "CTRL", action = wezterm.action.DisableDefaultAssignment },
+	},
+	debug_key_events = true,
 }
-

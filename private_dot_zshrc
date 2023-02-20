@@ -321,3 +321,8 @@ function __prompt_preexec() {
 }
 preexec_functions+=(__prompt_preexec)
 precmd_functions+=(__prompt_precmd)
+
+# pnpm
+export PNPM_HOME="/Users/satoru/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
