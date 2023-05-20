@@ -1,0 +1,46 @@
+[alias]
+	graph = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
+	gr = graph
+	st = status -bs
+  glc = !git log --graph --abbrev-commit --decorate --name-status --first-parent
+  cb = !sh -c 'git branch --all | fzf | xargs | sed "s/*//" | (read b && git checkout $b)'
+  mkpr = !sh -c 'git commit --allow-empty -m \"$1\" && git push -u origin HEAD && hub pull-request --draft'
+[browser "chrome"]
+    cmd = open -a 'Google Chrome.app'
+[color]
+  ui = auto
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+[commit]
+	verbose = true
+	gpgsign = true
+[core]
+	excludesfile = ~/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[init]
+	defaultBranch = main
+[merge]
+	ff = false
+	conflictStyle = diff3
+[pull]
+	ff = only
+[user]
+	name = strozw
+	email = strozw@users.noreply.github.com
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICrFhkVZ/qfsQL2ZZkeYjfs3/ytLCw5/NfB844uoVDVk
+[web]
+    browser = open
+
+# for local config
+[include]
+	path = ~/.gitconfig.local
+

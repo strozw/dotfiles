@@ -1,0 +1,4 @@
+.hgignore_globalsyntax: glob
+
+*~
+.DS_Store
