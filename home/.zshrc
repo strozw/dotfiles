@@ -4,7 +4,9 @@
 # User PATH
 #######################################################
 # rust
-source $HOME/.cargo/env
+if [ -e "$HOME/.cargo/env" ]; then
+	. "$HOME/.cargo/env"
+fi
 
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
@@ -137,7 +139,7 @@ zle -N fzf-ghq
 bindkey '^_' fzf-ghq
 
 # docker
-source ~/ghq/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.zsh
+# source ~/ghq/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.zsh
 
 
 #######################################################
@@ -324,4 +326,6 @@ export PNPM_HOME="/Users/satoru/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
-source /Users/satoru/.config/broot/launcher/bash/br
+if [ -e ~/.config/broot/launcher/bash/br ]; then
+	source ~/.config/broot/launcher/bash/br
+fi
