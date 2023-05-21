@@ -15,7 +15,6 @@
   untracked = cyan
 [commit]
 	verbose = true
-	gpgsign = true
 [core]
 	excludesfile = ~/.gitignore_global
 [difftool "sourcetree"]
@@ -36,7 +35,6 @@
 [user]
 	name = strozw
 	email = strozw@users.noreply.github.com
-	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICrFhkVZ/qfsQL2ZZkeYjfs3/ytLCw5/NfB844uoVDVk
 [web]
     browser = open
 
