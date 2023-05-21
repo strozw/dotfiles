@@ -1,6 +1,8 @@
 local wezterm = require("wezterm")
 
 return {
+	default_prog = { 'zsh', '-l' },
+
 	-- font = wezterm.font("HackGen Console NFJ"),
 	-- font = wezterm.font("PlemolJP Console NF"),
 	font = wezterm.font("UDEV Gothic NFLG"),
