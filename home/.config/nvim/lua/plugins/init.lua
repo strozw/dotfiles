@@ -7,7 +7,7 @@ local plugins_sets = {
 
 		{ "nvim-lua/plenary.nvim" },
 
-		-- { "vim-denops/denops.vim" },
+		{ "vim-denops/denops.vim" },
 
 		-- buffer delete imple
 		{ "famiu/bufdelete.nvim" },
@@ -52,8 +52,11 @@ local plugins_sets = {
 	-- terraform plugins
 	require("plugins/terraform"),
 
+	-- test plugins
+	require("plugins/test"),
+
 	-- markdown plugins
-	require("plugins/markdown")
+	require("plugins/markdown"),
 }
 
 local plugins = {}

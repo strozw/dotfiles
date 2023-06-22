@@ -14,7 +14,7 @@ return {
 			"jose-elias-alvarez/typescript.nvim",
 			"jose-elias-alvarez/null-ls.nvim",
 			"MunifTanjim/prettier.nvim",
-			"j-hui/fidget.nvim",
+			{ "j-hui/fidget.nvim", tag = "legacy" },
 			"lvimuser/lsp-inlayhints.nvim",
 			"ray-x/go.nvim",
 			"ray-x/guihua.lua",
@@ -209,6 +209,7 @@ return {
 					-- formatting = false,
 				},
 				on_attach = function(client, bufnr)
+					client.server_capabilities.definitionProvider = true
 					common_on_attach(client, bufnr)
 				end,
 				capabilities = common_capabilities,
@@ -253,7 +254,7 @@ return {
 						capabilities = common_capabilities,
 					})
 				end,
-				["lua_lsp"] = function()
+				["lua_ls"] = function()
 					require("neodev").setup({
 						library = {
 							enabled = true,
@@ -263,7 +264,7 @@ return {
 						},
 					})
 
-					lspconfig.lua_lsp.setup({
+					lspconfig.lua_ls.setup({
 						on_attach = common_on_attach,
 						capabilities = common_capabilities,
 						-- ref: https://github.com/neovim/nvim-lspconfig/issues/319#issuecomment-1192399104
@@ -310,22 +311,22 @@ return {
 				-- 		end,
 				-- 	})
 				-- end,
-				["sorbet"] = function()
-					lspconfig.sorbet.setup({
-						on_attach = function(client, bufnr)
-							common_on_attach(client, bufnr)
-						end,
-						capabilities = common_capabilities,
-						root_dir = function(fname)
-							local hasSolargraphConfig =
-								lspconfig_util.root_pattern(".solargraph.yaml", ".solargraph.yml")(fname)
+				-- ["sorbet"] = function()
+				-- 	lspconfig.sorbet.setup({
+				-- 		on_attach = function(client, bufnr)
+				-- 			common_on_attach(client, bufnr)
+				-- 		end,
+				-- 		capabilities = common_capabilities,
+				-- 		root_dir = function(fname)
+				-- 			local hasSolargraphConfig =
+				-- 				lspconfig_util.root_pattern(".solargraph.yaml", ".solargraph.yml")(fname)
 
-							local hasSorbetConfig = lspconfig_util.root_pattern("sorbet")(fname)
+				-- 			local hasSorbetConfig = lspconfig_util.root_pattern("sorbet")(fname)
 
-							return not hasSolargraphConfig and hasSorbetConfig
-						end,
-					})
-				end,
+				-- 			return not hasSolargraphConfig and hasSorbetConfig
+				-- 		end,
+				-- 	})
+				-- end,
 				["denols"] = function()
 					lspconfig.denols.setup({
 						on_attach = function(client, bufnr)
