@@ -218,5 +218,12 @@ return {
 				-- or just leave it empty :)
 			})
 		end,
-	}
+	},
+
+	-- {
+	-- 	"Bekaboo/dropbar.nvim",
+	-- 	config = function()
+	-- 		require("dropbar").setup({})
+	-- 	end,
+	-- },
 }

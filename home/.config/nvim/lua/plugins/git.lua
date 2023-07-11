@@ -18,7 +18,7 @@ return {
 	{ "tpope/vim-rhubarb" },
 
 	{
-		"TimUntersberger/neogit",
+		"NeogitOrg/neogit",
 		config = function()
 			local neogit = require("neogit")
 

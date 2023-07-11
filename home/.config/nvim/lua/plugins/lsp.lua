@@ -10,7 +10,6 @@ return {
 			"folke/neodev.nvim",
 			"folke/lsp-colors.nvim",
 			"yioneko/nvim-vtsls",
-			"jose-elias-alvarez/nvim-lsp-ts-utils",
 			"jose-elias-alvarez/typescript.nvim",
 			"jose-elias-alvarez/null-ls.nvim",
 			"MunifTanjim/prettier.nvim",
@@ -42,6 +41,7 @@ return {
 			local nlspsettings = require("nlspsettings")
 			local null_ls = require("null-ls")
 			local lps_inlayhints = require("lsp-inlayhints")
+			local fidget = require("fidget")
 
 			lps_inlayhints.setup({
 				inlay_hints = {
@@ -51,7 +51,9 @@ return {
 
 			-- lsp indicator
 			lsp_status.register_progress()
-			require("fidget").setup({})
+
+			-- lsp progress indicator
+			fidget.setup({})
 
 			nlspsettings.setup({
 				config_home = vim.fn.stdpath("config") .. "/nlsp-settings",
@@ -456,24 +458,6 @@ return {
 
 								-- client.resolved_capabilities.document_formatting = false
 								client.server_capabilities.document_formatting = false
-
-								local ts_utils = require("nvim-lsp-ts-utils")
-
-								ts_utils.setup({
-									update_imports_on_move = true,
-									require_confirmation_on_move = true,
-									auto_inlay_hints = false,
-								})
-
-								-- required to fix code action ranges and filter diagnostics
-								ts_utils.setup_client(client)
-
-								-- no default maps, so you may want to define some here
-								local opts = { silent = true }
-
-								vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>io", ":TSLspOrganize<CR>", opts)
-								vim.api.nvim_buf_set_keymap(bufnr, "n", "rf", ":TSLspRenameFile<CR>", opts)
-								vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>ia", ":TSLspImportAll<CR>", opts)
 							end,
 							capabilities = common_capabilities,
 							settings = {
@@ -526,6 +510,16 @@ return {
 							format = {
 								enable = true,
 							}, -- this will enable formatting
+						},
+					})
+				end,
+				["jsonls"] = function()
+					lspconfig.jsonls.setup({
+						on_attach = common_on_attach,
+						capabilities = common_capabilities,
+						filetypes = { "json", "jsonc", "json5" },
+						init_options = {
+							provideFormatter = false,
 						},
 					})
 				end,
