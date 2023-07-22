@@ -1,7 +1,7 @@
 local wezterm = require("wezterm")
 
 return {
-	default_prog = { 'zsh', '-l' },
+	default_prog = { "zsh", "-l" },
 
 	-- font = wezterm.font("HackGen Console NFJ"),
 	-- font = wezterm.font("PlemolJP Console NF"),
@@ -11,7 +11,7 @@ return {
 	font_size = 16.0,
 	line_height = 1.3,
 	cell_width = 1.05,
-	color_scheme = "wezterm_tokyonight_night",
+	color_scheme = "tokyonight_night",
 	colors = {
 		tab_bar = {
 			active_tab = {

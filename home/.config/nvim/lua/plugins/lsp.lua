@@ -559,7 +559,7 @@ return {
 							"--base-formatter=gofumpt",
 						},
 					}),
-					require("go.null_ls").gotest(),
+					-- require("go.null_ls").gotest(),
 					require("go.null_ls").gotest_action(),
 				},
 				on_attach = function(client, bufnr)
