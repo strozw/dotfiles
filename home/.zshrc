@@ -3,10 +3,10 @@
 ######################################################
 # User PATH
 #######################################################
-# rust
-if [ -e "$HOME/.cargo/env" ]; then
-	. "$HOME/.cargo/env"
-fi
+
+typeset -U path PATH
+
+eval $(/opt/homebrew/bin/brew shellenv -f)
 
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
@@ -16,7 +16,10 @@ export PATH="$HOME/.serverless/bin:$PATH"
 
 export PATH="$HOME/Library/Python/2.7/bin:$PATH"
 
-export PATH="/opt/homebrew/bin:$PATH"
+# rust
+if [ -e "$HOME/.cargo/env" ]; then
+	. "$HOME/.cargo/env"
+fi
 
 # ruby
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=/usr/local/opt/openssl@1.1"
@@ -24,6 +27,9 @@ export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export LDFLAGS="-L/opt/homebrew/opt/ruby/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
+
+
+
 
 #######################################################
 # anyenv

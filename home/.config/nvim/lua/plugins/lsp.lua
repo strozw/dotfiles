@@ -17,8 +17,12 @@ return {
 			"lvimuser/lsp-inlayhints.nvim",
 			"ray-x/go.nvim",
 			"ray-x/guihua.lua",
+			"strozw/github-actions-languageserver.nvim",
+			-- { dir = "~/ghq/github.com/strozw/github-actions-languageserver.nvim" },
 		},
 		config = function()
+			require("github-actions-languageserver").setup()
+
 			local lspconfig_util = require("lspconfig.util")
 			local lspconfig_configs = require("lspconfig.configs")
 
@@ -61,13 +65,6 @@ return {
 				local_settings_root_markers = { ".git" },
 				append_default_schemas = true,
 				loader = "json",
-			})
-
-			local global_capabilities = vim.lsp.protocol.make_client_capabilities()
-			global_capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-			lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
-				capabilities = global_capabilities,
 			})
 
 			local lspFormattingGroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -170,6 +167,14 @@ return {
 			local common_capabilities = require("cmp_nvim_lsp").default_capabilities()
 			common_capabilities = vim.tbl_extend("keep", common_capabilities, lsp_status.capabilities)
 
+			lspconfig.github_actions.setup({
+				on_attach = common_on_attach,
+				capabilities = common_capabilities,
+				init_options = {
+					logLevel = 1,
+				},
+			})
+
 			lspconfig.redocly.setup({
 				cmd = {
 					"node",
@@ -229,6 +234,15 @@ return {
 				end,
 			})
 
+			require("neodev").setup({
+				library = {
+					enabled = true,
+					runtime = true,
+					types = true,
+					plugins = true,
+				},
+			})
+
 			mason.setup({})
 
 			mason_lspconfig.setup({})
@@ -257,15 +271,6 @@ return {
 					})
 				end,
 				["lua_ls"] = function()
-					require("neodev").setup({
-						library = {
-							enabled = true,
-							runtime = true,
-							types = true,
-							plugins = true,
-						},
-					})
-
 					lspconfig.lua_ls.setup({
 						on_attach = common_on_attach,
 						capabilities = common_capabilities,

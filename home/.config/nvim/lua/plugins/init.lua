@@ -57,6 +57,9 @@ local plugins_sets = {
 
 	-- markdown plugins
 	require("plugins/markdown"),
+
+	-- plugin development
+	require("plugins/dev"),
 }
 
 local plugins = {}
