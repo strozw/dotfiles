@@ -71,12 +71,12 @@ return {
 
 			-- disable diagnostics virtual_text
 			vim.lsp.handlers["textDocument/publishDiagnostics"] =
-				vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-					virtual_text = false,
-					underline = true,
-					signs = true,
-					-- update_in_insert = true,
-				})
+					vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+						virtual_text = false,
+						underline = true,
+						signs = true,
+						-- update_in_insert = true,
+					})
 
 			-- normal mode のとき CursorHod 舌箇所の diagnostics を float で表示
 			vim.api.nvim_exec(
@@ -228,7 +228,7 @@ return {
 					end
 
 					local hasSolargraphConfig =
-						lspconfig_util.root_pattern(".solargraph.yaml", ".solargraph.yml")(fname)
+							lspconfig_util.root_pattern(".solargraph.yaml", ".solargraph.yml")(fname)
 
 					return hasSolargraphConfig
 				end,
@@ -451,9 +451,9 @@ return {
 				["tsserver"] = function()
 					require("typescript").setup({
 						disable_commands = false, -- prevent the plugin from creating Vim commands
-						debug = false, -- enable debug logging for commands
+						debug = false,      -- enable debug logging for commands
 						go_to_source_definition = {
-							fallback = true, -- fall back to standard LSP definition on failure
+							fallback = true,  -- fall back to standard LSP definition on failure
 						},
 						server = {
 							-- pass options to lspconfig's setup method
@@ -551,21 +551,6 @@ return {
 				sources = {
 					require("typescript.extensions.null-ls.code-actions"),
 					null_ls.builtins.code_actions.gitsigns,
-					null_ls.builtins.formatting.stylua,
-					null_ls.builtins.completion.spell,
-					null_ls.builtins.formatting.goimports,
-					null_ls.builtins.diagnostics.golangci_lint,
-					null_ls.builtins.diagnostics.revive,
-					-- null_ls.builtins.diagnostics.rubocop,
-					-- null_ls.builtins.formatting.rubocop,
-					null_ls.builtins.formatting.golines.with({
-						extra_args = {
-							"--max-len=180",
-							"--base-formatter=gofumpt",
-						},
-					}),
-					-- require("go.null_ls").gotest(),
-					require("go.null_ls").gotest_action(),
 				},
 				on_attach = function(client, bufnr)
 					if client.supports_method("textDocument/formatting") then

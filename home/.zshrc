@@ -159,7 +159,7 @@ eval "$(starship init zsh)"
 # Github Copilot
 #######################################################
 
-eval "$(github-copilot-cli alias -- "$0")"
+eval "$(npx @githubnext/github-copilot-cli alias -- "$0")"
 
 #######################################################
 # zinit
