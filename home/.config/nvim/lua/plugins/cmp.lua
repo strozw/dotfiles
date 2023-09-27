@@ -77,20 +77,20 @@ return {
 					format = lspkind.cmp_format({
 						mode = "symbol_text", -- show only symbol annotations
 						maxwidth = 50,  -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-						before = function(entry, vim_item)
-							-- NOTE: https://stackoverflow.com/questions/72668920/how-to-show-paths-for-auto-imports-with-neovim-nvim-cmp
-							if entry.completion_item.detail ~= nil and entry.completion_item.detail ~= "" then
-								vim_item.menu = entry.completion_item.detail
-							else
-								vim_item.menu = ({
-									nvim_lsp = "[LSP]",
-									luasnip = "[Snippet]",
-									buffer = "[Buffer]",
-									path = "[Path]",
-								})[entry.source.name]
-							end
-							return vim_item
-						end,
+						-- before = function(entry, vim_item)
+						-- 	-- NOTE: https://stackoverflow.com/questions/72668920/how-to-show-paths-for-auto-imports-with-neovim-nvim-cmp
+						-- 	if entry.completion_item.detail ~= nil and entry.completion_item.detail ~= "" then
+						-- 		vim_item.menu = entry.completion_item.detail
+						-- 	else
+						-- 		vim_item.menu = ({
+						-- 			nvim_lsp = "[LSP]",
+						-- 			luasnip = "[Snippet]",
+						-- 			buffer = "[Buffer]",
+						-- 			path = "[Path]",
+						-- 		})[entry.source.name]
+						-- 	end
+						-- 	return vim_item
+						-- end,
 					}),
 				},
 				snippet = {

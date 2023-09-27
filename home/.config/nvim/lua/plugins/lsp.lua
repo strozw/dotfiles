@@ -172,6 +172,15 @@ return {
 				capabilities = common_capabilities,
 				init_options = {
 					logLevel = 1,
+					-- repos = {
+					-- 	{
+					-- 		id = 'MDEwOlJlcG9zaXRvcnkzMzE0NjMxMzY=',
+					-- 		owner = 'Baseconnect',
+					-- 		organizationOwned = true,
+					-- 		name = 'musubu-frontend',
+					-- 		workspaceUri = '/Users/satoru/ghq/github.com/Baseconnect/musubu-frontend'
+					-- 	}
+					-- }
 				},
 			})
 
@@ -204,34 +213,60 @@ return {
 				capabilities = common_capabilities,
 			})
 
-			lspconfig.solargraph.setup({
-				settings = {
-					solargraph = {
-						commandPath = "~/.asdf/shims/solargraph",
-						-- diagnostics = true,
-						completion = true,
-					},
-				},
-				init_options = {
-					-- formatting = false,
-				},
+			-- lspconfig.solargraph.setup({
+			-- 	cmd = { "bundle", "exec", "steep", "langserver" },
+			-- 	settings = {
+			-- 		solargraph = {
+			-- 			-- commandPath = "~/.asdf/shims/solargraph",
+			-- 			-- diagnostics = true,
+			-- 			completion = true,
+			-- 		},
+			-- 	},
+			-- 	init_options = {
+			-- 		-- formatting = false,
+			-- 	},
+			-- 	on_attach = function(client, bufnr)
+			-- 		client.server_capabilities.definitionProvider = true
+			-- 		common_on_attach(client, bufnr)
+			-- 	end,
+			-- 	capabilities = common_capabilities,
+			-- 	root_dir = function(fname)
+			-- 		local hasSteepConfig = lspconfig_util.root_pattern("steep")(fname)
+			-- 		local hasSorbetConfig = lspconfig_util.root_pattern("sorbet")(fname)
+
+			-- 		if hasSorbetConfig or hasSteepConfig then
+			-- 			return nil
+			-- 		end
+
+			-- 		local hasSolargraphConfig =
+			-- 				lspconfig_util.root_pattern(".solargraph.yaml", ".solargraph.yml")(fname)
+
+			-- 		return hasSolargraphConfig
+			-- 	end,
+			-- })
+
+			lspconfig.steep.setup({
+				cmd = { "bundle", "exec", "steep", "langserver" },
 				on_attach = function(client, bufnr)
-					client.server_capabilities.definitionProvider = true
 					common_on_attach(client, bufnr)
 				end,
 				capabilities = common_capabilities,
-				root_dir = function(fname)
-					local hasSorbetConfig = lspconfig_util.root_pattern("sorbet")(fname)
+				-- root_dir = function(fname)
+				-- 	local hasSorbetConfig = lspconfig_util.root_pattern("sorbet")(fname)
+				-- 	local hasSolargraphConfig =
+				-- 			lspconfig_util.root_pattern(".solargraph.yaml", ".solargraph.yml")(fname)
 
-					if hasSorbetConfig then
-						return nil
-					end
+				-- 	if hasSorbetConfig or hasSolargraphConfig then
+				-- 		return nil
+				-- 	end
 
-					local hasSolargraphConfig =
-							lspconfig_util.root_pattern(".solargraph.yaml", ".solargraph.yml")(fname)
+				-- 	local hasSteepConfig = lspconfig_util.root_pattern("steep")(fname)
 
-					return hasSolargraphConfig
-				end,
+				-- 	return hasSteepConfig
+				-- end,
+
+				-- on_new_config = function(config, root_dir)
+				-- end
 			})
 
 			require("neodev").setup({
@@ -496,25 +531,25 @@ return {
 					lspconfig.eslint.setup({
 						on_attach = function(client, bufnr)
 							-- @see https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#eslint
-							vim.api.nvim_create_autocmd("BufWritePre", {
-								group = lspFormattingGroup,
-								pattern = { "*.tsx", "*.ts", "*.jsx", "*.js" },
-								command = "silent! EslintFixAll",
-							})
+							-- vim.api.nvim_create_autocmd("BufWritePre", {
+							-- 	group = lspFormattingGroup,
+							-- 	pattern = { "*.tsx", "*.ts", "*.jsx", "*.js" },
+							-- 	command = "silent! EslintFixAll",
+							-- })
 
 							common_on_attach(client, bufnr)
 
-							client.server_capabilities.document_formatting = true
-							client.server_capabilities.document_range_formatting = true
+							-- client.server_capabilities.document_formatting = true
+							-- client.server_capabilities.document_range_formatting = true
 						end,
 						settings = {
-							codeActionOnSave = {
-								enable = true,
-								mode = "all",
-							},
-							format = {
-								enable = true,
-							}, -- this will enable formatting
+							-- codeActionOnSave = {
+							-- 	enable = true,
+							-- 	mode = "all",
+							-- },
+							-- format = {
+							-- 	enable = true,
+							-- }, -- this will enable formatting
 						},
 					})
 				end,
@@ -533,6 +568,7 @@ return {
 			local prettier = require("prettier")
 
 			prettier.setup({
+				bin = 'prettierd',
 				["null-ls"] = {
 					condition = function()
 						return prettier.config_exists({
@@ -551,6 +587,7 @@ return {
 				sources = {
 					require("typescript.extensions.null-ls.code-actions"),
 					null_ls.builtins.code_actions.gitsigns,
+					null_ls.builtins.formatting.eslint_d
 				},
 				on_attach = function(client, bufnr)
 					if client.supports_method("textDocument/formatting") then
@@ -607,4 +644,23 @@ return {
 			vim.api.nvim_set_keymap("n", "<F4>", ":TroubleToggle<CR>", { noremap = true, silent = true })
 		end,
 	},
+
+	-- LSP / codelens
+	-- {
+	-- 	'VidocqH/lsp-lens.nvim',
+	-- 	config = function()
+	-- 		require 'lsp-lens'.setup({
+	-- 			enable = true,
+	-- 			include_declaration = false, -- Reference include declaration
+	-- 			sections = {             -- Enable / Disable specific request
+	-- 				definition = false,
+	-- 				references = true,
+	-- 				implements = true,
+	-- 			},
+	-- 			ignore_filetype = {
+	-- 				"prisma",
+	-- 			},
+	-- 		})
+	-- 	end
+	-- }
 }
