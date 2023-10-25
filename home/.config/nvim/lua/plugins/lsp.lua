@@ -10,7 +10,6 @@ return {
 			"folke/neodev.nvim",
 			"folke/lsp-colors.nvim",
 			"yioneko/nvim-vtsls",
-			"jose-elias-alvarez/typescript.nvim",
 			"jose-elias-alvarez/null-ls.nvim",
 			"MunifTanjim/prettier.nvim",
 			{ "j-hui/fidget.nvim", tag = "legacy" },
@@ -18,6 +17,7 @@ return {
 			"ray-x/go.nvim",
 			"ray-x/guihua.lua",
 			"strozw/github-actions-languageserver.nvim",
+			"lukas-reineke/lsp-format.nvim",
 			-- { dir = "~/ghq/github.com/strozw/github-actions-languageserver.nvim" },
 		},
 		config = function()
@@ -46,6 +46,7 @@ return {
 			local null_ls = require("null-ls")
 			local lps_inlayhints = require("lsp-inlayhints")
 			local fidget = require("fidget")
+			local lsp_format = require("lsp-format")
 
 			lps_inlayhints.setup({
 				inlay_hints = {
@@ -67,9 +68,9 @@ return {
 				loader = "json",
 			})
 
-			local lspFormattingGroup = vim.api.nvim_create_augroup("LspFormatting", {})
+			lsp_format.setup({})
 
-			-- normal mode のとき CursorHod 舌箇所の diagnostics を float で表示
+			-- normal mode のとき CursorHodld 箇所の diagnostics を float で表示
 			-- vim.api.nvim_exec(
 			-- 	[[
 			-- 	autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focus=false })
@@ -97,6 +98,8 @@ return {
 
 					-- diagnostic config
 					vim.diagnostic.config({ virtual_text = false, underline = true, signs = true })
+
+					lsp_format.on_attach(client, buffer)
 
 					local opts = { buffer = buffer }
 
@@ -141,18 +144,6 @@ return {
 					vim.keymap.set("v", "ca", function()
 						vim.lsp.buf.code_action({ range = vim.lsp.util.compute_range() })
 					end, opts)
-
-					-- enable format on save
-					if client.supports_method("textDocument/formatting") then
-						vim.api.nvim_clear_autocmds({ group = lspFormattingGroup, buffer = buffer })
-						vim.api.nvim_create_autocmd("BufWritePre", {
-							group = lspFormattingGroup,
-							buffer = buffer,
-							callback = function()
-								vim.lsp.buf.format({ bufnr = buffer })
-							end,
-						})
-					end
 				end,
 			})
 
@@ -442,48 +433,6 @@ return {
 						},
 					})
 				end,
-				["tsserver"] = function()
-					require("typescript").setup({
-						disable_commands = false, -- prevent the plugin from creating Vim commands
-						debug = false,      -- enable debug logging for commands
-						go_to_source_definition = {
-							fallback = true,  -- fall back to standard LSP definition on failure
-						},
-						server = {
-							-- pass options to lspconfig's setup method
-							root_dir = lspconfig.util.root_pattern("package.json"),
-							on_attach = function(client)
-								-- client.resolved_capabilities.document_formatting = false
-								client.server_capabilities.document_formatting = false
-							end,
-							capabilities = common_capabilities,
-							settings = {
-								typescript = {
-									inlayHints = {
-										includeInlayParameterNameHints = "all",
-										includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-										includeInlayFunctionParameterTypeHints = true,
-										includeInlayVariableTypeHints = true,
-										includeInlayPropertyDeclarationTypeHints = true,
-										includeInlayFunctionLikeReturnTypeHints = true,
-										includeInlayEnumMemberValueHints = true,
-									},
-								},
-								javascript = {
-									inlayHints = {
-										includeInlayParameterNameHints = "all",
-										includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-										includeInlayFunctionParameterTypeHints = true,
-										includeInlayVariableTypeHints = true,
-										includeInlayPropertyDeclarationTypeHints = true,
-										includeInlayFunctionLikeReturnTypeHints = true,
-										includeInlayEnumMemberValueHints = true,
-									},
-								},
-							},
-						},
-					})
-				end,
 				["eslint"] = function()
 					lspconfig.eslint.setup({
 						settings = {
@@ -528,22 +477,9 @@ return {
 
 			null_ls.setup({
 				sources = {
-					require("typescript.extensions.null-ls.code-actions"),
 					null_ls.builtins.code_actions.gitsigns,
 					null_ls.builtins.formatting.eslint_d,
 				},
-				on_attach = function(client, bufnr)
-					if client.supports_method("textDocument/formatting") then
-						vim.api.nvim_clear_autocmds({ group = lspFormattingGroup, buffer = bufnr })
-						vim.api.nvim_create_autocmd("BufWritePre", {
-							group = lspFormattingGroup,
-							buffer = bufnr,
-							callback = function()
-								vim.lsp.buf.format({ bufnr = bufnr })
-							end,
-						})
-					end
-				end,
 			})
 		end,
 	},
@@ -589,21 +525,21 @@ return {
 	},
 
 	-- LSP / codelens
-	-- {
-	-- 	'VidocqH/lsp-lens.nvim',
-	-- 	config = function()
-	-- 		require 'lsp-lens'.setup({
-	-- 			enable = true,
-	-- 			include_declaration = false, -- Reference include declaration
-	-- 			sections = {             -- Enable / Disable specific request
-	-- 				definition = false,
-	-- 				references = true,
-	-- 				implements = true,
-	-- 			},
-	-- 			ignore_filetype = {
-	-- 				"prisma",
-	-- 			},
-	-- 		})
-	-- 	end
-	-- }
+	{
+		'VidocqH/lsp-lens.nvim',
+		config = function()
+			require 'lsp-lens'.setup({
+				enable = true,
+				include_declaration = false, -- Reference include declaration
+				sections = {             -- Enable / Disable specific request
+					definition = false,
+					references = true,
+					implements = true,
+				},
+				ignore_filetype = {
+					"prisma",
+				},
+			})
+		end
+	}
 }
