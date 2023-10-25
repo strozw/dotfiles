@@ -69,25 +69,16 @@ return {
 
 			local lspFormattingGroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
-			-- disable diagnostics virtual_text
-			vim.lsp.handlers["textDocument/publishDiagnostics"] =
-					vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-						virtual_text = false,
-						underline = true,
-						signs = true,
-						-- update_in_insert = true,
-					})
-
 			-- normal mode のとき CursorHod 舌箇所の diagnostics を float で表示
-			vim.api.nvim_exec(
-				[[
-				autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focus=false })
-			]],
-				false
-			)
+			-- vim.api.nvim_exec(
+			-- 	[[
+			-- 	autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focus=false })
+			-- ]],
+			-- 	false
+			-- )
 
 			local opts = { noremap = true, silent = true }
-			vim.api.nvim_set_keymap("n", "<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+			vim.api.nvim_set_keymap("n", "E", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 			vim.api.nvim_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
 			vim.api.nvim_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 			vim.api.nvim_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
@@ -97,6 +88,15 @@ return {
 				callback = function(event)
 					local client = vim.lsp.get_client_by_id(event.data.client_id)
 					local buffer = event.buf
+
+					-- attach lsp-status
+					lsp_status.on_attach(client)
+
+					-- attach lsp-inlayhints
+					lps_inlayhints.on_attach(client, buffer)
+
+					-- diagnostic config
+					vim.diagnostic.config({ virtual_text = false, underline = true, signs = true })
 
 					local opts = { buffer = buffer }
 
@@ -156,19 +156,10 @@ return {
 				end,
 			})
 
-			local common_on_attach = function(client, bufnr)
-				-- attach lsp-status
-				lsp_status.on_attach(client)
-
-				-- attach lsp-inlayhints
-				lps_inlayhints.on_attach(client, bufnr)
-			end
-
 			local common_capabilities = require("cmp_nvim_lsp").default_capabilities()
 			common_capabilities = vim.tbl_extend("keep", common_capabilities, lsp_status.capabilities)
 
 			lspconfig.github_actions.setup({
-				on_attach = common_on_attach,
 				capabilities = common_capabilities,
 				init_options = {
 					logLevel = 1,
@@ -207,8 +198,6 @@ return {
 					-- 	renameProvider = true,
 					-- 	documentLinkProvider = true,
 					-- })
-
-					common_on_attach(client, bufnr)
 				end,
 				capabilities = common_capabilities,
 			})
@@ -227,7 +216,6 @@ return {
 			-- 	},
 			-- 	on_attach = function(client, bufnr)
 			-- 		client.server_capabilities.definitionProvider = true
-			-- 		common_on_attach(client, bufnr)
 			-- 	end,
 			-- 	capabilities = common_capabilities,
 			-- 	root_dir = function(fname)
@@ -247,9 +235,6 @@ return {
 
 			lspconfig.steep.setup({
 				cmd = { "bundle", "exec", "steep", "langserver" },
-				on_attach = function(client, bufnr)
-					common_on_attach(client, bufnr)
-				end,
 				capabilities = common_capabilities,
 				-- root_dir = function(fname)
 				-- 	local hasSorbetConfig = lspconfig_util.root_pattern("sorbet")(fname)
@@ -285,29 +270,21 @@ return {
 			mason_lspconfig.setup_handlers({
 				function(server_name)
 					lspconfig[server_name].setup({
-						on_attach = common_on_attach,
 						capabilities = common_capabilities,
 					})
 				end,
 				["yamlls"] = function()
 					lspconfig.yamlls.setup({
-						on_attach = function(client, bufnr)
-							common_on_attach(client, bufnr)
-						end,
 						capabilities = common_capabilities,
 					})
 				end,
 				["jsonls"] = function()
 					lspconfig.jsonls.setup({
-						on_attach = function(client, bufnr)
-							common_on_attach(client, bufnr)
-						end,
 						capabilities = common_capabilities,
 					})
 				end,
 				["lua_ls"] = function()
 					lspconfig.lua_ls.setup({
-						on_attach = common_on_attach,
 						capabilities = common_capabilities,
 						-- ref: https://github.com/neovim/nvim-lspconfig/issues/319#issuecomment-1192399104
 						single_file_support = false,
@@ -327,17 +304,11 @@ return {
 				end,
 				-- ["ruby-lsp"] = function()
 				-- 	lsp_config.ruby_ls.setup({
-				-- 		on_attach = function(client, bufnr)
-				-- 			common_on_attach(client, bufnr)
-				-- 		end,
 				-- 		capabilities = common_capabilities,
 				-- 	})
 				-- end,
 				-- ["solargraph"] = function()
 				-- 	lspconfig.solargraph.setup({
-				-- 		on_attach = function(client, bufnr)
-				-- 			common_on_attach(client, bufnr)
-				-- 		end,
 				-- 		capabilities = common_capabilities,
 				-- 		root_dir = function(fname)
 				-- 			local hasSorbetConfig = lspconfig_util.root_pattern("sorbet")(fname)
@@ -355,9 +326,6 @@ return {
 				-- end,
 				-- ["sorbet"] = function()
 				-- 	lspconfig.sorbet.setup({
-				-- 		on_attach = function(client, bufnr)
-				-- 			common_on_attach(client, bufnr)
-				-- 		end,
 				-- 		capabilities = common_capabilities,
 				-- 		root_dir = function(fname)
 				-- 			local hasSolargraphConfig =
@@ -371,9 +339,6 @@ return {
 				-- end,
 				["denols"] = function()
 					lspconfig.denols.setup({
-						on_attach = function(client, bufnr)
-							common_on_attach(client, bufnr)
-						end,
 						capabilities = common_capabilities,
 						root_dir = lspconfig_util.root_pattern("deno.json"),
 						single_file_support = false, -- default true なため、root_dir を見るよう false にする
@@ -394,9 +359,6 @@ return {
 					})
 
 					lspconfig.gopls.setup({
-						on_attach = function(client, bufnr)
-							common_on_attach(client, bufnr)
-						end,
 						capabilities = common_capabilities,
 						settings = {
 							gopls = {
@@ -415,9 +377,6 @@ return {
 				end,
 				["vtsls"] = function()
 					lspconfig.vtsls.setup({
-						on_attach = function(client, bufnr)
-							common_on_attach(client, bufnr)
-						end,
 						capabilities = common_capabilities,
 						settings = {
 							["typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName"] = true,
@@ -493,9 +452,7 @@ return {
 						server = {
 							-- pass options to lspconfig's setup method
 							root_dir = lspconfig.util.root_pattern("package.json"),
-							on_attach = function(client, bufnr)
-								common_on_attach(client, bufnr)
-
+							on_attach = function(client)
 								-- client.resolved_capabilities.document_formatting = false
 								client.server_capabilities.document_formatting = false
 							end,
@@ -529,19 +486,6 @@ return {
 				end,
 				["eslint"] = function()
 					lspconfig.eslint.setup({
-						on_attach = function(client, bufnr)
-							-- @see https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#eslint
-							-- vim.api.nvim_create_autocmd("BufWritePre", {
-							-- 	group = lspFormattingGroup,
-							-- 	pattern = { "*.tsx", "*.ts", "*.jsx", "*.js" },
-							-- 	command = "silent! EslintFixAll",
-							-- })
-
-							common_on_attach(client, bufnr)
-
-							-- client.server_capabilities.document_formatting = true
-							-- client.server_capabilities.document_range_formatting = true
-						end,
 						settings = {
 							-- codeActionOnSave = {
 							-- 	enable = true,
@@ -555,7 +499,6 @@ return {
 				end,
 				["jsonls"] = function()
 					lspconfig.jsonls.setup({
-						on_attach = common_on_attach,
 						capabilities = common_capabilities,
 						filetypes = { "json", "jsonc", "json5" },
 						init_options = {
@@ -587,7 +530,7 @@ return {
 				sources = {
 					require("typescript.extensions.null-ls.code-actions"),
 					null_ls.builtins.code_actions.gitsigns,
-					null_ls.builtins.formatting.eslint_d
+					null_ls.builtins.formatting.eslint_d,
 				},
 				on_attach = function(client, bufnr)
 					if client.supports_method("textDocument/formatting") then

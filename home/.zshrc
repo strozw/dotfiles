@@ -82,6 +82,7 @@ alias ll='ls -l'
 alias less='less -R'
 alias bat='bat --theme TwoDark'
 alias rg='rg --hidden'
+alias colorpallet='msgcat --color=test'
 # FZF_PREVIEW_PREVIEW_BAT_THEME=base16
 
 

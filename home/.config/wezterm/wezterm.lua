@@ -13,22 +13,23 @@ return {
 	cell_width = 1.05,
 	color_scheme = "tokyonight_night",
 	colors = {
-		tab_bar = {
-			active_tab = {
-				bg_color = "#1a1b26",
-				fg_color = "#c0c0c0",
-			},
-			inactive_tab = {
-				bg_color = "#0f0f14",
-				fg_color = "#808080",
-			},
-			inactive_tab_hover = {
-				bg_color = "#24283b",
-				fg_color = "#909090",
-				italic = true,
-			},
-		},
+		-- tab_bar = {
+		-- 	active_tab = {
+		-- 		bg_color = "#1a1b26",
+		-- 		fg_color = "#c0c0c0",
+		-- 	},
+		-- 	inactive_tab = {
+		-- 		bg_color = "#0f0f14",
+		-- 		fg_color = "#808080",
+		-- 	},
+		-- 	inactive_tab_hover = {
+		-- 		bg_color = "#24283b",
+		-- 		fg_color = "#909090",
+		-- 		italic = true,
+		-- 	},
+		-- },
 	},
+	use_fancy_tab_bar = false,
 	window_background_opacity = 0.9,
 	window_padding = {
 		left = 0,
@@ -47,9 +48,9 @@ return {
 		-- { key = "_", mods = "CTRL", action = "Nop" },
 		-- { key = "_", mods = "CTRL", action = "Nop" },
 		-- { key = "-", mods = "CTRL", action = "Nop" },
-		{ key = "_", mods = "CTRL", action = wezterm.action.DisableDefaultAssignment },
+		{ key = "_", mods = "CTRL",       action = wezterm.action.DisableDefaultAssignment },
 		{ key = "_", mods = "CTRL|SHIFT", action = wezterm.action.DisableDefaultAssignment },
-		{ key = "@", mods = "CTRL", action = wezterm.action.DisableDefaultAssignment },
+		{ key = "@", mods = "CTRL",       action = wezterm.action.DisableDefaultAssignment },
 	},
 	-- IME での補完中に `ctrl+H` などを可能にする
 	macos_forward_to_ime_modifier_mask = "SHIFT|CTRL",
