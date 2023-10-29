@@ -18,7 +18,8 @@ for path in "${HOME_DIR}"/.??*; do
 	TARGET="$TARGET_HOME_DIR/$(basename "$path")"
 
 	if [[ -L "$TARGET" ]]; then
-		echo "OVERIDE: $(ln -insv "$path" "$TARGET_HOME_DIR")"
+		echo "input y or n (default) and Enter"
+		ln -insv "$path" "$TARGET_HOME_DIR"
 	else
 		echo "LINK: $(ln -fnsv "$path" "$TARGET_HOME_DIR")"
 	fi

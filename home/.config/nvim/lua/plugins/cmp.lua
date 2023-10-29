@@ -68,10 +68,11 @@ return {
 			}
 
 			cmp.setup({
-				-- performance = {
-				-- 	debounce = 30,
-				-- 	throttle = 15,
-				-- },
+				performance = {
+					max_view_entries = 1000,
+					-- debounce = 30,
+					-- throttle = 15,
+				},
 				matching = {},
 				formatting = {
 					format = lspkind.cmp_format({

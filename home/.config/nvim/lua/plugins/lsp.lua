@@ -366,6 +366,11 @@ return {
 						},
 					})
 				end,
+				["tailwindcss"] = function()
+					lspconfig.tailwindcss.setup({
+						capabilities = common_capabilities,
+					})
+				end,
 				["vtsls"] = function()
 					lspconfig.vtsls.setup({
 						capabilities = common_capabilities,
