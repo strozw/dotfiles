@@ -5,7 +5,7 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 			"neovim/nvim-lspconfig",
 			"nvim-lua/plenary.nvim",
-			"nvim-lua/lsp-status.nvim",
+			-- "nvim-lua/lsp-status.nvim",
 			"tamago324/nlsp-settings.nvim",
 			"folke/neodev.nvim",
 			"folke/lsp-colors.nvim",
@@ -41,7 +41,7 @@ return {
 			local mason = require("mason")
 			local mason_lspconfig = require("mason-lspconfig")
 			local lspconfig = require("lspconfig")
-			local lsp_status = require("lsp-status")
+			-- local lsp_status = require("lsp-status")
 			local nlspsettings = require("nlspsettings")
 			local null_ls = require("null-ls")
 			local lps_inlayhints = require("lsp-inlayhints")
@@ -55,7 +55,7 @@ return {
 			})
 
 			-- lsp indicator
-			lsp_status.register_progress()
+			-- lsp_status.register_progress()
 
 			-- lsp progress indicator
 			fidget.setup({})
@@ -91,7 +91,7 @@ return {
 					local buffer = event.buf
 
 					-- attach lsp-status
-					lsp_status.on_attach(client)
+					-- lsp_status.on_attach(client)
 
 					-- attach lsp-inlayhints
 					lps_inlayhints.on_attach(client, buffer)
@@ -148,7 +148,7 @@ return {
 			})
 
 			local common_capabilities = require("cmp_nvim_lsp").default_capabilities()
-			common_capabilities = vim.tbl_extend("keep", common_capabilities, lsp_status.capabilities)
+			-- common_capabilities = vim.tbl_extend("keep", common_capabilities, lsp_status.capabilities)
 
 			lspconfig.github_actions.setup({
 				capabilities = common_capabilities,
@@ -369,6 +369,37 @@ return {
 				["tailwindcss"] = function()
 					lspconfig.tailwindcss.setup({
 						capabilities = common_capabilities,
+					})
+				end,
+				["tsserver"] = function()
+					local lang_config = {
+						inlayHints = {
+							includeInlayEnumMemberValueHints = true,
+							includeInlayFunctionLikeReturnTypeHints = true,
+							includeInlayFunctionParameterTypeHints = true,
+							includeInlayParameterNameHints = "all",
+							includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+							includeInlayPropertyDeclarationTypeHints = true,
+							includeInlayVariableTypeHints = true,
+							includeInlayVariableTypeHintsWhenTypeMatchesName = true
+						},
+						implementationsCodeLens = true,
+						referencesCodeLens = {
+							enabled = true,
+							showOnAllFunctions = true,
+						}
+					}
+
+					lspconfig.tsserver.setup({
+						root_dir = lspconfig.util.root_pattern("package.json"),
+						on_attach = function(client)
+							client.server_capabilities.document_formatting = false
+						end,
+						capabilities = common_capabilities,
+						settings = {
+							typescript = lang_config,
+							javascript = lang_config,
+						},
 					})
 				end,
 				["vtsls"] = function()

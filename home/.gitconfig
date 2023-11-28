@@ -17,6 +17,7 @@
 	verbose = true
 [core]
 	excludesfile = ~/.gitignore_global
+  attributesfile = ~/.gitattributes_global
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 

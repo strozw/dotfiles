@@ -104,7 +104,7 @@ return {
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = {
-			"nvim-lua/lsp-status.nvim",
+			-- "nvim-lua/lsp-status.nvim",
 		},
 		config = function()
 			local lualine = require("lualine")
@@ -127,7 +127,8 @@ return {
 							"diff",
 							{ "diagnostics", sources = { "coc" } },
 						},
-						lualine_c = { "g:coc_status", "require'lsp-status'.status()", "filename" },
+						-- lualine_c = { "g:coc_status", "require'lsp-status'.status()", "filename" },
+						lualine_c = { "filename" },
 						lualine_x = { "encoding", "fileformat", "filetype" },
 						lualine_y = { "progress" },
 						lualine_z = { "location" },
@@ -261,10 +262,14 @@ return {
 		end,
 	},
 
-	-- {
-	-- 	"Bekaboo/dropbar.nvim",
-	-- 	config = function()
-	-- 		require("dropbar").setup({})
-	-- 	end,
-	-- },
+	{
+		'Bekaboo/dropbar.nvim',
+		-- optional, but required for fuzzy finder support
+		dependencies = {
+			'nvim-telescope/telescope-fzf-native.nvim'
+		},
+		config = function()
+			require("dropbar").setup({})
+		end,
+	},
 }

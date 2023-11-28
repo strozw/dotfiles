@@ -32,13 +32,16 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
 export MOCWORD_DATA="$HOME/.config/mocword/mocword.sqlite"
 
 #######################################################
-# asdf
+# rtx (asdf)
 #######################################################
 
-. $(brew --prefix asdf)/libexec/asdf.sh
+eval "$(rtx activate zsh)"
+
+# . $(brew --prefix asdf)/libexec/asdf.sh
 #. ~/.asdf/plugins/java/set-java-home.zsh
 
-# for ruby
+# for ruby build
+export RUBY_CFLAGS="-w"
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 export LDFLAGS="-L/opt/homebrew/opt/readline/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/readline/include"
@@ -163,4 +166,3 @@ bindkey '^[' fzf-ghq
 
 # docker
 # source ~/ghq/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.zsh
-
