@@ -7,7 +7,7 @@ return {
 	-- font = wezterm.font("PlemolJP Console NF"),
 	font = wezterm.font("UDEV Gothic NFLG"),
 	-- font = wezterm.font("UDEV Gothic NF"),
-	use_ime = true,
+	-- use_ime = true,
 	font_size = 16.0,
 	line_height = 1.3,
 	cell_width = 1.05,
@@ -37,10 +37,11 @@ return {
 		top = 0,
 		bottom = 0,
 	},
-	window_decorations = "RESIZE",
+	window_decorations = 'RESIZE | MACOS_FORCE_ENABLE_SHADOW',
 	window_frame = {
 		active_titlebar_bg = "#0f0f14",
 	},
+	macos_window_background_blur = 9,
 	hide_tab_bar_if_only_one_tab = true,
 	adjust_window_size_when_changing_font_size = false,
 	bypass_mouse_reporting_modifiers = "ALT",
@@ -53,6 +54,6 @@ return {
 		{ key = "@", mods = "CTRL",       action = wezterm.action.DisableDefaultAssignment },
 	},
 	-- IME での補完中に `ctrl+H` などを可能にする
-	macos_forward_to_ime_modifier_mask = "SHIFT|CTRL",
+	-- macos_forward_to_ime_modifier_mask = "SHIFT|CTRL",
 	debug_key_events = true,
 }
