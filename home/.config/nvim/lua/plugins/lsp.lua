@@ -10,8 +10,7 @@ return {
 			"folke/neodev.nvim",
 			"folke/lsp-colors.nvim",
 			"yioneko/nvim-vtsls",
-			"jose-elias-alvarez/null-ls.nvim",
-			"MunifTanjim/prettier.nvim",
+			"nvimtools/none-ls.nvim",
 			{ "j-hui/fidget.nvim", tag = "legacy" },
 			"lvimuser/lsp-inlayhints.nvim",
 			"pmizio/typescript-tools.nvim",
@@ -493,12 +492,12 @@ return {
 							-- 	enable = true,
 							-- }, -- this will enable formatting
 						},
-						on_attach = function(_client, bufnr)
-							vim.api.nvim_create_autocmd("BufWritePre", {
-								buffer = bufnr,
-								command = "EslintFixAll",
-							})
-						end,
+						-- on_attach = function(_client, bufnr)
+						-- 	vim.api.nvim_create_autocmd("BufWritePre", {
+						-- 		buffer = bufnr,
+						-- 		command = "EslintFixAll",
+						-- 	})
+						-- end,
 					})
 				end,
 				["jsonls"] = function()
@@ -512,28 +511,11 @@ return {
 				end,
 			})
 
-			local prettier = require("prettier")
-
-			prettier.setup({
-				bin = 'prettierd',
-				["null-ls"] = {
-					condition = function()
-						return prettier.config_exists({
-							check_package_json = true,
-						})
-					end,
-					runtime_condition = function(params)
-						-- return false to skip running prettier
-						return true
-					end,
-					timeout = 5000,
-				},
-			})
-
 			null_ls.setup({
 				sources = {
 					null_ls.builtins.code_actions.gitsigns,
-					-- null_ls.builtins.formatting.eslint,
+					null_ls.builtins.formatting.eslint_d,
+					null_ls.builtins.formatting.prettierd,
 				},
 			})
 		end,
