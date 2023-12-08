@@ -14,6 +14,7 @@ return {
 			"MunifTanjim/prettier.nvim",
 			{ "j-hui/fidget.nvim", tag = "legacy" },
 			"lvimuser/lsp-inlayhints.nvim",
+			"pmizio/typescript-tools.nvim",
 			"ray-x/go.nvim",
 			"ray-x/guihua.lua",
 			"strozw/github-actions-languageserver.nvim",
@@ -401,6 +402,18 @@ return {
 							javascript = lang_config,
 						},
 					})
+
+					-- require("typescript-tools").setup({
+					-- 	root_dir = lspconfig.util.root_pattern("package.json"),
+					-- 	on_attach = function(client)
+					-- 		client.server_capabilities.document_formatting = false
+					-- 	end,
+					-- 	capabilities = common_capabilities,
+					-- 	settings = {
+					-- 		tsserver_locale = "ja",
+					-- 		-- code_lens = "all"
+					-- 	}
+					-- })
 				end,
 				["vtsls"] = function()
 					lspconfig.vtsls.setup({
@@ -480,6 +493,12 @@ return {
 							-- 	enable = true,
 							-- }, -- this will enable formatting
 						},
+						on_attach = function(_client, bufnr)
+							vim.api.nvim_create_autocmd("BufWritePre", {
+								buffer = bufnr,
+								command = "EslintFixAll",
+							})
+						end,
 					})
 				end,
 				["jsonls"] = function()
@@ -514,7 +533,7 @@ return {
 			null_ls.setup({
 				sources = {
 					null_ls.builtins.code_actions.gitsigns,
-					null_ls.builtins.formatting.eslint_d,
+					-- null_ls.builtins.formatting.eslint,
 				},
 			})
 		end,
