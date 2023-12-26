@@ -167,6 +167,7 @@ return {
 			})
 
 			lspconfig.redocly.setup({
+				capabilities = common_capabilities,
 				cmd = {
 					"node",
 					vim.fn.expand("~/.vscode/extensions/redocly.openapi-vs-code-0.2.17/out/server/src/server.js"),
@@ -190,7 +191,6 @@ return {
 					-- 	documentLinkProvider = true,
 					-- })
 				end,
-				capabilities = common_capabilities,
 			})
 
 			-- lspconfig.solargraph.setup({
@@ -481,6 +481,41 @@ return {
 						},
 					})
 				end,
+				["emmet_language_server"] = function()
+					lspconfig.emmet_language_server.setup({
+						filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact" },
+						-- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
+						-- **Note:** only the options listed in the table are supported.
+						init_options = {
+							--- @type string[]
+							excludeLanguages = {},
+							--- @type string[]
+							extensionsPath = {},
+							--- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/preferences/)
+							preferences = {},
+							--- @type boolean Defaults to `true`
+							showAbbreviationSuggestions = true,
+							--- @type "always" | "never" Defaults to `"always"`
+							showExpandedAbbreviation = "always",
+							--- @type boolean Defaults to `false`
+							showSuggestionsAsSnippets = false,
+							--- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/syntax-profiles/)
+							syntaxProfiles = {},
+							--- @type table<string, string> [Emmet Docs](https://docs.emmet.io/customization/snippets/#variables)
+							variables = {},
+						}
+					})
+				end,
+				["cssls"] = function()
+					lspconfig.cssls.setup({
+						capabilities = common_capabilities,
+					})
+				end,
+				["cssmodules_ls"] = function()
+					lspconfig.cssmodules_ls.setup({
+						capabilities = common_capabilities,
+					})
+				end,
 				["eslint"] = function()
 					lspconfig.eslint.setup({
 						settings = {
@@ -512,6 +547,7 @@ return {
 			})
 
 			null_ls.setup({
+				capabilities = common_capabilities,
 				sources = {
 					null_ls.builtins.code_actions.gitsigns,
 					null_ls.builtins.formatting.eslint_d,

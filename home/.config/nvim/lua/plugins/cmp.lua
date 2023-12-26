@@ -1,7 +1,17 @@
 return {
 
 	-- github copilot
-	{ "github/copilot.vim" },
+	{
+		"github/copilot.vim",
+		config = function()
+			vim.g.copilot_filetypes = {
+				markdown = true,
+				gitcommit = true,
+				yaml = true,
+				json = true
+			}
+		end
+	},
 
 	{ "rafamadriz/friendly-snippets" },
 

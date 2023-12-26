@@ -32,13 +32,15 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
 export MOCWORD_DATA="$HOME/.config/mocword/mocword.sqlite"
 
 #######################################################
-# rtx (asdf)
+# rtx | asdf
 #######################################################
 
-eval "$(rtx activate zsh)"
+# rtx を利用する場合
+# eval "$(rtx activate zsh)"
 
-# . $(brew --prefix asdf)/libexec/asdf.sh
-#. ~/.asdf/plugins/java/set-java-home.zsh
+# adf を利用する場合
+. $(brew --prefix asdf)/libexec/asdf.sh
+# . ~/.asdf/plugins/java/set-java-home.zsh
 
 # for ruby build
 export RUBY_CFLAGS="-w"
@@ -71,25 +73,17 @@ alias mv='mv -i'
 # alias rm='rm -i'
 alias rm='gomi'
 # alias ls='gls -GAF --color=auto'
-alias ls='lsd -AF'
-alias ll='ls -l'
-# alias ll='exa -lgh --git'
-# alias exa='exa -aF'
+#alias lsd='lsd -AF'
+#alias ls='lsd'
+#alias ll='lsd -l'
+alias exa='exa -aF --icons'
+alias ls='exa'
+alias ll='exa -glH --git'
 alias less='less -R'
 alias bat='bat --theme TwoDark'
 alias rg='rg --hidden'
 alias colorpallet='msgcat --color=test'
 # FZF_PREVIEW_PREVIEW_BAT_THEME=base16
-
-
-#######################################################
-# tabtab (https://github.com/mklabs/tabtab)
-# tab completion helper by node.js
-#######################################################
-
-# tabtab source for packages
-# uninstall by removing these lines
-[[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
 
 #######################################################
 # broot (https://github.com/Canop/broot)
@@ -110,8 +104,7 @@ eval "$(starship init zsh)"
 # Github Copilot
 #######################################################
 
-# eval "$(npx @githubnext/github-copilot-cli@latest alias -- "$0")"
-eval "$(github-copilot-cli alias -- "$0")"
+# eval "$(github-copilot-cli alias -- "$0")"
 
 #######################################################
 # sheldon
