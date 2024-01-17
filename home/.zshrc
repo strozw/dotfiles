@@ -32,14 +32,15 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
 export MOCWORD_DATA="$HOME/.config/mocword/mocword.sqlite"
 
 #######################################################
-# rtx | asdf
+# mise | asdf
 #######################################################
 
-# rtx を利用する場合
-# eval "$(rtx activate zsh)"
+# mise を利用する場合
+eval "$(mise activate zsh)"
+# export PATH="$HOME/.local/share/mise/shims:$PATH"
 
 # adf を利用する場合
-. $(brew --prefix asdf)/libexec/asdf.sh
+# . $(brew --prefix asdf)/libexec/asdf.sh
 # . ~/.asdf/plugins/java/set-java-home.zsh
 
 # for ruby build

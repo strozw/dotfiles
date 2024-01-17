@@ -5,7 +5,7 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 			"neovim/nvim-lspconfig",
 			"nvim-lua/plenary.nvim",
-			-- "nvim-lua/lsp-status.nvim",
+			"nvim-lua/lsp-status.nvim",
 			"tamago324/nlsp-settings.nvim",
 			"folke/neodev.nvim",
 			"folke/lsp-colors.nvim",
@@ -18,9 +18,21 @@ return {
 			"ray-x/guihua.lua",
 			"strozw/github-actions-languageserver.nvim",
 			"lukas-reineke/lsp-format.nvim",
+			"MunifTanjim/prettier.nvim",
 			-- { dir = "~/ghq/github.com/strozw/github-actions-languageserver.nvim" },
 		},
 		config = function()
+			require("neodev").setup({
+				library = {
+					enabled = true,
+					runtime = true,
+					types = true,
+					plugins = true,
+				},
+				lspconfig = true,
+				-- pathStrict = false,
+			})
+
 			require("github-actions-languageserver").setup()
 
 			local lspconfig_util = require("lspconfig.util")
@@ -41,7 +53,7 @@ return {
 			local mason = require("mason")
 			local mason_lspconfig = require("mason-lspconfig")
 			local lspconfig = require("lspconfig")
-			-- local lsp_status = require("lsp-status")
+			local lsp_status = require("lsp-status")
 			local nlspsettings = require("nlspsettings")
 			local null_ls = require("null-ls")
 			local lps_inlayhints = require("lsp-inlayhints")
@@ -55,7 +67,7 @@ return {
 			})
 
 			-- lsp indicator
-			-- lsp_status.register_progress()
+			lsp_status.register_progress()
 
 			-- lsp progress indicator
 			fidget.setup({})
@@ -91,7 +103,7 @@ return {
 					local buffer = event.buf
 
 					-- attach lsp-status
-					-- lsp_status.on_attach(client)
+					lsp_status.on_attach(client)
 
 					-- attach lsp-inlayhints
 					lps_inlayhints.on_attach(client, buffer)
@@ -147,8 +159,8 @@ return {
 				end,
 			})
 
-			local common_capabilities = require("cmp_nvim_lsp").default_capabilities()
-			-- common_capabilities = vim.tbl_extend("keep", common_capabilities, lsp_status.capabilities)
+			local common_capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+			common_capabilities = vim.tbl_extend("keep", common_capabilities, lsp_status.capabilities)
 
 			lspconfig.github_actions.setup({
 				capabilities = common_capabilities,
@@ -245,14 +257,6 @@ return {
 				-- end
 			})
 
-			require("neodev").setup({
-				library = {
-					enabled = true,
-					runtime = true,
-					types = true,
-					plugins = true,
-				},
-			})
 
 			mason.setup({})
 
@@ -267,6 +271,13 @@ return {
 				["yamlls"] = function()
 					lspconfig.yamlls.setup({
 						capabilities = common_capabilities,
+						settings = {
+							yaml = {
+								schemaStore = {
+									enable = true
+								}
+							}
+						}
 					})
 				end,
 				["jsonls"] = function()
@@ -278,7 +289,7 @@ return {
 					lspconfig.lua_ls.setup({
 						capabilities = common_capabilities,
 						-- ref: https://github.com/neovim/nvim-lspconfig/issues/319#issuecomment-1192399104
-						single_file_support = false,
+						-- single_file_support = false,
 						settings = {
 							Lua = {
 								diagnostics = {
@@ -390,29 +401,34 @@ return {
 						}
 					}
 
-					lspconfig.tsserver.setup({
-						root_dir = lspconfig.util.root_pattern("package.json"),
-						on_attach = function(client)
-							client.server_capabilities.document_formatting = false
-						end,
-						capabilities = common_capabilities,
-						settings = {
-							typescript = lang_config,
-							javascript = lang_config,
-						},
-					})
-
-					-- require("typescript-tools").setup({
+					-- lspconfig.tsserver.setup({
 					-- 	root_dir = lspconfig.util.root_pattern("package.json"),
 					-- 	on_attach = function(client)
 					-- 		client.server_capabilities.document_formatting = false
 					-- 	end,
 					-- 	capabilities = common_capabilities,
 					-- 	settings = {
-					-- 		tsserver_locale = "ja",
-					-- 		-- code_lens = "all"
-					-- 	}
+					-- 		typescript = lang_config,
+					-- 		javascript = lang_config,
+					-- 	},
 					-- })
+
+					require("typescript-tools").setup({
+						root_dir = lspconfig.util.root_pattern("package.json"),
+						on_attach = function(client)
+							client.server_capabilities.document_formatting = false
+						end,
+						capabilities = common_capabilities,
+						init_options = {
+							preferences = {
+								importModuleSpecifier = "non-relative"
+							}
+						},
+						settings = {
+							tsserver_locale = "ja",
+							-- code_lens = "all"
+						}
+					})
 				end,
 				["vtsls"] = function()
 					lspconfig.vtsls.setup({
@@ -535,6 +551,12 @@ return {
 						-- end,
 					})
 				end,
+				["stylelint_lsp"] = function()
+					lspconfig.stylelint_lsp.setup({
+						capabilities = common_capabilities,
+						filetypes = { "css", "less", "scss", "sugarss", "vue", "wxss", "javascript", "javascriptreact", "typescript", "typescriptreact", "astro" },
+					})
+				end,
 				["jsonls"] = function()
 					lspconfig.jsonls.setup({
 						capabilities = common_capabilities,
@@ -546,12 +568,47 @@ return {
 				end,
 			})
 
+			local prettier = require("prettier")
+
+			prettier.setup({
+				bin = 'prettierd',
+				filetypes = {
+					"css",
+					"graphql",
+					"html",
+					"javascript",
+					"javascriptreact",
+					"json",
+					"jsonc",
+					"json5",
+					"less",
+					"markdown",
+					"scss",
+					"typescript",
+					"typescriptreact",
+					"yaml",
+				},
+				["null-ls"] = {
+					condition = function()
+						return prettier.config_exists({
+							-- if `false`, skips checking `package.json` for `"prettier"` key
+							check_package_json = true,
+						})
+					end,
+					runtime_condition = function(params)
+						-- return false to skip running prettier
+						return true
+					end,
+					timeout = 5000,
+				}
+			})
+
 			null_ls.setup({
 				capabilities = common_capabilities,
 				sources = {
 					null_ls.builtins.code_actions.gitsigns,
 					null_ls.builtins.formatting.eslint_d,
-					null_ls.builtins.formatting.prettierd,
+					-- null_ls.builtins.formatting.prettierd,
 				},
 			})
 		end,

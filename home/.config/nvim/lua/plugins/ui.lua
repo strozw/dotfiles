@@ -3,6 +3,15 @@ return {
 	-- symbol view
 	{ "liuchengxu/vista.vim" },
 
+	-- -- animation
+	-- {
+	-- 	'echasnovski/mini.animate',
+	-- 	version = '*',
+	-- 	config = function()
+	-- 		require('mini.animate').setup()
+	-- 	end
+	-- },
+
 	-----------------------------------------------------
 	-- vim ui improvements
 	-----------------------------------------------------
@@ -25,46 +34,22 @@ return {
 		end,
 	},
 
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		main = "ibl",
-		opts = {},
-		config = function()
-			local highlight = {
-				"RainbowBlue",
-				"RainbowCyan",
-				"RainbowViolet",
-				"RainbowGreen",
-				-- "RainbowYellow",
-				-- "RainbowOrange",
-				-- "RainbowRed",
-			}
-
-			local hooks = require "ibl.hooks"
-
-			-- create the highlight groups in the highlight setup hook, so they are reset
-			-- every time the colorscheme changes
-			hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-				vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
-				vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
-				vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
-				vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
-				vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
-				vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
-				vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
-			end)
-
-			require("ibl").setup {
-				indent = {
-					-- highlight = highlight,
-					char = '│',
-				},
-				scope = {
-					-- highlight = highlight,
-				},
-			}
-		end,
-	},
+	-- {
+	-- 	"lukas-reineke/indent-blankline.nvim",
+	-- 	main = "ibl",
+	-- 	opts = {},
+	-- 	config = function()
+	-- 		require("ibl").setup {
+	-- 			indent = {
+	-- 				-- highlight = highlight,
+	-- 				char = '│',
+	-- 			},
+	-- 			scope = {
+	-- 				-- highlight = highlight,
+	-- 			},
+	-- 		}
+	-- 	end,
+	-- },
 
 	-----------------------------------------------------
 	-- tabbar
@@ -217,13 +202,13 @@ return {
 						-- lualine_y = {  },
 						-- lualine_z = { 'tabs' }
 					},
-					extensions = { "fern", "nvim-tree", "fugitive", "trouble", "nvim-dap-ui", "lazy", "mason" },
+					extensions = { "fern", "nvim-tree", "neo-tree", "fugitive", "trouble", "nvim-dap-ui", "lazy", "mason" },
 					-- disabled_filetypes = {  }
 				})
 
 				vim.api.nvim_set_keymap("n", "<C-n>", ":bnext<CR>", { noremap = true, silent = true })
 				vim.api.nvim_set_keymap("n", "<C-p>", ":bprevious<CR>", { noremap = true, silent = true })
-				vim.api.nvim_exec([[ nnoremap <silent> <space>x :bdelete<CR> ]], false)
+				vim.api.nvim_exec([[ nnoremap <silent> <space>x :bd<CR> ]], false)
 			end
 		end,
 	},
@@ -263,52 +248,83 @@ return {
 	},
 
 	{
-		"nvim-tree/nvim-tree.lua",
+		"nvim-neo-tree/neo-tree.nvim",
+		branch = "v3.x",
 		dependencies = {
-			"nvim-tree/nvim-web-devicons", -- optional, for file icons
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			"MunifTanjim/nui.nvim",
+			"3rd/image.nvim",           -- Optional image support in preview window: See `# Preview Mode` for more information
 		},
 		config = function()
-			-- 以下を行うと :GBrowse が動作しなくなる
-			-- disable netrw at the very start of your init.lua (strongly advised)
-			-- vim.g.loaded_netrw = 1
-			-- vim.g.loaded_netrwPlugin = 1
+			vim.api.nvim_set_keymap("n", "<F2>", ":Neotree toggle<CR>", { noremap = true, silent = true })
+			vim.api.nvim_set_keymap("n", "ss", ":Neotree reveal <CR>", { noremap = true, silent = true })
 
-			-- set termguicolors to enable highlight groups
-			vim.opt.termguicolors = true
-
-			-- OR setup with some options
-			require("nvim-tree").setup({
-				-- sort_by = "case_sensitive",
-				-- renderer = {
-				-- 	group_empty = true,
-				-- },
-				-- filters = {
-				-- 	dotfiles = true,
-				-- },
-				trash = {
-					cmd = "gomi",
+			require("neo-tree").setup({
+				close_if_last_window = true,
+				enable_git_status = true,
+				enable_diagnostics = true,
+				open_files_do_not_replace_types = { "terminal", "trouble", "qf" },
+				default_component_configs = {
 				},
-				view = {
-					width = 50,
-					float = {
-						enable = false,
-						quit_on_focus_loss = true,
-						open_win_config = {
-							relative = "editor",
-							border = "rounded",
-							width = 30,
-							height = 30,
-							row = 1,
-							col = 1,
-						},
-					},
-				},
+				filesystem = {
+					filtered_items = {
+						hide_dotfiles = false,
+						hide_hidden = false,
+						hide_gitignored = false,
+					}
+				}
 			})
-
-			vim.api.nvim_set_keymap("n", "<F2>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
-			vim.api.nvim_set_keymap("n", "ss", ":NvimTreeFindFile<CR>", { noremap = true, silent = true })
-		end,
+		end
 	},
+
+	-- {
+	-- 	"nvim-tree/nvim-tree.lua",
+	-- 	dependencies = {
+	-- 		"nvim-tree/nvim-web-devicons", -- optional, for file icons
+	-- 	},
+	-- 	config = function()
+	-- 		-- 以下を行うと :GBrowse が動作しなくなる
+	-- 		-- disable netrw at the very start of your init.lua (strongly advised)
+	-- 		-- vim.g.loaded_netrw = 1
+	-- 		-- vim.g.loaded_netrwPlugin = 1
+
+	-- 		-- set termguicolors to enable highlight groups
+	-- 		vim.opt.termguicolors = true
+
+	-- 		-- OR setup with some options
+	-- 		require("nvim-tree").setup({
+	-- 			-- sort_by = "case_sensitive",
+	-- 			-- renderer = {
+	-- 			-- 	group_empty = true,
+	-- 			-- },
+	-- 			-- filters = {
+	-- 			-- 	dotfiles = true,
+	-- 			-- },
+	-- 			trash = {
+	-- 				cmd = "gomi",
+	-- 			},
+	-- 			view = {
+	-- 				width = 50,
+	-- 				float = {
+	-- 					enable = false,
+	-- 					quit_on_focus_loss = true,
+	-- 					open_win_config = {
+	-- 						relative = "editor",
+	-- 						border = "rounded",
+	-- 						width = 30,
+	-- 						height = 30,
+	-- 						row = 1,
+	-- 						col = 1,
+	-- 					},
+	-- 				},
+	-- 			},
+	-- 		})
+
+	-- 		vim.api.nvim_set_keymap("n", "<F2>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
+	-- 		vim.api.nvim_set_keymap("n", "ss", ":NvimTreeFindFile<CR>", { noremap = true, silent = true })
+	-- 	end,
+	-- },
 
 	{
 		"antosha417/nvim-lsp-file-operations",
@@ -352,4 +368,22 @@ return {
 			require("dropbar").setup({})
 		end,
 	},
+
+	{
+		'uga-rosa/ccc.nvim',
+		config = function()
+			vim.opt.termguicolors = true
+
+			local ccc = require("ccc")
+			local mapping = ccc.mapping
+
+			ccc.setup({
+				highlighter = {
+					auto_enable = true,
+					lsp = true,
+				},
+			})
+		end
+	}
+
 }
