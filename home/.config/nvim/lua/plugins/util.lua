@@ -11,13 +11,11 @@ return {
 	{
 		"PHSix/faster.nvim",
 		event = { "VimEnter *" },
+		keys = {
+			{ "n", "j", "<Plug>(faster_move_j)" },
+			{ "n", "k", "<Plug>(faster_move_k)" },
+		},
 		config = function()
-			local faster = require("faster")
-
-			if faster then
-				vim.api.nvim_set_keymap("n", "j", "<Plug>(faster_move_j)", { noremap = false, silent = true })
-				vim.api.nvim_set_keymap("n", "k", "<Plug>(faster_move_k)", { noremap = false, silent = true })
-			end
 		end,
 	},
 

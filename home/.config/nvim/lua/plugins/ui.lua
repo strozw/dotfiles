@@ -51,9 +51,9 @@ return {
 			-- "nvim-lua/lsp-status.nvim",
 		},
 		keys = {
-			{ "<C-n>", ":bnext<cr>" },
-			{ "<C-p>", ":bprevious<cr>" },
-			{ "<space>x", ":bdelete<cr>"}
+			{ "<C-n>",    ":bnext<cr>" },
+			{ "<C-p>",    ":bprevious<cr>" },
+			{ "<space>x", ":bdelete<cr>" }
 		},
 		config = function()
 			local lualine = require("lualine")
@@ -243,6 +243,23 @@ return {
 				},
 			})
 		end
-	}
+	},
+
+
+	-- LSP / diagnostics UI
+	{
+		"folke/trouble.nvim",
+		dependencies = "nvim-tree/nvim-web-devicons",
+		keys = {
+			{ "<F4>", "<cmd>TroubleToggle<cr>" },
+		},
+		config = function()
+			require("trouble").setup({
+				-- your configuration comes here
+				-- or leave it empty to use the default settings
+				-- refer to the configuration section below
+			})
+		end,
+	},
 
 }

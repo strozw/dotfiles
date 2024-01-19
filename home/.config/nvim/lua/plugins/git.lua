@@ -7,8 +7,11 @@ return {
 
 	{
 		"tpope/vim-fugitive",
+		lazy = false,
+		keys = {
+			{ "gb", "<cmd>Git blame<CR>" }
+		},
 		config = function()
-			vim.api.nvim_set_keymap("n", "gb", "<cmd>Git blame<CR>", { noremap = true, silent = true })
 			-- NOTE: netrw を無効化した場合は、GBrowe を利用するのに以下の command が必要になる
 			-- vim.cmd([[command! -nargs=1 Browse silent execute '!open' shellescape(<q-args>,1)]])
 		end,
@@ -20,16 +23,12 @@ return {
 	{
 		"NeogitOrg/neogit",
 		config = function()
-			local neogit = require("neogit")
-
-			if neogit then
-				neogit.setup({
-					disable_builtin_notifications = false,
-					commit_popup = {
-						kind = "split",
-					},
-				})
-			end
+			require("neogit").setup({
+				disable_builtin_notifications = false,
+				commit_popup = {
+					kind = "split",
+				},
+			})
 		end,
 	},
 
