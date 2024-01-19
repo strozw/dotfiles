@@ -3,15 +3,6 @@ return {
 	-- symbol view
 	{ "liuchengxu/vista.vim" },
 
-	-- -- animation
-	-- {
-	-- 	'echasnovski/mini.animate',
-	-- 	version = '*',
-	-- 	config = function()
-	-- 		require('mini.animate').setup()
-	-- 	end
-	-- },
-
 	-----------------------------------------------------
 	-- vim ui improvements
 	-----------------------------------------------------
@@ -34,81 +25,22 @@ return {
 		end,
 	},
 
-	-- {
-	-- 	"lukas-reineke/indent-blankline.nvim",
-	-- 	main = "ibl",
-	-- 	opts = {},
-	-- 	config = function()
-	-- 		require("ibl").setup {
-	-- 			indent = {
-	-- 				-- highlight = highlight,
-	-- 				char = '│',
-	-- 			},
-	-- 			scope = {
-	-- 				-- highlight = highlight,
-	-- 			},
-	-- 		}
-	-- 	end,
-	-- },
-
-	-----------------------------------------------------
-	-- tabbar
-	-----------------------------------------------------
-	-- {
-	-- 	"romgrk/barbar.nvim",
-	-- 	dependencies = { "nvim-tree/nvim-web-devicons" },
-	-- 	config = function()
-	-- 		vim.api.nvim_set_keymap("n", "<C-n>", ":BufferNext<CR>", { noremap = true, silent = true })
-	-- 		vim.api.nvim_set_keymap("n", "<C-p>", ":BufferPrev<CR>", { noremap = true, silent = true })
-	-- 		vim.api.nvim_exec([[ nnoremap <silent> <space>x :BufferClose<CR> ]], false)
-	-- 	end,
-	-- },
-
-	-- {
-	-- 	"akinsho/bufferline.nvim",
-	-- 	dependencies = 'nvim-tree/nvim-web-devicons',
-	-- 	config = function()
-	-- 		vim.opt.termguicolors = true
-	-- 		local bufferline = require("bufferline")
-
-	-- 		bufferline.setup {
-	-- 			options = {
-	-- 				mode = "buffers",
-	-- 				style_preset = bufferline.style_preset.minimal,
-	-- 				-- separator_style = { "", "" },
-	-- 				separator_style = "slant",
-	-- 				-- themable = true,
-	-- 				-- numbers = "ordinal",
-	-- 				-- indicator = {
-	-- 				-- 	style = "udnerline"
-	-- 				-- },
-	-- 				diagnostics = "nvim_lsp",
-	-- 				highlights = {
-	-- 					fill = {
-	-- 						fg = '#000000',
-	-- 						bg = '#000000',
-	-- 					},
-	-- 					background = {
-	-- 						fg = '#000000',
-	-- 						bg = '#000000',
-	-- 					},
-	-- 					tab_selected = {
-	-- 						fg = '#000000',
-	-- 						bg = '#000000',
-	-- 					},
-	-- 					tab_separator = {
-	-- 						fg = '#000000',
-	-- 						bg = '#000000',
-	-- 					},
-	-- 				}
-	-- 			}
-	-- 		}
-
-	-- 		vim.api.nvim_set_keymap("n", "<C-n>", ":bnext<CR>", { noremap = true, silent = true })
-	-- 		vim.api.nvim_set_keymap("n", "<C-p>", ":bprevious<CR>", { noremap = true, silent = true })
-	-- 		vim.api.nvim_exec([[ nnoremap <silent> <space>x :bdelete<CR> ]], false)
-	-- 	end
-	-- },
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		opts = {},
+		config = function()
+			require("ibl").setup {
+				indent = {
+					-- highlight = highlight,
+					char = '│',
+				},
+				scope = {
+					-- highlight = highlight,
+				},
+			}
+		end,
+	},
 
 	-----------------------------------------------------
 	-- status line
@@ -117,6 +49,11 @@ return {
 		"nvim-lualine/lualine.nvim",
 		dependencies = {
 			-- "nvim-lua/lsp-status.nvim",
+		},
+		keys = {
+			{ "<C-n>", ":bnext<cr>" },
+			{ "<C-p>", ":bprevious<cr>" },
+			{ "<space>x", ":bdelete<cr>"}
 		},
 		config = function()
 			local lualine = require("lualine")
@@ -205,10 +142,6 @@ return {
 					extensions = { "fern", "nvim-tree", "neo-tree", "fugitive", "trouble", "nvim-dap-ui", "lazy", "mason" },
 					-- disabled_filetypes = {  }
 				})
-
-				vim.api.nvim_set_keymap("n", "<C-n>", ":bnext<CR>", { noremap = true, silent = true })
-				vim.api.nvim_set_keymap("n", "<C-p>", ":bprevious<CR>", { noremap = true, silent = true })
-				vim.api.nvim_exec([[ nnoremap <silent> <space>x :bd<CR> ]], false)
 			end
 		end,
 	},
@@ -217,49 +150,21 @@ return {
 	-- filer
 	-----------------------------------------------------
 	{
-		"lambdalisue/fern.vim",
-		dependencies = {
-			{
-				"lambdalisue/fern-renderer-nerdfont.vim",
-				dependencies = { "lambdalisue/nerdfont.vim" },
-			},
-
-			{ "lambdalisue/fern-git-status.vim" },
-
-			-- { "lambdalisue/fern-hijack.vim" },
-
-			{ "lambdalisue/glyph-palette.vim" },
-		},
-		config = function()
-			-- vim.api.nvim_set_keymap(
-			-- 	"n",
-			-- 	"<F2>",
-			-- 	":Fern . -drawer -width=50 -toggle<CR>",
-			-- 	{ noremap = true, silent = true }
-			-- )
-			-- vim.api.nvim_set_keymap(
-			-- 	"n",
-			-- 	"ss",
-			-- 	":Fern . -drawer -width=50 -reveal=%<CR><CR>",
-			-- 	{ noremap = true, silent = true }
-			-- )
-			vim.g.fern_disable_startup_warnings = 1
-		end,
-	},
-
-	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",
+		cmd = "Neotree",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 			"MunifTanjim/nui.nvim",
 			"3rd/image.nvim",           -- Optional image support in preview window: See `# Preview Mode` for more information
+			"luckasRanarison/neo-rename.nvim"
+		},
+		keys = {
+			{ "<F2>", "<cmd>Neotree toggle<cr>" },
+			{ "ss",   "<cmd>Neotree reveal <CR>" }
 		},
 		config = function()
-			vim.api.nvim_set_keymap("n", "<F2>", ":Neotree toggle<CR>", { noremap = true, silent = true })
-			vim.api.nvim_set_keymap("n", "ss", ":Neotree reveal <CR>", { noremap = true, silent = true })
-
 			require("neo-tree").setup({
 				close_if_last_window = true,
 				enable_git_status = true,
@@ -275,56 +180,10 @@ return {
 					}
 				}
 			})
+
+			require("neo-rename").setup()
 		end
 	},
-
-	-- {
-	-- 	"nvim-tree/nvim-tree.lua",
-	-- 	dependencies = {
-	-- 		"nvim-tree/nvim-web-devicons", -- optional, for file icons
-	-- 	},
-	-- 	config = function()
-	-- 		-- 以下を行うと :GBrowse が動作しなくなる
-	-- 		-- disable netrw at the very start of your init.lua (strongly advised)
-	-- 		-- vim.g.loaded_netrw = 1
-	-- 		-- vim.g.loaded_netrwPlugin = 1
-
-	-- 		-- set termguicolors to enable highlight groups
-	-- 		vim.opt.termguicolors = true
-
-	-- 		-- OR setup with some options
-	-- 		require("nvim-tree").setup({
-	-- 			-- sort_by = "case_sensitive",
-	-- 			-- renderer = {
-	-- 			-- 	group_empty = true,
-	-- 			-- },
-	-- 			-- filters = {
-	-- 			-- 	dotfiles = true,
-	-- 			-- },
-	-- 			trash = {
-	-- 				cmd = "gomi",
-	-- 			},
-	-- 			view = {
-	-- 				width = 50,
-	-- 				float = {
-	-- 					enable = false,
-	-- 					quit_on_focus_loss = true,
-	-- 					open_win_config = {
-	-- 						relative = "editor",
-	-- 						border = "rounded",
-	-- 						width = 30,
-	-- 						height = 30,
-	-- 						row = 1,
-	-- 						col = 1,
-	-- 					},
-	-- 				},
-	-- 			},
-	-- 		})
-
-	-- 		vim.api.nvim_set_keymap("n", "<F2>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
-	-- 		vim.api.nvim_set_keymap("n", "ss", ":NvimTreeFindFile<CR>", { noremap = true, silent = true })
-	-- 	end,
-	-- },
 
 	{
 		"antosha417/nvim-lsp-file-operations",
