@@ -12,8 +12,8 @@ return {
 		"PHSix/faster.nvim",
 		event = { "VimEnter *" },
 		keys = {
-			{ "n", "j", "<Plug>(faster_move_j)" },
-			{ "n", "k", "<Plug>(faster_move_k)" },
+			{ "j", "<Plug>(faster_move_j)" },
+			{ "k", "<Plug>(faster_move_k)" },
 		},
 		config = function()
 		end,
