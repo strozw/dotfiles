@@ -19,6 +19,7 @@ return {
 			"strozw/github-actions-languageserver.nvim",
 			"lukas-reineke/lsp-format.nvim",
 			"MunifTanjim/prettier.nvim",
+			"b0o/schemastore.nvim",
 			-- { dir = "~/ghq/github.com/strozw/github-actions-languageserver.nvim" },
 		},
 		config = function()
@@ -274,8 +275,10 @@ return {
 						settings = {
 							yaml = {
 								schemaStore = {
-									enable = true
-								}
+									enable = false,
+									url = "",
+								},
+								schemas = require('schemastore').yaml.schemas(),
 							}
 						}
 					})
@@ -283,6 +286,16 @@ return {
 				["jsonls"] = function()
 					lspconfig.jsonls.setup({
 						capabilities = common_capabilities,
+						filetypes = { "json", "jsonc", "json5" },
+						init_options = {
+							provideFormatter = false,
+						},
+						settings = {
+							json = {
+								schemas = require('schemastore').json.schemas(),
+								validate = { enable = true },
+							}
+						}
 					})
 				end,
 				["lua_ls"] = function()
@@ -556,16 +569,7 @@ return {
 						capabilities = common_capabilities,
 						filetypes = { "css", "less", "scss", "sugarss", "vue", "wxss", "javascript", "javascriptreact", "typescript", "typescriptreact", "astro" },
 					})
-				end,
-				["jsonls"] = function()
-					lspconfig.jsonls.setup({
-						capabilities = common_capabilities,
-						filetypes = { "json", "jsonc", "json5" },
-						init_options = {
-							provideFormatter = false,
-						},
-					})
-				end,
+				end
 			})
 
 			local prettier = require("prettier")

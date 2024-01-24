@@ -9,8 +9,15 @@ local plugins_sets = {
 
 		{ "vim-denops/denops.vim" },
 
-		-- buffer delete imple
-		{ "famiu/bufdelete.nvim" },
+		-- neovim buffer delete improved
+		{
+			"famiu/bufdelete.nvim",
+			lazy = false,
+			keys = {
+				-- https://github.com/nvim-neo-tree/neo-tree.nvim/wiki/FAQ#bdelete-makes-the-tree-spans-the-whole-window-how-do-i-prevent-it
+				{ "<space>x", ":Bdelete<cr>" },
+			}
+		},
 
 		-- tmux
 		{ "christoomey/vim-tmux-navigator" },

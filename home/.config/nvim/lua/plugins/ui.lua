@@ -47,13 +47,13 @@ return {
 	-----------------------------------------------------
 	{
 		"nvim-lualine/lualine.nvim",
+		lazy = false,
 		dependencies = {
 			-- "nvim-lua/lsp-status.nvim",
 		},
 		keys = {
-			{ "<C-n>",    ":bnext<cr>" },
-			{ "<C-p>",    ":bprevious<cr>" },
-			{ "<space>x", ":bdelete<cr>" }
+			{ "<C-n>", ":bnext<cr>" },
+			{ "<C-p>", ":bprevious<cr>" },
 		},
 		config = function()
 			local lualine = require("lualine")

@@ -129,7 +129,6 @@ bindkey -e
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
-export FZF_LEGACY_KEYBINDINGS=1
 export FZF_DEFAULT_OPTS='
   --bind="F2:toggle-preview"
   --layout=reverse 
@@ -140,20 +139,23 @@ export FZF_DEFAULT_OPTS='
 function fzf-z () {
     local selected_dir=$(z -t | sort -nr | awk '{ print $2 }' | fzf)
     if [ -n "$selected_dir" ]; then
-        #buffer="cd ${selected_dir}"
-        cd ${selected_dir}
-        zle accept-line
+			cd ${selected_dir}
+			zle accept-line
+    	zle clear-screen
     fi
-    zle clear-screen
 }
 zle -N fzf-z
 bindkey '^@' fzf-z
 
 # ghq
 function fzf-ghq () {
-	cd $(ghq list -p | fzf)
-	zle accept-line
-	zle clear-screen
+	local selected_dir=$(ghq list -p | fzf)
+
+	if [ -n "$selected_dir" ]; then
+		cd ${selected_dir}
+		zle accept-line
+		zle clear-screen
+	fi
 }
 zle -N fzf-ghq
 bindkey '^[' fzf-ghq
