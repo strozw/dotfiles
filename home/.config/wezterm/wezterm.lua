@@ -7,7 +7,7 @@ return {
 	-- font = wezterm.font("PlemolJP Console NF"),
 	font = wezterm.font("UDEV Gothic NFLG"),
 	-- font = wezterm.font("UDEV Gothic NF"),
-	-- use_ime = true,
+	use_ime = true,
 	font_size = 16.0,
 	line_height = 1.3,
 	cell_width = 1.05,
@@ -49,9 +49,12 @@ return {
 		-- { key = "_", mods = "CTRL", action = "Nop" },
 		-- { key = "_", mods = "CTRL", action = "Nop" },
 		-- { key = "-", mods = "CTRL", action = "Nop" },
-		{ key = "_", mods = "CTRL",       action = wezterm.action.DisableDefaultAssignment },
-		{ key = "_", mods = "CTRL|SHIFT", action = wezterm.action.DisableDefaultAssignment },
-		{ key = "@", mods = "CTRL",       action = wezterm.action.DisableDefaultAssignment },
+		{ key = "_", mods = "CTRL",        action = wezterm.action.DisableDefaultAssignment },
+		{ key = "_", mods = "CTRL|SHIFT",  action = wezterm.action.DisableDefaultAssignment },
+		{ key = "@", mods = "CTRL",        action = wezterm.action.DisableDefaultAssignment },
+		-- Command + '='
+		{ key = '-', mods = 'SUPER|SHIFT', action = wezterm.action.IncreaseFontSize },
+
 	},
 	-- IME での補完中に `ctrl+H` などを可能にする
 	-- macos_forward_to_ime_modifier_mask = "SHIFT|CTRL",
