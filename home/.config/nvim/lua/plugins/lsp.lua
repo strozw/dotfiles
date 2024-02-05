@@ -438,7 +438,7 @@ return {
 							}
 						},
 						settings = {
-							tsserver_locale = "ja",
+							-- tsserver_locale = "ja",
 							-- code_lens = "all"
 						}
 					})
@@ -548,20 +548,20 @@ return {
 				["eslint"] = function()
 					lspconfig.eslint.setup({
 						settings = {
-							-- codeActionOnSave = {
-							-- 	enable = true,
-							-- 	mode = "all",
-							-- },
-							-- format = {
-							-- 	enable = true,
-							-- }, -- this will enable formatting
+							codeActionOnSave = {
+								enable = true,
+								mode = "all",
+							},
+							format = {
+								enable = true,
+							}, -- this will enable formatting
 						},
-						-- on_attach = function(_client, bufnr)
-						-- 	vim.api.nvim_create_autocmd("BufWritePre", {
-						-- 		buffer = bufnr,
-						-- 		command = "EslintFixAll",
-						-- 	})
-						-- end,
+						on_attach = function(_client, bufnr)
+							vim.api.nvim_create_autocmd("BufWritePre", {
+								buffer = bufnr,
+								command = "EslintFixAll",
+							})
+						end,
 					})
 				end,
 				["stylelint_lsp"] = function()
@@ -611,7 +611,7 @@ return {
 				capabilities = common_capabilities,
 				sources = {
 					null_ls.builtins.code_actions.gitsigns,
-					null_ls.builtins.formatting.eslint_d,
+					-- null_ls.builtins.formatting.eslint_d,
 					-- null_ls.builtins.formatting.prettierd,
 				},
 			})
