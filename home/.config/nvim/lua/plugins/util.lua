@@ -26,4 +26,14 @@ return {
 			vim.g.winresizer_start_key = "<C-E>"
 		end,
 	},
+
+	{
+		"uga-rosa/translate.nvim",
+		config = function()
+			require("translate").setup({
+				lang = "en",
+				winhl = "Normal:Normal",
+			})
+		end
+	}
 }
