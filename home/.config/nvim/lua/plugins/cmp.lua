@@ -4,14 +4,11 @@ return {
 	{
 		"github/copilot.vim",
 		config = function()
+			-- I would like to turn off copilot for sensitive projects.
+			-- so if you need use copilot, turn it on in `.nvim.lua` in project root.
 			vim.g.copilot_filetypes = {
-				markdown = true,
-				gitcommit = true,
-				yaml = true,
-				json = true
+				['*'] = false,
 			}
-
-			vim.cmd("Copilot disable")
 		end
 	},
 

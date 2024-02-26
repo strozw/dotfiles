@@ -21,6 +21,11 @@ return {
 			"MunifTanjim/prettier.nvim",
 			"b0o/schemastore.nvim",
 			-- { dir = "~/ghq/github.com/strozw/github-actions-languageserver.nvim" },
+			{
+				'mrcjkb/rustaceanvim',
+				version = '^4', -- Recommended
+				-- ft = { 'rust' },
+			},
 		},
 		config = function()
 			require("neodev").setup({
