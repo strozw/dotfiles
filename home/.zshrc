@@ -158,7 +158,7 @@ function fzf-ghq () {
 	fi
 }
 zle -N fzf-ghq
-bindkey '^[' fzf-ghq
+bindkey '^_' fzf-ghq
 
 # docker
 # source ~/ghq/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.zsh

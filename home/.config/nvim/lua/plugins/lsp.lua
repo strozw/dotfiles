@@ -11,6 +11,7 @@ return {
 			"folke/lsp-colors.nvim",
 			"yioneko/nvim-vtsls",
 			"nvimtools/none-ls.nvim",
+			"nvimtools/none-ls-extras.nvim",
 			{ "j-hui/fidget.nvim", tag = "legacy" },
 			"lvimuser/lsp-inlayhints.nvim",
 			"pmizio/typescript-tools.nvim",
@@ -211,57 +212,56 @@ return {
 				end,
 			})
 
-			-- lspconfig.solargraph.setup({
-			-- 	cmd = { "bundle", "exec", "steep", "langserver" },
-			-- 	settings = {
-			-- 		solargraph = {
-			-- 			-- commandPath = "~/.asdf/shims/solargraph",
-			-- 			-- diagnostics = true,
-			-- 			completion = true,
-			-- 		},
-			-- 	},
-			-- 	init_options = {
-			-- 		-- formatting = false,
-			-- 	},
-			-- 	on_attach = function(client, bufnr)
-			-- 		client.server_capabilities.definitionProvider = true
-			-- 	end,
-			-- 	capabilities = common_capabilities,
-			-- 	root_dir = function(fname)
-			-- 		local hasSteepConfig = lspconfig_util.root_pattern("steep")(fname)
-			-- 		local hasSorbetConfig = lspconfig_util.root_pattern("sorbet")(fname)
-
-			-- 		if hasSorbetConfig or hasSteepConfig then
-			-- 			return nil
-			-- 		end
-
-			-- 		local hasSolargraphConfig =
-			-- 				lspconfig_util.root_pattern(".solargraph.yaml", ".solargraph.yml")(fname)
-
-			-- 		return hasSolargraphConfig
-			-- 	end,
-			-- })
-
-			lspconfig.steep.setup({
-				cmd = { "bundle", "exec", "steep", "langserver" },
+			lspconfig.solargraph.setup({
+				cmd = { "bundle", "exec", "solargraph", "stdio" },
+				settings = {
+					solargraph = {
+						diagnostics = true,
+						completion = true,
+					},
+				},
+				init_options = {
+					formatting = false,
+				},
+				on_attach = function(client, bufnr)
+					client.server_capabilities.definitionProvider = true
+				end,
 				capabilities = common_capabilities,
-				-- root_dir = function(fname)
-				-- 	local hasSorbetConfig = lspconfig_util.root_pattern("sorbet")(fname)
-				-- 	local hasSolargraphConfig =
-				-- 			lspconfig_util.root_pattern(".solargraph.yaml", ".solargraph.yml")(fname)
+				root_dir = function(fname)
+					local hasSteepConfig = lspconfig_util.root_pattern("steep")(fname)
+					local hasSorbetConfig = lspconfig_util.root_pattern("sorbet")(fname)
 
-				-- 	if hasSorbetConfig or hasSolargraphConfig then
-				-- 		return nil
-				-- 	end
+					if hasSorbetConfig or hasSteepConfig then
+						return nil
+					end
 
-				-- 	local hasSteepConfig = lspconfig_util.root_pattern("steep")(fname)
+					local hasSolargraphConfig =
+							lspconfig_util.root_pattern(".solargraph.yaml", ".solargraph.yml")(fname)
 
-				-- 	return hasSteepConfig
-				-- end,
-
-				-- on_new_config = function(config, root_dir)
-				-- end
+					return hasSolargraphConfig
+				end,
 			})
+
+			-- lspconfig.steep.setup({
+			-- 	cmd = { "bundle", "exec", "steep", "langserver" },
+			-- 	capabilities = common_capabilities,
+			-- 	-- root_dir = function(fname)
+			-- 	-- 	local hasSorbetConfig = lspconfig_util.root_pattern("sorbet")(fname)
+			-- 	-- 	local hasSolargraphConfig =
+			-- 	-- 			lspconfig_util.root_pattern(".solargraph.yaml", ".solargraph.yml")(fname)
+
+			-- 	-- 	if hasSorbetConfig or hasSolargraphConfig then
+			-- 	-- 		return nil
+			-- 	-- 	end
+
+			-- 	-- 	local hasSteepConfig = lspconfig_util.root_pattern("steep")(fname)
+
+			-- 	-- 	return hasSteepConfig
+			-- 	-- end,
+
+			-- 	-- on_new_config = function(config, root_dir)
+			-- 	-- end
+			-- })
 
 
 			mason.setup({})
@@ -553,13 +553,36 @@ return {
 				["eslint"] = function()
 					lspconfig.eslint.setup({
 						settings = {
-							codeActionOnSave = {
-								enable = true,
-								mode = "all",
+							codeAction = {
+								disableRuleComment = {
+									enable = true,
+									location = "separateLine"
+								},
+								showDocumentation = {
+									enable = true
+								}
 							},
-							format = {
-								enable = true,
-							}, -- this will enable formatting
+							codeActionOnSave = {
+								enable = false,
+								mode = "all"
+							},
+							experimental = {
+								useFlatConfig = false
+							},
+							format = true,
+							nodePath = "",
+							onIgnoredFiles = "off",
+							problems = {
+								shortenToSingleLine = false
+							},
+							quiet = false,
+							rulesCustomizations = {},
+							run = "onType",
+							useESLintClass = false,
+							validate = "on",
+							workingDirectory = {
+								mode = "location"
+							}
 						},
 						on_attach = function(_client, bufnr)
 							vim.api.nvim_create_autocmd("BufWritePre", {
@@ -616,7 +639,8 @@ return {
 				capabilities = common_capabilities,
 				sources = {
 					null_ls.builtins.code_actions.gitsigns,
-					-- null_ls.builtins.formatting.eslint_d,
+					-- require("none-ls.code_actions.eslint_d"),
+					-- require("none-ls.formatting.eslint_d"),
 					-- null_ls.builtins.formatting.prettierd,
 				},
 			})
