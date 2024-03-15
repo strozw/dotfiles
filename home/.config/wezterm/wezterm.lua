@@ -5,8 +5,9 @@ return {
 
 	-- font = wezterm.font("HackGen Console NFJ"),
 	-- font = wezterm.font("PlemolJP Console NF"),
-	font = wezterm.font("UDEV Gothic NFLG"),
 	-- font = wezterm.font("UDEV Gothic NF"),
+	-- font = wezterm.font("UDEV Gothic NFLG"),
+	font = wezterm.font("Moralerspace Neon HW"),
 	use_ime = true,
 	font_size = 16.0,
 	line_height = 1.3,

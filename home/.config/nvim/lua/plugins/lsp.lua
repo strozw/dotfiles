@@ -9,12 +9,13 @@ return {
 			"tamago324/nlsp-settings.nvim",
 			"folke/neodev.nvim",
 			"folke/lsp-colors.nvim",
-			"yioneko/nvim-vtsls",
+			-- "yioneko/nvim-vtsls",
 			"nvimtools/none-ls.nvim",
 			"nvimtools/none-ls-extras.nvim",
 			{ "j-hui/fidget.nvim", tag = "legacy" },
 			"lvimuser/lsp-inlayhints.nvim",
 			"pmizio/typescript-tools.nvim",
+			'dmmulroy/ts-error-translator.nvim',
 			"ray-x/go.nvim",
 			"ray-x/guihua.lua",
 			"strozw/github-actions-languageserver.nvim",
@@ -120,36 +121,33 @@ return {
 
 					lsp_format.on_attach(client, buffer)
 
-					local opts = { buffer = buffer }
-
-					-- Enable completion triggered by <c-x><c-o>
-					vim.api.nvim_buf_set_option(buffer, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
 					-- Mappings.
+					local keymap_opts = { buffer = buffer }
+
 					-- See `:help vim.lsp.*` for documentation on any of the below functions
-					vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-					vim.keymap.set("n", "H", vim.lsp.buf.signature_help, opts)
-					vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
-					vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
+					vim.keymap.set("n", "K", vim.lsp.buf.hover, keymap_opts)
+					vim.keymap.set("n", "H", vim.lsp.buf.signature_help, keymap_opts)
+					vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, keymap_opts)
+					vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, keymap_opts)
 					vim.keymap.set("n", "<space>wl", function()
 						print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-					end, opts)
-					vim.keymap.set("n", "cr", vim.lsp.buf.rename, opts)
+					end, keymap_opts)
+					vim.keymap.set("n", "cr", vim.lsp.buf.rename, keymap_opts)
 
 					-- vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
 					vim.keymap.set("n", "gi", function()
 						require("telescope.builtin").lsp_implementations(require("telescope.themes").get_ivy({}))
-					end, opts)
+					end, keymap_opts)
 
 					-- vim.keymap.set('n', 'gD', function() vim.lsp.buf.type_declaration end, opts)
 					vim.keymap.set("n", "gD", function()
 						require("telescope.builtin").lsp_type_definitions(require("telescope.themes").get_ivy({}))
-					end, opts)
+					end, keymap_opts)
 
 					-- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
 					vim.keymap.set("n", "gd", function()
 						require("telescope.builtin").lsp_definitions(require("telescope.themes").get_ivy({}))
-					end, opts)
+					end, keymap_opts)
 
 					-- vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
 					vim.keymap.set("n", "gr", function()
@@ -157,12 +155,15 @@ return {
 							show_line = false,
 							fname_width = 100,
 						}))
-					end, opts)
+					end, keymap_opts)
 
-					vim.keymap.set("n", "ca", vim.lsp.buf.code_action, opts)
+					vim.keymap.set("n", "ca", vim.lsp.buf.code_action, keymap_opts)
 					vim.keymap.set("v", "ca", function()
 						vim.lsp.buf.code_action({ range = vim.lsp.util.compute_range() })
-					end, opts)
+					end, keymap_opts)
+
+					-- Enable completion triggered by <c-x><c-o>
+					vim.api.nvim_buf_set_option(buffer, "omnifunc", "v:lua.vim.lsp.omnifunc")
 				end,
 			})
 
@@ -431,6 +432,7 @@ return {
 					-- 	},
 					-- })
 
+
 					require("typescript-tools").setup({
 						root_dir = lspconfig.util.root_pattern("package.json"),
 						on_attach = function(client)
@@ -447,74 +449,77 @@ return {
 							-- code_lens = "all"
 						}
 					})
+
+					require("ts-error-translator").setup()
 				end,
-				["vtsls"] = function()
-					lspconfig.vtsls.setup({
-						capabilities = common_capabilities,
-						settings = {
-							["typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName"] = true,
-							["typescript.inlayHints.parameterTypes.enabled"] = true,
-							["typescript.inlayHints.variableTypes.enabled"] = true,
-							["typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName"] = true,
-							["typescript.inlayHints.propertyDeclarationTypes.enabled"] = true,
-							["typescript.inlayHints.functionLikeReturnTypes.enabled"] = true,
-							["typescript.inlayHints.enumMemberValues.enabled"] = true,
-							typescript = {
-								inlayHints = {
-									parameterNames = {
-										suppressWhenArgumentMatchesName = true,
-									},
-									parameterTypes = {
-										enabled = true,
-									},
-									variableTypes = {
-										enabled = true,
-										suppressWhenTypeMatchesName = true,
-									},
-									propertyDeclarationTypes = {
-										enabled = true,
-									},
-									functionLikeReturnTypes = {
-										enabled = true,
-									},
-									enumMemberValues = {
-										enabled = true,
-									},
-								},
-							},
-							["javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName"] = true,
-							["javascript.inlayHints.parameterTypes.enabled"] = true,
-							["javascript.inlayHints.variableTypes.enabled"] = true,
-							["javascript.inlayHints.variableTypes.suppressWhenTypeMatchesName"] = true,
-							["javascript.inlayHints.propertyDeclarationTypes.enabled"] = true,
-							["javascript.inlayHints.functionLikeReturnTypes.enabled"] = true,
-							["javascript.inlayHints.enumMemberValues.enabled"] = true,
-							javascript = {
-								inlayHints = {
-									parameterNames = {
-										suppressWhenArgumentMatchesName = true,
-									},
-									parameterTypes = {
-										enabled = true,
-									},
-									variableTypes = {
-										enabled = true,
-										suppressWhenTypeMatchesName = true,
-									},
-									propertyDeclarationTypes = {
-										enabled = true,
-									},
-									functionLikeReturnTypes = {
-										enabled = true,
-									},
-									enumMemberValues = {
-										enabled = true,
-									},
-								},
-							},
-						},
-					})
-				end,
+
+				-- ["vtsls"] = function()
+				-- 	lspconfig.vtsls.setup({
+				-- 		capabilities = common_capabilities,
+				-- 		settings = {
+				-- 			["typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName"] = true,
+				-- 			["typescript.inlayHints.parameterTypes.enabled"] = true,
+				-- 			["typescript.inlayHints.variableTypes.enabled"] = true,
+				-- 			["typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName"] = true,
+				-- 			["typescript.inlayHints.propertyDeclarationTypes.enabled"] = true,
+				-- 			["typescript.inlayHints.functionLikeReturnTypes.enabled"] = true,
+				-- 			["typescript.inlayHints.enumMemberValues.enabled"] = true,
+				-- 			typescript = {
+				-- 				inlayHints = {
+				-- 					parameterNames = {
+				-- 						suppressWhenArgumentMatchesName = true,
+				-- 					},
+				-- 					parameterTypes = {
+				-- 						enabled = true,
+				-- 					},
+				-- 					variableTypes = {
+				-- 						enabled = true,
+				-- 						suppressWhenTypeMatchesName = true,
+				-- 					},
+				-- 					propertyDeclarationTypes = {
+				-- 						enabled = true,
+				-- 					},
+				-- 					functionLikeReturnTypes = {
+				-- 						enabled = true,
+				-- 					},
+				-- 					enumMemberValues = {
+				-- 						enabled = true,
+				-- 					},
+				-- 				},
+				-- 			},
+				-- 			["javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName"] = true,
+				-- 			["javascript.inlayHints.parameterTypes.enabled"] = true,
+				-- 			["javascript.inlayHints.variableTypes.enabled"] = true,
+				-- 			["javascript.inlayHints.variableTypes.suppressWhenTypeMatchesName"] = true,
+				-- 			["javascript.inlayHints.propertyDeclarationTypes.enabled"] = true,
+				-- 			["javascript.inlayHints.functionLikeReturnTypes.enabled"] = true,
+				-- 			["javascript.inlayHints.enumMemberValues.enabled"] = true,
+				-- 			javascript = {
+				-- 				inlayHints = {
+				-- 					parameterNames = {
+				-- 						suppressWhenArgumentMatchesName = true,
+				-- 					},
+				-- 					parameterTypes = {
+				-- 						enabled = true,
+				-- 					},
+				-- 					variableTypes = {
+				-- 						enabled = true,
+				-- 						suppressWhenTypeMatchesName = true,
+				-- 					},
+				-- 					propertyDeclarationTypes = {
+				-- 						enabled = true,
+				-- 					},
+				-- 					functionLikeReturnTypes = {
+				-- 						enabled = true,
+				-- 					},
+				-- 					enumMemberValues = {
+				-- 						enabled = true,
+				-- 					},
+				-- 				},
+				-- 			},
+				-- 		},
+				-- 	})
+				-- end,
 				["emmet_language_server"] = function()
 					lspconfig.emmet_language_server.setup({
 						filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact" },
@@ -584,11 +589,39 @@ return {
 								mode = "location"
 							}
 						},
-						on_attach = function(_client, bufnr)
-							vim.api.nvim_create_autocmd("BufWritePre", {
-								buffer = bufnr,
-								command = "EslintFixAll",
-							})
+						on_attach = function(client, bufnr)
+							-- `vim.lsp.buf.format` なら動作する `lsp-format.nvim` plugin ではなぜか動作しない
+							client.server_capabilities.documentFormattingProvider = true
+
+							-- vim.api.nvim_create_autocmd("BufWritePre", {
+							-- 	callback = function()
+							-- 		vim.lsp.buf.format({
+							-- 			filter = function()
+							-- 				return client.name == "eslint"
+							-- 			end
+							-- 		})
+							-- 	end
+							-- })
+
+							-- vim.api.nvim_create_autocmd("BufWritePre", {
+							-- 	buffer = bufnr,
+							-- 	command = "EslintFixAll",
+							-- })
+
+							client.request(
+								'workspace/executeCommand',
+								{
+									command = 'eslint.applyAllFixes',
+									arguments = {
+										{
+											uri = vim.uri_from_bufnr(bufnr),
+											version = vim.lsp.util.buf_versions[bufnr],
+										},
+									},
+								},
+								nil,
+								0
+							)
 						end,
 					})
 				end,
@@ -603,7 +636,7 @@ return {
 			local prettier = require("prettier")
 
 			prettier.setup({
-				bin = 'prettierd',
+				bin = 'prettier',
 				filetypes = {
 					"css",
 					"graphql",
@@ -641,7 +674,6 @@ return {
 					null_ls.builtins.code_actions.gitsigns,
 					-- require("none-ls.code_actions.eslint_d"),
 					-- require("none-ls.formatting.eslint_d"),
-					-- null_ls.builtins.formatting.prettierd,
 				},
 			})
 		end,
