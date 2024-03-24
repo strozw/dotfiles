@@ -8,6 +8,7 @@ return {
 	{
 		"rcarriga/nvim-dap-ui",
 		dependencies = {
+			"nvim-neotest/nvim-nio",
 			"mfussenegger/nvim-dap",
 			"leoluz/nvim-dap-go",
 			"mxsdev/nvim-dap-vscode-js",
