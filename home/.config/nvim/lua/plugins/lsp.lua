@@ -174,15 +174,6 @@ return {
 				capabilities = common_capabilities,
 				init_options = {
 					logLevel = 1,
-					-- repos = {
-					-- 	{
-					-- 		id = 'MDEwOlJlcG9zaXRvcnkzMzE0NjMxMzY=',
-					-- 		owner = 'Baseconnect',
-					-- 		organizationOwned = true,
-					-- 		name = 'musubu-frontend',
-					-- 		workspaceUri = '/Users/satoru/ghq/github.com/Baseconnect/musubu-frontend'
-					-- 	}
-					-- }
 				},
 			})
 
