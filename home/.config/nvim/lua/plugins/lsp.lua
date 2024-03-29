@@ -608,20 +608,24 @@ return {
 							-- 	command = "EslintFixAll",
 							-- })
 
-							client.request(
-								'workspace/executeCommand',
-								{
-									command = 'eslint.applyAllFixes',
-									arguments = {
+							vim.api.nvim_create_autocmd("BufWritePre", {
+								callback = function()
+									client.request(
+										'workspace/executeCommand',
 										{
-											uri = vim.uri_from_bufnr(bufnr),
-											version = vim.lsp.util.buf_versions[bufnr],
+											command = 'eslint.applyAllFixes',
+											arguments = {
+												{
+													uri = vim.uri_from_bufnr(bufnr),
+													version = vim.lsp.util.buf_versions[bufnr],
+												},
+											},
 										},
-									},
-								},
-								nil,
-								0
-							)
+										nil,
+										0
+									)
+								end
+							})
 						end,
 					})
 				end,
