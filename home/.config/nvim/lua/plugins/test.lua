@@ -20,12 +20,18 @@ return {
 	{
 		"nvim-neotest/neotest",
 		dependencies = {
+			"nvim-neotest/nvim-nio",
 			"nvim-lua/plenary.nvim",
 			"vim-test/vim-test",
 			"haydenmeade/neotest-jest",
 			"nvim-neotest/neotest-vim-test",
 			"nvim-treesitter/nvim-treesitter",
 			"antoinemadec/FixCursorHold.nvim",
+			{
+				'mrcjkb/rustaceanvim',
+				version = '^4', -- Recommended
+				ft = { 'rust' },
+			},
 		},
 		config = function()
 			require("neotest").setup({
@@ -35,6 +41,7 @@ return {
 					-- 	dap = { justMyCode = false },
 					-- }),
 					-- require("neotest-plenary"),
+					require('rustaceanvim.neotest'),
 					require("neotest-vim-test")({
 						-- ignore_file_types = { "python", "vim", "lua" },
 					}),

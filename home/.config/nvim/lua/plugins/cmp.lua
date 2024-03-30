@@ -1,7 +1,16 @@
 return {
 
 	-- github copilot
-	{ "github/copilot.vim" },
+	{
+		"github/copilot.vim",
+		config = function()
+			-- I would like to turn off copilot for sensitive projects.
+			-- so if you need use copilot, turn it on in `.nvim.lua` in project root.
+			vim.g.copilot_filetypes = {
+				['*'] = false,
+			}
+		end
+	},
 
 	{ "rafamadriz/friendly-snippets" },
 
@@ -68,10 +77,11 @@ return {
 			}
 
 			cmp.setup({
-				-- performance = {
-				-- 	debounce = 30,
-				-- 	throttle = 15,
-				-- },
+				performance = {
+					max_view_entries = 1000,
+					-- debounce = 30,
+					-- throttle = 15,
+				},
 				matching = {},
 				formatting = {
 					format = lspkind.cmp_format({
@@ -81,13 +91,13 @@ return {
 							-- NOTE: https://stackoverflow.com/questions/72668920/how-to-show-paths-for-auto-imports-with-neovim-nvim-cmp
 							if entry.completion_item.detail ~= nil and entry.completion_item.detail ~= "" then
 								vim_item.menu = entry.completion_item.detail
-							else
-								vim_item.menu = ({
-									nvim_lsp = "[LSP]",
-									luasnip = "[Snippet]",
-									buffer = "[Buffer]",
-									path = "[Path]",
-								})[entry.source.name]
+								-- else
+								-- 	vim_item.menu = ({
+								-- 		nvim_lsp = "[LSP]",
+								-- 		luasnip = "[Snippet]",
+								-- 		buffer = "[Buffer]",
+								-- 		path = "[Path]",
+								-- 	})[entry.source.name]
 							end
 							return vim_item
 						end,
@@ -114,7 +124,7 @@ return {
 					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 				}),
 				sources = cmp.config.sources(vim.list_extend({
-					{ name = "nvim_lsp",               keyword_length = 2 },
+					{ name = "nvim_lsp",               keyword_length = 1 },
 					{ name = "nvim_lsp_signature_help" },
 					{ name = "vsnip" },
 					{ name = "emoji" },

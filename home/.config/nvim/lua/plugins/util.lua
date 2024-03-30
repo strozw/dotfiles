@@ -11,13 +11,11 @@ return {
 	{
 		"PHSix/faster.nvim",
 		event = { "VimEnter *" },
+		keys = {
+			{ "j", "<Plug>(faster_move_j)" },
+			{ "k", "<Plug>(faster_move_k)" },
+		},
 		config = function()
-			local faster = require("faster")
-
-			if faster then
-				vim.api.nvim_set_keymap("n", "j", "<Plug>(faster_move_j)", { noremap = false, silent = true })
-				vim.api.nvim_set_keymap("n", "k", "<Plug>(faster_move_k)", { noremap = false, silent = true })
-			end
 		end,
 	},
 
@@ -28,4 +26,14 @@ return {
 			vim.g.winresizer_start_key = "<C-E>"
 		end,
 	},
+
+	{
+		"uga-rosa/translate.nvim",
+		config = function()
+			require("translate").setup({
+				lang = "en",
+				winhl = "Normal:Normal",
+			})
+		end
+	}
 }

@@ -25,35 +25,20 @@ return {
 		end,
 	},
 
-	-----------------------------------------------------
-	-- tabbar
-	-----------------------------------------------------
 	{
-		"romgrk/barbar.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		opts = {},
 		config = function()
-			vim.api.nvim_set_keymap("n", "<C-n>", ":BufferNext<CR>", { noremap = true, silent = true })
-			vim.api.nvim_set_keymap("n", "<C-p>", ":BufferPrev<CR>", { noremap = true, silent = true })
-			vim.api.nvim_exec([[ nnoremap <silent> <space>x :BufferClose<CR> ]], false)
-			vim.api.nvim_exec(
-				[[
-					let g:fern#default_hidden=1
-					let g:fern#width=50
-					let g:fern#renderer='nerdfont'
-
-					function! FernInit() abort
-						nmap <buffer> <C-L> :TmuxNavigateRight<CR>
-
-						set nonumber
-					endfunction
-
-					augroup FernEvents
-						autocmd!
-						autocmd FileType fern call FernInit()
-					augroup END
-				]],
-				false
-			)
+			require("ibl").setup {
+				indent = {
+					-- highlight = highlight,
+					char = '│',
+				},
+				scope = {
+					-- highlight = highlight,
+				},
+			}
 		end,
 	},
 
@@ -62,8 +47,13 @@ return {
 	-----------------------------------------------------
 	{
 		"nvim-lualine/lualine.nvim",
+		lazy = false,
 		dependencies = {
-			"nvim-lua/lsp-status.nvim",
+			-- "nvim-lua/lsp-status.nvim",
+		},
+		keys = {
+			{ "<C-n>", ":bnext<cr>" },
+			{ "<C-p>", ":bprevious<cr>" },
 		},
 		config = function()
 			local lualine = require("lualine")
@@ -75,9 +65,10 @@ return {
 						-- theme = 'auto',
 						theme = "tokyonight",
 						-- theme = 'material-nvim',
-						component_separators = { left = " ", right = " " },
-						section_separators = { left = " ", right = " " },
+						component_separators = { left = "", right = "" },
+						section_separators = { left = "", right = "" },
 						always_divide_middle = true,
+						globalstatus = true
 					},
 					sections = {
 						lualine_a = { "mode" },
@@ -86,7 +77,8 @@ return {
 							"diff",
 							{ "diagnostics", sources = { "coc" } },
 						},
-						lualine_c = { "g:coc_status", "require'lsp-status'.status()", "filename" },
+						-- lualine_c = { "g:coc_status", "require'lsp-status'.status()", "filename" },
+						lualine_c = { "filename" },
 						lualine_x = { "encoding", "fileformat", "filetype" },
 						lualine_y = { "progress" },
 						lualine_z = { "location" },
@@ -99,8 +91,56 @@ return {
 						lualine_y = {},
 						lualine_z = {},
 					},
-					tabline = {},
-					extensions = { "fern" },
+					tabline = {
+						lualine_a = { 'tabs' },
+						lualine_b = {
+							{
+								'buffers',
+								show_filename_only = false, -- Shows shortened relative path when set to false.
+								hide_filename_extension = false, -- Hide filename extension when set to true.
+								show_modified_status = true, -- Shows indicator when the buffer is modified.
+
+								mode = 0,                -- 0: Shows buffer name
+								-- 1: Shows buffer index
+								-- 2: Shows buffer name + buffer index
+								-- 3: Shows buffer number
+								-- 4: Shows buffer name + buffer number
+
+								-- max_length = vim.o.columns * 2 / 3, -- Maximum width of buffers component,
+								max_length = vim.o.columns * 4 / 5, -- Maximum width of buffers component,
+								-- it can also be a function that returns
+								-- the value of `max_length` dynamically.
+								filetype_names = {
+									TelescopePrompt = 'Telescope',
+									dashboard = 'Dashboard',
+									packer = 'Packer',
+									fzf = 'FZF',
+									alpha = 'Alpha'
+								}, -- Shows specific buffer name for that filetype ( { `filetype` = `buffer_name`, ... } )
+
+								-- Automatically updates active buffer color to match color of other components (will be overidden if buffers_color is set)
+								use_mode_colors = true,
+
+								-- buffers_color = {
+								-- 	-- Same values as the general color option can be used here.
+								-- 	active = 'lualine_{section}_normal', -- Color for active buffer.
+								-- 	inactive = 'lualine_{section}_inactive', -- Color for inactive buffer.
+								-- },
+
+								symbols = {
+									modified = ' ●', -- Text to show when the buffer is modified
+									alternate_file = '#', -- Text to show to identify the alternate file
+									directory = '', -- Text to show when the buffer is a directory
+								},
+							}
+						},
+						-- lualine_c = { 'filename' },
+						-- lualine_x = {},
+						-- lualine_y = {  },
+						-- lualine_z = { 'tabs' }
+					},
+					extensions = { "fern", "nvim-tree", "neo-tree", "fugitive", "trouble", "nvim-dap-ui", "lazy", "mason" },
+					-- disabled_filetypes = {  }
 				})
 			end
 		end,
@@ -110,90 +150,50 @@ return {
 	-- filer
 	-----------------------------------------------------
 	{
-		"lambdalisue/fern.vim",
+		"nvim-neo-tree/neo-tree.nvim",
+		branch = "v3.x",
+		cmd = "Neotree",
 		dependencies = {
-			{
-				"lambdalisue/fern-renderer-nerdfont.vim",
-				dependencies = { "lambdalisue/nerdfont.vim" },
-			},
-
-			{ "lambdalisue/fern-git-status.vim" },
-
-			-- { "lambdalisue/fern-hijack.vim" },
-
-			{ "lambdalisue/glyph-palette.vim" },
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			"MunifTanjim/nui.nvim",
+			"3rd/image.nvim",           -- Optional image support in preview window: See `# Preview Mode` for more information
+			"luckasRanarison/neo-rename.nvim"
+		},
+		keys = {
+			{ "<F2>", "<cmd>Neotree toggle<cr>" },
+			{ "ss",   "<cmd>Neotree reveal <CR>" }
 		},
 		config = function()
-			-- vim.api.nvim_set_keymap(
-			-- 	"n",
-			-- 	"<F2>",
-			-- 	":Fern . -drawer -width=50 -toggle<CR>",
-			-- 	{ noremap = true, silent = true }
-			-- )
-			-- vim.api.nvim_set_keymap(
-			-- 	"n",
-			-- 	"ss",
-			-- 	":Fern . -drawer -width=50 -reveal=%<CR><CR>",
-			-- 	{ noremap = true, silent = true }
-			-- )
-			vim.g.fern_disable_startup_warnings = 1
-		end,
-	},
-
-	{
-		"nvim-tree/nvim-tree.lua",
-		dependencies = {
-			"nvim-tree/nvim-web-devicons", -- optional, for file icons
-		},
-		config = function()
-			-- 以下を行うと :GBrowse が動作しなくなる
-			-- disable netrw at the very start of your init.lua (strongly advised)
-			-- vim.g.loaded_netrw = 1
-			-- vim.g.loaded_netrwPlugin = 1
-
-			-- set termguicolors to enable highlight groups
-			vim.opt.termguicolors = true
-
-			-- OR setup with some options
-			require("nvim-tree").setup({
-				-- sort_by = "case_sensitive",
-				-- renderer = {
-				-- 	group_empty = true,
-				-- },
-				-- filters = {
-				-- 	dotfiles = true,
-				-- },
-				trash = {
-					cmd = "gomi",
+			require("neo-tree").setup({
+				close_if_last_window = true,
+				enable_git_status = true,
+				enable_diagnostics = true,
+				open_files_do_not_replace_types = { "terminal", "trouble", "qf" },
+				default_component_configs = {
 				},
-				view = {
-					width = 50,
-					float = {
-						enable = false,
-						quit_on_focus_loss = true,
-						open_win_config = {
-							relative = "editor",
-							border = "rounded",
-							width = 30,
-							height = 30,
-							row = 1,
-							col = 1,
-						},
-					},
-				},
+				filesystem = {
+					filtered_items = {
+						hide_dotfiles = false,
+						hide_hidden = false,
+						hide_gitignored = false,
+					}
+				}
 			})
 
-			vim.api.nvim_set_keymap("n", "<F2>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
-			vim.api.nvim_set_keymap("n", "ss", ":NvimTreeFindFile<CR>", { noremap = true, silent = true })
-		end,
+			require("neo-rename").setup()
+		end
 	},
 
 	{
 		"antosha417/nvim-lsp-file-operations",
 		dependencies = {
-			{ "nvim-lua/plenary.nvim" },
-			{ "nvim-tree/nvim-tree.lua" },
+			"nvim-lua/plenary.nvim",
+			"nvim-neo-tree/neo-tree.nvim",
 		},
+		config = function()
+			require("lsp-file-operations").setup()
+		end,
 	},
 
 	-- {
@@ -218,5 +218,51 @@ return {
 				-- or just leave it empty :)
 			})
 		end,
-	}
+	},
+
+	{
+		'Bekaboo/dropbar.nvim',
+		-- optional, but required for fuzzy finder support
+		dependencies = {
+			'nvim-telescope/telescope-fzf-native.nvim'
+		},
+		config = function()
+			require("dropbar").setup({})
+		end,
+	},
+
+	{
+		'uga-rosa/ccc.nvim',
+		config = function()
+			vim.opt.termguicolors = true
+
+			local ccc = require("ccc")
+			local mapping = ccc.mapping
+
+			ccc.setup({
+				highlighter = {
+					auto_enable = true,
+					lsp = true,
+				},
+			})
+		end
+	},
+
+
+	-- LSP / diagnostics UI
+	{
+		"folke/trouble.nvim",
+		dependencies = "nvim-tree/nvim-web-devicons",
+		keys = {
+			{ "<F4>", "<cmd>TroubleToggle<cr>" },
+		},
+		config = function()
+			require("trouble").setup({
+				-- your configuration comes here
+				-- or leave it empty to use the default settings
+				-- refer to the configuration section below
+			})
+		end,
+	},
+
 }

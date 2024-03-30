@@ -15,9 +15,9 @@ for path in "${CONFIG_DIR}"/*; do
 	TARGET_PATH="$HOME/.config/$(basename "$path")"
 
 	if [[ -L "$TARGET_PATH" ]]; then
-		echo "SKIP: $path"
+		echo "input y or n (default) and Enter"
+		ln -insv "$path" "$TARGET_PATH"
 	else
 		echo "LINK: $(ln -fnsv "$path" "$TARGET_PATH")"
-		# echo "LINK: $path"
 	fi
 done
