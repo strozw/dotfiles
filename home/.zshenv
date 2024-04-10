@@ -16,3 +16,4 @@ export EDITOR=${EDITOR:=nvim}
 
 autoload -Uz compinit
 compinit
+. "$HOME/.cargo/env"
