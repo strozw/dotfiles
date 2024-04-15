@@ -55,8 +55,11 @@ export CPPFLAGS="-I/opt/homebrew/opt/libffi/include"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/libffi/lib/pkgconfig"
 
 # pnpm
-export PNPM_HOME="/Users/satoru/Library/pnpm"
-export PATH="$PNPM_HOME:$PATH"
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
 # pnpm end
 
 #######################################################
