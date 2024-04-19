@@ -15,6 +15,7 @@
   untracked = cyan
 [commit]
 	verbose = true
+	gpgsign = true
 [core]
 	excludesfile = ~/.gitignore_global
   attributesfile = ~/.gitattributes_global
@@ -33,6 +34,8 @@
 	conflictStyle = diff3
 [pull]
 	ff = only
+[tag]
+	gpgsign = true
 [user]
 	name = strozw
 	email = strozw@users.noreply.github.com
