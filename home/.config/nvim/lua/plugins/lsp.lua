@@ -10,6 +10,7 @@ return {
 			"folke/neodev.nvim",
 			"folke/lsp-colors.nvim",
 			-- "yioneko/nvim-vtsls",
+			"davidmh/cspell.nvim",
 			"nvimtools/none-ls.nvim",
 			"nvimtools/none-ls-extras.nvim",
 			{ "j-hui/fidget.nvim", tag = "legacy" },
@@ -22,6 +23,7 @@ return {
 			"lukas-reineke/lsp-format.nvim",
 			"MunifTanjim/prettier.nvim",
 			"b0o/schemastore.nvim",
+			"folke/neoconf.nvim",
 			-- { dir = "~/ghq/github.com/strozw/github-actions-languageserver.nvim" },
 			{
 				'mrcjkb/rustaceanvim',
@@ -58,15 +60,30 @@ return {
 				},
 			}
 
+			-- lspconfig_configs.cspell = {
+			-- 	default_config = {
+			-- 		filetypes = { "javascript", "javascriptreact", "python", "typescript", "typescriptreact" },
+			-- 		root_dir = lspconfig_util.root_pattern(
+			-- 			"cspell.json",
+			-- 			"cspell.jsonc"
+			-- 		),
+			-- 	},
+			-- }
+
 			local mason = require("mason")
 			local mason_lspconfig = require("mason-lspconfig")
 			local lspconfig = require("lspconfig")
 			local lsp_status = require("lsp-status")
 			local nlspsettings = require("nlspsettings")
+			local cspell = require('cspell')
 			local null_ls = require("null-ls")
 			local lps_inlayhints = require("lsp-inlayhints")
 			local fidget = require("fidget")
 			local lsp_format = require("lsp-format")
+
+			require("neoconf").setup({
+				-- override any of the default settings here
+			})
 
 			lps_inlayhints.setup({
 				inlay_hints = {
@@ -90,7 +107,7 @@ return {
 
 			lsp_format.setup({})
 
-			-- normal mode のとき CursorHodld 箇所の diagnostics を float で表示
+			-- normal mode のとき CursorHold 箇所の diagnostics を float で表示
 			-- vim.api.nvim_exec(
 			-- 	[[
 			-- 	autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focus=false })
@@ -203,6 +220,35 @@ return {
 					-- })
 				end,
 			})
+
+			-- lspconfig.cspell.setup({
+			-- 	capabilities = common_capabilities,
+			-- 	cmd = {
+			-- 		"node",
+			-- 		vim.fn.expand(
+			-- 			"~/.vscode/extensions/streetsidesoftware.code-spell-checker-3.0.1/packages/_server/dist/main.cjs"
+			-- 		),
+			-- 		"--stdio"
+			-- 	},
+			-- 	on_attach = function(client, bufnr)
+			-- 		-- client.server_capabilities = vim.tbl_extend("force", client.server_capabilities, {
+			-- 		-- 	hoverProvider = true,
+			-- 		-- 	definitionProvider = true,
+			-- 		-- 	referencesProvider = true,
+			-- 		-- 	documentHighlightProvider = true,
+			-- 		-- 	documentSymbolProvider = true,
+			-- 		-- 	workspaceSymbolProvider = true,
+			-- 		-- 	codeActionProvider = true,
+			-- 		-- 	codeLensProvider = true,
+			-- 		-- 	documentFormattingProvider = true,
+			-- 		-- 	documentRangeFormattingProvider = true,
+			-- 		-- 	documentOnTypeFormattingProvider = true,
+			-- 		-- 	renameProvider = true,
+			-- 		-- 	documentLinkProvider = true,
+			-- 		-- })
+			-- 	end,
+			-- })
+
 
 			lspconfig.solargraph.setup({
 				cmd = { "bundle", "exec", "solargraph", "stdio" },
@@ -513,6 +559,7 @@ return {
 				-- end,
 				["emmet_language_server"] = function()
 					lspconfig.emmet_language_server.setup({
+						capabilities = common_capabilities,
 						filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact" },
 						-- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
 						-- **Note:** only the options listed in the table are supported.
@@ -594,29 +641,29 @@ return {
 							-- 	end
 							-- })
 
-							-- vim.api.nvim_create_autocmd("BufWritePre", {
-							-- 	buffer = bufnr,
-							-- 	command = "EslintFixAll",
-							-- })
-
 							vim.api.nvim_create_autocmd("BufWritePre", {
-								callback = function()
-									client.request(
-										'workspace/executeCommand',
-										{
-											command = 'eslint.applyAllFixes',
-											arguments = {
-												{
-													uri = vim.uri_from_bufnr(bufnr),
-													version = vim.lsp.util.buf_versions[bufnr],
-												},
-											},
-										},
-										nil,
-										0
-									)
-								end
+								buffer = bufnr,
+								command = "EslintFixAll",
 							})
+
+							-- vim.api.nvim_create_autocmd("BufWritePre", {
+							-- 	callback = function()
+							-- 		client.request(
+							-- 			'workspace/executeCommand',
+							-- 			{
+							-- 				command = 'eslint.applyAllFixes',
+							-- 				arguments = {
+							-- 					{
+							-- 						uri = vim.uri_from_bufnr(bufnr),
+							-- 						version = vim.lsp.util.buf_versions[bufnr],
+							-- 					},
+							-- 				},
+							-- 			},
+							-- 			nil,
+							-- 			0
+							-- 		)
+							-- 	end
+							-- })
 						end,
 					})
 				end,
@@ -667,6 +714,8 @@ return {
 				capabilities = common_capabilities,
 				sources = {
 					null_ls.builtins.code_actions.gitsigns,
+					-- cspell.diagnostics,
+					-- cspell.code_actions,
 					-- require("none-ls.code_actions.eslint_d"),
 					-- require("none-ls.formatting.eslint_d"),
 				},

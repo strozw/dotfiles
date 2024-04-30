@@ -111,6 +111,8 @@ vim.api.nvim_exec(
 
 	autocmd BufNewFile,BufRead *.mdx set filetype=typescriptreact
 	autocmd BufNewFile,BufRead *.rbi set filetype=ruby
+
+	tnoremap <ESC><ESC> <c-\><c-n>
 ]],
 	false
 )

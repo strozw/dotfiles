@@ -1,7 +1,7 @@
 local wezterm = require("wezterm")
 
 return {
-	default_prog = { "zsh", "-l" },
+	default_prog = { "/opt/homebrew/bin/zsh", "-l" },
 
 	-- font = wezterm.font("HackGen Console NFJ"),
 	-- font = wezterm.font("PlemolJP Console NF"),
@@ -31,7 +31,7 @@ return {
 		-- },
 	},
 	use_fancy_tab_bar = false,
-	window_background_opacity = 0.9,
+	window_background_opacity = 1,
 	window_padding = {
 		left = 0,
 		right = 0,
@@ -59,5 +59,5 @@ return {
 	},
 	-- IME での補完中に `ctrl+H` などを可能にする
 	-- macos_forward_to_ime_modifier_mask = "SHIFT|CTRL",
-	debug_key_events = true,
+	-- debug_key_events = true,
 }

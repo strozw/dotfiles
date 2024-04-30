@@ -14,6 +14,5 @@ export SHELL=/opt/homebrew/bin/zsh
 export VISUAL=${VISUAL:=nvim}
 export EDITOR=${EDITOR:=nvim}
 
-autoload -Uz compinit
-compinit
+
 . "$HOME/.cargo/env"

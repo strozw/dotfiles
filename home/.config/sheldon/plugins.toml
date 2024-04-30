@@ -37,9 +37,13 @@ apply = ["defer"]
 github = "zsh-users/zsh-history-substring-search"
 apply = ["defer"]
 
+[plugins.zsh-autocomplete]
+github = "marlonrichert/zsh-autocomplete"
+apply = ["defer"]
+
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
-use = ["{{ name }}.zsh"]
+# use = ["{{ name }}.zsh"]
 apply = ["defer"]
 
 [plugins.z]

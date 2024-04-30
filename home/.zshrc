@@ -31,6 +31,15 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
 # mocword
 export MOCWORD_DATA="$HOME/.config/mocword/mocword.sqlite"
 
+
+
+# fpath
+if type brew &>/dev/null; then
+	export FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+fi
+
+autoload -Uz compinit; compinit
+
 #######################################################
 # mise | asdf
 #######################################################
@@ -80,8 +89,8 @@ alias rm='gomi'
 #alias lsd='lsd -AF'
 #alias ls='lsd'
 #alias ll='lsd -l'
-alias eza='eza -aF --icons'
-alias ls='eza'
+alias ls='eza -aF --icons'
+# alias ls='eza'
 alias ll='eza -glH --git'
 alias less='less -R'
 alias bat='bat --theme TwoDark'
@@ -163,5 +172,7 @@ function fzf-ghq () {
 zle -N fzf-ghq
 bindkey '^_' fzf-ghq
 
-# docker
-# source ~/ghq/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.zsh
+
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
