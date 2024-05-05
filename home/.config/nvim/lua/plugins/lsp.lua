@@ -9,13 +9,13 @@ return {
 			"tamago324/nlsp-settings.nvim",
 			"folke/neodev.nvim",
 			"folke/lsp-colors.nvim",
-			-- "yioneko/nvim-vtsls",
+			"yioneko/nvim-vtsls",
 			"davidmh/cspell.nvim",
 			"nvimtools/none-ls.nvim",
 			"nvimtools/none-ls-extras.nvim",
 			{ "j-hui/fidget.nvim", tag = "legacy" },
 			"lvimuser/lsp-inlayhints.nvim",
-			"pmizio/typescript-tools.nvim",
+			-- "pmizio/typescript-tools.nvim",
 			'dmmulroy/ts-error-translator.nvim',
 			"ray-x/go.nvim",
 			"ray-x/guihua.lua",
@@ -438,125 +438,141 @@ return {
 						capabilities = common_capabilities,
 					})
 				end,
-				["tsserver"] = function()
-					local lang_config = {
-						inlayHints = {
-							includeInlayEnumMemberValueHints = true,
-							includeInlayFunctionLikeReturnTypeHints = true,
-							includeInlayFunctionParameterTypeHints = true,
-							includeInlayParameterNameHints = "all",
-							includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-							includeInlayPropertyDeclarationTypeHints = true,
-							includeInlayVariableTypeHints = true,
-							includeInlayVariableTypeHintsWhenTypeMatchesName = true
-						},
-						implementationsCodeLens = true,
-						referencesCodeLens = {
-							enabled = true,
-							showOnAllFunctions = true,
-						}
-					}
+				-- ["tsserver"] = function()
+				-- 	local lang_config = {
+				-- 		inlayHints = {
+				-- 			includeInlayEnumMemberValueHints = true,
+				-- 			includeInlayFunctionLikeReturnTypeHints = true,
+				-- 			includeInlayFunctionParameterTypeHints = true,
+				-- 			includeInlayParameterNameHints = "all",
+				-- 			includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+				-- 			includeInlayPropertyDeclarationTypeHints = true,
+				-- 			includeInlayVariableTypeHints = true,
+				-- 			includeInlayVariableTypeHintsWhenTypeMatchesName = true
+				-- 		},
+				-- 		implementationsCodeLens = true,
+				-- 		referencesCodeLens = {
+				-- 			enabled = true,
+				-- 			showOnAllFunctions = true,
+				-- 		}
+				-- 	}
 
-					-- lspconfig.tsserver.setup({
-					-- 	root_dir = lspconfig.util.root_pattern("package.json"),
-					-- 	on_attach = function(client)
-					-- 		client.server_capabilities.document_formatting = false
-					-- 	end,
-					-- 	capabilities = common_capabilities,
-					-- 	settings = {
-					-- 		typescript = lang_config,
-					-- 		javascript = lang_config,
-					-- 	},
-					-- })
+				-- 	-- lspconfig.tsserver.setup({
+				-- 	-- 	root_dir = lspconfig.util.root_pattern("package.json"),
+				-- 	-- 	on_attach = function(client)
+				-- 	-- 		client.server_capabilities.document_formatting = false
+				-- 	-- 	end,
+				-- 	-- 	capabilities = common_capabilities,
+				-- 	-- 	settings = {
+				-- 	-- 		typescript = lang_config,
+				-- 	-- 		javascript = lang_config,
+				-- 	-- 	},
+				-- 	-- })
 
 
-					require("typescript-tools").setup({
-						root_dir = lspconfig.util.root_pattern("package.json"),
-						on_attach = function(client)
-							client.server_capabilities.document_formatting = false
-						end,
+				-- 	-- require("typescript-tools").setup({
+				-- 	-- 	root_dir = lspconfig.util.root_pattern("package.json"),
+				-- 	-- 	on_attach = function(client)
+				-- 	-- 		client.server_capabilities.document_formatting = false
+				-- 	-- 	end,
+				-- 	-- 	capabilities = common_capabilities,
+				-- 	-- 	init_options = {
+				-- 	-- 		preferences = {
+				-- 	-- 			importModuleSpecifier = "non-relative"
+				-- 	-- 		}
+				-- 	-- 	},
+				-- 	-- 	settings = {
+				-- 	-- 		-- tsserver_locale = "ja",
+				-- 	-- 		-- code_lens = "all"
+				-- 	-- 	}
+				-- 	-- })
+
+				-- 	require("ts-error-translator").setup()
+				-- end,
+
+				["vtsls"] = function()
+					lspconfig.vtsls.setup({
 						capabilities = common_capabilities,
-						init_options = {
-							preferences = {
-								importModuleSpecifier = "non-relative"
-							}
-						},
 						settings = {
-							-- tsserver_locale = "ja",
-							-- code_lens = "all"
-						}
+							["typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName"] = true,
+							["typescript.inlayHints.parameterTypes.enabled"] = true,
+							["typescript.inlayHints.variableTypes.enabled"] = true,
+							["typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName"] = true,
+							["typescript.inlayHints.propertyDeclarationTypes.enabled"] = true,
+							["typescript.inlayHints.functionLikeReturnTypes.enabled"] = true,
+							["typescript.inlayHints.enumMemberValues.enabled"] = true,
+							typescript = {
+								inlayHints = {
+									parameterNames = {
+										suppressWhenArgumentMatchesName = true,
+									},
+									parameterTypes = {
+										enabled = true,
+									},
+									variableTypes = {
+										enabled = true,
+										suppressWhenTypeMatchesName = true,
+									},
+									propertyDeclarationTypes = {
+										enabled = true,
+									},
+									functionLikeReturnTypes = {
+										enabled = true,
+									},
+									enumMemberValues = {
+										enabled = true,
+									},
+								},
+							},
+							["javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName"] = true,
+							["javascript.inlayHints.parameterTypes.enabled"] = true,
+							["javascript.inlayHints.variableTypes.enabled"] = true,
+							["javascript.inlayHints.variableTypes.suppressWhenTypeMatchesName"] = true,
+							["javascript.inlayHints.propertyDeclarationTypes.enabled"] = true,
+							["javascript.inlayHints.functionLikeReturnTypes.enabled"] = true,
+							["javascript.inlayHints.enumMemberValues.enabled"] = true,
+							javascript = {
+								inlayHints = {
+									parameterNames = {
+										suppressWhenArgumentMatchesName = true,
+									},
+									parameterTypes = {
+										enabled = true,
+									},
+									variableTypes = {
+										enabled = true,
+										suppressWhenTypeMatchesName = true,
+									},
+									propertyDeclarationTypes = {
+										enabled = true,
+									},
+									functionLikeReturnTypes = {
+										enabled = true,
+									},
+									enumMemberValues = {
+										enabled = true,
+									},
+								},
+							},
+						},
 					})
 
-					require("ts-error-translator").setup()
+					require('vtsls').config({
+						-- customize handlers for commands
+						handlers = {
+							source_definition = function(err, locations) end,
+							file_references = function(err, locations) end,
+							code_action = function(err, actions) end,
+						},
+						-- automatically trigger renaming of extracted symbol
+						refactor_auto_rename = true,
+						refactor_move_to_file = {
+							-- If dressing.nvim is installed, telescope will be used for selection prompt. Use this to customize
+							-- the opts for telescope picker.
+							telescope_opts = function(items, default) end,
+						}
+					})
 				end,
-
-				-- ["vtsls"] = function()
-				-- 	lspconfig.vtsls.setup({
-				-- 		capabilities = common_capabilities,
-				-- 		settings = {
-				-- 			["typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName"] = true,
-				-- 			["typescript.inlayHints.parameterTypes.enabled"] = true,
-				-- 			["typescript.inlayHints.variableTypes.enabled"] = true,
-				-- 			["typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName"] = true,
-				-- 			["typescript.inlayHints.propertyDeclarationTypes.enabled"] = true,
-				-- 			["typescript.inlayHints.functionLikeReturnTypes.enabled"] = true,
-				-- 			["typescript.inlayHints.enumMemberValues.enabled"] = true,
-				-- 			typescript = {
-				-- 				inlayHints = {
-				-- 					parameterNames = {
-				-- 						suppressWhenArgumentMatchesName = true,
-				-- 					},
-				-- 					parameterTypes = {
-				-- 						enabled = true,
-				-- 					},
-				-- 					variableTypes = {
-				-- 						enabled = true,
-				-- 						suppressWhenTypeMatchesName = true,
-				-- 					},
-				-- 					propertyDeclarationTypes = {
-				-- 						enabled = true,
-				-- 					},
-				-- 					functionLikeReturnTypes = {
-				-- 						enabled = true,
-				-- 					},
-				-- 					enumMemberValues = {
-				-- 						enabled = true,
-				-- 					},
-				-- 				},
-				-- 			},
-				-- 			["javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName"] = true,
-				-- 			["javascript.inlayHints.parameterTypes.enabled"] = true,
-				-- 			["javascript.inlayHints.variableTypes.enabled"] = true,
-				-- 			["javascript.inlayHints.variableTypes.suppressWhenTypeMatchesName"] = true,
-				-- 			["javascript.inlayHints.propertyDeclarationTypes.enabled"] = true,
-				-- 			["javascript.inlayHints.functionLikeReturnTypes.enabled"] = true,
-				-- 			["javascript.inlayHints.enumMemberValues.enabled"] = true,
-				-- 			javascript = {
-				-- 				inlayHints = {
-				-- 					parameterNames = {
-				-- 						suppressWhenArgumentMatchesName = true,
-				-- 					},
-				-- 					parameterTypes = {
-				-- 						enabled = true,
-				-- 					},
-				-- 					variableTypes = {
-				-- 						enabled = true,
-				-- 						suppressWhenTypeMatchesName = true,
-				-- 					},
-				-- 					propertyDeclarationTypes = {
-				-- 						enabled = true,
-				-- 					},
-				-- 					functionLikeReturnTypes = {
-				-- 						enabled = true,
-				-- 					},
-				-- 					enumMemberValues = {
-				-- 						enabled = true,
-				-- 					},
-				-- 				},
-				-- 			},
-				-- 		},
-				-- 	})
-				-- end,
 				["emmet_language_server"] = function()
 					lspconfig.emmet_language_server.setup({
 						capabilities = common_capabilities,
