@@ -493,14 +493,22 @@ return {
 				["vtsls"] = function()
 					lspconfig.vtsls.setup({
 						capabilities = common_capabilities,
+						filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "vue" },
 						settings = {
-							["typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName"] = true,
-							["typescript.inlayHints.parameterTypes.enabled"] = true,
-							["typescript.inlayHints.variableTypes.enabled"] = true,
-							["typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName"] = true,
-							["typescript.inlayHints.propertyDeclarationTypes.enabled"] = true,
-							["typescript.inlayHints.functionLikeReturnTypes.enabled"] = true,
-							["typescript.inlayHints.enumMemberValues.enabled"] = true,
+							vtsls = {
+								tsserver = {
+									globalPlugins = {
+										{
+											name = "@vue/typescript-plugin",
+											location = require("mason-registry").get_package("vue-language-server"):get_install_path()
+													.. "/node_modules/@vue/language-server",
+											languages = { "vue" },
+											configNamespace = "typescript",
+											enableForWorkspaceTypeScriptVersions = true,
+										},
+									},
+								},
+							},
 							typescript = {
 								inlayHints = {
 									parameterNames = {
@@ -571,6 +579,11 @@ return {
 							-- the opts for telescope picker.
 							telescope_opts = function(items, default) end,
 						}
+					})
+				end,
+				["volar"] = function()
+					lspconfig.vetur.setup({
+						capabilities = common_capabilities,
 					})
 				end,
 				["emmet_language_server"] = function()
@@ -687,6 +700,15 @@ return {
 					lspconfig.stylelint_lsp.setup({
 						capabilities = common_capabilities,
 						filetypes = { "css", "less", "scss", "sugarss", "vue", "wxss", "javascript", "javascriptreact", "typescript", "typescriptreact", "astro" },
+					})
+				end,
+				["phpactor"] = function()
+					lspconfig.phpactor.setup({
+						capabilities = common_capabilities,
+						init_options = {
+							["language_server_phpstan.enabled"] = false,
+							["language_server_psalm.enabled"] = false,
+						}
 					})
 				end
 			})

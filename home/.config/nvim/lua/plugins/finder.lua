@@ -46,7 +46,8 @@ return {
 							"--line-number",
 							"--column",
 							"--smart-case",
-							"--hidden",
+							-- "--hidden",
+							-- "--ignore-vcs",
 						},
 					},
 					pickers = {
