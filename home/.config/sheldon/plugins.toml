@@ -14,11 +14,6 @@ shell = "zsh"
 
 [plugins]
 
-# For example:
-#
-# [plugins.base16]
-# github = "chriskempson/base16-shell"
-
 [plugins.zsh-defer]
 github = "romkatv/zsh-defer"
 
@@ -50,6 +45,6 @@ apply = ["defer"]
 github = "agkozak/zsh-z"
 apply = ["defer"]
 
-[plugins.enhancd]
-github = "b4b4r07/enhancd"
-apply = ["defer"]
+# [plugins.enhancd]
+# github = "b4b4r07/enhancd"
+# apply = ["defer"]

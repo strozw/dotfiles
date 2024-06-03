@@ -74,7 +74,7 @@ return {
 						lualine_a = { "mode" },
 						lualine_b = {
 							"branch",
-							"diff",
+							-- "diff",
 							{ "diagnostics", sources = { "coc" } },
 						},
 						-- lualine_c = { "g:coc_status", "require'lsp-status'.status()", "filename" },
@@ -152,7 +152,6 @@ return {
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",
-		cmd = "Neotree",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
@@ -252,6 +251,7 @@ return {
 	-- LSP / diagnostics UI
 	{
 		"folke/trouble.nvim",
+		branch = "main",
 		dependencies = "nvim-tree/nvim-web-devicons",
 		keys = {
 			{ "<F4>", "<cmd>TroubleToggle<cr>" },
@@ -265,6 +265,6 @@ return {
 		end,
 	},
 
-	{'akinsho/toggleterm.nvim', version = "*", opts = {--[[ things you want to change go here ]]}}
+	{ 'akinsho/toggleterm.nvim', version = "*", opts = { --[[ things you want to change go here ]] } }
 
 }

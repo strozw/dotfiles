@@ -32,6 +32,10 @@ return {
 			},
 		},
 		config = function()
+			require("neoconf").setup({
+				-- override any of the default settings here
+			})
+
 			require("neodev").setup({
 				library = {
 					enabled = true,
@@ -81,9 +85,6 @@ return {
 			local fidget = require("fidget")
 			local lsp_format = require("lsp-format")
 
-			require("neoconf").setup({
-				-- override any of the default settings here
-			})
 
 			lps_inlayhints.setup({
 				inlay_hints = {
@@ -581,11 +582,6 @@ return {
 						}
 					})
 				end,
-				["volar"] = function()
-					lspconfig.vetur.setup({
-						capabilities = common_capabilities,
-					})
-				end,
 				["emmet_language_server"] = function()
 					lspconfig.emmet_language_server.setup({
 						capabilities = common_capabilities,
@@ -699,7 +695,11 @@ return {
 				["stylelint_lsp"] = function()
 					lspconfig.stylelint_lsp.setup({
 						capabilities = common_capabilities,
-						filetypes = { "css", "less", "scss", "sugarss", "vue", "wxss", "javascript", "javascriptreact", "typescript", "typescriptreact", "astro" },
+						-- filetypes = { "css", "less", "scss", "sugarss", "vue", "wxss", "javascript", "javascriptreact", "typescript", "typescriptreact", "astro" },
+						filetypes = { "css", "less", "scss", "sugarss", "vue", "wxss" },
+						settings = {
+
+						}
 					})
 				end,
 				["phpactor"] = function()
