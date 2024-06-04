@@ -254,7 +254,7 @@ return {
 		branch = "main",
 		dependencies = "nvim-tree/nvim-web-devicons",
 		keys = {
-			{ "<F4>", "<cmd>TroubleToggle<cr>" },
+			{ "<F4>", "<cmd>Trouble diagnostics<cr>" },
 		},
 		config = function()
 			require("trouble").setup({
