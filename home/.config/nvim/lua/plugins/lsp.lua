@@ -24,6 +24,7 @@ return {
 			"MunifTanjim/prettier.nvim",
 			"b0o/schemastore.nvim",
 			"folke/neoconf.nvim",
+			"Fildo7525/pretty_hover",
 			-- { dir = "~/ghq/github.com/strozw/github-actions-languageserver.nvim" },
 			{
 				'mrcjkb/rustaceanvim',
@@ -144,6 +145,7 @@ return {
 
 					-- See `:help vim.lsp.*` for documentation on any of the below functions
 					vim.keymap.set("n", "K", vim.lsp.buf.hover, keymap_opts)
+					-- vim.keymap.set("n", "H", function() require("pretty_hover").hover() end, keymap_opts)
 					vim.keymap.set("n", "H", vim.lsp.buf.signature_help, keymap_opts)
 					vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, keymap_opts)
 					vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, keymap_opts)

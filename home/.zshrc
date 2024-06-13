@@ -32,13 +32,16 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
 export MOCWORD_DATA="$HOME/.config/mocword/mocword.sqlite"
 
 
+# zstyle ':completion:*' ignore-parents 'parent pwd directory'
+# zstyle ':completion:*' special-dirs true
 
 # fpath
 if type brew &>/dev/null; then
-	export FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-fi
+	FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 
-autoload -Uz compinit; compinit
+	autoload -Uz compinit
+	compinit
+fi
 
 #######################################################
 # mise | asdf

@@ -34,22 +34,23 @@ return {
 
 	{ "sindrets/diffview.nvim", dependencies = "nvim-lua/plenary.nvim" },
 
-	{
-		"akinsho/git-conflict.nvim",
-		version = "*",
-		config = function()
-			require("git-conflict").setup({
-				default_mappings = true, -- disable buffer local mapping created by this plugin
-				default_commands = true, -- disable commands created by this plugin
-				disable_diagnostics = false, -- This will disable the diagnostics in a buffer whilst it is conflicted
-				highlights = {
-					-- They must have background color, otherwise the default color will be used
-					incoming = "DiffText",
-					current = "DiffAdd",
-				},
-			})
-		end,
-	},
+	-- NOTE: buggy?
+	-- {
+	-- 	"akinsho/git-conflict.nvim",
+	-- 	version = "*",
+	-- 	config = function()
+	-- 		require("git-conflict").setup({
+	-- 			default_mappings = true, -- disable buffer local mapping created by this plugin
+	-- 			default_commands = true, -- disable commands created by this plugin
+	-- 			disable_diagnostics = false, -- This will disable the diagnostics in a buffer whilst it is conflicted
+	-- 			highlights = {
+	-- 				-- They must have background color, otherwise the default color will be used
+	-- 				incoming = "DiffText",
+	-- 				current = "DiffAdd",
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 
 	{
 		"lewis6991/gitsigns.nvim",

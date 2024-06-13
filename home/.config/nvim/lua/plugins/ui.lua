@@ -157,7 +157,27 @@ return {
 			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 			"MunifTanjim/nui.nvim",
 			"3rd/image.nvim",           -- Optional image support in preview window: See `# Preview Mode` for more information
-			"luckasRanarison/neo-rename.nvim"
+			"luckasRanarison/neo-rename.nvim",
+			-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+			{
+				's1n7ax/nvim-window-picker',
+				version = '2.*',
+				config = function()
+					require 'window-picker'.setup({
+						filter_rules = {
+							include_current_win = false,
+							autoselect_one = true,
+							-- filter using buffer options
+							bo = {
+								-- if the file type is one of following, the window will be ignored
+								filetype = { 'neo-tree', "neo-tree-popup", "notify" },
+								-- if the buffer type is one of following, the window will be ignored
+								buftype = { 'terminal', "quickfix" },
+							},
+						},
+					})
+				end,
+			},
 		},
 		keys = {
 			{ "<F2>", "<cmd>Neotree toggle<cr>" },
@@ -165,6 +185,10 @@ return {
 		},
 		config = function()
 			require("neo-tree").setup({
+				follow_current_file = {
+					enabled = true
+				},
+				use_libuv_file_watcher = true,
 				close_if_last_window = true,
 				enable_git_status = true,
 				enable_diagnostics = true,
@@ -263,6 +287,13 @@ return {
 				-- refer to the configuration section below
 			})
 		end,
+	},
+
+	-- Hover
+	{
+		"Fildo7525/pretty_hover",
+		event = "LspAttach",
+		opts = {}
 	},
 
 	{ 'akinsho/toggleterm.nvim', version = "*", opts = { --[[ things you want to change go here ]] } }

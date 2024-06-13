@@ -1,6 +1,9 @@
 local wezterm = require("wezterm")
 
 return {
+	front_end = "WebGpu",
+	webgpu_power_preference = "HighPerformance",
+
 	default_prog = { "/opt/homebrew/bin/zsh", "-l" },
 
 	-- font = wezterm.font("HackGen Console NFJ"),
