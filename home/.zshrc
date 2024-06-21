@@ -31,6 +31,8 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
 # mocword
 export MOCWORD_DATA="$HOME/.config/mocword/mocword.sqlite"
 
+export FPATH=~/.config/zsh/completions:$FPATH
+
 
 # zstyle ':completion:*' ignore-parents 'parent pwd directory'
 # zstyle ':completion:*' special-dirs true
@@ -124,6 +126,14 @@ eval "$(starship init zsh)"
 #######################################################
 
 eval "$(sheldon source)"
+
+#######################################################
+# wezterm
+#######################################################
+
+if type wezterm &>/dev/null; then
+	eval "$(wezterm shell-completion --shell zsh)"
+fi
 
 #######################################################
 # keymap

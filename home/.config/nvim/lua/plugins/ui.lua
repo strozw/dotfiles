@@ -208,11 +208,44 @@ return {
 		end
 	},
 
+	-- {
+	-- 	"nvim-tree/nvim-tree.lua",
+	-- 	keys = {
+	-- 		{ "<F2>", "<cmd>NvimTreeToggle<CR>" },
+	-- 		{ "ss",   "<cmd>NvimTreeFocus<CR>" }
+	-- 	},
+	-- 	config = function()
+	-- 		-- disable netrw at the very start of your init.lua
+	-- 		vim.g.loaded_netrw = 1
+	-- 		vim.g.loaded_netrwPlugin = 1
+
+	-- 		-- optionally enable 24-bit colour
+	-- 		vim.opt.termguicolors = true
+
+	-- 		-- OR setup with some options
+	-- 		require("nvim-tree").setup({
+	-- 			sort = {
+	-- 				sorter = "case_sensitive",
+	-- 			},
+	-- 			view = {
+	-- 				width = 30,
+	-- 			},
+	-- 			renderer = {
+	-- 				group_empty = true,
+	-- 			},
+	-- 			filters = {
+	-- 				enable = false,
+	-- 			},
+	-- 		})
+	-- 	end
+	-- },
+
 	{
 		"antosha417/nvim-lsp-file-operations",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"nvim-neo-tree/neo-tree.nvim",
+			-- "nvim-neo-tree/neo-tree.nvim",
+			"nvim-tree/nvim-tree.lua",
 		},
 		config = function()
 			require("lsp-file-operations").setup()

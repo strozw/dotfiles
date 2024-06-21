@@ -1,11 +1,6 @@
 return {
 	-- debugger
 	{
-		"microsoft/vscode-js-debug",
-		build = "npm install && npm run compile",
-	},
-
-	{
 		"rcarriga/nvim-dap-ui",
 		dependencies = {
 			"nvim-neotest/nvim-nio",

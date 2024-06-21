@@ -62,7 +62,6 @@ return {
 			"hrsh7th/cmp-cmdline",
 			"hrsh7th/cmp-emoji",
 			"onsails/lspkind.nvim",
-			-- "yutkat/cmp-mocword",
 			"f3fora/cmp-spell",
 		},
 		config = function()
@@ -72,7 +71,6 @@ return {
 			local common_sources = {
 				{ name = "buffer" },
 				{ name = "spell" },
-				-- { name = "mocword" },
 			}
 
 			cmp.setup({

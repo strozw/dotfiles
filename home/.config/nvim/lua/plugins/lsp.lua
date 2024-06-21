@@ -2,6 +2,7 @@ return {
 	{
 		"williamboman/mason.nvim",
 		dependencies = {
+			"zapling/mason-conform.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"neovim/nvim-lspconfig",
 			"nvim-lua/plenary.nvim",
@@ -191,6 +192,10 @@ return {
 			common_capabilities = vim.tbl_extend("keep", common_capabilities, lsp_status.capabilities)
 
 			lspconfig.github_actions.setup({
+				cmd = {
+					"github-actions-languageserver",
+					"--stdio",
+				},
 				capabilities = common_capabilities,
 				init_options = {
 					logLevel = 1,
@@ -570,17 +575,17 @@ return {
 
 					require('vtsls').config({
 						-- customize handlers for commands
-						handlers = {
-							source_definition = function(err, locations) end,
-							file_references = function(err, locations) end,
-							code_action = function(err, actions) end,
-						},
+						-- handlers = {
+						-- 	source_definition = function(err, locations) end,
+						-- 	file_references = function(err, locations) end,
+						-- 	code_action = function(err, actions) end,
+						-- },
 						-- automatically trigger renaming of extracted symbol
 						refactor_auto_rename = true,
 						refactor_move_to_file = {
 							-- If dressing.nvim is installed, telescope will be used for selection prompt. Use this to customize
 							-- the opts for telescope picker.
-							telescope_opts = function(items, default) end,
+							-- telescope_opts = function(items, default) end,
 						}
 					})
 				end,
@@ -668,10 +673,10 @@ return {
 							-- 	end
 							-- })
 
-							vim.api.nvim_create_autocmd("BufWritePre", {
-								buffer = bufnr,
-								command = "EslintFixAll",
-							})
+							-- vim.api.nvim_create_autocmd("BufWritePre", {
+							-- 	buffer = bufnr,
+							-- 	command = "EslintFixAll",
+							-- })
 
 							-- vim.api.nvim_create_autocmd("BufWritePre", {
 							-- 	callback = function()
@@ -701,7 +706,19 @@ return {
 						filetypes = { "css", "less", "scss", "sugarss", "vue", "wxss" },
 						settings = {
 
-						}
+						},
+						on_attach = function(client)
+							client.server_capabilities.document_formatting = false
+						end,
+					})
+				end,
+				["biome"] = function()
+					lspconfig.biome.setup({
+						capabilities = common_capabilities,
+						on_attach = function(client)
+							-- conform で行う
+							client.server_capabilities.document_formatting = false
+						end,
 					})
 				end,
 				["phpactor"] = function()
@@ -715,49 +732,45 @@ return {
 				end
 			})
 
-			local prettier = require("prettier")
+			-- local prettier = require("prettier")
 
-			prettier.setup({
-				bin = 'prettier',
-				filetypes = {
-					"css",
-					"graphql",
-					"html",
-					"javascript",
-					"javascriptreact",
-					"json",
-					"jsonc",
-					"json5",
-					"less",
-					"markdown",
-					"scss",
-					"typescript",
-					"typescriptreact",
-					"yaml",
-				},
-				["null-ls"] = {
-					condition = function()
-						return prettier.config_exists({
-							-- if `false`, skips checking `package.json` for `"prettier"` key
-							check_package_json = true,
-						})
-					end,
-					runtime_condition = function(params)
-						-- return false to skip running prettier
-						return true
-					end,
-					timeout = 5000,
-				}
-			})
+			-- prettier.setup({
+			-- 	bin = 'prettier',
+			-- 	filetypes = {
+			-- 		"css",
+			-- 		"graphql",
+			-- 		"html",
+			-- 		"javascript",
+			-- 		"javascriptreact",
+			-- 		"json",
+			-- 		"jsonc",
+			-- 		"json5",
+			-- 		"less",
+			-- 		"markdown",
+			-- 		"scss",
+			-- 		"typescript",
+			-- 		"typescriptreact",
+			-- 		"yaml",
+			-- 	},
+			-- 	["null-ls"] = {
+			-- 		condition = function()
+			-- 			return prettier.config_exists({
+			-- 				-- if `false`, skips checking `package.json` for `"prettier"` key
+			-- 				check_package_json = true,
+			-- 			})
+			-- 		end,
+			-- 		runtime_condition = function(params)
+			-- 			-- return false to skip running prettier
+			-- 			return true
+			-- 		end,
+			-- 		timeout = 5000,
+			-- 	}
+			-- })
 
 			null_ls.setup({
 				capabilities = common_capabilities,
 				sources = {
 					null_ls.builtins.code_actions.gitsigns,
-					-- cspell.diagnostics,
-					-- cspell.code_actions,
-					-- require("none-ls.code_actions.eslint_d"),
-					-- require("none-ls.formatting.eslint_d"),
 				},
 			})
 		end,
@@ -803,6 +816,51 @@ return {
 				ignore_filetype = {
 					"prisma",
 				},
+			})
+		end
+	},
+
+	{
+		'stevearc/conform.nvim',
+		config = function()
+			local util = require("conform.util")
+
+			require('conform').setup({
+				format_on_save = {
+					-- These options will be passed to conform.format()
+					timeout_ms = 500,
+					lsp_fallback = true,
+				},
+				formatters_by_ft = {
+					json = { "deno_fmt", "prettierd", "biome-check" },
+					jsond = { "deno_fmt", "prettierd", "biome-check" },
+					markdown = { "prettierd", "biome-check" },
+					javascript = { "eslint_d", "prettierd", "biome-check" },
+					typescript = { "eslint_d", "prettierd", "biome-check" },
+					javascriptreact = { "eslint_d", "prettierd", "biome-check" },
+					typescriptreact = { "eslint_d", "prettierd", "biome-check" },
+					css = { "stylelint" },
+					scss = { "stylelint" },
+					sass = { "stylelint" }
+				},
+				formatters = {
+					["deno_fmt"] = {
+						cwd = util.root_file({ 'deno.json', }),
+						require_cwd = true,
+					},
+					["stylelint"] = { require_cwd = true, },
+					["eslint_d"] = {
+						cwd = util.root_file({
+							'.eslintrc',
+							'.eslintrc.js',
+							'.eslintrc.cjs'
+						}),
+						require_cwd = true,
+					},
+					["prettierd"] = { require_cwd = true, },
+					["biome"] = { require_cwd = true, },
+					["biome-check"] = { require_cwd = true, },
+				}
 			})
 		end
 	}
