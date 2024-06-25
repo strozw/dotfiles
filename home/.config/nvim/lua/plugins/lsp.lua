@@ -1,9 +1,7 @@
 return {
 	{
 		"williamboman/mason.nvim",
-		dependencies = {
-			"zapling/mason-conform.nvim",
-			"williamboman/mason-lspconfig.nvim",
+		dependencies = { "zapling/mason-conform.nvim", "williamboman/mason-lspconfig.nvim",
 			"neovim/nvim-lspconfig",
 			"nvim-lua/plenary.nvim",
 			"nvim-lua/lsp-status.nvim",
@@ -26,6 +24,7 @@ return {
 			"b0o/schemastore.nvim",
 			"folke/neoconf.nvim",
 			"Fildo7525/pretty_hover",
+			"stevearc/dressing.nvim",
 			-- { dir = "~/ghq/github.com/strozw/github-actions-languageserver.nvim" },
 			{
 				'mrcjkb/rustaceanvim',
@@ -137,7 +136,7 @@ return {
 					lps_inlayhints.on_attach(client, buffer)
 
 					-- diagnostic config
-					vim.diagnostic.config({ virtual_text = false, underline = true, signs = true })
+					vim.diagnostic.config({ virtual_text = false, underline = true, signs = true, float = true })
 
 					lsp_format.on_attach(client, buffer)
 
@@ -312,7 +311,9 @@ return {
 
 			mason.setup({})
 
-			mason_lspconfig.setup({})
+			mason_lspconfig.setup({
+				ensure_installed = { "lua_ls", "rust_analyzer", "yamlls", "jsonls", "cssmodules_ls", "emmet_language_server", "gopls", "denols", "vtsls", "phpactor", "biome" }
+			})
 
 			mason_lspconfig.setup_handlers({
 				function(server_name)
@@ -368,41 +369,19 @@ return {
 						},
 					})
 				end,
-				-- ["ruby-lsp"] = function()
-				-- 	lsp_config.ruby_ls.setup({
-				-- 		capabilities = common_capabilities,
-				-- 	})
-				-- end,
-				-- ["solargraph"] = function()
-				-- 	lspconfig.solargraph.setup({
-				-- 		capabilities = common_capabilities,
-				-- 		root_dir = function(fname)
-				-- 			local hasSorbetConfig = lspconfig_util.root_pattern("sorbet")(fname)
+				["sorbet"] = function()
+					lspconfig.sorbet.setup({
+						capabilities = common_capabilities,
+						root_dir = function(fname)
+							local hasSolargraphConfig =
+									lspconfig_util.root_pattern(".solargraph.yaml", ".solargraph.yml")(fname)
 
-				-- 			if hasSorbetConfig then
-				-- 				return nil
-				-- 			end
+							local hasSorbetConfig = lspconfig_util.root_pattern("sorbet")(fname)
 
-				-- 			local hasSolargraphConfig =
-				-- 				lspconfig_util.root_pattern(".solargraph.yaml", ".solargraph.yml")(fname)
-
-				-- 			return hasSolargraphConfig
-				-- 		end,
-				-- 	})
-				-- end,
-				-- ["sorbet"] = function()
-				-- 	lspconfig.sorbet.setup({
-				-- 		capabilities = common_capabilities,
-				-- 		root_dir = function(fname)
-				-- 			local hasSolargraphConfig =
-				-- 				lspconfig_util.root_pattern(".solargraph.yaml", ".solargraph.yml")(fname)
-
-				-- 			local hasSorbetConfig = lspconfig_util.root_pattern("sorbet")(fname)
-
-				-- 			return not hasSolargraphConfig and hasSorbetConfig
-				-- 		end,
-				-- 	})
-				-- end,
+							return not hasSolargraphConfig and hasSorbetConfig
+						end,
+					})
+				end,
 				["denols"] = function()
 					lspconfig.denols.setup({
 						capabilities = common_capabilities,
@@ -441,69 +420,20 @@ return {
 						},
 					})
 				end,
-				["tailwindcss"] = function()
-					lspconfig.tailwindcss.setup({
-						capabilities = common_capabilities,
-					})
-				end,
-				-- ["tsserver"] = function()
-				-- 	local lang_config = {
-				-- 		inlayHints = {
-				-- 			includeInlayEnumMemberValueHints = true,
-				-- 			includeInlayFunctionLikeReturnTypeHints = true,
-				-- 			includeInlayFunctionParameterTypeHints = true,
-				-- 			includeInlayParameterNameHints = "all",
-				-- 			includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-				-- 			includeInlayPropertyDeclarationTypeHints = true,
-				-- 			includeInlayVariableTypeHints = true,
-				-- 			includeInlayVariableTypeHintsWhenTypeMatchesName = true
-				-- 		},
-				-- 		implementationsCodeLens = true,
-				-- 		referencesCodeLens = {
-				-- 			enabled = true,
-				-- 			showOnAllFunctions = true,
-				-- 		}
-				-- 	}
-
-				-- 	-- lspconfig.tsserver.setup({
-				-- 	-- 	root_dir = lspconfig.util.root_pattern("package.json"),
-				-- 	-- 	on_attach = function(client)
-				-- 	-- 		client.server_capabilities.document_formatting = false
-				-- 	-- 	end,
-				-- 	-- 	capabilities = common_capabilities,
-				-- 	-- 	settings = {
-				-- 	-- 		typescript = lang_config,
-				-- 	-- 		javascript = lang_config,
-				-- 	-- 	},
-				-- 	-- })
-
-
-				-- 	-- require("typescript-tools").setup({
-				-- 	-- 	root_dir = lspconfig.util.root_pattern("package.json"),
-				-- 	-- 	on_attach = function(client)
-				-- 	-- 		client.server_capabilities.document_formatting = false
-				-- 	-- 	end,
-				-- 	-- 	capabilities = common_capabilities,
-				-- 	-- 	init_options = {
-				-- 	-- 		preferences = {
-				-- 	-- 			importModuleSpecifier = "non-relative"
-				-- 	-- 		}
-				-- 	-- 	},
-				-- 	-- 	settings = {
-				-- 	-- 		-- tsserver_locale = "ja",
-				-- 	-- 		-- code_lens = "all"
-				-- 	-- 	}
-				-- 	-- })
-
-				-- 	require("ts-error-translator").setup()
-				-- end,
-
 				["vtsls"] = function()
 					lspconfig.vtsls.setup({
 						capabilities = common_capabilities,
 						filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "vue" },
 						settings = {
+							complete_function_calls = true,
 							vtsls = {
+								enableMoveToFileCodeAction = true,
+								autoUseWorkspaceTsdk = true,
+								experimental = {
+									completion = {
+										enableServerSideFuzzyMatch = true,
+									},
+								},
 								tsserver = {
 									globalPlugins = {
 										{
@@ -518,9 +448,14 @@ return {
 								},
 							},
 							typescript = {
+								updateImportsOnFileMove = { enabled = "always" },
+								suggest = {
+									completeFunctionCalls = true,
+								},
 								inlayHints = {
 									parameterNames = {
-										suppressWhenArgumentMatchesName = true,
+										enabled = "literals"
+										-- suppressWhenArgumentMatchesName = true,
 									},
 									parameterTypes = {
 										enabled = true,
@@ -615,16 +550,6 @@ return {
 						}
 					})
 				end,
-				["cssls"] = function()
-					lspconfig.cssls.setup({
-						capabilities = common_capabilities,
-					})
-				end,
-				["cssmodules_ls"] = function()
-					lspconfig.cssmodules_ls.setup({
-						capabilities = common_capabilities,
-					})
-				end,
 				["eslint"] = function()
 					lspconfig.eslint.setup({
 						settings = {
@@ -658,45 +583,7 @@ return {
 							workingDirectory = {
 								mode = "location"
 							}
-						},
-						on_attach = function(client, bufnr)
-							-- `vim.lsp.buf.format` なら動作する `lsp-format.nvim` plugin ではなぜか動作しない
-							client.server_capabilities.documentFormattingProvider = true
-
-							-- vim.api.nvim_create_autocmd("BufWritePre", {
-							-- 	callback = function()
-							-- 		vim.lsp.buf.format({
-							-- 			filter = function()
-							-- 				return client.name == "eslint"
-							-- 			end
-							-- 		})
-							-- 	end
-							-- })
-
-							-- vim.api.nvim_create_autocmd("BufWritePre", {
-							-- 	buffer = bufnr,
-							-- 	command = "EslintFixAll",
-							-- })
-
-							-- vim.api.nvim_create_autocmd("BufWritePre", {
-							-- 	callback = function()
-							-- 		client.request(
-							-- 			'workspace/executeCommand',
-							-- 			{
-							-- 				command = 'eslint.applyAllFixes',
-							-- 				arguments = {
-							-- 					{
-							-- 						uri = vim.uri_from_bufnr(bufnr),
-							-- 						version = vim.lsp.util.buf_versions[bufnr],
-							-- 					},
-							-- 				},
-							-- 			},
-							-- 			nil,
-							-- 			0
-							-- 		)
-							-- 	end
-							-- })
-						end,
+						}
 					})
 				end,
 				["stylelint_lsp"] = function()
@@ -732,41 +619,6 @@ return {
 				end
 			})
 
-			-- local prettier = require("prettier")
-
-			-- prettier.setup({
-			-- 	bin = 'prettier',
-			-- 	filetypes = {
-			-- 		"css",
-			-- 		"graphql",
-			-- 		"html",
-			-- 		"javascript",
-			-- 		"javascriptreact",
-			-- 		"json",
-			-- 		"jsonc",
-			-- 		"json5",
-			-- 		"less",
-			-- 		"markdown",
-			-- 		"scss",
-			-- 		"typescript",
-			-- 		"typescriptreact",
-			-- 		"yaml",
-			-- 	},
-			-- 	["null-ls"] = {
-			-- 		condition = function()
-			-- 			return prettier.config_exists({
-			-- 				-- if `false`, skips checking `package.json` for `"prettier"` key
-			-- 				check_package_json = true,
-			-- 			})
-			-- 		end,
-			-- 		runtime_condition = function(params)
-			-- 			-- return false to skip running prettier
-			-- 			return true
-			-- 		end,
-			-- 		timeout = 5000,
-			-- 	}
-			-- })
-
 			null_ls.setup({
 				capabilities = common_capabilities,
 				sources = {
@@ -775,31 +627,6 @@ return {
 			})
 		end,
 	},
-
-	-- LSP / line diagnostics
-	-- {
-	-- 	"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-	-- 	config = function()
-	-- 		require("lsp_lines").setup({})
-
-	-- 		vim.diagnostic.config({
-	-- 			virtual_text = false,
-	-- 			virtual_lines = { only_current_line = true },
-	-- 		})
-
-	-- 		-- vim.api.nvim_create_autocmd('InsertEnter', {
-	-- 		-- 	callback = function()
-	-- 		-- 		vim.diagnostic.config({ virtual_lines = false })
-	-- 		-- 	end
-	-- 		-- })
-	-- 		-- vim.api.nvim_create_autocmd('ModeChanged', {
-	-- 		-- 	pattern = 'i:*',
-	-- 		-- 	callback = function()
-	-- 		-- 		vim.diagnostic.config({ virtual_lines = true })
-	-- 		-- 	end
-	-- 		-- })
-	-- 	end,
-	-- },
 
 	-- LSP / codelens
 	{
@@ -828,7 +655,7 @@ return {
 			require('conform').setup({
 				format_on_save = {
 					-- These options will be passed to conform.format()
-					timeout_ms = 500,
+					timeout_ms = 3000,
 					lsp_fallback = true,
 				},
 				formatters_by_ft = {
@@ -863,5 +690,15 @@ return {
 				}
 			})
 		end
-	}
+	},
+
+	{
+		"hinell/lsp-timeout.nvim",
+		dependencies = { "neovim/nvim-lspconfig" },
+		init = function()
+			vim.g.lspTimeoutConfig = {
+				-- see config below
+			}
+		end
+	},
 }
