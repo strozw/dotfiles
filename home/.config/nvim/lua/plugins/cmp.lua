@@ -64,6 +64,13 @@ return {
 			"onsails/lspkind.nvim",
 			"f3fora/cmp-spell",
 		},
+		opts = function(_, opts)
+			opts.sources = opts.sources or {}
+			table.insert(opts.sources, {
+				name = "lazydev",
+				group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+			})
+		end,
 		config = function()
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")

@@ -6,7 +6,6 @@ return {
 			"nvim-lua/plenary.nvim",
 			"nvim-lua/lsp-status.nvim",
 			"tamago324/nlsp-settings.nvim",
-			"folke/neodev.nvim",
 			"folke/lsp-colors.nvim",
 			"yioneko/nvim-vtsls",
 			"davidmh/cspell.nvim",
@@ -35,17 +34,6 @@ return {
 		config = function()
 			require("neoconf").setup({
 				-- override any of the default settings here
-			})
-
-			require("neodev").setup({
-				library = {
-					enabled = true,
-					runtime = true,
-					types = true,
-					plugins = true,
-				},
-				lspconfig = true,
-				-- pathStrict = false,
 			})
 
 			require("github-actions-languageserver").setup()
@@ -353,8 +341,6 @@ return {
 				["lua_ls"] = function()
 					lspconfig.lua_ls.setup({
 						capabilities = common_capabilities,
-						-- ref: https://github.com/neovim/nvim-lspconfig/issues/319#issuecomment-1192399104
-						-- single_file_support = false,
 						settings = {
 							Lua = {
 								diagnostics = {

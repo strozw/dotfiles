@@ -11,6 +11,7 @@ return {
 		dependencies = {
 			"nvim-telescope/telescope.nvim",
 		},
+		event = "VeryLazy",
 		config = function()
 			require("dressing").setup({
 				select = {
@@ -23,6 +24,13 @@ return {
 				},
 			})
 		end,
+	},
+
+	{
+		"monaqa/dial.nvim",
+		-- lazy-load on keys
+		-- mode is `n` by default. For more advanced options, check the section on key mappings
+		keys = { "<C-a>", { "<C-x>", mode = "n" } },
 	},
 
 	{
@@ -145,6 +153,8 @@ return {
 			end
 		end,
 	},
+
+	{ "nvim-tree/nvim-web-devicons", lazy = true },
 
 	-----------------------------------------------------
 	-- filer
