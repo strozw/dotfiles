@@ -20,13 +20,15 @@ return {
 		dependencies = {
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 			"nvim-telescope/telescope-dap.nvim",
+			"folke/noice.nvim",
 		},
 		config = function()
 			local telescope = require("telescope")
 
 			if telescope then
+				telescope.load_extension("noice")
 				telescope.load_extension("fzf")
-				-- telescope.load_extension("dap")
+				telescope.load_extension("dap")
 
 				telescope.setup({
 					defaults = {
