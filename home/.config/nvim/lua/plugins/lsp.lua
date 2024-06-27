@@ -678,13 +678,13 @@ return {
 		end
 	},
 
-	{
-		"hinell/lsp-timeout.nvim",
-		dependencies = { "neovim/nvim-lspconfig" },
-		init = function()
-			vim.g.lspTimeoutConfig = {
-				-- see config below
-			}
-		end
-	},
+	-- {
+	-- 	"hinell/lsp-timeout.nvim",
+	-- 	dependencies = { "neovim/nvim-lspconfig" },
+	-- 	init = function()
+	-- 		vim.g.lspTimeoutConfig = {
+	-- 			-- see config below
+	-- 		}
+	-- 	end
+	-- },
 }
