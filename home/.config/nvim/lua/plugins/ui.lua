@@ -219,6 +219,7 @@ return {
 	-----------------------------------------------------
 	-- filer
 	-----------------------------------------------------
+	-- NOTE: `brew fetch lua@5.1 && brew install "$(brew --cache lua@5.1)"`
 	{
 		"3rd/image.nvim",
 		config = function()
