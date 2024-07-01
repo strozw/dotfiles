@@ -50,8 +50,8 @@ fi
 #######################################################
 
 # mise を利用する場合
-# eval "$(mise activate zsh)"
-# export PATH="$HOME/.local/share/mise/shims:$PATH"
+eval "$(mise activate zsh)"
+export PATH="$HOME/.local/share/mise/shims:$PATH"
 
 # adf を利用する場合
 # . $(brew --prefix asdf)/libexec/asdf.sh
