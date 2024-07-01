@@ -402,6 +402,17 @@ return {
 		opts = {}
 	},
 
-	{ 'akinsho/toggleterm.nvim', version = "*", opts = { --[[ things you want to change go here ]] } }
+	{ 'akinsho/toggleterm.nvim',   version = "*", opts = { --[[ things you want to change go here ]] } },
 
+	-- cursor
+	{ 'danilamihailov/beacon.nvim' },
+
+	-- animation
+	-- {
+	-- 	'echasnovski/mini.animate',
+	-- 	version = '*',
+	-- 	config = function()
+	-- 		require('mini.animate').setup()
+	-- 	end
+	-- },
 }

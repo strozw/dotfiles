@@ -60,6 +60,15 @@ return {
 				filetype = "eta",
 			}
 
+			parser_config.github_actions = {
+				install_info = {
+					url = "https://github.com/rewinfrey/tree-sitter-github-action",
+					files = { "src/parser.c" },
+					-- requires_generate_from_grammar = true,
+				},
+				filetype = "yaml",
+			}
+
 			vim.api.nvim_create_augroup("BladeFiltypeRelated", {})
 
 			vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
