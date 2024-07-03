@@ -85,15 +85,17 @@ return {
 	{
 		"mvllow/modes.nvim",
 		config = function()
+			local colors = require("tokyonight.colors").setup()
+
 			require("modes").setup({
 				colors = {
-					copy = "#f5c359",
-					delete = "#c75c6a",
-					insert = "#78ccc5",
-					visual = "#9745be",
+					copy = colors.yellow,
+					delete = colors.red,
+					insert = colors.teal,
+					visual = colors.magenta,
 				},
 				-- Set opacity for cursorline and number background
-				line_opacity = 0.3,
+				line_opacity = 0.4,
 				-- Enable cursor highlights
 				set_cursor = true,
 				-- Enable cursorline initially, and disable cursorline for inactive windows
@@ -119,7 +121,7 @@ return {
 				-- or leave it empty to use the default settings
 				style = "night",    -- The theme comes in three styles, `storm`, a darker variant `night` and `day`
 				light_style = "day", -- The theme is used when the background is set to light
-				transparent = true, -- Enable this to disable setting the background color
+				transparent = false, -- Enable this to disable setting the background color
 				terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
 				styles = {
 					-- Style to be applied to different syntax groups
@@ -129,16 +131,15 @@ return {
 					functions = {},
 					variables = {},
 					-- Background styles. Can be "dark", "transparent" or "normal"
-					sidebars = "dark",                          -- style for sidebars, see below
-					floats = "dark",                            -- style for floating windows
+					sidebars = "dark", -- style for sidebars, see below
+					floats = "dark", -- style for floating windows
 				},
-				sidebars = { "qf", "help", "Fern", "Telescope" }, -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
-				day_brightness = 1,                           -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
-				hide_inactive_statusline = false,             -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
-				dim_inactive = false,                         -- dims inactive windows
-				lualine_bold = false,                         -- When `true`, section headers in the lualine theme will be bold
+				day_brightness = 0.3, -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
+				lualine_bold = true, -- When `true`, section headers in the lualine theme will be bold
 				on_highlights = function(hl, c)
-					local prompt = "#2d3149"
+					local prompt = c.bg_dark
+					-- local prompt = "#2d3149"
+
 					hl.TelescopeNormal = {
 						bg = c.bg_dark,
 						fg = c.fg_dark,

@@ -110,7 +110,6 @@ return {
 					options = {
 						icons_enabled = true,
 						-- theme = 'auto',
-						theme = "tokyonight",
 						-- theme = 'material-nvim',
 						component_separators = { left = "", right = "" },
 						section_separators = { left = "", right = "" },
