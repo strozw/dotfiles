@@ -33,6 +33,9 @@ export MOCWORD_DATA="$HOME/.config/mocword/mocword.sqlite"
 
 export FPATH=~/.config/zsh/completions:$FPATH
 
+# grit
+source $HOME/.grit/bin/env
+
 
 # zstyle ':completion:*' ignore-parents 'parent pwd directory'
 # zstyle ':completion:*' special-dirs true
@@ -186,3 +189,5 @@ bindkey '^_' fzf-ghq
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+
+. "$HOME/.grit/bin/env"

@@ -1,5 +1,10 @@
 return {
 	{
+		'mrcjkb/rustaceanvim',
+		version = '^4', -- Recommended
+		lazy = false, -- This plugin is already lazy
+	},
+	{
 		"williamboman/mason.nvim",
 		dependencies = { "zapling/mason-conform.nvim", "williamboman/mason-lspconfig.nvim",
 			"neovim/nvim-lspconfig",
@@ -24,12 +29,8 @@ return {
 			"folke/neoconf.nvim",
 			"Fildo7525/pretty_hover",
 			"stevearc/dressing.nvim",
+			'mrcjkb/rustaceanvim',
 			-- { dir = "~/ghq/github.com/strozw/github-actions-languageserver.nvim" },
-			{
-				'mrcjkb/rustaceanvim',
-				version = '^4', -- Recommended
-				-- ft = { 'rust' },
-			},
 		},
 		config = function()
 			require("neoconf").setup({
@@ -72,7 +73,7 @@ return {
 			local null_ls = require("null-ls")
 			local lps_inlayhints = require("lsp-inlayhints")
 			local fidget = require("fidget")
-			local lsp_format = require("lsp-format")
+			-- local lsp_format = require("lsp-format")
 
 
 			lps_inlayhints.setup({
@@ -95,7 +96,7 @@ return {
 				loader = "json",
 			})
 
-			lsp_format.setup({})
+			-- lsp_format.setup({})
 
 			-- normal mode のとき CursorHold 箇所の diagnostics を float で表示
 			-- vim.api.nvim_exec(
@@ -126,7 +127,7 @@ return {
 					-- diagnostic config
 					vim.diagnostic.config({ virtual_text = false, underline = true, signs = true, float = true })
 
-					lsp_format.on_attach(client, buffer)
+					-- lsp_format.on_attach(client, buffer)
 
 					-- Mappings.
 					local keymap_opts = { buffer = buffer }
@@ -309,6 +310,8 @@ return {
 						capabilities = common_capabilities,
 					})
 				end,
+				-- @see {@url https://github.com/mrcjkb/rustaceanvim/blob/master/doc/mason.txt#L35-L38}
+				['rust_analyzer'] = function() end,
 				["yamlls"] = function()
 					lspconfig.yamlls.setup({
 						capabilities = common_capabilities,
@@ -588,10 +591,10 @@ return {
 				["biome"] = function()
 					lspconfig.biome.setup({
 						capabilities = common_capabilities,
-						on_attach = function(client)
-							-- conform で行う
-							client.server_capabilities.document_formatting = false
-						end,
+						-- on_attach = function(client)
+						-- 	-- conform で行う
+						-- 	client.server_capabilities.document_formatting = false
+						-- end,
 					})
 				end,
 				["phpactor"] = function()
@@ -641,7 +644,7 @@ return {
 			require('conform').setup({
 				format_on_save = {
 					-- These options will be passed to conform.format()
-					timeout_ms = 3000,
+					timeout_ms = 5000,
 					lsp_fallback = true,
 				},
 				formatters_by_ft = {
@@ -683,7 +686,8 @@ return {
 	-- 	dependencies = { "neovim/nvim-lspconfig" },
 	-- 	init = function()
 	-- 		vim.g.lspTimeoutConfig = {
-	-- 			-- see config below
+	-- 			stopTimeout  = 1000 * 60 * 5, -- ms, timeout before stopping all LSPs
+	-- 			startTimeout = 1000 * 60, -- ms, timeout before restart
 	-- 		}
 	-- 	end
 	-- },

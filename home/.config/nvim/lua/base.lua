@@ -107,7 +107,8 @@ vim.api.nvim_exec(
 	nmap <silent> ]q :cnext<CR>
 
 	" showing the current window status only
-	set laststatus=3
+	"set laststatus=3
+	set laststatus=1
 
 	autocmd BufNewFile,BufRead *.mdx set filetype=typescriptreact
 	autocmd BufNewFile,BufRead *.rbi set filetype=ruby
