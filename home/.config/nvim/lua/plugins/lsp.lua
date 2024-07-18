@@ -9,16 +9,14 @@ return {
 		dependencies = { "zapling/mason-conform.nvim", "williamboman/mason-lspconfig.nvim",
 			"neovim/nvim-lspconfig",
 			"nvim-lua/plenary.nvim",
-			"nvim-lua/lsp-status.nvim",
 			"tamago324/nlsp-settings.nvim",
 			"folke/lsp-colors.nvim",
 			"yioneko/nvim-vtsls",
 			"davidmh/cspell.nvim",
 			"nvimtools/none-ls.nvim",
 			"nvimtools/none-ls-extras.nvim",
-			{ "j-hui/fidget.nvim", tag = "legacy" },
+			"j-hui/fidget.nvim",
 			"lvimuser/lsp-inlayhints.nvim",
-			-- "pmizio/typescript-tools.nvim",
 			'dmmulroy/ts-error-translator.nvim',
 			"ray-x/go.nvim",
 			"ray-x/guihua.lua",
@@ -67,7 +65,6 @@ return {
 			local mason = require("mason")
 			local mason_lspconfig = require("mason-lspconfig")
 			local lspconfig = require("lspconfig")
-			local lsp_status = require("lsp-status")
 			local nlspsettings = require("nlspsettings")
 			local cspell = require('cspell')
 			local null_ls = require("null-ls")
@@ -75,15 +72,11 @@ return {
 			local fidget = require("fidget")
 			-- local lsp_format = require("lsp-format")
 
-
 			lps_inlayhints.setup({
 				inlay_hints = {
 					only_current_line = true,
 				},
 			})
-
-			-- lsp indicator
-			lsp_status.register_progress()
 
 			-- lsp progress indicator
 			fidget.setup({})
@@ -117,9 +110,6 @@ return {
 				callback = function(event)
 					local client = vim.lsp.get_client_by_id(event.data.client_id)
 					local buffer = event.buf
-
-					-- attach lsp-status
-					lsp_status.on_attach(client)
 
 					-- attach lsp-inlayhints
 					lps_inlayhints.on_attach(client, buffer)
@@ -176,8 +166,17 @@ return {
 				end,
 			})
 
-			local common_capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-			common_capabilities = vim.tbl_extend("keep", common_capabilities, lsp_status.capabilities)
+			-- local common_capabilities = require("cmp_nvim_lsp").default_capabilities()
+			-- local common_capabilities = vim.tbl_extend(
+			-- 	"keep",
+			-- 	vim.lsp.protocol.make_client_capabilities(),
+			-- 	require("cmp_nvim_lsp").default_capabilities()
+			-- )
+			local common_capabilities = vim.tbl_extend(
+				"force",
+				vim.lsp.protocol.make_client_capabilities(),
+				require("cmp_nvim_lsp").default_capabilities()
+			)
 
 			lspconfig.github_actions.setup({
 				cmd = {
@@ -215,6 +214,11 @@ return {
 					-- 	documentLinkProvider = true,
 					-- })
 				end,
+			})
+
+
+			lspconfig.flow.setup({
+				capabilities = common_capabilities,
 			})
 
 			-- lspconfig.cspell.setup({
@@ -301,7 +305,7 @@ return {
 			mason.setup({})
 
 			mason_lspconfig.setup({
-				ensure_installed = { "lua_ls", "rust_analyzer", "yamlls", "jsonls", "cssmodules_ls", "emmet_language_server", "gopls", "denols", "vtsls", "phpactor", "biome" }
+				-- ensure_installed = { "lua_ls", "rust_analyzer", "yamlls", "jsonls", "cssmodules_ls", "emmet_language_server", "gopls", "denols", "vtsls", "phpactor", "biome" }
 			})
 
 			mason_lspconfig.setup_handlers({
@@ -409,12 +413,46 @@ return {
 						},
 					})
 				end,
+				["tsserver"] = function()
+					lspconfig.tsserver.setup({
+						capabilities = common_capabilities,
+						filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "vue" },
+						init_options = {
+							maxTsServerMemory = 8192,
+							-- locale = "ja",
+							plugins = {
+								{
+									name = "@vue/typescript-plugin",
+									location = require("mason-registry").get_package("vue-language-server"):get_install_path()
+											.. "/node_modules/@vue/language-server",
+									languages = { "vue" },
+									configNamespace = "typescript",
+									enableForWorkspaceTypeScriptVersions = true,
+								}
+							}
+						},
+						settings = {
+							-- includeInlayParameterNameHints = true,
+							-- includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+							-- includeInlayFunctionParameterTypeHints = true,
+							-- includeInlayVariableTypeHints = true,
+							-- includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+							-- includeInlayPropertyDeclarationTypeHints = true,
+							-- includeInlayFunctionLikeReturnTypeHints = true,
+							-- includeInlayEnumMemberValueHints = true,
+						},
+					})
+				end,
 				["vtsls"] = function()
 					lspconfig.vtsls.setup({
 						capabilities = common_capabilities,
 						filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "vue" },
+						-- init_options = {
+						-- 	preferences = {
+						-- 		includeCompletionsForModuleExports = false
+						-- 	}
+						-- },
 						settings = {
-							complete_function_calls = true,
 							vtsls = {
 								enableMoveToFileCodeAction = true,
 								autoUseWorkspaceTsdk = true,
@@ -437,6 +475,10 @@ return {
 								},
 							},
 							typescript = {
+								tsserver = {
+									maxTsServerMemory = 15360,
+									enableProjectDiagnostics = true
+								},
 								updateImportsOnFileMove = { enabled = "always" },
 								suggest = {
 									completeFunctionCalls = true,
@@ -464,13 +506,6 @@ return {
 									},
 								},
 							},
-							["javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName"] = true,
-							["javascript.inlayHints.parameterTypes.enabled"] = true,
-							["javascript.inlayHints.variableTypes.enabled"] = true,
-							["javascript.inlayHints.variableTypes.suppressWhenTypeMatchesName"] = true,
-							["javascript.inlayHints.propertyDeclarationTypes.enabled"] = true,
-							["javascript.inlayHints.functionLikeReturnTypes.enabled"] = true,
-							["javascript.inlayHints.enumMemberValues.enabled"] = true,
 							javascript = {
 								inlayHints = {
 									parameterNames = {
@@ -493,7 +528,7 @@ return {
 										enabled = true,
 									},
 								},
-							},
+							}
 						},
 					})
 
@@ -512,6 +547,8 @@ return {
 							-- telescope_opts = function(items, default) end,
 						}
 					})
+
+					require("ts-error-translator").setup()
 				end,
 				["emmet_language_server"] = function()
 					lspconfig.emmet_language_server.setup({
@@ -541,38 +578,8 @@ return {
 				end,
 				["eslint"] = function()
 					lspconfig.eslint.setup({
-						settings = {
-							codeAction = {
-								disableRuleComment = {
-									enable = true,
-									location = "separateLine"
-								},
-								showDocumentation = {
-									enable = true
-								}
-							},
-							codeActionOnSave = {
-								enable = false,
-								mode = "all"
-							},
-							experimental = {
-								useFlatConfig = false
-							},
-							format = true,
-							nodePath = "",
-							onIgnoredFiles = "off",
-							problems = {
-								shortenToSingleLine = false
-							},
-							quiet = false,
-							rulesCustomizations = {},
-							run = "onType",
-							useESLintClass = false,
-							validate = "on",
-							workingDirectory = {
-								mode = "location"
-							}
-						}
+						capabilities = common_capabilities,
+						settings = {},
 					})
 				end,
 				["stylelint_lsp"] = function()
@@ -580,12 +587,7 @@ return {
 						capabilities = common_capabilities,
 						-- filetypes = { "css", "less", "scss", "sugarss", "vue", "wxss", "javascript", "javascriptreact", "typescript", "typescriptreact", "astro" },
 						filetypes = { "css", "less", "scss", "sugarss", "vue", "wxss" },
-						settings = {
-
-						},
-						on_attach = function(client)
-							client.server_capabilities.document_formatting = false
-						end,
+						settings = {},
 					})
 				end,
 				["biome"] = function()
