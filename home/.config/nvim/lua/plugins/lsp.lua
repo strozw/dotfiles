@@ -459,6 +459,7 @@ return {
 								experimental = {
 									completion = {
 										enableServerSideFuzzyMatch = true,
+										entriesLimit = 50
 									},
 								},
 								tsserver = {
@@ -476,7 +477,7 @@ return {
 							},
 							typescript = {
 								tsserver = {
-									maxTsServerMemory = 15360,
+									maxTsServerMemory = 20480,
 									enableProjectDiagnostics = true
 								},
 								updateImportsOnFileMove = { enabled = "always" },
@@ -505,6 +506,13 @@ return {
 										enabled = true,
 									},
 								},
+								preferences = {
+									includePackageJsonAutoImports = "off",
+								},
+								workspaceSymbols = {
+									excludeLibrarySymbols = true,
+									-- scope = "currentProject"
+								}
 							},
 							javascript = {
 								inlayHints = {
@@ -579,7 +587,15 @@ return {
 				["eslint"] = function()
 					lspconfig.eslint.setup({
 						capabilities = common_capabilities,
-						settings = {},
+						settings = {
+							workingDirectories = { mode = "auto" },
+						},
+						on_attach = function(_client, bufnr)
+							vim.api.nvim_create_autocmd("BufWritePre", {
+								buffer = bufnr,
+								command = "EslintFixAll",
+							})
+						end,
 					})
 				end,
 				["stylelint_lsp"] = function()
@@ -653,10 +669,10 @@ return {
 					json = { "deno_fmt", "prettierd", "biome-check" },
 					jsond = { "deno_fmt", "prettierd", "biome-check" },
 					markdown = { "prettierd", "biome-check" },
-					javascript = { "eslint_d", "prettierd", "biome-check" },
-					typescript = { "eslint_d", "prettierd", "biome-check" },
-					javascriptreact = { "eslint_d", "prettierd", "biome-check" },
-					typescriptreact = { "eslint_d", "prettierd", "biome-check" },
+					javascript = { "prettierd", "biome-check" },
+					typescript = { "prettierd", "biome-check" },
+					javascriptreact = { "prettierd", "biome-check" },
+					typescriptreact = { "prettierd", "biome-check" },
 					css = { "stylelint" },
 					scss = { "stylelint" },
 					sass = { "stylelint" }
@@ -667,14 +683,14 @@ return {
 						require_cwd = true,
 					},
 					["stylelint"] = { require_cwd = true, },
-					["eslint_d"] = {
-						cwd = util.root_file({
-							'.eslintrc',
-							'.eslintrc.js',
-							'.eslintrc.cjs'
-						}),
-						require_cwd = true,
-					},
+					-- ["eslint_d"] = {
+					-- 	cwd = util.root_file({
+					-- 		'.eslintrc',
+					-- 		'.eslintrc.js',
+					-- 		'.eslintrc.cjs'
+					-- 	}),
+					-- 	require_cwd = true,
+					-- },
 					["prettierd"] = { require_cwd = true, },
 					["biome"] = { require_cwd = true, },
 					["biome-check"] = { require_cwd = true, },
