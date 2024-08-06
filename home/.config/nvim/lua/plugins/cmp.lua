@@ -97,37 +97,61 @@ return {
 					-- documentation = cmp.config.window.bordered(),
 				},
 				-- @see {@url https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#how-to-get-types-on-the-left-and-offset-the-menu}
+				-- formatting = {
+				-- 	fields = { "kind", "abbr", "menu" },
+				-- 	format = function(entry, vim_item)
+				-- 		local kind = lspkind.cmp_format({ mode = "symbol_text" })(entry, vim_item)
+				-- 		local strings = vim.split(kind.kind, "%s", { trimempty = true })
+				-- 		kind.kind = " " .. (strings[1] or "") .. " "
+				-- 		kind.menu = "    (" .. (strings[2] or "") .. ")"
+
+				-- 		return kind
+				-- 	end,
+				-- },
 				formatting = {
 					-- fields = { "kind", "abbr", "menu" },
-					format = function(entry, vim_item)
-						local kind = lspkind.cmp_format({ mode = "symbol_text" })(entry, vim_item)
-						local strings = vim.split(kind.kind, "%s", { trimempty = true })
-						kind.kind = " " .. (strings[1] or "") .. " "
-						kind.menu = "    (" .. (strings[2] or "") .. ")"
+					format = lspkind.cmp_format({
+						mode = "symbol_text", -- show only symbol annotations
+						maxwidth = 50,  -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+						ellipsis_char = '...',
+						show_labelDetails = true,
+						before = function(entry, vim_item)
+							local kind = lspkind.cmp_format({ mode = "symbol_text" })(entry, vim_item)
+							local strings = vim.split(kind.kind, "%s", { trimempty = true })
+							local menu = kind.menu or ""
 
-						return kind
-					end,
+							if #menu > 23 then
+								menu = string.sub(menu, 1, 23 - 3) .. "..."
+							end
+
+							kind.menu = menu
+
+							-- if #menu > 0 then
+							-- 	menu = "(" .. (menu or "") .. ")"
+							-- end
+
+							-- kind.kind = " " .. (strings[1] or "") .. " "
+							-- kind.abbr = kind.abbr .. menu
+							-- kind.menu = "    (" .. (strings[2] or "") .. ")"
+
+							return kind
+						end,
+						-- before = function(entry, vim_item)
+						-- 	-- NOTE: https://stackoverflow.com/questions/72668920/how-to-show-paths-for-auto-imports-with-neovim-nvim-cmp
+						-- 	if entry.completion_item.detail ~= nil and entry.completion_item.detail ~= "" then
+						-- 		vim_item.menu = entry.completion_item.detail
+						-- 		-- else
+						-- 		-- 	vim_item.menu = ({
+						-- 		-- 		nvim_lsp = "[LSP]",
+						-- 		-- 		luasnip = "[Snippet]",
+						-- 		-- 		buffer = "[Buffer]",
+						-- 		-- 		path = "[Path]",
+						-- 		-- 	})[entry.source.name]
+						-- 	end
+						-- 	return vim_item
+						-- end,
+					}),
 				},
-				-- formatting = {
-				-- 	format = lspkind.cmp_format({
-				-- 		mode = "symbol_text", -- show only symbol annotations
-				-- 		maxwidth = 50,  -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-				-- 		-- before = function(entry, vim_item)
-				-- 		-- 	-- NOTE: https://stackoverflow.com/questions/72668920/how-to-show-paths-for-auto-imports-with-neovim-nvim-cmp
-				-- 		-- 	if entry.completion_item.detail ~= nil and entry.completion_item.detail ~= "" then
-				-- 		-- 		vim_item.menu = entry.completion_item.detail
-				-- 		-- 		-- else
-				-- 		-- 		-- 	vim_item.menu = ({
-				-- 		-- 		-- 		nvim_lsp = "[LSP]",
-				-- 		-- 		-- 		luasnip = "[Snippet]",
-				-- 		-- 		-- 		buffer = "[Buffer]",
-				-- 		-- 		-- 		path = "[Path]",
-				-- 		-- 		-- 	})[entry.source.name]
-				-- 		-- 	end
-				-- 		-- 	return vim_item
-				-- 		-- end,
-				-- 	}),
-				-- },
 				snippet = {
 					-- REQUIRED - you must specify a snippet engine
 					expand = function(args)
@@ -145,9 +169,10 @@ return {
 					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 				}),
 				sources = cmp.config.sources(vim.list_extend({
-					{ name = "nvim_lsp",               keyword_length = 1 },
-					{ name = "nvim_lsp_signature_help" },
-					{ name = "vsnip" },
+					{ name = "copilot",                 group_index = 2 },
+					{ name = "nvim_lsp",                group_index = 2, keyword_length = 1 },
+					{ name = "nvim_lsp_signature_help", group_index = 2 },
+					{ name = "vsnip",                   group_index = 2 },
 					{ name = "emoji" },
 				}, common_sources)),
 			})

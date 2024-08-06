@@ -19,6 +19,22 @@ return {
 				inc_rename = false,       -- enables an input dialog for inc-rename.nvim
 				lsp_doc_border = false,   -- add a border to hover docs and signature help
 			},
+			views = {
+				cmdline_popup = {
+					position = {
+						row = 5,
+						col = "50%",
+					},
+					border = {
+						style = "none",
+						padding = { 1, 3 },
+					},
+					filter_options = {},
+					win_options = {
+						winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+					},
+				},
+			},
 			routes = {
 				{
 					filter = {
@@ -27,6 +43,8 @@ return {
 					},
 					opts = { skip = true },
 				},
+				{ view = "mini", filter = { event = "msg_show", kind = "", find = "written", }, },
+				{ view = "mini", filter = { event = "msg_show", kind = "", find = "書込み", }, },
 			},
 		},
 		dependencies = {
@@ -93,6 +111,7 @@ return {
 		"nvim-lualine/lualine.nvim",
 		lazy = false,
 		dependencies = {
+			'AndreM222/copilot-lualine'
 			-- "nvim-lua/lsp-status.nvim",
 		},
 		keys = {
@@ -123,7 +142,7 @@ return {
 						-- lualine_c = { "g:coc_status", "require'lsp-status'.status()", "filename" },
 						lualine_c = { "filename" },
 						lualine_x = {
-							"encoding", "fileformat", "filetype",
+							{ "copilot", show_colors = true }, "encoding", "fileformat", "filetype",
 							-- {
 							-- 	require("noice").api.status.message.get_hl,
 							-- 	cond = require("noice").api.status.message.has,
