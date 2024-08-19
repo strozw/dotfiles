@@ -382,22 +382,23 @@ return {
 		end,
 	},
 
-	{
-		'uga-rosa/ccc.nvim',
-		config = function()
-			vim.opt.termguicolors = true
+	-- {
+	-- 	'uga-rosa/ccc.nvim',
+	-- 	dependencies = { "vim-denops/denops.vim" },
+	-- 	config = function()
+	-- 		vim.opt.termguicolors = true
 
-			local ccc = require("ccc")
-			local mapping = ccc.mapping
+	-- 		local ccc = require("ccc")
+	-- 		local mapping = ccc.mapping
 
-			ccc.setup({
-				highlighter = {
-					auto_enable = true,
-					lsp = true,
-				},
-			})
-		end
-	},
+	-- 		ccc.setup({
+	-- 			highlighter = {
+	-- 				auto_enable = true,
+	-- 				lsp = true,
+	-- 			},
+	-- 		})
+	-- 	end
+	-- },
 
 
 	-- LSP / diagnostics UI
