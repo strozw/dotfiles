@@ -588,7 +588,38 @@ return {
 					lspconfig.eslint.setup({
 						capabilities = common_capabilities,
 						settings = {
-							workingDirectories = { mode = "auto" },
+							codeAction = {
+								disableRuleComment = {
+									enable = true,
+									location = "separateLine"
+								},
+								showDocumentation = {
+									enable = true
+								}
+							},
+							codeActionOnSave = {
+								enable = true,
+								mode = "all"
+							},
+							experimental = {
+								useFlatConfig = true
+							},
+							useFlatConfig = true,
+							format = false,
+							nodePath = "",
+							onIgnoredFiles = "off",
+							problems = {
+								shortenToSingleLine = false
+							},
+							quiet = false,
+							rulesCustomizations = {},
+							run = "onType",
+							useESLintClass = false,
+							validate = "on",
+							workingDirectory = {
+								-- mode = "location"
+								mode = "auto"
+							}
 						},
 						on_attach = function(_client, bufnr)
 							vim.api.nvim_create_autocmd("BufWritePre", {
@@ -608,11 +639,8 @@ return {
 				end,
 				["biome"] = function()
 					lspconfig.biome.setup({
+						root_dir = lspconfig_util.root_pattern('biome.json', 'biome.jsonc'),
 						capabilities = common_capabilities,
-						-- on_attach = function(client)
-						-- 	-- conform で行う
-						-- 	client.server_capabilities.document_formatting = false
-						-- end,
 					})
 				end,
 				["phpactor"] = function()
@@ -629,6 +657,8 @@ return {
 			null_ls.setup({
 				capabilities = common_capabilities,
 				sources = {
+					require("none-ls.formatting.eslint_d"),
+					null_ls.builtins.formatting.prettierd,
 					null_ls.builtins.code_actions.gitsigns,
 				},
 			})
@@ -659,42 +689,62 @@ return {
 		config = function()
 			local util = require("conform.util")
 
+			find_config = function(files)
+				return function(_self, ctx)
+					local found = vim.fs.find(files, { upward = false, path = ctx.dirname })[1]
+					if found then
+						return vim.fs.dirname(found)
+					end
+				end
+			end
+
 			require('conform').setup({
 				format_on_save = {
 					-- These options will be passed to conform.format()
-					timeout_ms = 5000,
+					-- timeout_ms = 5000,
 					lsp_fallback = true,
 				},
-				formatters_by_ft = {
-					json = { "deno_fmt", "prettierd", "biome-check" },
-					jsond = { "deno_fmt", "prettierd", "biome-check" },
-					markdown = { "prettierd", "biome-check" },
-					javascript = { "prettierd", "biome-check" },
-					typescript = { "prettierd", "biome-check" },
-					javascriptreact = { "prettierd", "biome-check" },
-					typescriptreact = { "prettierd", "biome-check" },
-					css = { "stylelint" },
-					scss = { "stylelint" },
-					sass = { "stylelint" }
-				},
-				formatters = {
-					["deno_fmt"] = {
-						cwd = util.root_file({ 'deno.json', }),
-						require_cwd = true,
-					},
-					["stylelint"] = { require_cwd = true, },
-					-- ["eslint_d"] = {
-					-- 	cwd = util.root_file({
-					-- 		'.eslintrc',
-					-- 		'.eslintrc.js',
-					-- 		'.eslintrc.cjs'
-					-- 	}),
-					-- 	require_cwd = true,
-					-- },
-					["prettierd"] = { require_cwd = true, },
-					["biome"] = { require_cwd = true, },
-					["biome-check"] = { require_cwd = true, },
-				}
+				-- formatters_by_ft = {
+				-- 	json = { "deno_fmt", "prettierd", "biome-check" },
+				-- 	jsond = { "deno_fmt", "prettierd", "biome-check" },
+				-- 	markdown = { "prettierd", "biome-check" },
+				-- 	javascript = { "prettierd", "biome-check" },
+				-- 	typescript = { "prettierd", "biome-check" },
+				-- 	javascriptreact = { "prettierd", "biome-check" },
+				-- 	typescriptreact = { "prettierd", "biome-check" },
+				-- 	css = { "stylelint" },
+				-- 	scss = { "stylelint" },
+				-- 	sass = { "stylelint" }
+				-- },
+				-- formatters = {
+				-- 	["deno_fmt"] = {
+				-- 		cwd = util.root_file({ 'deno.json', }),
+				-- 		require_cwd = true,
+				-- 	},
+				-- 	["stylelint"] = { require_cwd = true, },
+				-- 	["eslint_d"] = {
+				-- 		cwd = util.root_file({
+				-- 			'.eslintrc',
+				-- 			'.eslintrc.js',
+				-- 			'.eslintrc.cjs',
+				-- 			'eslint.config.js',
+				-- 			'eslint.config.cjs',
+				-- 			'eslint.config.mjs'
+				-- 		}),
+				-- 		require_cwd = true,
+				-- 	},
+				-- 	["prettierd"] = {
+				-- 		require_cwd = true
+				-- 	},
+				-- 	["biome"] = {
+				-- 		cwd = find_config({ "biome.json", "biome.jsonc" }),
+				-- 		require_cwd = true,
+				-- 	},
+				-- 	["biome-check"] = {
+				-- 		cwd = find_config({ "biome.json", "biome.jsonc" }),
+				-- 		require_cwd = true
+				-- 	},
+				-- }
 			})
 		end
 	},
