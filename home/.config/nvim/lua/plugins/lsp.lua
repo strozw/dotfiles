@@ -584,51 +584,51 @@ return {
 						}
 					})
 				end,
-				["eslint"] = function()
-					lspconfig.eslint.setup({
-						capabilities = common_capabilities,
-						settings = {
-							codeAction = {
-								disableRuleComment = {
-									enable = true,
-									location = "separateLine"
-								},
-								showDocumentation = {
-									enable = true
-								}
-							},
-							codeActionOnSave = {
-								enable = true,
-								mode = "all"
-							},
-							experimental = {
-								useFlatConfig = true
-							},
-							useFlatConfig = true,
-							format = false,
-							nodePath = "",
-							onIgnoredFiles = "off",
-							problems = {
-								shortenToSingleLine = false
-							},
-							quiet = false,
-							rulesCustomizations = {},
-							run = "onType",
-							useESLintClass = false,
-							validate = "on",
-							workingDirectory = {
-								-- mode = "location"
-								mode = "auto"
-							}
-						},
-						on_attach = function(_client, bufnr)
-							vim.api.nvim_create_autocmd("BufWritePre", {
-								buffer = bufnr,
-								command = "EslintFixAll",
-							})
-						end,
-					})
-				end,
+				-- ["eslint"] = function()
+				-- 	lspconfig.eslint.setup({
+				-- 		capabilities = common_capabilities,
+				-- 		settings = {
+				-- 			codeAction = {
+				-- 				disableRuleComment = {
+				-- 					enable = true,
+				-- 					location = "separateLine"
+				-- 				},
+				-- 				showDocumentation = {
+				-- 					enable = true
+				-- 				}
+				-- 			},
+				-- 			codeActionOnSave = {
+				-- 				enable = true,
+				-- 				mode = "all"
+				-- 			},
+				-- 			-- experimental = {
+				-- 			-- 	useFlatConfig = true
+				-- 			-- },
+				-- 			-- useFlatConfig = true,
+				-- 			format = false,
+				-- 			nodePath = "",
+				-- 			onIgnoredFiles = "off",
+				-- 			problems = {
+				-- 				shortenToSingleLine = false
+				-- 			},
+				-- 			quiet = false,
+				-- 			rulesCustomizations = {},
+				-- 			run = "onType",
+				-- 			useESLintClass = false,
+				-- 			validate = "on",
+				-- 			workingDirectory = {
+				-- 				-- mode = "location"
+				-- 				mode = "auto"
+				-- 			}
+				-- 		},
+				-- 		on_attach = function(_client, bufnr)
+				-- 			vim.api.nvim_create_autocmd("BufWritePre", {
+				-- 				buffer = bufnr,
+				-- 				command = "EslintFixAll",
+				-- 			})
+				-- 		end,
+				-- 	})
+				-- end,
 				["stylelint_lsp"] = function()
 					lspconfig.stylelint_lsp.setup({
 						capabilities = common_capabilities,
@@ -657,8 +657,12 @@ return {
 			null_ls.setup({
 				capabilities = common_capabilities,
 				sources = {
+					-- null_ls.builtins.formatting.biome,
+					-- require("none-ls.code_actions.eslint_d"),
+					-- require("none-ls.diagnostics.eslint_d"),
 					require("none-ls.formatting.eslint_d"),
 					null_ls.builtins.formatting.prettierd,
+					null_ls.builtins.diagnostics.commitlint,
 					null_ls.builtins.code_actions.gitsigns,
 				},
 			})

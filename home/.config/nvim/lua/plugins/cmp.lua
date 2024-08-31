@@ -1,16 +1,4 @@
 return {
-	-- github copilot
-	-- {
-	-- 	"github/copilot.vim",
-	-- 	config = function()
-	-- 		-- I would like to turn off copilot for sensitive projects.
-	-- 		-- so if you need use copilot, turn it on in `.nvim.lua` in project root.
-	-- 		vim.g.copilot_filetypes = {
-	-- 			['*'] = false,
-	-- 		}
-	-- 	end
-	-- },
-
 	{ "rafamadriz/friendly-snippets" },
 
 	{
@@ -64,13 +52,13 @@ return {
 			"onsails/lspkind.nvim",
 			"f3fora/cmp-spell",
 		},
-		opts = function(_, opts)
-			opts.sources = opts.sources or {}
-			table.insert(opts.sources, {
-				name = "lazydev",
-				group_index = 0, -- set group index to 0 to skip loading LuaLS completions
-			})
-		end,
+		-- opts = function(_, opts)
+		-- 	opts.sources = opts.sources or {}
+		-- 	table.insert(opts.sources, {
+		-- 		name = "lazydev",
+		-- 		group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+		-- 	})
+		-- end,
 		config = function()
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")
@@ -82,34 +70,12 @@ return {
 
 			cmp.setup({
 				performance = {
-					-- max_view_entries = 1000,
-					-- debounce = 30,
-					-- throttle = 15,
+					max_view_entries = 1000,
+					debounce = 30,
+					throttle = 15,
 				},
 				matching = {},
-				window = {
-					-- @see {@url https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#how-to-get-types-on-the-left-and-offset-the-menu}
-					-- completion = {
-					-- 	winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
-					-- 	col_offset = -3,
-					-- 	side_padding = 0,
-					-- },
-					-- documentation = cmp.config.window.bordered(),
-				},
-				-- @see {@url https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#how-to-get-types-on-the-left-and-offset-the-menu}
-				-- formatting = {
-				-- 	fields = { "kind", "abbr", "menu" },
-				-- 	format = function(entry, vim_item)
-				-- 		local kind = lspkind.cmp_format({ mode = "symbol_text" })(entry, vim_item)
-				-- 		local strings = vim.split(kind.kind, "%s", { trimempty = true })
-				-- 		kind.kind = " " .. (strings[1] or "") .. " "
-				-- 		kind.menu = "    (" .. (strings[2] or "") .. ")"
-
-				-- 		return kind
-				-- 	end,
-				-- },
 				formatting = {
-					-- fields = { "kind", "abbr", "menu" },
 					format = lspkind.cmp_format({
 						mode = "symbol_text", -- show only symbol annotations
 						maxwidth = 50,  -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
@@ -117,7 +83,6 @@ return {
 						show_labelDetails = true,
 						before = function(entry, vim_item)
 							local kind = lspkind.cmp_format({ mode = "symbol_text" })(entry, vim_item)
-							local strings = vim.split(kind.kind, "%s", { trimempty = true })
 							local menu = kind.menu or ""
 
 							if #menu > 23 then
@@ -126,34 +91,11 @@ return {
 
 							kind.menu = menu
 
-							-- if #menu > 0 then
-							-- 	menu = "(" .. (menu or "") .. ")"
-							-- end
-
-							-- kind.kind = " " .. (strings[1] or "") .. " "
-							-- kind.abbr = kind.abbr .. menu
-							-- kind.menu = "    (" .. (strings[2] or "") .. ")"
-
 							return kind
 						end,
-						-- before = function(entry, vim_item)
-						-- 	-- NOTE: https://stackoverflow.com/questions/72668920/how-to-show-paths-for-auto-imports-with-neovim-nvim-cmp
-						-- 	if entry.completion_item.detail ~= nil and entry.completion_item.detail ~= "" then
-						-- 		vim_item.menu = entry.completion_item.detail
-						-- 		-- else
-						-- 		-- 	vim_item.menu = ({
-						-- 		-- 		nvim_lsp = "[LSP]",
-						-- 		-- 		luasnip = "[Snippet]",
-						-- 		-- 		buffer = "[Buffer]",
-						-- 		-- 		path = "[Path]",
-						-- 		-- 	})[entry.source.name]
-						-- 	end
-						-- 	return vim_item
-						-- end,
 					}),
 				},
 				snippet = {
-					-- REQUIRED - you must specify a snippet engine
 					expand = function(args)
 						vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
 						-- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
@@ -187,6 +129,10 @@ return {
 			cmp.setup.filetype("lua", {
 				sources = cmp.config.sources(vim.list_extend({
 					{ name = "nvim_lua" },
+					{
+						name = "lazydev",
+						group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+					},
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lsp_signature_help" },
 					{ name = "vsnip" },

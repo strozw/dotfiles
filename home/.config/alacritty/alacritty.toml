@@ -31,7 +31,7 @@ import = ["~/ghq/github.com/alacritty/alacritty-theme/themes/tokyo-night.toml"]
 
 [font]
 size = 16.0
-builtin_box_drawing = true
+builtin_box_drawing = false
 
 [font.glyph_offset]
 x = 0
