@@ -3,6 +3,7 @@ return {
 		"yetone/avante.nvim",
 		event = "VeryLazy",
 		lazy = false,
+		build = ":AvanteBuild source=false",
 		dependencies = {
 			"stevearc/dressing.nvim",
 			"nvim-lua/plenary.nvim",
@@ -11,6 +12,7 @@ return {
 			"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
 			"zbirenbaum/copilot.lua",   -- for providers='copilot'
 			'MeanderingProgrammer/render-markdown.nvim',
+			"zbirenbaum/copilot.lua",
 			{
 				-- support for image pasting
 				"HakonHarnes/img-clip.nvim",
@@ -42,7 +44,8 @@ return {
 				ollama = {
 					["local"] = true,
 					endpoint = "localhost:11434/v1",
-					model = "codegemma:7b",
+					-- model = "codegemma:7b",
+					model = "codellama:7b",
 					parse_curl_args = function(opts, code_opts)
 						return {
 							url = opts.endpoint .. "/chat/completions",
@@ -71,7 +74,8 @@ return {
 			local gen = require("gen")
 
 			gen.setup({
-				model = "codegemma:7b", -- The default model to use.
+				-- model = "codegemma:7b", -- The default model to use.
+				model = "codellama:7b",
 				quit_map = "q",     -- set keymap for close the response window
 				retry_map = "<c-r>", -- set keymap to re-send the current prompt
 				accept_map = "<c-cr>", -- set keymap to replace the previous selection with the last result

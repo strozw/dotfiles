@@ -414,7 +414,7 @@ return {
 					})
 				end,
 				["tsserver"] = function()
-					lspconfig.tsserver.setup({
+					lspconfig.ts_lsp.setup({
 						capabilities = common_capabilities,
 						filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "vue" },
 						init_options = {
@@ -643,6 +643,13 @@ return {
 						capabilities = common_capabilities,
 					})
 				end,
+				["dprint"] = function()
+					lspconfig.dprint.setup({
+						root_dir = lspconfig_util.root_pattern('dprint.json'),
+						capabilities = common_capabilities,
+						filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "json", "jsonc", "markdown", "python", "toml", "rust", "roslyn", "css", "scss", "less", "sass" }
+					})
+				end,
 				["phpactor"] = function()
 					lspconfig.phpactor.setup({
 						capabilities = common_capabilities,
@@ -657,7 +664,7 @@ return {
 			null_ls.setup({
 				capabilities = common_capabilities,
 				sources = {
-					-- null_ls.builtins.formatting.biome,
+					null_ls.builtins.formatting.biome,
 					-- require("none-ls.code_actions.eslint_d"),
 					-- require("none-ls.diagnostics.eslint_d"),
 					require("none-ls.formatting.eslint_d"),
@@ -693,7 +700,7 @@ return {
 		config = function()
 			local util = require("conform.util")
 
-			find_config = function(files)
+			local find_config = function(files)
 				return function(_self, ctx)
 					local found = vim.fs.find(files, { upward = false, path = ctx.dirname })[1]
 					if found then
@@ -708,47 +715,21 @@ return {
 					-- timeout_ms = 5000,
 					lsp_fallback = true,
 				},
-				-- formatters_by_ft = {
-				-- 	json = { "deno_fmt", "prettierd", "biome-check" },
-				-- 	jsond = { "deno_fmt", "prettierd", "biome-check" },
-				-- 	markdown = { "prettierd", "biome-check" },
-				-- 	javascript = { "prettierd", "biome-check" },
-				-- 	typescript = { "prettierd", "biome-check" },
-				-- 	javascriptreact = { "prettierd", "biome-check" },
-				-- 	typescriptreact = { "prettierd", "biome-check" },
-				-- 	css = { "stylelint" },
-				-- 	scss = { "stylelint" },
-				-- 	sass = { "stylelint" }
-				-- },
-				-- formatters = {
-				-- 	["deno_fmt"] = {
-				-- 		cwd = util.root_file({ 'deno.json', }),
-				-- 		require_cwd = true,
-				-- 	},
-				-- 	["stylelint"] = { require_cwd = true, },
-				-- 	["eslint_d"] = {
-				-- 		cwd = util.root_file({
-				-- 			'.eslintrc',
-				-- 			'.eslintrc.js',
-				-- 			'.eslintrc.cjs',
-				-- 			'eslint.config.js',
-				-- 			'eslint.config.cjs',
-				-- 			'eslint.config.mjs'
-				-- 		}),
-				-- 		require_cwd = true,
-				-- 	},
-				-- 	["prettierd"] = {
-				-- 		require_cwd = true
-				-- 	},
-				-- 	["biome"] = {
-				-- 		cwd = find_config({ "biome.json", "biome.jsonc" }),
-				-- 		require_cwd = true,
-				-- 	},
-				-- 	["biome-check"] = {
-				-- 		cwd = find_config({ "biome.json", "biome.jsonc" }),
-				-- 		require_cwd = true
-				-- 	},
-				-- }
+				formatters_by_ft = {
+					json = { "biome-check" },
+					jsond = { "biome-check" },
+					-- markdown = { "biome-check" },
+					javascript = { "biome-check" },
+					typescript = { "biome-check" },
+					javascriptreact = { "biome-check" },
+					typescriptreact = { "biome-check" },
+				},
+				formatters = {
+					["biome-check"] = {
+						cwd = find_config({ "biome.json", "biome.jsonc" }),
+						require_cwd = true
+					},
+				}
 			})
 		end
 	},
