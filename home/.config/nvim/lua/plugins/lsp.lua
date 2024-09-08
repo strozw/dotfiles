@@ -52,6 +52,20 @@ return {
 				},
 			}
 
+			lspconfig_configs.lsp_ai = {
+				default_config = {
+					cmd = { 'lsp-ai' },
+					filetypes = {},
+					root_dir = nil,
+					single_file_support = true,
+					init_options = {
+						memory = {
+							file_store = vim.fn.json_decode '{}',
+						},
+					},
+				},
+			}
+
 			-- lspconfig_configs.cspell = {
 			-- 	default_config = {
 			-- 		filetypes = { "javascript", "javascriptreact", "python", "typescript", "typescriptreact" },
@@ -214,6 +228,25 @@ return {
 					-- 	documentLinkProvider = true,
 					-- })
 				end,
+			})
+
+			lspconfig.lsp_ai.setup({
+				init_options = {
+					models = {
+						model1 = {
+							type = "ollama",
+							model = "codellama:7b",
+							-- n_ctx = 2048,
+							-- n_gpu_layers = 999
+						}
+					},
+					completion = {
+						model = "model1",
+						parameters = {
+							max_context = 2000,
+						}
+					}
+				},
 			})
 
 
@@ -484,28 +517,28 @@ return {
 								suggest = {
 									completeFunctionCalls = true,
 								},
-								inlayHints = {
-									parameterNames = {
-										enabled = "literals"
-										-- suppressWhenArgumentMatchesName = true,
-									},
-									parameterTypes = {
-										enabled = true,
-									},
-									variableTypes = {
-										enabled = true,
-										suppressWhenTypeMatchesName = true,
-									},
-									propertyDeclarationTypes = {
-										enabled = true,
-									},
-									functionLikeReturnTypes = {
-										enabled = true,
-									},
-									enumMemberValues = {
-										enabled = true,
-									},
-								},
+								-- inlayHints = {
+								-- 	parameterNames = {
+								-- 		enabled = "literals"
+								-- 		-- suppressWhenArgumentMatchesName = true,
+								-- 	},
+								-- 	parameterTypes = {
+								-- 		enabled = true,
+								-- 	},
+								-- 	variableTypes = {
+								-- 		enabled = true,
+								-- 		suppressWhenTypeMatchesName = true,
+								-- 	},
+								-- 	propertyDeclarationTypes = {
+								-- 		enabled = true,
+								-- 	},
+								-- 	functionLikeReturnTypes = {
+								-- 		enabled = true,
+								-- 	},
+								-- 	enumMemberValues = {
+								-- 		enabled = true,
+								-- 	},
+								-- },
 								preferences = {
 									includePackageJsonAutoImports = "off",
 								},
@@ -515,27 +548,27 @@ return {
 								}
 							},
 							javascript = {
-								inlayHints = {
-									parameterNames = {
-										suppressWhenArgumentMatchesName = true,
-									},
-									parameterTypes = {
-										enabled = true,
-									},
-									variableTypes = {
-										enabled = true,
-										suppressWhenTypeMatchesName = true,
-									},
-									propertyDeclarationTypes = {
-										enabled = true,
-									},
-									functionLikeReturnTypes = {
-										enabled = true,
-									},
-									enumMemberValues = {
-										enabled = true,
-									},
-								},
+								-- inlayHints = {
+								-- 	parameterNames = {
+								-- 		suppressWhenArgumentMatchesName = true,
+								-- 	},
+								-- 	parameterTypes = {
+								-- 		enabled = true,
+								-- 	},
+								-- 	variableTypes = {
+								-- 		enabled = true,
+								-- 		suppressWhenTypeMatchesName = true,
+								-- 	},
+								-- 	propertyDeclarationTypes = {
+								-- 		enabled = true,
+								-- 	},
+								-- 	functionLikeReturnTypes = {
+								-- 		enabled = true,
+								-- 	},
+								-- 	enumMemberValues = {
+								-- 		enabled = true,
+								-- 	},
+								-- },
 							}
 						},
 					})
@@ -664,7 +697,8 @@ return {
 			null_ls.setup({
 				capabilities = common_capabilities,
 				sources = {
-					null_ls.builtins.formatting.biome,
+					require("custom.none-ls.formatting.biome_check"),
+					-- null_ls.builtins.formatting.biome,
 					-- require("none-ls.code_actions.eslint_d"),
 					-- require("none-ls.diagnostics.eslint_d"),
 					require("none-ls.formatting.eslint_d"),

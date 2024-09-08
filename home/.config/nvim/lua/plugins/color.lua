@@ -129,6 +129,12 @@ return {
 				},
 				day_brightness = 0.3, -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
 				lualine_bold = true, -- When `true`, section headers in the lualine theme will be bold
+				--- You can override specific color groups to use other groups or a hex color
+				--- function will be called with a ColorScheme table
+				---@param colors ColorScheme
+				on_colors = function(colors)
+					colors.border = "black"
+				end,
 				on_highlights = function(hl, c)
 					local prompt = c.bg_dark
 					-- local prompt = "#2d3149"
