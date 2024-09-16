@@ -92,13 +92,34 @@ return {
 		main = "ibl",
 		opts = {},
 		config = function()
+			local colors = require("tokyonight.colors").setup()
+
+			local highlight = {
+				"RainbowRed",
+				"RainbowYellow",
+				"RainbowBlue",
+				"RainbowOrange",
+				"RainbowGreen",
+				"RainbowViolet",
+				"RainbowCyan",
+			}
+
+			local hooks = require "ibl.hooks"
+
+			-- hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+			-- 	vim.api.nvim_set_hl(0, "RainbowRed", { fg = colors.red })
+			-- 	vim.api.nvim_set_hl(0, "RainbowYellow", { fg = colors.yellow })
+			-- 	vim.api.nvim_set_hl(0, "RainbowBlue", { fg = colors.blue })
+			-- 	vim.api.nvim_set_hl(0, "RainbowOrange", { fg = colors.orange })
+			-- 	vim.api.nvim_set_hl(0, "RainbowGreen", { fg = colors.green })
+			-- 	vim.api.nvim_set_hl(0, "RainbowViolet", { fg = colors.purple })
+			-- 	vim.api.nvim_set_hl(0, "RainbowCyan", { fg = colors.cyan })
+			-- end)
+
 			require("ibl").setup {
 				indent = {
 					-- highlight = highlight,
 					char = '│',
-				},
-				scope = {
-					-- highlight = highlight,
 				},
 			}
 		end,

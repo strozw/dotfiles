@@ -52,19 +52,19 @@ return {
 				},
 			}
 
-			lspconfig_configs.lsp_ai = {
-				default_config = {
-					cmd = { 'lsp-ai' },
-					filetypes = {},
-					root_dir = nil,
-					single_file_support = true,
-					init_options = {
-						memory = {
-							file_store = vim.fn.json_decode '{}',
-						},
-					},
-				},
-			}
+			-- lspconfig_configs.lsp_ai = {
+			-- 	default_config = {
+			-- 		cmd = { 'lsp-ai' },
+			-- 		filetypes = {},
+			-- 		root_dir = nil,
+			-- 		single_file_support = true,
+			-- 		init_options = {
+			-- 			memory = {
+			-- 				file_store = vim.fn.json_decode '{}',
+			-- 			},
+			-- 		},
+			-- 	},
+			-- }
 
 			-- lspconfig_configs.cspell = {
 			-- 	default_config = {
@@ -230,24 +230,25 @@ return {
 				end,
 			})
 
-			lspconfig.lsp_ai.setup({
-				init_options = {
-					models = {
-						model1 = {
-							type = "ollama",
-							model = "codellama:7b",
-							-- n_ctx = 2048,
-							-- n_gpu_layers = 999
-						}
-					},
-					completion = {
-						model = "model1",
-						parameters = {
-							max_context = 2000,
-						}
-					}
-				},
-			})
+			-- lspconfig.lsp_ai.setup({
+			-- 	init_options = {
+			-- 		models = {
+			-- 			model1 = {
+			-- 				type = "ollama",
+			-- 				model = "codellama:7b",
+			-- 				-- n_ctx = 2048,
+			-- 				-- n_gpu_layers = 999
+			-- 			}
+			-- 		},
+			-- 		completion = {
+			-- 			model = "model1",
+			-- 			parameters = {
+			-- 				max_context = 2000,
+			-- 				-- max_new_tokens = 32
+			-- 			}
+			-- 		}
+			-- 	},
+			-- })
 
 
 			lspconfig.flow.setup({

@@ -31,18 +31,18 @@ import = ["~/ghq/github.com/alacritty/alacritty-theme/themes/tokyo-night.toml"]
 
 [font]
 size = 16.0
-builtin_box_drawing = false
-
-[font.glyph_offset]
-x = 0
-y = 4
+builtin_box_drawing = true
 
 [font.normal]
 family = "UDEV Gothic NFLG"
 
 [font.offset]
-x = 0
+x = 2
 y = 10
+
+[font.glyph_offset]
+x = 1
+y = 5
 
 [[keyboard.bindings]]
 chars = "\f"
