@@ -447,7 +447,7 @@ return {
 						},
 					})
 				end,
-				["tsserver"] = function()
+				["ts_lsp"] = function()
 					lspconfig.ts_lsp.setup({
 						capabilities = common_capabilities,
 						filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "vue" },
