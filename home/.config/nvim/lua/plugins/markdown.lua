@@ -35,5 +35,5 @@ return {
 				wincmd = 'split', -- this is the default way to open the code block window
 			}
 		end
-	}
+	},
 }
