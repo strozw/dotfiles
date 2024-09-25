@@ -25,6 +25,7 @@ return {
 			"MunifTanjim/prettier.nvim",
 			"b0o/schemastore.nvim",
 			"folke/neoconf.nvim",
+			"folke/lazydev.nvim",
 			"Fildo7525/pretty_hover",
 			"stevearc/dressing.nvim",
 			'mrcjkb/rustaceanvim',

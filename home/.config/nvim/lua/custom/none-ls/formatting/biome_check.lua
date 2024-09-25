@@ -15,7 +15,7 @@ return h.make_builtin({
 		},
 	},
 	method = FORMATTING,
-	filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "json", "jsonc" },
+	filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "json", "jsonc", "css", "graphql" },
 	generator_opts = {
 		command = "biome",
 		args = {

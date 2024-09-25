@@ -388,6 +388,7 @@ return {
 								-- 3: Shows buffer number
 								-- 4: Shows buffer name + buffer number
 
+								max_length = vim.o.columns,
 								-- max_length = vim.o.columns * 2 / 3, -- Maximum width of buffers component,
 								-- max_length = vim.o.columns * 4 / 5, -- Maximum width of buffers component,
 
@@ -417,10 +418,12 @@ return {
 								},
 							}
 						},
+						lualine_c = {},
 						-- lualine_c = { 'filename' },
-						-- lualine_x = {},
-						-- lualine_y = {  },
+						lualine_x = {},
+						lualine_y = {},
 						-- lualine_z = { 'tabs' }
+						lualine_z = {}
 					},
 					extensions = { "fern", "nvim-tree", "neo-tree", "fugitive", "trouble", "nvim-dap-ui", "lazy", "mason" },
 					-- disabled_filetypes = {  }
