@@ -745,25 +745,26 @@ return {
 			end
 
 			require('conform').setup({
+				notify_on_error = false,
 				format_on_save = {
 					-- These options will be passed to conform.format()
 					-- timeout_ms = 5000,
 					lsp_fallback = true,
 				},
 				formatters_by_ft = {
-					json = { "biome-check" },
-					jsond = { "biome-check" },
+					-- json = { "biome-check" },
+					-- jsond = { "biome-check" },
 					-- markdown = { "biome-check" },
-					javascript = { "biome-check" },
-					typescript = { "biome-check" },
-					javascriptreact = { "biome-check" },
-					typescriptreact = { "biome-check" },
+					-- javascript = { "biome-check" },
+					-- typescript = { "biome-check" },
+					-- javascriptreact = { "biome-check" },
+					-- typescriptreact = { "biome-check" },
 				},
 				formatters = {
-					["biome-check"] = {
-						cwd = find_config({ "biome.json", "biome.jsonc" }),
-						require_cwd = true
-					},
+					-- ["biome-check"] = {
+					-- 	cwd = find_config({ "biome.json", "biome.jsonc" }),
+					-- 	require_cwd = true
+					-- },
 				}
 			})
 		end
