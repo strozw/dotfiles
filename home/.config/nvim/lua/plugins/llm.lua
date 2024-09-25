@@ -44,8 +44,8 @@ return {
 				ollama = {
 					["local"] = true,
 					endpoint = "localhost:11434/v1",
-					-- model = "codegemma:7b",
-					model = "codellama:7b",
+					model = "codegemma:7b",
+					-- model = "codellama:7b",
 					parse_curl_args = function(opts, code_opts)
 						return {
 							url = opts.endpoint .. "/chat/completions",
