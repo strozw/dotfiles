@@ -110,7 +110,6 @@ vim.api.nvim_exec(
 	"set laststatus=3
 	set laststatus=1
 
-	autocmd BufNewFile,BufRead *.mdx set filetype=typescriptreact
 	autocmd BufNewFile,BufRead *.rbi set filetype=ruby
 
 	tnoremap <ESC><ESC> <c-\><c-n>

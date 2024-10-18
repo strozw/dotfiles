@@ -9,7 +9,6 @@ return {
 		dependencies = { "zapling/mason-conform.nvim", "williamboman/mason-lspconfig.nvim",
 			"neovim/nvim-lspconfig",
 			"nvim-lua/plenary.nvim",
-			"tamago324/nlsp-settings.nvim",
 			"folke/lsp-colors.nvim",
 			"yioneko/nvim-vtsls",
 			"davidmh/cspell.nvim",
@@ -80,7 +79,6 @@ return {
 			local mason = require("mason")
 			local mason_lspconfig = require("mason-lspconfig")
 			local lspconfig = require("lspconfig")
-			local nlspsettings = require("nlspsettings")
 			local cspell = require('cspell')
 			local null_ls = require("null-ls")
 			local lps_inlayhints = require("lsp-inlayhints")
@@ -95,14 +93,6 @@ return {
 
 			-- lsp progress indicator
 			fidget.setup({})
-
-			nlspsettings.setup({
-				config_home = vim.fn.stdpath("config") .. "/nlsp-settings",
-				local_settings_dir = ".nlsp-settings",
-				local_settings_root_markers = { ".git" },
-				append_default_schemas = true,
-				loader = "json",
-			})
 
 			-- lsp_format.setup({})
 
@@ -693,6 +683,17 @@ return {
 							["language_server_psalm.enabled"] = false,
 						}
 					})
+				end,
+				["mdx_analyzer"] = function()
+					lspconfig.mdx_analyzer.setup({
+						capabilities = common_capabilities,
+						filetypes = { "markdown.mdx", "mdx" },
+						init_options = {
+							typescript = {
+								enabled = true,
+							}
+						}
+					})
 				end
 			})
 
@@ -706,6 +707,8 @@ return {
 					require("none-ls.formatting.eslint_d"),
 					null_ls.builtins.formatting.prettierd,
 					null_ls.builtins.diagnostics.commitlint,
+					null_ls.builtins.diagnostics.textlint,
+					null_ls.builtins.formatting.textlint,
 					null_ls.builtins.code_actions.gitsigns,
 				},
 			})

@@ -42,32 +42,32 @@ return {
 				filetype = "blade"
 			}
 
-			parser_config.ejs = {
-				install_info = {
-					url = "https://github.com/tree-sitter/tree-sitter-embedded-template",
-					files = { "src/parser.c" },
-					requires_generate_from_grammar = true,
-				},
-				filetype = "ejs",
-			}
+			-- parser_config.ejs = {
+			-- 	install_info = {
+			-- 		url = "https://github.com/tree-sitter/tree-sitter-embedded-template",
+			-- 		files = { "src/parser.c" },
+			-- 		requires_generate_from_grammar = true,
+			-- 	},
+			-- 	filetype = "ejs",
+			-- }
 
-			parser_config.eta = {
-				install_info = {
-					url = "https://github.com/tree-sitter/tree-sitter-embedded-template",
-					files = { "src/parser.c" },
-					requires_generate_from_grammar = true,
-				},
-				filetype = "eta",
-			}
+			-- parser_config.eta = {
+			-- 	install_info = {
+			-- 		url = "https://github.com/tree-sitter/tree-sitter-embedded-template",
+			-- 		files = { "src/parser.c" },
+			-- 		requires_generate_from_grammar = true,
+			-- 	},
+			-- 	filetype = "eta",
+			-- }
 
-			parser_config.github_actions = {
-				install_info = {
-					url = "https://github.com/rewinfrey/tree-sitter-github-action",
-					files = { "src/parser.c" },
-					-- requires_generate_from_grammar = true,
-				},
-				filetype = "yaml",
-			}
+			-- parser_config.github_actions = {
+			-- 	install_info = {
+			-- 		url = "https://github.com/rewinfrey/tree-sitter-github-action",
+			-- 		files = { "src/parser.c" },
+			-- 		-- requires_generate_from_grammar = true,
+			-- 	},
+			-- 	filetype = "yaml",
+			-- }
 
 			vim.api.nvim_create_augroup("BladeFiltypeRelated", {})
 

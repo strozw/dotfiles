@@ -191,3 +191,6 @@ bindkey '^_' fzf-ghq
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+
+# Created by `pipx` on 2024-10-09 02:53:47
+export PATH="$PATH:/Users/s_ohzawa/.local/bin"

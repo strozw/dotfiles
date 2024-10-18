@@ -62,5 +62,8 @@ symbol = " "
 
 [hostname]
 ssh_only = false
-format = "[$ssh_symbol](bold blue) on [$hostname](bold red) "
+format = "[$ssh_symbol](bold blue)[$hostname](bold red) "
 disabled = false
+
+# [time]
+# disabled = false

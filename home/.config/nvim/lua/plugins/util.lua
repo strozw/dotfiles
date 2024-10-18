@@ -72,5 +72,15 @@ return {
 		-- 	-- Run Hurl request in visual mode
 		-- 	{ "<leader>h",  ":HurlRunner<CR>",            desc = "Hurl Runner",             mode = "v" },
 		-- },
+	},
+
+	{
+		"notomo/waitevent.nvim",
+		config = function()
+			vim.env.GIT_EDITOR = require("waitevent").editor({
+				done_events = {},
+				cancel_events = {},
+			})
+		end
 	}
 }
