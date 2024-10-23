@@ -5,6 +5,21 @@ return {
 		lazy = false, -- This plugin is already lazy
 	},
 	{
+		'folke/lazydev.nvim',
+		ft = 'lua',
+		dependencies = {
+			{ 'justinsgithub/wezterm-types', lazy = true },
+			{ 'Bilal2453/luvit-meta',        lazy = true },
+		},
+		opts = {
+			library = {
+				"lazy.nvim",
+				{ path = 'luvit-meta/library', words = { 'vim%.uv' } },
+				{ path = 'wezterm-types',      mods = { 'wezterm' } },
+			},
+		},
+	},
+	{
 		"williamboman/mason.nvim",
 		dependencies = { "zapling/mason-conform.nvim", "williamboman/mason-lspconfig.nvim",
 			"neovim/nvim-lspconfig",
@@ -691,6 +706,7 @@ return {
 						init_options = {
 							typescript = {
 								enabled = true,
+								tsdk = "/opt/homebrew/lib/node_modules/typescript/lib",
 							}
 						}
 					})
