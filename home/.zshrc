@@ -194,3 +194,6 @@ bindkey '^_' fzf-ghq
 
 # Created by `pipx` on 2024-10-09 02:53:47
 export PATH="$PATH:/Users/s_ohzawa/.local/bin"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/bin/terraform terraform
