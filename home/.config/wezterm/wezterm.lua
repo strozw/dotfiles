@@ -1,8 +1,8 @@
 local wezterm = require("wezterm")
 
 return {
-	front_end = "WebGpu",
-	webgpu_power_preference = "HighPerformance",
+	-- front_end = "WebGpu",
+	-- webgpu_power_preference = "HighPerformance",
 
 	default_prog = { "/opt/homebrew/bin/zsh", "-l" },
 
@@ -41,7 +41,7 @@ return {
 		top = 0,
 		bottom = 0,
 	},
-	window_decorations = 'RESIZE | MACOS_FORCE_ENABLE_SHADOW',
+	window_decorations = "RESIZE | MACOS_FORCE_ENABLE_SHADOW",
 	window_frame = {
 		active_titlebar_bg = "#0f0f14",
 	},
@@ -53,12 +53,11 @@ return {
 		-- { key = "_", mods = "CTRL", action = "Nop" },
 		-- { key = "_", mods = "CTRL", action = "Nop" },
 		-- { key = "-", mods = "CTRL", action = "Nop" },
-		{ key = "_", mods = "CTRL",        action = wezterm.action.DisableDefaultAssignment },
-		{ key = "_", mods = "CTRL|SHIFT",  action = wezterm.action.DisableDefaultAssignment },
-		{ key = "@", mods = "CTRL",        action = wezterm.action.DisableDefaultAssignment },
+		{ key = "_", mods = "CTRL", action = wezterm.action.DisableDefaultAssignment },
+		{ key = "_", mods = "CTRL|SHIFT", action = wezterm.action.DisableDefaultAssignment },
+		{ key = "@", mods = "CTRL", action = wezterm.action.DisableDefaultAssignment },
 		-- Command + '='
-		{ key = '-', mods = 'SUPER|SHIFT', action = wezterm.action.IncreaseFontSize },
-
+		{ key = "-", mods = "SUPER|SHIFT", action = wezterm.action.IncreaseFontSize },
 	},
 	-- IME での補完中に `ctrl+H` などを可能にする
 	-- macos_forward_to_ime_modifier_mask = "SHIFT|CTRL",
