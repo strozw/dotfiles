@@ -3,7 +3,6 @@
 ######################################################
 # User PATH
 #######################################################
-
 typeset -U path PATH
 
 eval $(/opt/homebrew/bin/brew shellenv -f)
@@ -16,20 +15,32 @@ export PATH="$HOME/.serverless/bin:$PATH"
 
 export PATH="$HOME/Library/Python/2.7/bin:$PATH"
 
+#######################################################
+# direnv
+#######################################################
+
+eval "$(direnv hook zsh)"
+
+#######################################################
+# GO Lang
+#######################################################
+export GOPATH=$HOME/go
+export PATH=${GOPATH}/bin:${PATH}
+export GOENV_DISABLE_GOPATH=1
+
 # rust
 if [ -e "$HOME/.cargo/env" ]; then
 	. "$HOME/.cargo/env"
 fi
 
-# ruby
-export RUBY_CONFIGURE_OPTS="--with-openssl-dir=/usr/local/opt/openssl@1.1"
-export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
-export LDFLAGS="-L/opt/homebrew/opt/ruby/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
-export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
-
+#######################################################
 # mocword
+#######################################################
 export MOCWORD_DATA="$HOME/.config/mocword/mocword.sqlite"
+
+#######################################################
+# FPATH
+#######################################################
 
 export FPATH=~/.config/zsh/completions:$FPATH
 
@@ -45,18 +56,9 @@ if type brew &>/dev/null; then
 fi
 
 #######################################################
-# mise | asdf
+# Ruby Build
 #######################################################
-
-# mise を利用する場合
-eval "$(mise activate zsh)"
-export PATH="$HOME/.local/share/mise/shims:$PATH"
-
-# adf を利用する場合
-# . $(brew --prefix asdf)/libexec/asdf.sh
-# . ~/.asdf/plugins/java/set-java-home.zsh
-
-# for ruby build
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export RUBY_CFLAGS="-w"
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 export LDFLAGS="-L/opt/homebrew/opt/readline/lib"
@@ -67,6 +69,36 @@ export LDFLAGS="-L/opt/homebrew/opt/libffi/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/libffi/include"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/libffi/lib/pkgconfig"
 
+#######################################################
+# Runtime Manager
+#######################################################
+
+export RUNTIME_MANAGER_TYPE=${RUNTIME_MANAGER_TYPE:-"mise"}
+
+case "$RUNTIME_MANAGER_TYPE" in
+  "anyenv")
+    echo "Activating anyenv..."
+    export ANY_ENV_HOME=$HOME/.anyenv
+    export PATH=$PATH:$ANY_ENV_HOME/bin
+    eval "$(anyenv init -)"
+    ;;
+  "mise")
+    echo "Activating mise..."
+    eval "$(mise activate zsh)"
+    export PATH="$HOME/.local/share/mise/shims:$PATH"
+    ;;
+esac
+
+# 環境変数を変更した際に切り替えを呼び出す
+function switch_runtime_manager() {
+  export RUNTIME_MANAGER_TYPE="$1"
+  exec zsh -l
+}
+
+#######################################################
+# pnpm
+#######################################################
+
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
@@ -74,12 +106,6 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
-
-#######################################################
-# direnv
-#######################################################
-
-eval "$(direnv hook zsh)"
 
 #######################################################
 # alias

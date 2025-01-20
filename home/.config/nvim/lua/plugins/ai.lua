@@ -1,33 +1,18 @@
-local is_enabled = function()
-  return require("utils").is_ai_enabled()
-end
-
 return {
   {
     "zbirenbaum/copilot.lua",
-    opts = {
-      filetypes = {
+    opts = function(_, opts)
+      opts.filetypes = opts.filetypes or {}
+
+      local is_enabled = require("utils").is_ai_enabled()
+
+      opts.filetypes = vim.tbl_extend("force", opts.filetypes, {
         markdown = is_enabled,
-        help = is_enabled,
+        help = false,
         ["."] = is_enabled,
         ["*"] = is_enabled,
-      },
-    },
-    -- opts = function(_, opts)
-    --   opts.filetypes = opts.filetypes or {}
-    --
-    --   -- local enable = require("utils").is_ai_enabled()
-    --   local enable = false
-    --
-    --   vim.tbl_extend("force", opts.filetypes, {
-    --     markdown = enable,
-    --     help = enable,
-    --     ["."] = enable,
-    --     ["*"] = enable,
-    --   })
-    --
-    --   return opts
-    -- end,
+      })
+    end,
   },
   {
     "olimorris/codecompanion.nvim",
