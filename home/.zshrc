@@ -75,6 +75,9 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/libffi/lib/pkgconfig"
 
 export RUNTIME_MANAGER_TYPE=${RUNTIME_MANAGER_TYPE:-"mise"}
 
+eval "$(mise activate zsh)"
+export PATH="$HOME/.local/share/mise/shims:$PATH"
+
 case "$RUNTIME_MANAGER_TYPE" in
   "anyenv")
     echo "Activating anyenv..."
@@ -83,9 +86,6 @@ case "$RUNTIME_MANAGER_TYPE" in
     eval "$(anyenv init -)"
     ;;
   "mise")
-    echo "Activating mise..."
-    eval "$(mise activate zsh)"
-    export PATH="$HOME/.local/share/mise/shims:$PATH"
     ;;
 esac
 
@@ -171,7 +171,7 @@ fi
 #######################################################
 
 # emacs mode
-# If bindkey is undefined and EDITOR enviroment is vim in zshrc or zprofile, key binding seems to be in vim mode in child process zsh.
+# If bindkey is undefined and EDITOR environment is vim in zshrc or zprofile, key binding seems to be in vim mode in child process zsh.
 # ref: https://web-salad.hateblo.jp/entry/2014/12/07/090000
 bindkey -e
 

@@ -5,3 +5,5 @@
 vim.g.lazyvim_prettier_needs_config = true
 vim.g.ai = false
 -- vim.g.lazyvim_php_lsp = "intelephense"
+
+vim.opt.relativenumber = false

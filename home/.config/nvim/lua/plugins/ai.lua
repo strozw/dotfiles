@@ -1,16 +1,17 @@
 return {
   {
+    enabled = is_ai_enabled,
     "zbirenbaum/copilot.lua",
     opts = function(_, opts)
       opts.filetypes = opts.filetypes or {}
 
-      local is_enabled = require("utils").is_ai_enabled()
+      local is_ai_enabled = require("utils").is_ai_enabled()
 
       opts.filetypes = vim.tbl_extend("force", opts.filetypes, {
-        markdown = is_enabled,
+        markdown = is_ai_enabled,
         help = false,
-        ["."] = is_enabled,
-        ["*"] = is_enabled,
+        ["."] = is_ai_enabled,
+        ["*"] = is_ai_enabled,
       })
     end,
   },
@@ -24,22 +25,20 @@ return {
       { "MeanderingProgrammer/render-markdown.nvim", ft = { "markdown", "codecompanion" } }, -- Optional: For prettier markdown rendering
       { "stevearc/dressing.nvim", opts = {} }, -- Optional: Improves `vim.ui.select`
     },
-    config = true,
-    opts = {
-      opts = {
-        language = "Japanease",
-      },
-      strategies = {
-        chat = {
-          adapter = "copilot",
+    config = function()
+      require("codecompanion").setup({
+        opts = {
+          language = "Japanease",
         },
-        inline = {
-          adapter = "copilot",
+        strategies = {
+          chat = {
+            adapter = "copilot",
+          },
+          inline = {
+            adapter = "copilot",
+          },
         },
-        agent = {
-          adapter = "copilot",
-        },
-      },
-    },
+      })
+    end,
   },
 }
