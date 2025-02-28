@@ -31,11 +31,18 @@ return {
               },
               preferences = {
                 includePackageJsonAutoImports = "off",
+                importModuleSpecifierEnding = "off",
               },
               workspaceSymbols = {
                 excludeLibrarySymbols = true,
                 -- scope = "currentProject"
               },
+            },
+          },
+          javascript = {
+            preferences = {
+              includePackageJsonAutoImports = "off",
+              importModuleSpecifierEnding = "minimal",
             },
           },
         },
