@@ -20,7 +20,6 @@
     "lazyvim.plugins.extras.editor.overseer",
     "lazyvim.plugins.extras.editor.refactoring",
     "lazyvim.plugins.extras.editor.telescope",
-    "lazyvim.plugins.extras.formatting.prettier",
     "lazyvim.plugins.extras.lang.angular",
     "lazyvim.plugins.extras.lang.astro",
     "lazyvim.plugins.extras.lang.docker",

@@ -20,4 +20,8 @@ return {
       { "<c-l>", "<c-\\><C-n>:TmuxNavigateRight<cr>", mode = "t" },
     },
   },
+  -- {
+  --   "aserowy/tmux.nvim",
+  --   opts = {},
+  -- },
 }

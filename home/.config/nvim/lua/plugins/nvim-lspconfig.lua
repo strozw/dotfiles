@@ -38,11 +38,11 @@ return {
                 -- scope = "currentProject"
               },
             },
-          },
-          javascript = {
-            preferences = {
-              includePackageJsonAutoImports = "off",
-              importModuleSpecifierEnding = "minimal",
+            javascript = {
+              preferences = {
+                includePackageJsonAutoImports = "off",
+                importModuleSpecifierEnding = "minimal",
+              },
             },
           },
         },
