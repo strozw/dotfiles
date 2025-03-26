@@ -1,3 +1,5 @@
+---@module "bufferline"
+
 return {
   {
     "akinsho/bufferline.nvim",
@@ -26,6 +28,7 @@ return {
         desc = "[B]uffer Line Cycle [P]rev",
       },
     },
+    ---@type bufferline.UserConfig
     opts = {},
   },
 }

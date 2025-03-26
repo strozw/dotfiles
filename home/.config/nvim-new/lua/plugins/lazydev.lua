@@ -1,7 +1,10 @@
+---@module "lazydev"
+
 return {
   {
     "folke/lazydev.nvim",
     ft = "lua", -- only load on lua files
+    ---@type lazydev.Config
     opts = {
       library = {
         -- See the configuration section for more details

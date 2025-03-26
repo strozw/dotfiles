@@ -1,6 +1,10 @@
+---@module "gitsigns"
+
 return {
   {
     "lewis6991/gitsigns.nvim",
+    ---@type Gitsigns.Config
+    ---@diagnostic disable: missing-fields
     opts = {
       on_attach = function(bufnr)
         local gitsigns = require("gitsigns")

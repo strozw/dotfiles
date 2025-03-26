@@ -2,7 +2,7 @@ return {
   {
     "folke/tokyonight.nvim",
     dependencies = {
-      { "nvim-telescope/telescope.nvim" },
+      { "mvllow/modes.nvim" },
     },
     lazy = false,
     priority = 1000,
@@ -10,7 +10,8 @@ return {
     config = function()
       require("tokyonight").setup({
         on_highlights = function(hl, c)
-          local prompt = "#2d3149"
+          -- local prompt = "#2d3149"
+          local prompt = c.bg_dark
           local bg_float2 = c.bg_dark
           local bg_float3 = c.bg_dark
 
@@ -41,6 +42,33 @@ return {
           hl.SnacksPickerInputBorder = { fg = prompt, bg = prompt }
           hl.SnacksPickerPreview = { fg = c.fg, bg = bg_float3 }
           hl.SnacksPickerPreviewBorder = { fg = bg_float3, bg = bg_float3 }
+
+          require("modes").setup({
+            colors = {
+              bg = "", -- Optional bg param, defaults to Normal hl group
+              copy = c.yellow,
+              delete = c.red,
+              insert = c.blue,
+              visual = c.magenta,
+            },
+
+            -- Set opacity for cursorline and number background
+            line_opacity = 0.3,
+
+            -- Enable cursor highlights
+            set_cursor = true,
+
+            -- Enable cursorline initially, and disable cursorline for inactive windows
+            -- or ignored filetypes
+            set_cursorline = true,
+
+            -- Enable line number highlights to match cursorline
+            set_number = true,
+
+            -- Disable modes highlights in specified filetypes
+            -- Please PR commonly ignored filetypes
+            ignore_filetypes = { "NvimTree", "TelescopePrompt", "snacks_picker_list" },
+          })
         end,
       })
     end,

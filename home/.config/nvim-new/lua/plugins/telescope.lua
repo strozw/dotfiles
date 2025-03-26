@@ -26,11 +26,11 @@ return {
     },
     keys = {
       -- Basic debugging keymaps, feel free to change to your liking!
-      {
-        "<leader>ff",
-        ":Telescope find_files<CR>",
-        desc = "Debug: Start/Continue",
-      },
+      -- {
+      --   "<leader>ff",
+      --   ":Telescope find_files<CR>",
+      --   desc = "Debug: Start/Continue",
+      -- },
     },
     config = function()
       -- [[ Configure Telescope ]]

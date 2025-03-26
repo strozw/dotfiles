@@ -12,7 +12,12 @@ export LANG=ja_JP.UTF-8
 export SHELL=/opt/homebrew/bin/zsh
 
 export VISUAL=${VISUAL:=nvim}
+
 export EDITOR=${EDITOR:=nvim}
 
+export NVIM_APPNAME=nvim-new
+
+export CHROMA_SERVER_NOFILE=65535
 
 . "$HOME/.cargo/env"
+

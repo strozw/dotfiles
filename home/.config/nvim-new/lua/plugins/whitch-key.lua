@@ -4,6 +4,7 @@ return {
     priority = 1,
     event = "VimEnter",
     opts = {
+      preset = "modern",
       delay = 300,
       icons = {
         -- set icon mappings to true if you have a Nerd Font
@@ -51,6 +52,11 @@ return {
         { "<leader>w", group = "[W]orkspace" },
         { "<leader>t", group = "[T]oggle" },
         { "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
+        {
+          "<Esc><Esc>",
+          ":noh<CR>",
+          desc = "Buffer Local Keymaps (which-key)",
+        },
       },
     },
     keys = {

@@ -45,4 +45,3 @@
 # for local config
 [include]
 	path = ~/.gitconfig.local
-

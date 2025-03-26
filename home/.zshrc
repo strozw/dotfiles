@@ -39,6 +39,11 @@ fi
 export MOCWORD_DATA="$HOME/.config/mocword/mocword.sqlite"
 
 #######################################################
+# chromadb
+#######################################################
+# export CHROMA_SERVER_NOFILE=524288
+
+#######################################################
 # FPATH
 #######################################################
 
@@ -84,6 +89,9 @@ case "$RUNTIME_MANAGER_TYPE" in
     export ANY_ENV_HOME=$HOME/.anyenv
     export PATH=$PATH:$ANY_ENV_HOME/bin
     eval "$(anyenv init -)"
+    ;;
+  "asdf")
+    export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
     ;;
   "mise")
     ;;
@@ -174,6 +182,12 @@ fi
 # If bindkey is undefined and EDITOR environment is vim in zshrc or zprofile, key binding seems to be in vim mode in child process zsh.
 # ref: https://web-salad.hateblo.jp/entry/2014/12/07/090000
 bindkey -e
+
+#######################################################
+# television (tv)
+#######################################################
+
+eval "$(tv init zsh)"
 
 #######################################################
 # fzf

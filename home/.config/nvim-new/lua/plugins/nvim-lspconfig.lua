@@ -1,3 +1,5 @@
+---@module "lspconfig"
+
 return {
   {
     "neovim/nvim-lspconfig",
@@ -5,7 +7,13 @@ return {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      { "williamboman/mason.nvim", opts = {} },
+      {
+        "williamboman/mason.nvim",
+        opts = {
+          "file:~/ghq/github.com/strozw/my-mason-registry",
+          "github:mason-org/mason-registry",
+        },
+      },
       "williamboman/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
 
@@ -14,6 +22,8 @@ return {
 
       -- Allows extra capabilities provided by nvim-cmp
       "hrsh7th/cmp-nvim-lsp",
+      "b0o/schemastore.nvim",
+      "yioneko/nvim-vtsls",
     },
     config = function()
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -132,6 +142,8 @@ return {
 
       local lspconfig_util = require("lspconfig.util")
 
+      ---@type table<string, lspconfig.Config>
+      --- @diagnostic disable: missing-fields
       local servers = {
         lua_ls = {
           settings = {
@@ -154,11 +166,21 @@ return {
                   entriesLimit = 50,
                 },
               },
+              tsserver = {
+                globalPlugins = {
+                  -- {
+                  --   name = "@css-modules-kit/ts-plugin",
+                  --   location = vim.fn.stdpath("data") .. "/mason/packages/typescript-plugin_css-modules-kit",
+                  --   languages = { "css" },
+                  -- },
+                },
+              },
             },
             typescript = {
               tsserver = {
                 maxTsServerMemory = 20480,
                 enableProjectDiagnostics = true,
+                pluginPaths = { "./node_modules" },
               },
               inlayHints = {
                 enumMemberValues = { enabled = false },
@@ -185,6 +207,8 @@ return {
             },
           },
         },
+
+        stylelint_lsp = {},
 
         biome = {
           root_dir = lspconfig_util.root_pattern("biome.json", "biome.jsonc"),
@@ -257,17 +281,36 @@ return {
           },
         },
 
-        jsonls = {
-          init_options = {
-            provideFormatter = false,
+        yamlls = {
+          settings = {
+            yaml = {
+              schemaStore = {
+                -- You must disable built-in schemaStore support if you want to use
+                -- this plugin and its advanced options like `ignore`.
+                enable = false,
+                -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+                url = "",
+              },
+              schemas = require("schemastore").yaml.schemas(),
+            },
           },
         },
 
-        yamlls = {
-          init_options = {
-            provideFormatter = false,
+        jsonls = {
+          settings = {
+            json = {
+              schemas = require("schemastore").json.schemas(),
+              validate = { enable = true },
+            },
           },
+          filetypes = { "json", "jsonc", "json5" },
         },
+
+        -- cssmodules_ls = {},
+
+        -- cssls = {},
+
+        -- css_variables = {},
 
         html = {
           init_options = {
@@ -294,6 +337,8 @@ return {
         gopls = {},
 
         rust_analyzer = {},
+
+        typos_lsp = {},
       }
 
       local ensure_installed = vim.tbl_keys(servers or {})
@@ -310,7 +355,9 @@ return {
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
+
             server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+
             require("lspconfig")[server_name].setup(server)
           end,
         },

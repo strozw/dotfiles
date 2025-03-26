@@ -8,7 +8,7 @@ return {
     ---@type snacks.Config
     opts = {
       bigfile = { enabled = true },
-      dashboard = { enabled = false },
+      dashboard = { enabled = true },
       explorer = {
         enabled = true,
       },
@@ -49,6 +49,7 @@ return {
         sources = {
           explorer = {
             hidden = true,
+            ignored = true,
           },
         },
       },
@@ -152,7 +153,9 @@ return {
       {
         "<leader>ff",
         function()
-          Snacks.picker.files()
+          Snacks.picker.files({
+            hidden = true,
+          })
         end,
         desc = "Find Files",
       },

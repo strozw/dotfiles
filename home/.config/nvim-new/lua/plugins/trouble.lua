@@ -1,7 +1,14 @@
+---@module "trouble"
+
 return {
   {
     "folke/trouble.nvim",
-    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    -- for default options, refer to the configuration section for custom setup.
+    ---@type trouble.Config
+    ---@diagnostic disable: missing-fields
+    opts = {
+      auto_open = false,
+    },
     cmd = "Trouble",
     keys = {
       {
