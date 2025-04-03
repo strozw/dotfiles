@@ -1,7 +1,7 @@
 return {
   {
     "Davidyz/VectorCode",
-    enabled = true,
+    enabled = false,
     version = "*", -- optional, depending on whether you're on nightly or release
     build = "pipx upgrade vectorcode",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -18,7 +18,7 @@ return {
           query_cb = require("vectorcode.utils").make_surrounding_lines_cb(-1),
           run_on_register = false,
         },
-        async_backend = "default", -- or "lsp"
+        async_backend = "lsp",
         exclude_this = true,
         n_query = 1,
         notify = true,

@@ -2,7 +2,7 @@
 
 return {
   {
-    "zfirenbaum/copilot.lua",
+    "zbirenbaum/copilot.lua",
     ---@type copilot_config
     opts = {
       filetypes = {

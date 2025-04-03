@@ -1,58 +1,68 @@
+---@module "codecompanion"
+
 return {
   {
     "olimorris/codecompanion.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
-      "Davidyz/VectorCode",
+      -- "Davidyz/VectorCode",
+      "ravitemer/mcphub.nvim",
+    },
+    keys = {
       {
-        "ravitemer/mcphub.nvim",
-        dependencies = {
-          "nvim-lua/plenary.nvim", -- Required for Job and HTTP requests
-        },
-        build = "npm install -g mcp-hub@latest", -- Installs required mcp-hub npm module
-        config = function()
-          require("mcphub").setup({
-            -- Required options
-            port = 9999, -- Port for MCP Hub server
-
-            config = vim.fn.expand("~/mcpservers.json"), -- Absolute path to config file
-
-            -- Optional options
-            on_ready = function(hub)
-              -- Called when hub is ready
-            end,
-
-            on_error = function(err)
-              -- Called on errors
-            end,
-
-            shutdown_delay = 0, -- Wait 0ms before shutting down server after last client exits
-
-            log = {
-              level = vim.log.levels.WARN,
-              to_file = false,
-              file_path = nil,
-              prefix = "MCPHub",
-            },
-          })
-        end,
+        "<Space>ai",
+        ":CodeCompanion<CR>",
+        mode = { "n", "v" },
+        silent = true,
+      },
+      {
+        "<Space>ac",
+        ":CodeCompanionChat<CR>",
+        mode = { "n", "v" },
+        silent = true,
+      },
+      {
+        "<Space>aa",
+        ":CodeCompanionAction<CR>",
+        mode = { "n", "v" },
+        silent = true,
       },
     },
     config = function()
       require("codecompanion").setup({
+        adapters = {
+          copilot_sonnet = function()
+            return require("codecompanion.adapters").extend("copilot", {
+              schema = {
+                model = {
+                  default = "claude-3.7-sonnet",
+                },
+              },
+            })
+          end,
+
+          copilot_sonnet_thought = function()
+            return require("codecompanion.adapters").extend("copilot", {
+              schema = {
+                model = {
+                  default = "claude-3.7-sonnet-thought",
+                },
+              },
+            })
+          end,
+        },
         strategies = {
-          -- Change the default chat adapter
           chat = {
-            adapter = "copilot",
+            adapter = "copilot_sonnet",
             slash_commands = {
-              codebase = require("vectorcode.integrations").codecompanion.chat.make_slash_command(),
+              -- codebase = require("vectorcode.integrations").codecompanion.chat.make_slash_command(),
             },
             tools = {
-              vectorcode = {
-                description = "Run VectorCode to retrieve the project context.",
-                callback = require("vectorcode.integrations").codecompanion.chat.make_tool(),
-              },
+              -- vectorcode = {
+              --   description = "Run VectorCode to retrieve the project context.",
+              --   callback = require("vectorcode.integrations").codecompanion.chat.make_tool(),
+              -- },
               mcp = {
                 callback = require("mcphub.extensions.codecompanion"),
                 description = "Call tools and resources from the MCP Servers",
@@ -62,14 +72,27 @@ return {
                 },
               },
             },
+            roles = {
+              llm = function(adapter)
+                return "  CodeCompanion (" .. adapter.formatted_name .. ")"
+              end,
+              user = "  Me",
+            },
           },
           inline = {
-            adapter = "copilot",
+            adapter = "copilot_sonnet",
           },
         },
         opts = {
+          language = "japanese",
           -- Set debug logging
           log_level = "DEBUG",
+        },
+        display = {
+          chat = {
+            auto_scroll = false,
+            show_header_separator = true,
+          },
         },
       })
     end,

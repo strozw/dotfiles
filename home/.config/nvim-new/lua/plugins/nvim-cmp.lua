@@ -40,7 +40,12 @@ return {
       "milanglacier/minuet-ai.nvim",
       {
         "zbirenbaum/copilot-cmp",
-        opts = {},
+        dependencies = {
+          "zbirenbaum/copilot.lua",
+        },
+        config = function()
+          require("copilot_cmp").setup()
+        end,
       },
     },
     config = function()
@@ -63,26 +68,10 @@ return {
           end,
         },
 
-        sorting = {
-          priority_weight = 2,
-          comparators = {
-            require("copilot_cmp.comparators").prioritize,
-
-            -- Below is the default comparator list and order for nvim-cmp
-            cmp.config.compare.offset,
-            -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
-            cmp.config.compare.exact,
-            cmp.config.compare.score,
-            cmp.config.compare.recently_used,
-            cmp.config.compare.locality,
-            cmp.config.compare.kind,
-            cmp.config.compare.sort_text,
-            cmp.config.compare.length,
-            cmp.config.compare.order,
-          },
-        },
-
         formatting = {
+          fields = { "menu", "abbr", "kind" },
+          expandable_indicator = true,
+
           format = lspkind.cmp_format({
             mode = "symbol", -- show only symbol annotations
             menu = {
@@ -93,13 +82,18 @@ return {
               nvim_lua = "[Lua]",
               latex_symbols = "[Latex]",
               minuet = "[Minuet]",
+              copilot = "[Copilot]",
+              path = "[Path]",
+              nvim_lsp_signature_help = "[]",
             },
             maxwidth = {
               -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
               -- can also be a function to dynamically calculate max width such as
-              -- menu = function() return math.floor(0.45 * vim.o.columns) end,
+              menu = function()
+                return math.floor(0.45 * vim.o.columns)
+              end,
               -- menu = 50, -- leading text (labelDetails)
-              -- abbr = 50, -- actual suggestion item
+              abbr = 50, -- actual suggestion item
             },
             ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
             show_labelDetails = true, -- show labelDetails in menu. Disabled by default
@@ -116,29 +110,31 @@ return {
         completion = { completeopt = "menu,menuone,noinsert" },
 
         sources = {
-          -- Copilot Source
+          { name = "copilot" },
+          { name = "nvim_lsp" },
           {
             name = "lazydev",
             -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
             group_index = 0,
           },
-          { name = "nvim_lsp" },
-          { name = "copilot", group_index = 2 },
-          { name = "minuet" },
+          { name = "minuet", option = {} },
           { name = "luasnip" },
           { name = "path" },
-          { name = "nvim_lsp_signature_help" },
           {
             name = "buffer",
             option = {
               keyword_length = 2,
             },
           },
+          {
+            name = "nvim_lsp_signature_help",
+            group_index = 999,
+          },
         },
 
+        ---@diagnostic disable-next-line: missing-fields
         performance = {
-          -- for minuet
-          -- fetching_timeout = 2000,
+          fetching_timeout = 2000,
         },
 
         -- experimental = {

@@ -5,7 +5,7 @@ return {
       "nvim-tree/nvim-web-devicons",
       "stevearc/overseer.nvim",
       "milanglacier/minuet-ai.nvim",
-      "Davidyz/VectorCode",
+      -- "Davidyz/VectorCode",
       "leisurelicht/lualine-copilot.nvim",
     },
     config = function()
@@ -17,12 +17,12 @@ return {
         sections = {
           lualine_a = { "mode" },
           lualine_b = { "branch", "diff", "diagnostics" },
-          lualine_c = { "filename" },
+          lualine_c = { "filename", require("lualine/codecompanion-component") },
           lualine_x = { "encoding", "fileformat", "filetype", "overseer", "copilot", require("minuet.lualine") },
-          lualine_y = {
-            "progress",
-            require("vectorcode.integrations").lualine(),
-          },
+          -- lualine_y = {
+          --   "progress",
+          --   require("vectorcode.integrations").lualine(),
+          -- },
           lualine_z = { "location" },
         },
       })

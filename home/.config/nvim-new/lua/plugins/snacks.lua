@@ -446,14 +446,14 @@ return {
         desc = "Goto T[y]pe Definition",
       },
       {
-        "<leader>ss",
+        "<leader>cs",
         function()
           Snacks.picker.lsp_symbols()
         end,
         desc = "LSP Symbols",
       },
       {
-        "<leader>sS",
+        "<leader>cS",
         function()
           Snacks.picker.lsp_workspace_symbols()
         end,

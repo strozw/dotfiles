@@ -4,43 +4,58 @@
 	st = status -bs
   glc = !git log --graph --abbrev-commit --decorate --name-status --first-parent
   cb = !sh -c 'git branch --all | fzf | xargs | sed "s/*//" | (read b && git checkout $b)'
-  mkpr = !sh -c 'git commit --allow-empty -m \"$1\" && git push -u origin HEAD && hub pull-request --draft'
-[browser "chrome"]
-    cmd = open -a 'Google Chrome.app'
+
 [color]
   ui = auto
+
 [color "status"]
   added = yellow
   changed = green
   untracked = cyan
+
 [commit]
 	verbose = true
 	gpgsign = true
+
 [core]
 	excludesfile = ~/.gitignore_global
   attributesfile = ~/.gitattributes_global
+  pager = delta
+
+[delta]
+  navigate = true  # use n and N to move between diff sections
+  dark = true      # or light = true, or omit for auto-detection
+  side-by-side = true
+
 [difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	cmd = opendiff $LOCAL $REMOTE
+  path = 
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
 [init]
 	defaultBranch = main
+
+[interactive]
+  diffFilter = delta --color-only
+
 [merge]
 	ff = false
-	conflictStyle = diff3
+  conflictstyle = zdiff3
+
 [pull]
 	ff = only
+
 [tag]
 	gpgsign = true
+
 [user]
 	name = strozw
 	email = strozw@users.noreply.github.com
-[web]
-    browser = open
 
 # for local config
 [include]

@@ -81,7 +81,7 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/libffi/lib/pkgconfig"
 export RUNTIME_MANAGER_TYPE=${RUNTIME_MANAGER_TYPE:-"mise"}
 
 eval "$(mise activate zsh)"
-export PATH="$HOME/.local/share/mise/shims:$PATH"
+# export PATH="$HOME/.local/share/mise/shims:$PATH"
 
 case "$RUNTIME_MANAGER_TYPE" in
   "anyenv")
@@ -164,7 +164,7 @@ eval "$(sheldon source)"
 # atuin
 #######################################################
 
-eval "$(atuin init zsh --disable-up-arrow)"
+# eval "$(atuin init zsh --disable-up-arrow)"
 
 #######################################################
 # wezterm
@@ -204,25 +204,25 @@ export FZF_DEFAULT_OPTS='
 
 # fzf z
 function fzf-z () {
-    local selected_dir=$(z -t | sort -nr | awk '{ print $2 }' | fzf)
-    if [ -n "$selected_dir" ]; then
-			cd ${selected_dir}
-			zle accept-line
-    	zle clear-screen
-    fi
+  local selected_dir=$(z -t | sort -nr | awk '{ print $2 }' | tv)
+  if [ -n "$selected_dir" ]; then
+    cd ${selected_dir}
+    zle accept-line
+    zle clear-screen
+  fi
 }
 zle -N fzf-z
 bindkey '^@' fzf-z
 
 # ghq
 function fzf-ghq () {
-	local selected_dir=$(ghq list -p | fzf)
+  local selected_dir=$(ghq list -p | fzf)
 
-	if [ -n "$selected_dir" ]; then
-		cd ${selected_dir}
-		zle accept-line
-		zle clear-screen
-	fi
+  if [ -n "$selected_dir" ]; then
+    cd ${selected_dir}
+    zle accept-line
+    zle clear-screen
+  fi
 }
 zle -N fzf-ghq
 bindkey '^_' fzf-ghq
