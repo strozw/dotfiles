@@ -32,6 +32,16 @@ return {
     config = function()
       require("codecompanion").setup({
         adapters = {
+          copilot_sonnet35 = function()
+            return require("codecompanion.adapters").extend("copilot", {
+              schema = {
+                model = {
+                  default = "claude-3.5-sonnet",
+                },
+              },
+            })
+          end,
+
           copilot_sonnet = function()
             return require("codecompanion.adapters").extend("copilot", {
               schema = {
@@ -51,10 +61,20 @@ return {
               },
             })
           end,
+
+          copilot_gemini = function()
+            return require("codecompanion.adapters").extend("copilot", {
+              schema = {
+                model = {
+                  default = "gemini-2.0-flash-001",
+                },
+              },
+            })
+          end,
         },
         strategies = {
           chat = {
-            adapter = "copilot_sonnet",
+            adapter = "copilot",
             slash_commands = {
               -- codebase = require("vectorcode.integrations").codecompanion.chat.make_slash_command(),
             },
@@ -80,7 +100,7 @@ return {
             },
           },
           inline = {
-            adapter = "copilot_sonnet",
+            adapter = "copilot",
           },
         },
         opts = {
