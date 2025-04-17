@@ -1,2 +1,5 @@
 [tools]
 node = "22"
+
+[env]
+NODE_ENV = ""

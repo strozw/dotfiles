@@ -71,6 +71,16 @@ return {
               },
             })
           end,
+
+          copilot_gpt_4_1 = function()
+            return require("codecompanion.adapters").extend("copilot", {
+              schema = {
+                model = {
+                  default = "gpt-4.1",
+                },
+              },
+            })
+          end,
         },
         strategies = {
           chat = {
@@ -105,7 +115,6 @@ return {
         },
         opts = {
           language = "japanese",
-          -- Set debug logging
           log_level = "DEBUG",
         },
         display = {

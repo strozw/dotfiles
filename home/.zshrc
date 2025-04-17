@@ -81,7 +81,7 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/libffi/lib/pkgconfig"
 export RUNTIME_MANAGER_TYPE=${RUNTIME_MANAGER_TYPE:-"mise"}
 
 eval "$(mise activate zsh)"
-# export PATH="$HOME/.local/share/mise/shims:$PATH"
+export PATH="$HOME/.local/share/mise/shims:$PATH"
 
 case "$RUNTIME_MANAGER_TYPE" in
   "anyenv")
