@@ -187,6 +187,8 @@ return {
           },
         },
 
+        eslint = {},
+
         stylelint_lsp = {},
 
         biome = {

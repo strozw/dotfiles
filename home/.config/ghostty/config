@@ -1,4 +1,4 @@
-jdshell-integration = zsh
+shell-integration = zsh
 shell-integration-features = no-cursor
 
 theme = tokyonight
