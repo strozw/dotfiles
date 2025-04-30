@@ -4,6 +4,36 @@
             "complex_modifications": {
                 "rules": [
                     {
+                        "description": "Change ¥ to Alt+¥",
+                        "enabled": false,
+                        "manipulators": [
+                            {
+                                "from": { "key_code": "international3" },
+                                "to": [
+                                    {
+                                        "key_code": "international3",
+                                        "modifiers": ["option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Change Alt+¥ to ¥",
+                        "enabled": false,
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "international3",
+                                    "modifiers": { "mandatory": ["option"] }
+                                },
+                                "to": [{ "key_code": "international3" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Map fn + number keys to their corresponding media control keys (rev 2)",
                         "manipulators": [
                             {

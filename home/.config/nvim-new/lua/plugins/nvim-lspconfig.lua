@@ -137,6 +137,8 @@ return {
         },
 
         vtsls = {
+          root_markers = { 'tsconfig.json', 'package.json', 'jsconfig.json' },
+          workspace_required = true,
           settings = {
             vtsls = {
               experimental = {
@@ -185,6 +187,11 @@ return {
               },
             },
           },
+        },
+
+        denols = {
+          root_markers = { 'deno.json', 'deno.jsonc' },
+          workspace_required = true,
         },
 
         eslint = {},
@@ -284,7 +291,7 @@ return {
               validate = { enable = true },
             },
           },
-          filetypes = { "json", "jsonc", "json5" },
+          filetypes = { "json" },
         },
 
         -- cssmodules_ls = {},
