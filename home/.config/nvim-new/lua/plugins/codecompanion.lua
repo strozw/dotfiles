@@ -31,6 +31,19 @@ return {
     },
     config = function()
       require("codecompanion").setup({
+        extensions = {
+          mcphub = {
+            callback = "mcphub.extensions.codecompanion",
+            opts = {
+              make_vars = true,
+              make_slash_commands = true,
+              show_result_in_chat = true,
+            },
+          },
+          -- vectorcode = {
+          --   opts = { add_tool = true, add_slash_command = true, tool_opts = {} },
+          -- },
+        },
         adapters = {
           copilot_sonnet35 = function()
             return require("codecompanion.adapters").extend("copilot", {
@@ -85,23 +98,6 @@ return {
         strategies = {
           chat = {
             adapter = "copilot",
-            slash_commands = {
-              -- codebase = require("vectorcode.integrations").codecompanion.chat.make_slash_command(),
-            },
-            tools = {
-              -- vectorcode = {
-              --   description = "Run VectorCode to retrieve the project context.",
-              --   callback = require("vectorcode.integrations").codecompanion.chat.make_tool(),
-              -- },
-              mcp = {
-                callback = require("mcphub.extensions.codecompanion"),
-                description = "Call tools and resources from the MCP Servers",
-                opts = {
-                  -- user_approval = true,
-                  requires_approval = true,
-                },
-              },
-            },
             roles = {
               llm = function(adapter)
                 return "  CodeCompanion (" .. adapter.formatted_name .. ")"

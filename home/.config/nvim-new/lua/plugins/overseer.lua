@@ -1,8 +1,5 @@
----@module "lazy"
-
----@type LazySpec[]
+---@type LazySpec
 return {
-  {
-    "stevearc/overseer.nvim",
-  },
+  "stevearc/overseer.nvim",
+  opts = {}
 }

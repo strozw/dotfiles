@@ -49,6 +49,10 @@ return {
 
           map("<leader>ch", vim.lsp.buf.code_action, "[C]ode signature [H]elp", { "n", "x" })
 
+          map("D", function()
+            vim.diagnostic.open_float()
+          end, "show [D]iagnostic", { "n" })
+
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
           --    See `:help CursorHold` for information about when this is executed
@@ -94,8 +98,10 @@ return {
       -- See :help vim.diagnostic.Opts
       vim.diagnostic.config({
         severity_sort = true,
-        -- float = { border = "rounded", source = "if_many" },
-        -- underline = { severity = vim.diagnostic.severity.ERROR },
+
+        float = { border = "rounded", source = "if_many" },
+        underline = { severity = vim.diagnostic.severity.ERROR },
+
         signs = vim.g.have_nerd_font and {
           text = {
             [vim.diagnostic.severity.ERROR] = "󰅚 ",
@@ -105,9 +111,9 @@ return {
           },
         } or {},
 
-        virtual_lines = {
-          current_line = true,
-        },
+        -- virtual_lines = {
+        --   current_line = true,
+        -- },
 
         -- virtual_text = {
         --   current_line = true,
@@ -199,7 +205,7 @@ return {
         stylelint_lsp = {},
 
         biome = {
-          root_dir = lspconfig_util.root_pattern("biome.json", "biome.jsonc"),
+          -- root_dir = lspconfig_util.root_pattern("biome.json", "biome.jsonc"),
         },
 
         dprint = {
@@ -220,6 +226,32 @@ return {
             "scss",
             "less",
             "sass",
+          },
+        },
+
+        emmet_language_server = {
+          filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact" },
+          -- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
+          -- **Note:** only the options listed in the table are supported.
+          init_options = {
+            ---@type table<string, string>
+            includeLanguages = {},
+            --- @type string[]
+            excludeLanguages = {},
+            --- @type string[]
+            extensionsPath = {},
+            --- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/preferences/)
+            preferences = {},
+            --- @type boolean Defaults to `true`
+            showAbbreviationSuggestions = true,
+            --- @type "always" | "never" Defaults to `"always"`
+            showExpandedAbbreviation = "always",
+            --- @type boolean Defaults to `false`
+            showSuggestionsAsSnippets = false,
+            --- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/syntax-profiles/)
+            syntaxProfiles = {},
+            --- @type table<string, string> [Emmet Docs](https://docs.emmet.io/customization/snippets/#variables)
+            variables = {},
           },
         },
 
@@ -288,17 +320,17 @@ return {
           settings = {
             json = {
               schemas = require("schemastore").json.schemas(),
-              validate = { enable = true },
+              validate = { enable = false },
             },
           },
-          filetypes = { "json" },
+          filetypes = { "json", "jsonc", "json5" },
         },
 
         -- cssmodules_ls = {},
 
-        -- cssls = {},
+        cssls = {},
 
-        -- css_variables = {},
+        css_variables = {},
 
         html = {
           init_options = {
@@ -323,8 +355,6 @@ return {
         },
 
         gopls = {},
-
-        rust_analyzer = {},
 
         typos_lsp = {},
 

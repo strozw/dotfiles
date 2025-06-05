@@ -1,6 +1,3 @@
-#:schema https://raw.githubusercontent.com/distinction-dev/alacritty-schema/main/alacritty/reference.json
-
-import = ["~/ghq/github.com/alacritty/alacritty-theme/themes/tokyo-night.toml"]
 
 # [colors.bright]
 # black = "0x15161E"
@@ -578,4 +575,9 @@ hide_when_typing = false
 [window]
 decorations = "full"
 dynamic_padding = false
+
+[general]
+#:schema https://raw.githubusercontent.com/distinction-dev/alacritty-schema/main/alacritty/reference.json
+
+import = ["~/ghq/github.com/alacritty/alacritty-theme/themes/tokyo-night.toml"]
 # opacity = 0.9
