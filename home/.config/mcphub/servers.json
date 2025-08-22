@@ -1,34 +1,26 @@
 {
   "mcpServers": {
-    "playwright": {
-      "args": [
-        "-y",
-        "@executeautomation/playwright-mcp-server"
-      ],
-      "disabled": false,
-      "command": "npx"
-    },
-    "browserbase": {
-      "args": [
-        "-y",
-        "github.com/browserbase/mcp-server-browserbase"
-      ],
-      "disabled": true,
-      "command": "npx"
-    },
     "fetch": {
       "args": [
         "mcp-server-fetch"
       ],
       "command": "uvx"
     },
+    "playwright": {
+      "args": [
+        "-y",
+        "@executeautomation/playwright-mcp-server"
+      ],
+      "command": "npx",
+      "disabled": false
+    },
     "puppeteer": {
       "args": [
         "-y",
         "@modelcontextprotocol/server-puppeteer"
       ],
-      "disabled": true,
-      "command": "npx"
+      "command": "npx",
+      "disabled": true
     }
   }
 }

@@ -45,12 +45,13 @@ return {
       spec = {
         { "<leader>b",     group = "[B]uffer" },
         { "<leader><Tab>", group = "[T]ab" },
-        { "<leader>c",     group = "[C]ode",     mode = { "n", "x" } },
+        { "<leader>c",     group = "[C]ode",          mode = { "n", "x" } },
+        { "<leader>cc",    group = "[C]laude [C]ode", mode = { "n", "x" } },
         { "<leader>d",     group = "[D]ebug" },
         { "<leader>s",     group = "[S]earch" },
         { "<leader>w",     group = "[W]orkspace" },
         { "<leader>t",     group = "[T]oggle" },
-        { "<leader>h",     group = "Git [H]unk", mode = { "n", "v" } },
+        { "<leader>h",     group = "Git [H]unk",      mode = { "n", "v" } },
         {
           "<Esc><Esc>",
           ":noh<CR>",

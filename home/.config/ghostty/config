@@ -4,16 +4,16 @@ shell-integration-features = no-cursor
 
 theme = tokyonight
 
-#font-family = "UDEV Gothic NFLG"
-font-family = "Maple Mono Normal NF CN"
+font-family = "UDEV Gothic NFLG"
+#font-family = "Maple Mono Normal NF CN"
 font-size = "14"
 font-thicken = false
 
 #background-opacity = 0.9
 background-blur-radius = 8
 
-adjust-cell-width = -1
-adjust-cell-height = 5
+adjust-cell-width = 1
+adjust-cell-height = 7
 
 cursor-style = block
 cursor-style-blink = false

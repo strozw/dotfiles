@@ -31,19 +31,6 @@ return {
     },
     config = function()
       require("codecompanion").setup({
-        extensions = {
-          mcphub = {
-            callback = "mcphub.extensions.codecompanion",
-            opts = {
-              make_vars = true,
-              make_slash_commands = true,
-              show_result_in_chat = true,
-            },
-          },
-          -- vectorcode = {
-          --   opts = { add_tool = true, add_slash_command = true, tool_opts = {} },
-          -- },
-        },
         adapters = {
           copilot_sonnet35 = function()
             return require("codecompanion.adapters").extend("copilot", {
