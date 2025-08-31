@@ -6,10 +6,7 @@ return {
     build = ":TSUpdate",
 
     config = function()
-      require("nvim-treesitter").setup({
-        -- パーサーのインストール先を指定
-        install_dir = vim.fn.stdpath('data') .. '/site'
-      })
+      require("nvim-treesitter").setup({})
 
       -- fold に treesitter を使用
       vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
