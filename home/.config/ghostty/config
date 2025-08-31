@@ -6,7 +6,7 @@ theme = tokyonight
 
 font-family = "UDEV Gothic NFLG"
 #font-family = "Maple Mono Normal NF CN"
-font-size = "14"
+font-size = "16"
 font-thicken = false
 
 #background-opacity = 0.9
