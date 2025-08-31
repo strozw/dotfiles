@@ -93,9 +93,9 @@ return {
                 return math.floor(0.45 * vim.o.columns)
               end,
               -- menu = 50, -- leading text (labelDetails)
-              abbr = 50, -- actual suggestion item
+              abbr = 50,              -- actual suggestion item
             },
-            ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+            ellipsis_char = "...",    -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
             show_labelDetails = true, -- show labelDetails in menu. Disabled by default
 
             -- The function below will be called before any actual modifications from lspkind
@@ -112,6 +112,7 @@ return {
         sources = {
           { name = "copilot" },
           { name = "nvim_lsp" },
+          { name = 'render-markdown' },
           {
             name = "lazydev",
             -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
