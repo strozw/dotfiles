@@ -18,6 +18,8 @@ adjust-cell-height = 7
 cursor-style = block
 cursor-style-blink = false
 
+macos-titlebar-style = tabs
+macos-window-buttons = hidden
 mouse-hide-while-typing = true
 
 macos-option-as-alt = true
