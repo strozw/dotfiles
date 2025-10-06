@@ -64,3 +64,6 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 })
 
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>")
+
+-- vim-tmux-navigator の default keymap を無効化
+vim.g.tmux_navigator_no_mappings = 1

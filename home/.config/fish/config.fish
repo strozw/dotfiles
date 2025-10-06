@@ -150,3 +150,5 @@ function fzf-z -d "Fuzzy-find z"
 end
 set -gx VOLTA_HOME "$HOME/.volta"
 set -gx PATH "$VOLTA_HOME/bin" $PATH
+
+source ~/.safe-chain/scripts/init-fish.fish # Safe-chain Fish initialization script

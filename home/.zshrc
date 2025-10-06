@@ -241,3 +241,9 @@ export PATH="$PATH:/Users/s_ohzawa/.local/bin"
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
+# opencode
+export PATH=/Users/s_ohzawa/.opencode/bin:$PATH
+
+# bun completions
+[ -s "/opt/homebrew/share/zsh/site-functions/_bun" ] && source "/opt/homebrew/share/zsh/site-functions/_bun"

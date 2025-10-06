@@ -17,16 +17,12 @@ return {
         sections = {
           lualine_a = { "mode" },
           lualine_b = { "branch", "diff", "diagnostics" },
-          lualine_c = {
-            "filename",
-            require("lualine/codecompanion-component"),
-          },
+          lualine_c = { "filename" },
           lualine_x = {
             "encoding",
             "fileformat",
             "filetype",
             "overseer",
-            "copilot",
             require("minuet.lualine"),
           },
           -- lualine_y = {

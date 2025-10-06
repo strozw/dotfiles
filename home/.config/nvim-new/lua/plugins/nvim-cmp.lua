@@ -38,15 +38,6 @@ return {
       "hrsh7th/cmp-buffer",
       "onsails/lspkind.nvim",
       "milanglacier/minuet-ai.nvim",
-      {
-        "zbirenbaum/copilot-cmp",
-        dependencies = {
-          "zbirenbaum/copilot.lua",
-        },
-        config = function()
-          require("copilot_cmp").setup()
-        end,
-      },
     },
     config = function()
       -- See `:help cmp`
@@ -57,8 +48,6 @@ return {
       luasnip.config.setup({})
 
       local lspkind = require("lspkind")
-
-      vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 
       cmp.setup({
 
@@ -82,7 +71,6 @@ return {
               nvim_lua = "[Lua]",
               latex_symbols = "[Latex]",
               minuet = "[Minuet]",
-              copilot = "[Copilot]",
               path = "[Path]",
               nvim_lsp_signature_help = "[]",
             },
@@ -110,7 +98,6 @@ return {
         completion = { completeopt = "menu,menuone,noinsert" },
 
         sources = {
-          { name = "copilot" },
           { name = "nvim_lsp" },
           { name = 'render-markdown' },
           {
@@ -192,7 +179,7 @@ return {
             end
           end, { "i", "s" }),
 
-          ["<M-Enter>"] = require("minuet").make_cmp_map(),
+          ["<C-S-CR>"] = require("minuet").make_cmp_map(),
 
           -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
           --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps

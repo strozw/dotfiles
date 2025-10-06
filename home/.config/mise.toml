@@ -1,5 +1,5 @@
 [tools]
-node = "22"
+node = "20"
 
 [env]
 NODE_ENV = ""
