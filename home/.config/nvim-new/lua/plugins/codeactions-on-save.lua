@@ -1,6 +1,5 @@
 return {
   "fnune/codeactions-on-save.nvim",
-  dependencies = { "neovim/nvim-lspconfig", },
   config = function()
     local cos = require("codeactions-on-save")
 
