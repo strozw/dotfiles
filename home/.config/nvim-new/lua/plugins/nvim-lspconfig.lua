@@ -358,6 +358,8 @@ return {
 
         typos_lsp = {},
 
+        astro = {},
+
         gh_actions_ls = {
           filetypes = { "yaml.github" },
           init_options = {
