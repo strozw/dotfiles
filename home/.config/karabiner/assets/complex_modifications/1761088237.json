@@ -1,0 +1,1560 @@
+{
+  "title": "enthumble(Windows App) Mode toggle 'Space'",
+  "rule_list": false,
+  "make_extra_description": true,
+  "rules": [
+    {
+      "description": "(enthumble / toggle 'Space') Space + 「HJKL」 Mode / vi like",
+      "extra_descriptions": [
+        "スペース + H, J, K, L -> カーソル移動（←, ↓, ↑, →）",
+        "スペース 単独 -> スペースキー"
+      ],
+      "extra_description_level": 1,
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "fn",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "h",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "shift",
+                "control",
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_arrow"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "j",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "shift",
+                "control",
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "down_arrow"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "k",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "shift",
+                "control",
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "up_arrow"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "shift",
+                "control",
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_arrow"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "(enthumble / toggle 'Space') Space + 「WASD」 Mode / FPS like",
+      "extra_descriptions": [
+        "スペース + A, S, W, D -> カーソル移動（←, ↓, ↑, →）",
+        "スペース 単独 -> スペースキー"
+      ],
+      "extra_description_level": 1,
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "fn",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "a",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "shift",
+                "control",
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_arrow"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "s",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "shift",
+                "control",
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "down_arrow"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "w",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "shift",
+                "control",
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "up_arrow"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "d",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "shift",
+                "control",
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_arrow"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "(enthumble / toggle 'Space') Space + 「IJKL」 Mode / Normal Mode like",
+      "extra_descriptions": [
+        "スペース + I, J, K, L -> カーソル移動（←, ↓, ↑, →）",
+        "スペース 単独 -> スペースキー"
+      ],
+      "extra_description_level": 1,
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "fn",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "j",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "shift",
+                "control",
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_arrow"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "k",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "shift",
+                "control",
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "down_arrow"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "i",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "shift",
+                "control",
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "up_arrow"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "shift",
+                "control",
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_arrow"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "(enthumble / toggle 'Space') Space + 「FBNP」 Mode / Emacs like",
+      "extra_descriptions": [
+        "スペース + F, B, N, P -> カーソル移動（←, ↓, ↑, →）",
+        "スペース 単独 -> スペースキー"
+      ],
+      "extra_description_level": 1,
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "fn",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "b",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "shift",
+                "control",
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_arrow"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "n",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "shift",
+                "control",
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "down_arrow"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "p",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "shift",
+                "control",
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "up_arrow"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "f",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "shift",
+                "control",
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_arrow"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "(enthumble / toggle 'Space') Space + 「R/E」で「Return/Escape」",
+      "extra_descriptions": [
+        "スペース + R/E -> Enter/Escape",
+        "'thumb IME'より下位に設定すると、'スペース + かな'はIMEオンになります。"
+      ],
+      "extra_description_level": 1,
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "fn",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "r",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "shift",
+                "control",
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "return_or_enter"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "e",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "shift",
+                "control",
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "escape"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "(enthumble / toggle 'Space') Space +「N,M/',' '.'」で「BackSpace/Delete」",
+      "extra_descriptions": [
+        "Spacebar + N, M -> BackSpace",
+        "Spacebar + ',' '.' -> Delete",
+        "'FBNP Mode'と併用すると、'Spacebar + N'はカーソル移動になります。"
+      ],
+      "extra_description_level": 1,
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "fn",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "n",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "delete_or_backspace"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "m",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "delete_or_backspace"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "comma",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "delete_forward"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "period",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "delete_forward"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "(enthumble / toggle 'Space') Space +「H,D/',' '.'」で「BackSpace/Delete」",
+      "extra_descriptions": [
+        "Spacebar + H, D -> BackSpace",
+        "'HJKL Mode'と併用すると、'Spacebar + H'はカーソル移動になります。"
+      ],
+      "extra_description_level": 1,
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "fn",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "h",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "delete_or_backspace"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "d",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "delete_forward"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "(enthumble / toggle 'Space') Space +「Y,U/I,O」で「BackSpace/Delete」",
+      "extra_descriptions": [
+        "Spacebar + Y, U -> BackSpace",
+        "Spacebar + I, O -> Delete",
+        "'IJKL Mode'と併用すると、'Spacebar  + I'はカーソル移動になります。"
+      ],
+      "extra_description_level": 1,
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "fn",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "y",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "delete_or_backspace"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "u",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "delete_or_backspace"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "i",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "delete_forward"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "o",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "delete_forward"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "(enthumble / toggle 'Space') Space +「C,X,V」で「Copy,Cut,Paste」",
+      "extra_descriptions": [
+        "Spacebar + C,X,V -> Copy,Cut,Paste"
+      ],
+      "extra_description_level": 1,
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "fn",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "c",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "c",
+              "modifiers": [
+                "command"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "x",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "x",
+              "modifiers": [
+                "command"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "v",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "v",
+              "modifiers": [
+                "command"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "(enthumble / toggle 'Space') Space +「S,O」で「Save,Open」",
+      "extra_descriptions": [
+        "Spacebar + S,O -> Save,Open"
+      ],
+      "extra_description_level": 1,
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "fn",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "s",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "s",
+              "modifiers": [
+                "command"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "o",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "o",
+              "modifiers": [
+                "command"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "(enthumble / toggle 'Space') Space +「A,E」で「Ctrl-A, Ctrl-E」",
+      "extra_descriptions": [
+        "Spacebar + A,E -> Ctrl-A, Ctrl-E"
+      ],
+      "extra_description_level": 1,
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "fn",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "a",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "a",
+              "modifiers": [
+                "control"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "e",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "e",
+              "modifiers": [
+                "control"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "(enthumble / toggle 'Space') Space +「[」で「Escape」",
+      "extra_descriptions": [
+        "Spacebar + [ -> Escape"
+      ],
+      "extra_description_level": 1,
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "fn",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "open_bracket",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "escape"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "(enthumble / toggle 'Space') Space +「tab」で「Command + Tab」",
+      "extra_descriptions": [
+        "Spacebar + Tab -> Command + Tab"
+      ],
+      "extra_description_level": 1,
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "fn",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "tab",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "tab",
+              "modifiers": [
+                "command"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "(enthumble / toggle 'space') Space + 「1 - 10, -, ^」で「F1 - F12」",
+      "extra_descriptions": [
+        "Space + 1 -10, -, ^ -> F1 - F12"
+      ],
+      "extra_description_level": 1,
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "fn",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "1",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "f1"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "2",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "f2"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "3",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "f3"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "4",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "f4"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "5",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "f5"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "6",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "f6"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "7",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "f7"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "8",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "f8"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "9",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "f9"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "0",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "f10"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "hyphen",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "f11"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "equal_sign",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "f12"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "(enthumble / toggle 'Space') Space + 矢印キー（←, ↓, ↑, →）で「←, ↓, ↑, →」入力",
+      "extra_descriptions": [
+        "spacebar + 1 -10, -, ^ -> F1 - F12"
+      ],
+      "extra_description_level": 1,
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "fn"
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_arrow",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "osascript -e 'set the clipboard to \"←\"'"
+            },
+            {
+              "shell_command": "osascript -e 'tell application \"System Events\" to keystroke \"v\" using command down'"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "down_arrow",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "osascript -e 'set the clipboard to \"↓\"'"
+            },
+            {
+              "shell_command": "osascript -e 'tell application \"System Events\" to keystroke \"v\" using command down'"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "up_arrow",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "osascript -e 'set the clipboard to \"↑\"'"
+            },
+            {
+              "shell_command": "osascript -e 'tell application \"System Events\" to keystroke \"v\" using command down'"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_arrow",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "osascript -e 'set the clipboard to \"→\"'"
+            },
+            {
+              "shell_command": "osascript -e 'tell application \"System Events\" to keystroke \"v\" using command down'"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
