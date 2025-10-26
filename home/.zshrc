@@ -65,7 +65,7 @@ fi
 #######################################################
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export RUBY_CFLAGS="-w"
-export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@3)"
 export LDFLAGS="-L/opt/homebrew/opt/readline/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/readline/include"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/readline/lib/pkgconfig"

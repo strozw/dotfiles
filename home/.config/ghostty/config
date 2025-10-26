@@ -25,3 +25,4 @@ mouse-hide-while-typing = true
 macos-option-as-alt = true
 
 link-url = true
+keybind = shift+enter=text:\x1b\r
