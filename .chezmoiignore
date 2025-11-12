@@ -1,12 +1,6 @@
 # macOS system files
 .DS_Store
 
-# lazy.nvim lock file 
-lazy-lock.json
-
-# karabiner backups
-.config/karabiner/automatic_backups
-
 # sensitive files
 .config/gh/hosts.yml
 
