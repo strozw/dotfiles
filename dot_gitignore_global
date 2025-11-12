@@ -1,2 +1,4 @@
+# vim: set ft=gitignore:
+
 *~
 .DS_Store
