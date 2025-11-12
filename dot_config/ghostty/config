@@ -1,0 +1,30 @@
+
+shell-integration = zsh
+shell-integration-features = no-cursor
+
+theme = tokyonight
+
+font-family = "UDEV Gothic NFLG"
+#font-family = "Maple Mono Normal NF CN"
+font-size = "16"
+font-thicken = false
+
+#background-opacity = 0.9
+background-blur-radius = 8
+
+adjust-cell-width = 1
+adjust-cell-height = 7
+
+cursor-style = block
+cursor-style-blink = false
+
+mouse-hide-while-typing = true
+
+macos-titlebar-style = tabs
+macos-window-buttons = hidden
+macos-option-as-alt = true
+
+link-url = true
+
+
+keybind = shift+enter=text:\x1b\r

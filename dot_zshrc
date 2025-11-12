@@ -1,0 +1,154 @@
+# vim: set ft=zsh:
+
+#=====================================================
+# Init
+#======================================================
+
+# remove duplicate paths
+typeset -U path PATH
+
+# If bindkey is undefined and EDITOR environment is vim in zshrc or zprofile, key binding seems to be in vim mode in child process zsh.
+# ref: https://web-salad.hateblo.jp/entry/2014/12/07/090000
+bindkey -e
+
+#------------------------------------------------------
+# Completion
+#------------------------------------------------------
+
+setopt auto_list
+setopt auto_menu
+setopt list_packed
+setopt list_types
+
+zstyle ':completion:*:*:*:default' menu yes select
+zstyle ':completion:*' special-dirs true
+
+if type brew &>/dev/null; then
+	export FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+  export FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
+
+export FPATH=~/.config/zsh/completions:$FPATH
+
+autoload -Uz compinit; compinit
+
+#======================================================
+# zsh integration
+#======================================================
+
+#------------------------------------------------------
+# sheldon
+#------------------------------------------------------
+
+eval "$(sheldon source)"
+
+#------------------------------------------------------
+# direnv
+#------------------------------------------------------
+
+eval "$(direnv hook zsh)"
+
+#------------------------------------------------------
+# zoxide (z)
+#------------------------------------------------------
+eval "$(zoxide init zsh)"
+
+#------------------------------------------------------
+# starship 
+#------------------------------------------------------
+
+eval "$(starship init zsh)"
+
+#------------------------------------------------------
+# carapace
+#------------------------------------------------------
+
+export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
+zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
+source <(carapace _carapace zsh)
+
+#------------------------------------------------------
+# television (tv)
+#------------------------------------------------------
+
+eval "$(tv init zsh)"
+
+#------------------------------------------------------
+# fzf
+#------------------------------------------------------
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+export FZF_DEFAULT_OPTS='
+  --bind="F2:toggle-preview"
+  --layout=reverse 
+  --preview "bat --theme={} --color=always"
+'
+
+#------------------------------------------------------
+# orbstack
+#------------------------------------------------------
+
+if [ -e "~/.orbstack" ]; then
+  source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+fi
+
+#######################################################
+# functions
+#######################################################
+
+#  Runtime manager Switcher
+#  @see .zshenv
+function switch_runtime_manager() {
+  export RUNTIME_MANAGER_TYPE="$1"
+  exec zsh -l
+}
+
+# fzf z
+function fzf-z () {
+  local selected_dir=$(zoxide query -l | tv)
+  if [ -n "$selected_dir" ]; then
+    cd ${selected_dir}
+    zle accept-line
+    zle clear-screen
+  fi
+}
+zle -N fzf-z
+
+# ghq
+function fzf-ghq () {
+  local selected_dir=$(ghq list -p | tv)
+
+  if [ -n "$selected_dir" ]; then
+    cd ${selected_dir}
+    zle accept-line
+    zle clear-screen
+  fi
+}
+zle -N fzf-ghq
+
+#######################################################
+# alias
+#######################################################
+
+alias cd='z'
+alias cp='cp -i'
+alias mv='mv -i'
+# alias rm='rm -i'
+alias rm='gomi'
+# alias ls='gls -GAF --color=auto'
+alias ls='eza -agGHF  --git --icons=always'
+alias ll='eza -aglhHF --git --icons=always'
+alias less='less -R'
+alias bat='bat --theme TwoDark'
+alias rg='rg --hidden'
+alias colorpallet='msgcat --color=test'
+
+#######################################################
+# keymap
+#######################################################
+
+bindkey '^z' fzf-z
+
+bindkey '^g' fzf-ghq

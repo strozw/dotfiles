@@ -1,0 +1,106 @@
+# vim: set ft=zsh:
+
+#=====================================================
+# Locale
+#======================================================
+export LC_ALL=ja_JP.UTF-8
+
+export LANG=ja_JP.UTF-8
+
+#=====================================================
+# PATH
+#======================================================
+
+if [ -e "/opt/homebrew" ]; then
+  eval $(/opt/homebrew/bin/brew shellenv -f)
+fi
+
+export PATH="$HOME/bin:$PATH"
+
+export PATH="$PATH:/Users/s_ohzawa/.local/bin"
+
+export PATH="$HOME/.serverless/bin:$PATH"
+
+export PATH="$HOME/Library/Python/2.7/bin:$PATH"
+
+
+#------------------------------------------------------
+# Runtime Manager
+#------------------------------------------------------
+
+export RUNTIME_MANAGER_TYPE=${RUNTIME_MANAGER_TYPE:-"mise"}
+
+eval "$(mise activate zsh)"
+export PATH="$HOME/.local/share/mise/shims:$PATH"
+
+case "$RUNTIME_MANAGER_TYPE" in
+  "anyenv")
+    echo "Activating anyenv..."
+    export ANY_ENV_HOME=$HOME/.anyenv
+    export PATH=$PATH:$ANY_ENV_HOME/bin
+    eval "$(anyenv init -)"
+    ;;
+  "asdf")
+    export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+    ;;
+  "mise")
+    ;;
+esac
+
+#======================================================
+# Go Lang
+#======================================================
+export GOPATH=$HOME/go
+
+export PATH=${GOPATH}/bin:${PATH}
+
+export GOENV_DISABLE_GOPATH=1
+
+#======================================================
+# Rust Lang
+#======================================================
+
+if [ -e "$HOME/.cargo/env" ]; then
+	. "$HOME/.cargo/env"
+fi
+
+#======================================================
+# Ruby Lang
+#======================================================
+
+if [ -e "/opt/homebrew" ]; then
+  export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+  export LDFLAGS="-L/opt/homebrew/opt/ruby/lib"
+  export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
+fi
+
+#------------------------------------------------------
+# pnpm
+#------------------------------------------------------
+export PNPM_HOME="/Users/s_ohzawa/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
+
+#=====================================================
+# Shell
+#=====================================================
+export SHELL=zsh
+
+#=====================================================
+# Editor
+#=====================================================
+export VISUAL=${VISUAL:=nvim}
+
+export EDITOR=${EDITOR:=nvim}
+
+#=====================================================
+# Other
+#=====================================================
+
+#------------------------------------------------------
+# mocword
+#------------------------------------------------------
+export MOCWORD_DATA="$HOME/.config/mocword/mocword.sqlite"
