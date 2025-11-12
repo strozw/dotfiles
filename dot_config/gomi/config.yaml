@@ -3,7 +3,7 @@ core:
     verbose: true
     confirm: true
 trash:
-  gomi_dir: /Users/s_ohzawa/.gomi
+  gomi_dir: ~/.gomi
 ui:
   density: spacious
   style:
