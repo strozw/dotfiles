@@ -1,10 +1,23 @@
 return {
   {
     'xvzc/chezmoi.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    dependencies = { 'nvim-lua/plenary.nvim',
+      "nvim-telescope/telescope.nvim",
+    },
     config = function()
-      require("chezmoi").setup {
-      }
+      require("chezmoi").setup({
+        edit = {
+          watch = true,
+          force = false,
+          ignore_patterns = {
+            "run_onchange_.*",
+            "run_once_.*",
+            "%.chezmoiignore",
+            "%.chezmoitemplate",
+            -- Add custom patterns here
+          },
+        },
+      })
 
       vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
         pattern = { os.getenv("HOME") .. "/.local/share/chezmoi/*" },
