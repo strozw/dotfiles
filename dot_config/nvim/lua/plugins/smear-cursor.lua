@@ -1,0 +1,29 @@
+return {
+  -- "sphamba/smear-cursor.nvim",
+  -- enable = false,
+  -- opts = {
+  --   -- バッファやウィンドウを切り替えるときにカーソルをスミアします。
+  --   smear_between_buffers = true,
+  --
+  --   -- 行内や隣接する行に移動するときにカーソルをスミアします。
+  --   -- より細かい制御には `min_horizontal_distance_smear` と `min_vertical_distance_smear` を使用してください。
+  --   smear_between_neighbor_lines = true,
+  --
+  --   -- スクロール時にスミアを画面空間ではなくバッファ空間で描画します。
+  --   scroll_buffer_space = true,
+  --
+  --   -- フォントがレガシーコンピューティング記号（ブロックUnicode記号）をサポートしている場合は `true` に設定します。
+  --   -- スミアはすべての背景でより良くブレンドされます。
+  --   legacy_computing_symbols_support = true,
+  --
+  --   -- 挿入モードでカーソルをスミアします。
+  --   -- また、`vertical_bar_cursor_insert_mode` と `distance_stop_animating_vertical_bar` も参照してください。
+  --   smear_insert_mode = true,
+  --
+  --   stiffness = 0.8,                      -- 0.6      [0, 1]
+  --   trailing_stiffness = 0.5,             -- 0.4      [0, 1]
+  --   stiffness_insert_mode = 0.6,          -- 0.4      [0, 1]
+  --   trailing_stiffness_insert_mode = 0.6, -- 0.4      [0, 1]
+  --   distance_stop_animating = 0.5,        -- 0.1      > 0
+  -- },
+}

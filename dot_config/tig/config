@@ -1,0 +1,63 @@
+# vim: set ft=bash:
+
+################################################
+# 画面設定
+################################################
+
+# main viewの左端にコミットIDを表示する
+set main-view = id date author commit-title:graph=yes,refs=yes
+
+# デフォルト
+# set main-view = date author commit-title:graph=yes,refs=yes
+
+# 画面を垂直方向に分割する
+set vertical-split = yes
+# 横分割に強制する
+# set vertical-split = no
+# デフォルト値
+# set vertical-split = auto
+
+set line-graphics = utf-8
+
+set status-show-untracked-files = yes
+
+set diff-view = line-number:display=yes text:commit-title-overflow=true
+
+set mouse = no
+
+################################################
+# color 設定
+################################################
+
+#color cursor yellow red bold
+color cursor black white bold
+color title-focus color15 color8
+
+################################################
+# キーバインド
+################################################
+
+# デフォルトの bind generic G !git gc を無効化する
+bind generic G none
+bind main    G none
+
+# 先頭、後尾移動をvim風に
+bind generic g move-first-line
+bind main    g move-first-line
+bind generic G move-last-line
+bind main    G move-last-line
+
+# ページダウン & ページアップをvim風に
+bind generic <Ctrl-B> move-page-up
+bind generic <Ctrl-F> move-page-down
+
+# 現在コミットより後を git rebase -i する
+bind main <Ctrl-R> !git rebase -i %(commit)
+bind diff <Ctrl-R> !git rebase -i %(commit)
+
+# commit id を clipboard にコピー
+bind main <Ctrl-Y> !@sh -c "cut -c-7 <<<%(commit) | xargs echo -n | pbcopy"
+
+# view-status にて指定ファイルを削除
+bind status <Ctrl-D> !@?rm %(file)
+bind status <Ctrl-Y> !@sh -c "echo %(file) | pbcopy"
