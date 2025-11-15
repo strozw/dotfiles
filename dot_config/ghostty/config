@@ -2,7 +2,7 @@
 shell-integration = zsh
 shell-integration-features = no-cursor
 
-theme = tokyonight
+theme = TokyoNight Night
 
 font-family = "UDEV Gothic NFLG"
 #font-family = "Maple Mono Normal NF CN"
