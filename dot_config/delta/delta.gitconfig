@@ -14,9 +14,6 @@
   side-by-side = true
   syntax-theme = tokyonight_night
 
-[diff]
-  colorMoved = default
-
 [merge]
   conflictStyle = zdiff3
 
