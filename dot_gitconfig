@@ -23,12 +23,6 @@
 [core]
 	excludesfile = ~/.gitignore_global
   attributesfile = ~/.gitattributes_global
-  pager = delta
-
-[delta]
-  navigate = true  # use n and N to move between diff sections
-  dark = true      # or light = true, or omit for auto-detection
-  side-by-side = true
 
 [difftool "sourcetree"]
 	cmd = opendiff $LOCAL $REMOTE
@@ -59,6 +53,9 @@
 [user]
 	name = strozw
 	email = strozw@users.noreply.github.com
+
+[include]
+  path = ~/.config/delta/delta.gitconfig
 
 # for local config
 [include]
