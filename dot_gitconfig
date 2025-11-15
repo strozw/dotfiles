@@ -5,8 +5,11 @@
 	gr = graph
 	st = status -bs
   glc = !git log --graph --abbrev-commit --decorate --name-status --first-parent
-  cb = !sh -c 'git branch --all | fzf | xargs | sed "s/*//" | (read b && git checkout $b)'
+  cb = !sh -c 'git branch --all | tv | xargs | sed "s/*//" | (read b && git checkout $b)'
 	ignore = "!gi() { curl -sL https://www.toptal.com/developers/gitignore/api/$@ ;}; gi"
+
+[branch]
+  sort = committerdate
 
 [color]
   ui = auto
@@ -16,6 +19,9 @@
   changed = green
   untracked = cyan
 
+[column]
+  ui = auto
+
 [commit]
 	verbose = true
 	gpgsign = true
@@ -24,15 +30,20 @@
 	excludesfile = ~/.gitignore_global
   attributesfile = ~/.gitattributes_global
 
-[difftool "sourcetree"]
-	cmd = opendiff $LOCAL $REMOTE
-  path = 
+[diff]
+  algorithm = histogram
+  colorMoved = plain
+  mnemonicPrefix = true
+  renames = true
 
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
+[help]
+  autocorrect = prompt
 
 [init]
 	defaultBranch = main
@@ -46,8 +57,24 @@
 
 [pull]
 	ff = only
+  #rebase = true
+
+[push]
+  default = simple
+  autoSetupRemote = true
+  followTags = true
+
+[rerere]
+  enabled = true
+  autoupdate = true
+
+[rebase]
+  autoSquash = true
+  autostash = true
+  updateRefs = true
 
 [tag]
+  sort = version:refname
 	gpgsign = true
 
 [user]
