@@ -1,10 +1,19 @@
+-- hello
 return {
   {
     "uga-rosa/translate.nvim",
     config = function()
       require("translate").setup({
-        lang = "en",
-        winhl = "Normal:Normal",
+        default = {
+          output = "split",
+        },
+        preset = {
+          output = {
+            split = {
+              append = true,
+            },
+          },
+        },
       })
     end,
   },
