@@ -152,3 +152,11 @@ alias colorpallet='msgcat --color=test'
 bindkey '^z' fzf-z
 
 bindkey '^g' fzf-ghq
+
+#######################################################
+# Local Config
+#######################################################
+
+if [ -f ~/.zshrc.local ]; then
+  source ~/.zshrc.local
+fi
