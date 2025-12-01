@@ -1,0 +1,27 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "keybinds": {
+    "input_newline": "shift+return,shift+enter,alt+enter,alt+return",
+    "messages_half_page_up": "shift+up",
+    "messages_half_page_down": "shift+down"
+  },
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+      },
+      "models": {
+        "gpt-oss:20b": {
+          "name": "gpt-oss:20b",
+          "num_ctx": 32768
+        },
+        "mitmul/plamo-2-translate": {
+          "name": "mitmul/plamo-2-translate",
+          "num_ctx": 32768
+        }
+      }
+    }
+  }
+}
