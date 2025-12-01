@@ -1,5 +1,5 @@
 
-shell-integration = zsh
+shell-integration = detect
 shell-integration-features = no-cursor
 
 theme = TokyoNight Night
@@ -9,7 +9,7 @@ font-family = "UDEV Gothic NFLG"
 font-size = "16"
 font-thicken = false
 
-#background-opacity = 0.9
+background-opacity = 0.9
 background-blur-radius = 8
 
 adjust-cell-width = 1
@@ -26,5 +26,12 @@ macos-option-as-alt = true
 
 link-url = true
 
-
 keybind = shift+enter=text:\x1b\r
+
+window-save-state = default
+window-colorspace = display-p3
+window-padding-color = background
+
+macos-icon=custom-style
+macos-icon-ghost-color=#CCCCCC
+macos-icon-screen-color=#000000
