@@ -29,7 +29,10 @@ return {
           --   "progress",
           --   require("vectorcode.integrations").lualine(),
           -- },
-          lualine_z = { "location" },
+          lualine_z = {
+            "location",
+            require("opencode").statusline,
+          }
         },
       })
     end,

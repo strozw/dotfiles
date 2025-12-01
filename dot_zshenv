@@ -102,3 +102,8 @@ export EDITOR=${EDITOR:=nvim}
 # mocword
 #------------------------------------------------------
 export MOCWORD_DATA="$HOME/.config/mocword/mocword.sqlite"
+
+#------------------------------------------------------
+# ollama
+#------------------------------------------------------
+export OLLAMA_CONTEXT_LENGTH=32000
