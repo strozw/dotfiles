@@ -461,14 +461,14 @@ return {
       },
       -- Other
       {
-        "<leader>z",
+        "<leader>Z",
         function()
           Snacks.zen()
         end,
         desc = "Toggle Zen Mode",
       },
       {
-        "<leader>Z",
+        "<leader>z",
         function()
           Snacks.zen.zoom()
         end,
