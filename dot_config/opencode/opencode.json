@@ -14,12 +14,7 @@
       },
       "models": {
         "gpt-oss:20b": {
-          "name": "gpt-oss:20b",
-          "num_ctx": 32768
-        },
-        "mitmul/plamo-2-translate": {
-          "name": "mitmul/plamo-2-translate",
-          "num_ctx": 32768
+          "name": "gpt-oss:20b"
         }
       }
     }
