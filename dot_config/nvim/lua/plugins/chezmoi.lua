@@ -38,6 +38,17 @@ return {
           vim.schedule(edit_watch)
         end,
       })
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "LazyUpdate",
+        group = vim.api.nvim_create_augroup("chezmoi_update_lock", { clear = true }),
+        callback = function()
+          local lock_file = vim.fn.stdpath("config") .. "/lazy-lock.json"
+          require("chezmoi.commands.__apply").execute({
+            targets = { lock_file },
+          })
+        end,
+      })
     end
   }
 }
