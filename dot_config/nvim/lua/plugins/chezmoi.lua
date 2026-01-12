@@ -44,9 +44,7 @@ return {
         group = vim.api.nvim_create_augroup("chezmoi_update_lock", { clear = true }),
         callback = function()
           local lock_file = vim.fn.stdpath("config") .. "/lazy-lock.json"
-          require("chezmoi.commands.__apply").execute({
-            targets = { lock_file },
-          })
+          vim.fn.system("chezmoi re-add " .. vim.fn.shellescape(lock_file))
         end,
       })
     end
