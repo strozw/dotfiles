@@ -15,8 +15,8 @@ background-blur-radius = 8
 adjust-cell-width = 1
 adjust-cell-height = 7
 
-cursor-style = block
-cursor-style-blink = false
+cursor-style = bar
+cursor-style-blink = true
 
 mouse-hide-while-typing = true
 

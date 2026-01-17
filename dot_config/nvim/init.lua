@@ -67,3 +67,6 @@ vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>")
 
 -- vim-tmux-navigator の default keymap を無効化
 vim.g.tmux_navigator_no_mappings = 1
+
+-- Terminal Mode での カーソル表示を `|` に変更
+vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,t:ver25"
