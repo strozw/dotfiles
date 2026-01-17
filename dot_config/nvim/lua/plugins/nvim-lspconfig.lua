@@ -24,6 +24,7 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "b0o/schemastore.nvim",
       "yioneko/nvim-vtsls",
+      "marilari88/twoslash-queries.nvim",
     },
     config = function()
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -145,6 +146,9 @@ return {
         vtsls = {
           root_markers = { 'tsconfig.json', 'package.json', 'jsconfig.json' },
           workspace_required = true,
+          on_attach = function(client, buffer_number)
+            require("twoslash-queries").attach(client, buffer_number)
+          end,
           settings = {
             vtsls = {
               experimental = {
