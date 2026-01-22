@@ -6,7 +6,10 @@ return {
       cli = {
         mux = {
           backend = "tmux",
-          enabled = false,
+          enabled = true,
+        },
+        nes = {
+          enabled = true,
         },
       },
     },
@@ -67,6 +70,48 @@ return {
         function() require("sidekick.cli").prompt() end,
         mode = { "n", "x" },
         desc = "Sidekick Select Prompt",
+      },
+      {
+        "<leader>anu",
+        function() require("sidekick.nes").update() end,
+        mode = { "n", "x" },
+        desc = "Sidekick NES Update",
+      },
+      {
+        "<C-x><C-n>",
+        function() require("sidekick.nes").update() end,
+        mode = { "i" },
+        desc = "Sidekick NES Update",
+      },
+      {
+        "<leader>anj",
+        function() require("sidekick.nes").jump() end,
+        mode = { "n", "x" },
+        desc = "Sidekick NES Jump",
+      },
+      {
+        "<leader>ana",
+        function() require("sidekick.nes").apply() end,
+        mode = { "n", "x" },
+        desc = "Sidekick NES Apply",
+      },
+      {
+        "<leader>ant",
+        function() require("sidekick.nes").toggle() end,
+        mode = { "n", "x" },
+        desc = "Sidekick NES Toggle",
+      },
+      {
+        "<leader>ane",
+        function() require("sidekick.nes").enable() end,
+        mode = { "n", "x" },
+        desc = "Sidekick NES Enable",
+      },
+      {
+        "<leader>and",
+        function() require("sidekick.nes").disable() end,
+        mode = { "n", "x" },
+        desc = "Sidekick NES Disable",
       },
       -- Example of a keybinding to open Claude directly
       {
