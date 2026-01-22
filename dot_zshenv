@@ -72,6 +72,11 @@ if [ -e "/opt/homebrew" ]; then
   export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
 fi
 
+#======================================================
+# PHP
+#======================================================
+PHP_CONFIGURE_OPTIONS="--with-openssl=$(brew --prefix openssl) --with-iconv=$(brew --prefix libiconv)"
+
 #------------------------------------------------------
 # pnpm
 #------------------------------------------------------

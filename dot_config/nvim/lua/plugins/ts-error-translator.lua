@@ -4,7 +4,7 @@ return {
     "dmmulroy/ts-error-translator.nvim",
     opts = {
       -- Auto-attach to LSP servers for TypeScript diagnostics (default: true)
-      auto_attach = true,
+      auto_attach = false,
 
       -- LSP server names to translate diagnostics for (default shown below)
       servers = {

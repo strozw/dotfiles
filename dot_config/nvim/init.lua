@@ -50,6 +50,13 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- auto refresh
+vim.o.autoread = true
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
+  command = "if mode() != 'c' | checktime | endif",
+  pattern = "*",
+})
+
 -- setup lazy.nvim
 require("config.lazy")
 

@@ -128,6 +128,17 @@ function fzf-ghq () {
 }
 zle -N fzf-ghq
 
+# tail -f の結果を bat で色を付けて表示する関数
+function tailfbat() {
+  local file="${@: -1}"
+  local ext="${file##*.}"
+
+  # 拡張子がない（ファイル名と同じ）場合は plain を使用
+  [[ "$ext" == "$file" ]] && ext="plain"
+
+  tail -f "$@" | bat --paging=never --style=plain --language="$ext"
+}
+
 #######################################################
 # alias
 #######################################################
@@ -144,6 +155,7 @@ alias less='less -R'
 alias bat='bat --theme TwoDark'
 alias rg='rg --hidden'
 alias colorpallet='msgcat --color=test'
+alias superfile='spf'
 
 #######################################################
 # keymap
