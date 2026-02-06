@@ -6,7 +6,7 @@ return {
       "stevearc/overseer.nvim",
       "milanglacier/minuet-ai.nvim",
       -- "Davidyz/VectorCode",
-      "leisurelicht/lualine-copilot.nvim",
+      -- "leisurelicht/lualine-copilot.nvim",
     },
     config = function()
       require("lualine").setup({
@@ -23,16 +23,13 @@ return {
             "fileformat",
             "filetype",
             "overseer",
+            -- 'copilot',
             require("minuet.lualine"),
           },
           -- lualine_y = {
           --   "progress",
           --   require("vectorcode.integrations").lualine(),
           -- },
-          lualine_z = {
-            "location",
-            require("opencode").statusline,
-          }
         },
       })
     end,
