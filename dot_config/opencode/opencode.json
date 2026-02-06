@@ -5,6 +5,7 @@
     "messages_half_page_up": "shift+up",
     "messages_half_page_down": "shift+down"
   },
+  "plugin": ["@mohak34/opencode-notifier@0.1.15"],
   "provider": {
     "ollama": {
       "npm": "@ai-sdk/openai-compatible",

@@ -1,4 +1,5 @@
 [tools]
+"github:atusy/kakehashi" = "latest"
 node = "system"
 
 [settings]

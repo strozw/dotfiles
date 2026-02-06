@@ -442,6 +442,35 @@ return {
             })
           end,
 
+          kakehashi = {
+            cmd = { "kakehashi" },
+            filetypes = {
+              "markdown"
+            },
+            init_options = {
+              autoInstall = true,
+              languages = {
+                markdown = {
+                  bridge = {
+                    sh = { enabled = true },
+                    bash = { enabled = true },
+                    zsh = { enabled = true },
+                    html = { enabled = true },
+                    css = { enabled = true },
+                    typescript = { enabled = true },
+                    typescriptreact = { enabled = true },
+                    javascript = { enabled = true },
+                    javascriptreact = { enabled = true },
+                    rust = { enabled = true },
+                    php = { enabled = true },
+                    ruby = { enabled = true },
+                    python = { enabled = true },
+                  }
+                },
+              },
+            },
+          }
+
         },
       }
 

@@ -65,5 +65,13 @@ ssh_only = false
 format = "[$ssh_symbol](bold blue)[$hostname](bold red) "
 disabled = false
 
+# [custom.gh]
+# command = 'gh auth status -a --json hosts --jq ".hosts[\"github.com\"] | map(.login) | join(\",\")"'
+# when = "gh auth status -a &>/dev/null"
+# symbol = " "
+# format = "[$symbol$output]($style) "
+# style = "bold purple"
+# ignore_timeout = true
+
 # [time]
 # disabled = false

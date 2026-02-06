@@ -58,6 +58,8 @@ export GOENV_DISABLE_GOPATH=1
 # Rust Lang
 #======================================================
 
+export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
+
 if [ -e "$HOME/.cargo/env" ]; then
 	. "$HOME/.cargo/env"
 fi
@@ -111,4 +113,5 @@ export MOCWORD_DATA="$HOME/.config/mocword/mocword.sqlite"
 #------------------------------------------------------
 # ollama
 #------------------------------------------------------
-export OLLAMA_CONTEXT_LENGTH=32000
+# @see ttps://docs.ollama.com/context-length
+export OLLAMA_CONTEXT_LENGTH=64000
