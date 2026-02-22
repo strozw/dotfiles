@@ -23,7 +23,7 @@ return {
       -- Allows extra capabilities provided by nvim-cmp
       "hrsh7th/cmp-nvim-lsp",
       "b0o/schemastore.nvim",
-      "yioneko/nvim-vtsls",
+      -- "yioneko/nvim-vtsls",
       "marilari88/twoslash-queries.nvim",
     },
     config = function()
@@ -48,7 +48,7 @@ return {
           -- or a suggestion from your LSP for this to activate.
           map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
 
-          map("<leader>ch", vim.lsp.buf.code_action, "[C]ode signature [H]elp", { "n", "x" })
+          map("<leader>ch", vim.lsp.buf.signature_help, "[C]ode signature [H]elp", { "n", "x" })
 
           map("D", function()
             vim.diagnostic.open_float()
@@ -143,61 +143,43 @@ return {
           },
         },
 
-        vtsls = {
-          root_markers = { 'tsconfig.json', 'package.json', 'jsconfig.json' },
-          workspace_required = true,
-          on_attach = function(client, buffer_number)
-            require("twoslash-queries").attach(client, buffer_number)
-          end,
+        ts_ls = {
           settings = {
-            vtsls = {
-              experimental = {
-                completion = {
-                  enableServerSideFuzzyMatch = true,
-                  entriesLimit = 50,
-                },
-              },
-              tsserver = {
-                globalPlugins = {
-                  -- {
-                  --   name = "@css-modules-kit/ts-plugin",
-                  --   location = vim.fn.stdpath("data") .. "/mason/packages/typescript-plugin_css-modules-kit",
-                  --   languages = { "css" },
-                  -- },
-                },
-              },
-            },
-            typescript = {
-              tsserver = {
-                maxTsServerMemory = 20480,
-                enableProjectDiagnostics = true,
-                pluginPaths = { "./node_modules" },
-              },
-              inlayHints = {
-                enumMemberValues = { enabled = false },
-                functionLikeReturnTypes = { enabled = false },
-                parameterNames = { enabled = false },
-                parameterTypes = { enabled = false },
-                propertyDeclarationTypes = { enabled = false },
-                variableTypes = { enabled = false },
-              },
-              preferences = {
-                includePackageJsonAutoImports = "off",
-                importModuleSpecifierEnding = "off",
-              },
-              workspaceSymbols = {
-                excludeLibrarySymbols = true,
-                -- scope = "currentProject"
-              },
-            },
-            javascript = {
-              preferences = {
-                includePackageJsonAutoImports = "off",
-                importModuleSpecifierEnding = "minimal",
-              },
-            },
-          },
+
+          }
         },
+
+        -- vtsls = {
+        --   workspace_required = true,
+        --   on_attach = function(client, buffer_number)
+        --     require("twoslash-queries").attach(client, buffer_number)
+        --   end,
+        --   settings = {
+        --     vtsls = {
+        --       experimental = {
+        --         completion = {
+        --           enableServerSideFuzzyMatch = true,
+        --           entriesLimit = 50,
+        --         },
+        --       },
+        --       tsserver = {
+        --         globalPlugins = {
+        --           -- {
+        --           --   name = "@css-modules-kit/ts-plugin",
+        --           --   location = vim.fn.stdpath("data") .. "/mason/packages/typescript-plugin_css-modules-kit",
+        --           --   languages = { "css" },
+        --           -- },
+        --         },
+        --       },
+        --     },
+        --     typescript = {
+        --       tsserver = {
+        --         maxTsServerMemory = 20480,
+        --         pluginPaths = { "./node_modules" },
+        --       },
+        --     },
+        --   },
+        -- },
 
         denols = {
           root_markers = { 'deno.json', 'deno.jsonc' },
