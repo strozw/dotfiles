@@ -3,4 +3,3 @@
 
 [settings]
 idiomatic_version_file_enable_tools = ["node", "ruby", "php"]
-disable_tools = ['node']
