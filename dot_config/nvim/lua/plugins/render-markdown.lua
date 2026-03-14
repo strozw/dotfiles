@@ -10,7 +10,11 @@ return {
   ---@type render.md.UserConfig
   opts = {
     file_types = { "markdown", "Avanmte", "codecompanion" },
-    completions = { lsp = { enabled = true } },
+    completions = {
+      blink = { enabled = true },
+
+      lsp = { enabled = true }
+    },
     code = {
       enabled = true,
       render_modes = false,
