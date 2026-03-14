@@ -21,7 +21,7 @@ return {
       { "j-hui/fidget.nvim", opts = {} },
 
       -- Allows extra capabilities provided by nvim-cmp
-      "hrsh7th/cmp-nvim-lsp",
+      -- "hrsh7th/cmp-nvim-lsp",
       "b0o/schemastore.nvim",
       -- "yioneko/nvim-vtsls",
       "marilari88/twoslash-queries.nvim",
@@ -83,10 +83,8 @@ return {
             })
           end
 
-          -- The following code creates a keymap to toggle inlay hints in your
-          -- code, if the language server you are using supports them
-          --
-          -- This may be unwanted, since they displace some of your code
+          vim.lsp.inlay_hint.enable(false)
+
           if client and client.supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
             map("<leader>th", function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
@@ -124,7 +122,8 @@ return {
       })
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+      -- capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+      capabilities = vim.tbl_deep_extend("force", capabilities, require('blink.cmp').get_lsp_capabilities())
 
       local lspconfig_util = require("lspconfig.util")
 
@@ -141,12 +140,6 @@ return {
               -- diagnostics = { disable = { 'missing-fields' } },
             },
           },
-        },
-
-        ts_ls = {
-          settings = {
-
-          }
         },
 
         -- vtsls = {
@@ -461,6 +454,7 @@ return {
         server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
         vim.lsp.config(server_name, server)
         vim.lsp.enable(server_name)
+        vim.lsp.inlay_hint.enable(false)
       end
 
       local ensure_installed = vim.tbl_keys(servers or {})
