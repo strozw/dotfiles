@@ -188,11 +188,7 @@ return {
           }
         },
 
-        oxfmt = {
-          init_options = {
-            provideFormatter = true,
-          },
-        },
+        oxfmt = {},
 
         eslint = {},
 
