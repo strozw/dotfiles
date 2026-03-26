@@ -25,30 +25,40 @@ return {
         -- languages here or re-enable it for the disabled ones.
         local disable_filetypes = { c = true, cpp = true }
         local lsp_format_opt
+
         if disable_filetypes[vim.bo[bufnr].filetype] then
           lsp_format_opt = "never"
         else
           lsp_format_opt = "fallback"
         end
+
         return {
           timeout_ms = 500,
           lsp_format = lsp_format_opt,
         }
       end,
+      formatters = {
+        ["biome-check"] = {
+          require_cwd = true,
+        },
+        prettierd = {
+          require_cwd = true,
+        },
+      },
       formatters_by_ft = {
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
         -- lua = { "stylua" },
-        markdown = { "prettierd" },
-        yaml = { "prettierd" },
-        css = { "prettierd" },
-        html = { "prettierd" },
-        json = { "prettierd" },
-        jsonc = { "prettierd" },
-        javascript = { "prettierd" },
-        typescript = { "prettierd" },
-        javascriptreact = { "prettierd" },
-        typescriptreact = { "prettierd" },
+        markdown = { "prettierd", lsp_format = "fallback", stop_after_first = true },
+        yaml = { "prettierd", lsp_format = "fallback", stop_after_first = true },
+        css = { "prettierd", lsp_format = "fallback", stop_after_first = true },
+        html = { "prettierd", lsp_format = "fallback", stop_after_first = true },
+        json = { "prettierd", lsp_format = "fallback", stop_after_first = true },
+        jsonc = { "prettierd", lsp_format = "fallback", stop_after_first = true },
+        javascript = { "prettierd", lsp_format = "fallback", stop_after_first = true },
+        typescript = { "prettierd", lsp_format = "fallback", stop_after_first = true },
+        javascriptreact = { "prettierd", lsp_format = "fallback", stop_after_first = true },
+        typescriptreact = { "prettierd", lsp_format = "fallback", stop_after_first = true },
       },
     },
   },
