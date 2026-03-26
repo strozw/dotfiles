@@ -17,49 +17,62 @@ return {
       },
     },
     ---@type conform.setupOpts
-    opts = {
-      notify_on_error = false,
-      format_on_save = function(bufnr)
-        -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style. You can add additional
-        -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
-        local lsp_format_opt
+    config = function()
+      require("conform").setup({
+        notify_on_error = false,
+        format_on_save = function(bufnr)
+          -- Disable "format_on_save lsp_fallback" for languages that don't
+          -- have a well standardized coding style. You can add additional
+          -- languages here or re-enable it for the disabled ones.
+          local disable_filetypes = { c = true, cpp = true }
+          local lsp_format_opt
 
-        if disable_filetypes[vim.bo[bufnr].filetype] then
-          lsp_format_opt = "never"
-        else
-          lsp_format_opt = "fallback"
-        end
+          if disable_filetypes[vim.bo[bufnr].filetype] then
+            lsp_format_opt = "never"
+          else
+            lsp_format_opt = "fallback"
+          end
 
-        return {
-          timeout_ms = 500,
-          lsp_format = lsp_format_opt,
-        }
-      end,
-      formatters = {
-        ["biome-check"] = {
-          require_cwd = true,
+          return {
+            timeout_ms = 500,
+            lsp_format = lsp_format_opt,
+          }
+        end,
+        formatters = {
+          ["biome-check"] = {
+            require_cwd = true,
+          },
+          prettierd = {
+            require_cwd = true,
+          },
+          oxfmt = {
+            require_cwd = true,
+          },
+          oxlint = {
+            require_cwd = true,
+            cwd = require("conform.util").root_file({
+              "oxlint.config.ts",
+              ".oxlintrc.json",
+              ".oxlintrc.jsonc",
+            }),
+          }
         },
-        prettierd = {
-          require_cwd = true,
+        formatters_by_ft = {
+          -- You can use 'stop_after_first' to run the first available formatter from the list
+          -- javascript = { "prettierd", "prettier", stop_after_first = true },
+          -- lua = { "stylua" },
+          markdown = { "oxlint", lsp_format = "fallback", stop_after_first = true },
+          yaml = { "oxlint", lsp_format = "fallback", stop_after_first = true },
+          css = { "oxfmt", "oxlint", lsp_format = "fallback", stop_after_first = true },
+          html = { "oxlint", lsp_format = "fallback", stop_after_first = true },
+          json = { "oxlint", lsp_format = "fallback", stop_after_first = true },
+          jsonc = { "oxlint", lsp_format = "fallback", stop_after_first = true },
+          javascript = { "oxfmt", "oxlint", lsp_format = "fallback", stop_after_first = true },
+          typescript = { "oxfmt", "oxlint", lsp_format = "fallback", stop_after_first = true },
+          javascriptreact = { "oxfmt", "oxlint", lsp_format = "fallback", stop_after_first = true },
+          typescriptreact = { "oxfmt", "oxlint", lsp_format = "fallback", stop_after_first = true },
         },
-      },
-      formatters_by_ft = {
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
-        -- lua = { "stylua" },
-        markdown = { "prettierd", lsp_format = "fallback", stop_after_first = true },
-        yaml = { "prettierd", lsp_format = "fallback", stop_after_first = true },
-        css = { "prettierd", lsp_format = "fallback", stop_after_first = true },
-        html = { "prettierd", lsp_format = "fallback", stop_after_first = true },
-        json = { "prettierd", lsp_format = "fallback", stop_after_first = true },
-        jsonc = { "prettierd", lsp_format = "fallback", stop_after_first = true },
-        javascript = { "prettierd", lsp_format = "fallback", stop_after_first = true },
-        typescript = { "prettierd", lsp_format = "fallback", stop_after_first = true },
-        javascriptreact = { "prettierd", lsp_format = "fallback", stop_after_first = true },
-        typescriptreact = { "prettierd", lsp_format = "fallback", stop_after_first = true },
-      },
-    },
+      })
+    end,
   },
 }
