@@ -23,45 +23,35 @@ return {
       -- Allows extra capabilities provided by nvim-cmp
       -- "hrsh7th/cmp-nvim-lsp",
       "b0o/schemastore.nvim",
-      -- "yioneko/nvim-vtsls",
+      "yioneko/nvim-vtsls",
       "marilari88/twoslash-queries.nvim",
+      "atusy/kakehashi.nvim"
     },
     config = function()
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
         callback = function(event)
-          -- NOTE: Remember that Lua is a real programming language, and as such it is possible
-          -- to define small helper and utility functions so you don't have to repeat yourself.
-          --
-          -- In this case, we create a function that lets us more easily define mappings specific
-          -- for LSP related items. It sets the mode, buffer and description for us each time.
+          -- lsp server client
+          local client = vim.lsp.get_client_by_id(event.data.client_id)
+
+          -- keymap alias
           local map = function(keys, func, desc, mode)
             mode = mode or "n"
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
           end
 
-          -- Rename the variable under your cursor.
-          --  Most Language Servers support renaming across files, etc.
+          -- lsp keymaps
           map("<leader>cr", vim.lsp.buf.rename, "[C]ode [R]ename")
-
-          -- Execute a code action, usually your cursor needs to be on top of an error
-          -- or a suggestion from your LSP for this to activate.
           map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
-
           map("<leader>ch", vim.lsp.buf.signature_help, "[C]ode signature [H]elp", { "n", "x" })
-
           map("D", function()
             vim.diagnostic.open_float()
           end, "show [D]iagnostic", { "n" })
 
-          -- The following two autocommands are used to highlight references of the
-          -- word under your cursor when your cursor rests there for a little while.
-          --    See `:help CursorHold` for information about when this is executed
-          --
-          -- When you move your cursor, the highlights will be cleared (the second autocommand).
-          local client = vim.lsp.get_client_by_id(event.data.client_id)
+          -- auto highlight
           if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
             local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
+
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
               buffer = event.buf,
               group = highlight_augroup,
@@ -83,12 +73,22 @@ return {
             })
           end
 
+          -- inlay hint
           vim.lsp.inlay_hint.enable(false)
 
           if client and client.supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
             map("<leader>th", function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
             end, "[T]oggle Inlay [H]ints")
+          end
+
+          -- kakehashi
+          if client and client.name == "kakehashi" then
+            require("kakehashi").inherit_nvim_lsp_config(
+              client,
+              vim.tbl_keys(vim.lsp._enabled_configs),
+              "keep"
+            )
           end
         end,
       })
@@ -142,41 +142,56 @@ return {
           },
         },
 
-        -- vtsls = {
-        --   workspace_required = true,
-        --   on_attach = function(client, buffer_number)
-        --     require("twoslash-queries").attach(client, buffer_number)
-        --   end,
-        --   settings = {
-        --     vtsls = {
-        --       experimental = {
-        --         completion = {
-        --           enableServerSideFuzzyMatch = true,
-        --           entriesLimit = 50,
-        --         },
-        --       },
-        --       tsserver = {
-        --         globalPlugins = {
-        --           -- {
-        --           --   name = "@css-modules-kit/ts-plugin",
-        --           --   location = vim.fn.stdpath("data") .. "/mason/packages/typescript-plugin_css-modules-kit",
-        --           --   languages = { "css" },
-        --           -- },
-        --         },
-        --       },
-        --     },
-        --     typescript = {
-        --       tsserver = {
-        --         maxTsServerMemory = 20480,
-        --         pluginPaths = { "./node_modules" },
-        --       },
-        --     },
-        --   },
-        -- },
+        vtsls = {
+          workspace_required = true,
+          on_attach = function(client, buffer_number)
+            require("twoslash-queries").attach(client, buffer_number)
+          end,
+          settings = {
+            vtsls = {
+              experimental = {
+                completion = {
+                  enableServerSideFuzzyMatch = true,
+                  entriesLimit = 50,
+                },
+              },
+              tsserver = {
+                globalPlugins = {
+                  -- {
+                  --   name = "@css-modules-kit/ts-plugin",
+                  --   location = vim.fn.stdpath("data") .. "/mason/packages/typescript-plugin_css-modules-kit",
+                  --   languages = { "css" },
+                  -- },
+                },
+              },
+            },
+            typescript = {
+              tsserver = {
+                maxTsServerMemory = 20480,
+                pluginPaths = { "./node_modules" },
+              },
+            },
+          },
+        },
 
         denols = {
           root_markers = { 'deno.json', 'deno.jsonc' },
           workspace_required = true,
+        },
+
+        oxlint = {
+          init_options = {
+            provideFormatter = true,
+          },
+          settings = {
+            typeAware = true
+          }
+        },
+
+        oxfmt = {
+          init_options = {
+            provideFormatter = true,
+          },
         },
 
         eslint = {},
@@ -417,34 +432,7 @@ return {
             })
           end,
 
-          kakehashi = {
-            cmd = { "kakehashi" },
-            filetypes = {
-              "markdown"
-            },
-            init_options = {
-              autoInstall = true,
-              languages = {
-                markdown = {
-                  bridge = {
-                    sh = { enabled = true },
-                    bash = { enabled = true },
-                    zsh = { enabled = true },
-                    html = { enabled = true },
-                    css = { enabled = true },
-                    typescript = { enabled = true },
-                    typescriptreact = { enabled = true },
-                    javascript = { enabled = true },
-                    javascriptreact = { enabled = true },
-                    rust = { enabled = true },
-                    php = { enabled = true },
-                    ruby = { enabled = true },
-                    python = { enabled = true },
-                  }
-                },
-              },
-            },
-          }
+          kakehashi = {}
 
         },
       }
@@ -454,7 +442,6 @@ return {
         server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
         vim.lsp.config(server_name, server)
         vim.lsp.enable(server_name)
-        vim.lsp.inlay_hint.enable(false)
       end
 
       local ensure_installed = vim.tbl_keys(servers or {})

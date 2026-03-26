@@ -18,6 +18,12 @@
           "name": "gpt-oss:20b"
         }
       }
+    },
+    "anthropic_proxy": {
+      "options": {
+        "baseURL": "http://127.0.0.1:3456",
+        "apiKey": "dummy"
+      }
     }
   }
 }

@@ -1,58 +1,93 @@
 return {
-  {
-    "pmizio/typescript-tools.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "neovim/nvim-lspconfig",
-      "marilari88/twoslash-queries.nvim",
-    },
-    ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
-    config = function()
-      require("typescript-tools").setup({
-        on_attach = function(client, buffer_number)
-          client.server_capabilities = vim.tbl_deep_extend('force', client.server_capabilities,
-            require('blink.cmp').get_lsp_capabilities({}, false))
-
-          require("twoslash-queries").attach(client, buffer_number)
-        end,
-        settings = {
-          -- tsserver_path = "~/.bun/bin/tsgo",
-          -- Performance: separate diagnostic server for large projects
-          separate_diagnostic_server = true,
-          -- When to publish diagnostics
-          publish_diagnostic_on = "insert_leave",
-          -- JSX auto-closing tags
-          jsx_close_tag = {
-            enable = true,
-            filetypes = { "javascriptreact", "typescriptreact" },
-          },
-          tsserver_file_preferences = {
-            -- includeInlayParameterNameHints = "all",
-            -- includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-            -- includeInlayVariableTypeHints = true,
-            -- includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-            -- includeInlayPropertyDeclarationTypeHints = true,
-            -- includeInlayFunctionParameterTypeHints = true,
-            -- includeInlayEnumMemberValueHints = true,
-            -- includeInlayFunctionLikeReturnTypeHints = true,
-
-            -- auto import
-            includeCompletionsForModuleExports = true,
-            includeCompletionsForImportStatements = true,
-          },
-
-          tsserver_format_options = {
-            insertSpaceAfterOpeningAndBeforeClosingEmptyBraces = true,
-            semicolons = "insert",
-          },
-          complete_function_calls = true,
-          include_completions_with_insert_text = true,
-          code_lens = "off",
-          disable_member_code_lens = true,
-          tsserver_max_memory = auto,
-          tsserver_locale = "ja"
-        },
-      })
-    end,
-  },
+  -- {
+  --   "pmizio/typescript-tools.nvim",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "neovim/nvim-lspconfig",
+  --     "marilari88/twoslash-queries.nvim",
+  --   },
+  --   ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+  --   config = function()
+  --     require("typescript-tools").setup({
+  --       on_attach = function(client, buffer_number)
+  --         client.server_capabilities = vim.tbl_deep_extend('force', client.server_capabilities,
+  --           require('blink.cmp').get_lsp_capabilities({}, false))
+  --
+  --         require("twoslash-queries").attach(client, buffer_number)
+  --       end,
+  --       settings = {
+  --         -- Performance: separate diagnostic server for large projects
+  --         separate_diagnostic_server = true,
+  --         -- When to publish diagnostics ("change"|"insert_leave")
+  --         publish_diagnostic_on = "insert_leave",
+  --         -- code actions
+  --         expose_as_code_action = {
+  --           "fix_all",
+  --           "add_missing_imports",
+  --           "remove_unused_imports",
+  --           "organize_imports",
+  --         },
+  --         -- tsserver path
+  --         tsserver_path = nil,
+  --         -- specify a list of plugins to load by tsserver, e.g., for support `styled-components`
+  --         tsserver_plugins = {},
+  --         -- memory limit in megabytes or "auto"(basically no limit)
+  --         tsserver_max_memory = "auto",
+  --         tsserver_format_options = {
+  --           -- insertSpaceAfterOpeningAndBeforeClosingEmptyBraces = true,
+  --           -- semicolons = "insert",
+  --         },
+  --         tsserver_file_preferences = {
+  --           quotePreference = "auto",
+  --
+  --           --------------------
+  --           -- Completions
+  --           --------------------
+  --
+  --           includeCompletionsForModuleExports = true,
+  --
+  --           includeCompletionsForImportStatements = true,
+  --
+  --           includeCompletionsWithSnippetText = true,
+  --
+  --           includeCompletionsWithInsertText = true,
+  --
+  --           includeAutomaticOptionalChainCompletions = true,
+  --
+  --           includeCompletionsWithObjectLiteralMethodSnippets = true,
+  --
+  --           useLabelDetailsInCompletionEntries = true,
+  --
+  --           --------------------
+  --           -- inlay hints
+  --           --------------------
+  --           -- includeInlayParameterNameHints = "all",
+  --           -- includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+  --           -- includeInlayVariableTypeHints = true,
+  --           -- includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+  --           -- includeInlayPropertyDeclarationTypeHints = true,
+  --           -- includeInlayFunctionParameterTypeHints = true,
+  --           -- includeInlayEnumMemberValueHints = true,
+  --           -- includeInlayFunctionLikeReturnTypeHints = true,
+  --         },
+  --         -- locale of all tsserver messages, supported locales you can find here:
+  --         -- https://github.com/microsoft/TypeScript/blob/3c221fc086be52b19801f6e8d82596d04607ede6/src/compiler/utilitiesPublic.ts#L620
+  --         tsserver_locale = "en",
+  --         -- mirror of VSCode's `typescript.suggest.completeFunctionCalls`
+  --         complete_function_calls = false,
+  --         include_completions_with_insert_text = true,
+  --         -- CodeLens
+  --         -- WARNING: Experimental feature also in VSCode, because it might hit performance of server.
+  --         -- possible values: ("off"|"all"|"implementations_only"|"references_only")
+  --         code_lens = "off",
+  --         disable_member_code_lens = true,
+  --         -- JSX auto-closing tags
+  --         jsx_close_tag = {
+  --           enable = true,
+  --           filetypes = { "javascriptreact", "typescriptreact" },
+  --         },
+  --       },
+  --     })
+  --   end,
+  -- },
 }
