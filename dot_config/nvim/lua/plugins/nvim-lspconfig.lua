@@ -76,19 +76,35 @@ return {
           -- inlay hint
           vim.lsp.inlay_hint.enable(false)
 
-          if client and client.supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
-            map("<leader>th", function()
-              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-            end, "[T]oggle Inlay [H]ints")
-          end
+          if client then
+            if client.supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
+              map("<leader>th", function()
+                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+              end, "[T]oggle Inlay [H]ints")
+            end
 
-          -- kakehashi
-          if client and client.name == "kakehashi" then
-            require("kakehashi").inherit_nvim_lsp_config(
-              client,
-              vim.tbl_keys(vim.lsp._enabled_configs),
-              "keep"
-            )
+            -- kakehashi
+            if client.name == "kakehashi" then
+              require("kakehashi").inherit_nvim_lsp_config(
+                client,
+                vim.tbl_keys(vim.lsp._enabled_configs),
+                "keep"
+              )
+            end
+
+            if client.name == "oxlint" then
+              vim.api.nvim_create_autocmd("BufWritePre", {
+                buffer = event.buf,
+                command = "LspOxlintFixAll",
+              })
+            end
+
+            if client.name == "eslint" then
+              vim.api.nvim_create_autocmd("BufWritePre", {
+                buffer = event.buf,
+                command = "LspEslintFixAll",
+              })
+            end
           end
         end,
       })
@@ -165,10 +181,18 @@ return {
                 },
               },
             },
+            javascript = {
+              format = {
+                enable = false,
+              },
+            },
             typescript = {
               tsserver = {
                 maxTsServerMemory = 20480,
                 pluginPaths = { "./node_modules" },
+              },
+              format = {
+                enable = false,
               },
             },
           },
@@ -180,15 +204,17 @@ return {
         },
 
         oxlint = {
-          init_options = {
-            provideFormatter = true,
-          },
           settings = {
             typeAware = true
           }
         },
 
-        oxfmt = {},
+        oxfmt = {
+          init_options = {
+            provideFormatter = false,
+          },
+          root
+        },
 
         eslint = {},
 

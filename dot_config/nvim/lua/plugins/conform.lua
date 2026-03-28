@@ -1,5 +1,9 @@
 ---@module "conform"
 
+local function not_vtsls(client)
+  return client.name ~= "vtsls"
+end
+
 ---@type LazySpec
 return {
   { -- Autoformat
@@ -47,6 +51,11 @@ return {
           },
           oxfmt = {
             require_cwd = true,
+            cwd = require("conform.util").root_file({
+              "oxfmt.config.ts",
+              ".oxfmtrc.json",
+              ".oxfmtrc.jsonc",
+            }),
           },
           oxlint = {
             require_cwd = true,
@@ -59,18 +68,18 @@ return {
         },
         formatters_by_ft = {
           -- You can use 'stop_after_first' to run the first available formatter from the list
-          -- javascript = { "prettierd", "prettier", stop_after_first = true },
+          -- javascript = { "prettierd", "prettier" },
           -- lua = { "stylua" },
-          markdown = { "oxlint", lsp_format = "fallback", stop_after_first = true },
-          yaml = { "oxlint", lsp_format = "fallback", stop_after_first = true },
-          css = { "oxfmt", "oxlint", lsp_format = "fallback", stop_after_first = true },
-          html = { "oxlint", lsp_format = "fallback", stop_after_first = true },
-          json = { "oxlint", lsp_format = "fallback", stop_after_first = true },
-          jsonc = { "oxlint", lsp_format = "fallback", stop_after_first = true },
-          javascript = { "oxfmt", "oxlint", lsp_format = "fallback", stop_after_first = true },
-          typescript = { "oxfmt", "oxlint", lsp_format = "fallback", stop_after_first = true },
-          javascriptreact = { "oxfmt", "oxlint", lsp_format = "fallback", stop_after_first = true },
-          typescriptreact = { "oxfmt", "oxlint", lsp_format = "fallback", stop_after_first = true },
+          markdown = { "prettierd", lsp_format = "fallback" },
+          yaml = { "prettierd", lsp_format = "fallback" },
+          css = { "prettierd", lsp_format = "fallback" },
+          html = { "prettierd", lsp_format = "fallback" },
+          json = { "prettierd", lsp_format = "fallback" },
+          jsonc = { "prettierd", lsp_format = "fallback" },
+          javascript = { "prettierd", lsp_format = "fallback", filter = not_vtsls },
+          typescript = { "prettierd", lsp_format = "fallback", filter = not_vtsls },
+          javascriptreact = { "prettierd", lsp_format = "fallback", filter = not_vtsls },
+          typescriptreact = { "prettierd", lsp_format = "fallback", filter = not_vtsls },
         },
       })
     end,
