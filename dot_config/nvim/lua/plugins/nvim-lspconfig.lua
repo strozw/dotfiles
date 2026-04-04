@@ -21,15 +21,25 @@ return {
       { "j-hui/fidget.nvim", opts = {} },
 
       -- Allows extra capabilities provided by nvim-cmp
-      -- "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-nvim-lsp",
       "b0o/schemastore.nvim",
       "yioneko/nvim-vtsls",
       "marilari88/twoslash-queries.nvim",
       "atusy/kakehashi.nvim"
     },
     config = function()
+      local lsp_attach_group = vim.api.nvim_create_augroup("lsp-config-attach", { clear = true })
+
+      local lsp_detach_group = vim.api.nvim_create_augroup("lsp-config-detach", { clear = true })
+
+      local oxlint_lsp_buf_write_pre_group = vim.api.nvim_create_augroup("oxlint-lsp-buf-write-pre-group",
+        { clear = true })
+
+      local eslint_lsp_buf_write_pre_group = vim.api.nvim_create_augroup("eslint-lsp-buf-write-pre-group",
+        { clear = true })
+
       vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
+        group = lsp_attach_group,
         callback = function(event)
           -- lsp server client
           local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -65,7 +75,7 @@ return {
             })
 
             vim.api.nvim_create_autocmd("LspDetach", {
-              group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+              group = lsp_detach_group,
               callback = function(event2)
                 vim.lsp.buf.clear_references()
                 vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
@@ -92,19 +102,21 @@ return {
               )
             end
 
-            if client.name == "oxlint" then
-              vim.api.nvim_create_autocmd("BufWritePre", {
-                buffer = event.buf,
-                command = "LspOxlintFixAll",
-              })
-            end
-
-            if client.name == "eslint" then
-              vim.api.nvim_create_autocmd("BufWritePre", {
-                buffer = event.buf,
-                command = "LspEslintFixAll",
-              })
-            end
+            -- if client.name == "oxlint" then
+            --   vim.api.nvim_create_autocmd("BufWritePre", {
+            --     group = oxlint_lsp_buf_write_pre_group,
+            --     buffer = event.buf,
+            --     command = "LspOxlintFixAll",
+            --   })
+            -- end
+            --
+            -- if client.name == "eslint" then
+            --   vim.api.nvim_create_autocmd("BufWritePre", {
+            --     group = eslint_lsp_buf_write_pre_group,
+            --     buffer = event.buf,
+            --     command = "LspEslintFixAll",
+            --   })
+            -- end
           end
         end,
       })
@@ -138,8 +150,8 @@ return {
       })
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      -- capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-      capabilities = vim.tbl_deep_extend("force", capabilities, require('blink.cmp').get_lsp_capabilities())
+      capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+      -- capabilities = vim.tbl_deep_extend("force", capabilities, require('blink.cmp').get_lsp_capabilities())
 
       local lspconfig_util = require("lspconfig.util")
 
@@ -156,6 +168,26 @@ return {
               -- diagnostics = { disable = { 'missing-fields' } },
             },
           },
+        },
+
+        ts_ls = {
+          workspace_required = true,
+          on_attach = function(client, buffer_number)
+            require("twoslash-queries").attach(client, buffer_number)
+          end,
+          init_options = {
+            maxTsServerMemory = 4096,
+            plugins = {},
+
+          },
+          settings = {
+            javascript = {
+              format = false,
+            },
+            typescript = {
+              format = false,
+            },
+          }
         },
 
         vtsls = {
@@ -181,10 +213,13 @@ return {
                 },
               },
             },
+
+            complete_function_calls = false,
             javascript = {
               format = {
                 enable = false,
               },
+              suggest = { completeFunctionCalls = false }
             },
             typescript = {
               tsserver = {
@@ -194,6 +229,7 @@ return {
               format = {
                 enable = false,
               },
+              suggest = { completeFunctionCalls = false }
             },
           },
         },
@@ -203,18 +239,9 @@ return {
           workspace_required = true,
         },
 
-        oxlint = {
-          settings = {
-            typeAware = true
-          }
-        },
+        oxlint = {},
 
-        oxfmt = {
-          init_options = {
-            provideFormatter = false,
-          },
-          root
-        },
+        oxfmt = {},
 
         eslint = {},
 
@@ -427,6 +454,7 @@ return {
 
             -- キーマップの設定 アタッチされたバッファでのみ有効にする
             vim.api.nvim_create_autocmd('LspAttach', {
+              group = lsp_attach_group,
               callback = function(args)
                 local bufnr = args.buf
 
