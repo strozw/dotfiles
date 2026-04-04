@@ -7,6 +7,25 @@ return {
     ---@type NoiceConfig
     ---@diagnostic disable: missing-fields
     opts = {
+      routes = {
+        -- {
+        --   -- skip showing "written" messages when writing a file
+        --   filter = {
+        --     event = "msg_show",
+        --     find = ":checkhealth vim.deprecated",
+        --   },
+        --   opts = { skip = true },
+        -- },
+        {
+          -- skip showing "written" messages when writing a file
+          filter = {
+            -- event = "msg_show",
+            find = "No information available",
+          },
+          opts = { skip = true },
+        }
+      },
+
       lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
         override = {

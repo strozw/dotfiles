@@ -8,6 +8,9 @@ end
 return {
   { -- Autoformat
     "stevearc/conform.nvim",
+    dependencies = {
+      "neovim/nvim-lspconfig",
+    },
     event = { "BufWritePre" },
     cmd = { "ConformInfo" },
     keys = {
