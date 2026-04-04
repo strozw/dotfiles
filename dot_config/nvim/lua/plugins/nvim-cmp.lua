@@ -2,14 +2,13 @@ return {
   { -- Autocompletion
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
-    dependencies = {
-      {
-        "L3MON4D3/LuaSnip",
-        -- follow latest release.
-        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-        -- install jsregexp (optional!).
-        build = "make install_jsregexp"
-      },
+    dependencies = { {
+      "L3MON4D3/LuaSnip",
+      -- follow latest release.
+      version = "v2.*",   -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+      -- install jsregexp (optional!).
+      build = "make install_jsregexp"
+    },
       "saadparwaiz1/cmp_luasnip",
 
       -- Adds other completion capabilities.
@@ -187,12 +186,12 @@ return {
           { name = 'cmdline' }
         }),
         matching = {
-          disallow_fuzzy_matching = false,
-          disallow_fullfuzzy_matching = false,
-          disallow_partial_fuzzy_matching = false,
-          disallow_partial_matching = false,  -- 部分一致 ON
-          disallow_prefix_unmatching = false, -- 前方一致なしでも出す
-          disallow_symbol_nonprefix_matching = false,
+          -- disallow_fuzzy_matching = false,
+          -- disallow_fullfuzzy_matching = false,
+          -- disallow_partial_fuzzy_matching = false,
+          -- disallow_partial_matching = false,  -- 部分一致 ON
+          -- disallow_prefix_unmatching = false, -- 前方一致なしでも出す
+          -- disallow_symbol_nonprefix_matching = false,
         }
       })
     end,
