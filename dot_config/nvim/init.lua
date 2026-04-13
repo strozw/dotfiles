@@ -50,9 +50,11 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- auto refresh
+vim.o.autoread = true
+
 -- setup lazy.nvim
 require("config.lazy")
-require("config.external_change_detection")
 
 vim.cmd([[colorscheme tokyonight-night]])
 

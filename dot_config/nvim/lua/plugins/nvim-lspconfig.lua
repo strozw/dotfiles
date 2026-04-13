@@ -21,7 +21,7 @@ return {
       { "j-hui/fidget.nvim", opts = {} },
 
       -- Allows extra capabilities provided by nvim-cmp
-      "hrsh7th/cmp-nvim-lsp",
+      -- "hrsh7th/cmp-nvim-lsp",
       "b0o/schemastore.nvim",
       "yioneko/nvim-vtsls",
       "marilari88/twoslash-queries.nvim",
@@ -124,6 +124,11 @@ return {
       -- Diagnostic Config
       -- See :help vim.diagnostic.Opts
       vim.diagnostic.config({
+        -- for tiny-inline-diagnostic
+        virtual_text = false,
+
+        update_in_insert = false,
+
         severity_sort = true,
 
         float = { border = "rounded", source = "if_many" },
@@ -150,8 +155,18 @@ return {
       })
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-      -- capabilities = vim.tbl_deep_extend("force", capabilities, require('blink.cmp').get_lsp_capabilities())
+
+      local cmp_nvim_lsp_status, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+
+      if cmp_nvim_lsp_status then
+        capabilities = vim.tbl_deep_extend("force", capabilities, cmp_nvim_lsp.default_capabilities())
+      end
+
+      local blink_cmp_status, blink_cmp = pcall(require, "blink.cmp")
+
+      if blink_cmp_status then
+        capabilities = vim.tbl_deep_extend("force", capabilities, blink_cmp.get_lsp_capabilities())
+      end
 
       local lspconfig_util = require("lspconfig.util")
 
@@ -173,6 +188,9 @@ return {
         ts_ls = {
           workspace_required = true,
           on_attach = function(client, buffer_number)
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+
             require("twoslash-queries").attach(client, buffer_number)
           end,
           init_options = {
@@ -193,6 +211,9 @@ return {
         vtsls = {
           workspace_required = true,
           on_attach = function(client, buffer_number)
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+
             require("twoslash-queries").attach(client, buffer_number)
           end,
           settings = {
@@ -239,11 +260,35 @@ return {
           workspace_required = true,
         },
 
-        oxlint = {},
+        oxlint = {
+          -- capabilities = {
+          --   textDocument = {
+          --     diagnostic = {
+          --       -- codeDescriptionSupport = true,
+          --       -- dataSupport = true,
+          --       -- dynamicRegistration = true,
+          --       -- relatedDocumentSupport = true,
+          --     },
+          --   }
+          -- },
+          -- cmd_env = { RUST_LOG = 'debug' },
+          flags = {
+            allow_incremental_sync = true,
+            debounce_text_changes = 1000,
+          },
+          settings = {
+            typeAware = false,
+          },
+        },
 
         oxfmt = {},
 
-        eslint = {},
+        eslint = {
+          -- flags = {
+          --   allow_incremental_sync = false,
+          --   debounce_text_changes = 1000
+          -- }
+        },
 
         stylelint_lsp = {},
 
@@ -425,7 +470,6 @@ return {
 
         -- ref: https://zenn.dev/vim_jp/articles/a6839f7204a611
         copilot = {
-          enabled = false,
           root_dir = function(bufnr, callback)
             -- 特定の名前を持つファイルでは起動しないようにする
             local fname = vim.fs.basename(vim.api.nvim_buf_get_name(bufnr))
@@ -483,9 +527,9 @@ return {
           end,
 
           kakehashi = {}
-
         },
       }
+
 
       -- vim.lsp.config でセットアップ
       for server_name, server in pairs(servers) do
@@ -503,5 +547,6 @@ return {
 
       -- require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
     end,
+
   },
 }

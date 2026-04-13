@@ -6,8 +6,7 @@
     "messages_half_page_down": "shift+down"
   },
   "plugin": [
-    "@mohak34/opencode-notifier@0.1.15",
-    "opencode-with-claude"
+    // "@mohak34/opencode-notifier@0.1.15"
   ],
   "provider": {
     "ollama": {
@@ -21,12 +20,12 @@
           "name": "gpt-oss:20b"
         }
       }
-    },
-    "anthropic": {
-      "options": {
-        "baseURL": "http://127.0.0.1:3456",
-        "apiKey": "dummy"
-      }
     }
+  },
+  "permission": {
+    "*": "ask",
+    "*.env": "deny",
+    "*.env.*": "deny",
+    "*.env.example": "allow"
   }
 }
