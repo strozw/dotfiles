@@ -1,4 +1,4 @@
--- hello
+---@type LazySpec
 return {
   {
     "uga-rosa/translate.nvim",

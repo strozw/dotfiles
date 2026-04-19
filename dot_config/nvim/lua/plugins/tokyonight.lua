@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
   {
     "folke/tokyonight.nvim",
@@ -6,7 +7,6 @@ return {
     },
     lazy = false,
     priority = 1000,
-    opts = {},
     config = function()
       require("tokyonight").setup({
         on_highlights = function(hl, c)

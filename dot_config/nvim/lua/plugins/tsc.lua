@@ -1,4 +1,7 @@
+---@type LazySpec
 return {
   'dmmulroy/tsc.nvim',
-  opts = {}
+  config = function()
+    require("tsc").setup({})
+  end,
 }
