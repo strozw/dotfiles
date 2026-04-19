@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
   "rachartier/tiny-inline-diagnostic.nvim",
   event = "VeryLazy",
@@ -17,9 +18,10 @@ return {
       },
     })
 
+    -- Disable Neovim's default virtual text diagnostics
     vim.diagnostic.config({
       virtual_text = false,
       update_in_insert = false,
-    }) -- Disable Neovim's default virtual text diagnostics
+    })
   end,
 }

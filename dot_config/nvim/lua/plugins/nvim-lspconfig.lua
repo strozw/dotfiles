@@ -261,17 +261,6 @@ return {
         },
 
         oxlint = {
-          -- capabilities = {
-          --   textDocument = {
-          --     diagnostic = {
-          --       -- codeDescriptionSupport = true,
-          --       -- dataSupport = true,
-          --       -- dynamicRegistration = true,
-          --       -- relatedDocumentSupport = true,
-          --     },
-          --   }
-          -- },
-          -- cmd_env = { RUST_LOG = 'debug' },
           flags = {
             allow_incremental_sync = true,
             debounce_text_changes = 1000,
@@ -284,10 +273,10 @@ return {
         oxfmt = {},
 
         eslint = {
-          -- flags = {
-          --   allow_incremental_sync = false,
-          --   debounce_text_changes = 1000
-          -- }
+          flags = {
+            allow_incremental_sync = false,
+            debounce_text_changes = 1000
+          }
         },
 
         stylelint_lsp = {},
@@ -297,6 +286,7 @@ return {
         },
 
         dprint = {
+          workspace_required = true,
           root_dir = lspconfig_util.root_pattern("dprint.json"),
           filetypes = {
             "javascript",
@@ -427,14 +417,8 @@ return {
         },
 
         phpactor = {
-          filetypes = {
-            "php",
-            "phtml",
-            "blade",
-          },
-        },
+          workspace_required = true,
 
-        intelephense = {
           filetypes = {
             "php",
             "phtml",
@@ -444,7 +428,13 @@ return {
 
         gopls = {},
 
-        typos_lsp = {},
+        cspell_ls = {
+          workspace_required = true,
+        },
+
+        typos_lsp = {
+          workspace_required = true,
+        },
 
         astro = {},
 

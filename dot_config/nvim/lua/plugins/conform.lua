@@ -20,9 +20,8 @@ return {
         desc = "[F]ormat buffer",
       },
     },
-    ---@type conform.setupOpts
     config = function()
-      local function exclude_lsp_format(client)
+      local function exclude_tsserver_format(client)
         local exclude_clients = { "vtsls", "tsserver", "ts_ls" }
 
         return not vim.tbl_contains(exclude_clients, client.name)
@@ -30,14 +29,14 @@ return {
 
       require("conform").setup({
         notify_on_error = false,
-        format_on_save = function(bufnr)
+        format_on_save = function(buf)
           -- Disable "format_on_save lsp_fallback" for languages that don't
           -- have a well standardized coding style. You can add additional
           -- languages here or re-enable it for the disabled ones.
           local disable_filetypes = { c = true, cpp = true }
           local lsp_format_opt
 
-          if disable_filetypes[vim.bo[bufnr].filetype] then
+          if disable_filetypes[vim.bo[buf].filetype] then
             lsp_format_opt = "never"
           else
             lsp_format_opt = "fallback"
@@ -83,10 +82,11 @@ return {
           html = { "prettierd", lsp_format = "fallback" },
           json = { "prettierd", lsp_format = "fallback" },
           jsonc = { "prettierd", lsp_format = "fallback" },
-          javascript = { "prettierd", lsp_format = "fallback", filter = exclude_lsp_format },
-          typescript = { "prettierd", lsp_format = "fallback", filter = exclude_lsp_format },
-          javascriptreact = { "prettierd", lsp_format = "fallback", filter = exclude_lsp_format },
-          typescriptreact = { "prettierd", lsp_format = "fallback", filter = exclude_lsp_format },
+          javascript = { "prettierd", lsp_format = "fallback", filter = exclude_tsserver_format },
+          typescript = { "prettierd", lsp_format = "fallback", filter = exclude_tsserver_format },
+          javascriptreact = { "prettierd", lsp_format = "fallback", filter = exclude_tsserver_format },
+          typescriptreact = { "prettierd", lsp_format = "fallback", filter = exclude_tsserver_format },
+          php = { "php-cs-fixer", lsp_format = "fallback" }
         },
       })
     end,

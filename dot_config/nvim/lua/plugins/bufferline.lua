@@ -1,5 +1,4 @@
----@module "bufferline"
-
+---@type LazySpec
 return {
   {
     "akinsho/bufferline.nvim",
@@ -32,7 +31,5 @@ return {
         silent = true,
       },
     },
-    ---@type bufferline.UserConfig
-    opts = {},
   },
 }
