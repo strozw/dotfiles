@@ -11,6 +11,5 @@ return {
       end,
       desc = "Diagnostics (Workspace Diagnostics)",
     },
-
   }
 }
