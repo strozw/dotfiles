@@ -424,6 +424,8 @@ return {
             "phtml",
             "blade",
           },
+
+          init_options = {}
         },
 
         gopls = {},
