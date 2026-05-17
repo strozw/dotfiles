@@ -1,6 +1,7 @@
 ---@type LazySpec
 return {
   "akinsho/bufferline.nvim",
+  enabled = false,
   version = "*",
   dependencies = "nvim-tree/nvim-web-devicons",
   lazy = false,
@@ -32,11 +33,6 @@ return {
   },
   config = function()
     require("bufferline").setup({
-      options = {
-        separator_style = "slope"
-
-      }
-
     })
   end
 }
