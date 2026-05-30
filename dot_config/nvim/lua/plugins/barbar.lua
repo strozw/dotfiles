@@ -38,10 +38,10 @@ return {
       animation = false,
       insert_at_start = true,
       auto_hide = false,
-      sidebar_filetypes = {
-        ["snacks_layout_box"] = { event = "BufWipeout" },
-        Outline = { event = 'BufWinLeave', text = 'symbols-outline', align = 'right' },
-      },
+      -- sidebar_filetypes = {
+      --   ["snacks_layout_box"] = { event = "BufWipeout" },
+      --   Outline = { event = 'BufWinLeave', text = 'symbols-outline', align = 'right' },
+      -- },
       icons = {
         filetype = {
           custom_icons = false,
