@@ -35,8 +35,8 @@ return {
   init = function() vim.g.barbar_auto_setup = false end,
   config = function()
     require("barbar").setup {
-      animation = false,
-      insert_at_start = true,
+      animation = true,
+      insert_at_start = false,
       auto_hide = false,
       -- sidebar_filetypes = {
       --   ["snacks_layout_box"] = { event = "BufWipeout" },
