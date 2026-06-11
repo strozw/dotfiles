@@ -93,6 +93,14 @@ return {
               end, "[T]oggle Inlay [H]ints")
             end
 
+            if client.name == "kakehashi" then
+              require("kakehashi").inherit_nvim_lsp_config(
+                client,
+                servers,
+                "keep"
+              )
+            end
+
             -- if client.name == "oxlint" then
             --   vim.api.nvim_create_autocmd("BufWritePre", {
             --     group = oxlint_lsp_buf_write_pre_group,
