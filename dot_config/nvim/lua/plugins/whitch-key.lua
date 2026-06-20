@@ -1,16 +1,16 @@
+---@module "which-key"
+
 return {
   {
     "folke/which-key.nvim",
     priority = 1,
     event = "VimEnter",
+    ---@type wk.Config
     opts = {
       preset = "modern",
       delay = 300,
       icons = {
-        -- set icon mappings to true if you have a Nerd Font
         mappings = vim.g.have_nerd_font,
-        -- If you are using a Nerd Font: set icons.keys to an empty table which will use the
-        -- default which-key.nvim defined Nerd Font icons, otherwise define a string table
         keys = vim.g.have_nerd_font and {} or {
           Up = "<Up> ",
           Down = "<Down> ",

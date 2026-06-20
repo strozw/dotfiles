@@ -28,8 +28,18 @@ return {
       "atusy/kakehashi.nvim"
     },
     config = function()
+      local lsp_attach_group = vim.api.nvim_create_augroup("lsp-config-attach", { clear = true })
+
+      local lsp_detach_group = vim.api.nvim_create_augroup("lsp-config-detach", { clear = true })
+
+      local oxlint_lsp_buf_write_pre_group = vim.api.nvim_create_augroup("oxlint-lsp-buf-write-pre-group",
+        { clear = true })
+
+      local eslint_lsp_buf_write_pre_group = vim.api.nvim_create_augroup("eslint-lsp-buf-write-pre-group",
+        { clear = true })
+
       vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
+        group = lsp_attach_group,
         callback = function(event)
           -- lsp server client
           local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -65,7 +75,7 @@ return {
             })
 
             vim.api.nvim_create_autocmd("LspDetach", {
-              group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+              group = lsp_detach_group,
               callback = function(event2)
                 vim.lsp.buf.clear_references()
                 vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
@@ -76,19 +86,36 @@ return {
           -- inlay hint
           vim.lsp.inlay_hint.enable(false)
 
-          if client and client.supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
-            map("<leader>th", function()
-              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-            end, "[T]oggle Inlay [H]ints")
-          end
+          if client then
+            if client.supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
+              map("<leader>th", function()
+                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+              end, "[T]oggle Inlay [H]ints")
+            end
 
-          -- kakehashi
-          if client and client.name == "kakehashi" then
-            require("kakehashi").inherit_nvim_lsp_config(
-              client,
-              vim.tbl_keys(vim.lsp._enabled_configs),
-              "keep"
-            )
+            if client.name == "kakehashi" then
+              require("kakehashi").inherit_nvim_lsp_config(
+                client,
+                servers,
+                "keep"
+              )
+            end
+
+            -- if client.name == "oxlint" then
+            --   vim.api.nvim_create_autocmd("BufWritePre", {
+            --     group = oxlint_lsp_buf_write_pre_group,
+            --     buffer = event.buf,
+            --     command = "LspOxlintFixAll",
+            --   })
+            -- end
+            --
+            -- if client.name == "eslint" then
+            --   vim.api.nvim_create_autocmd("BufWritePre", {
+            --     group = eslint_lsp_buf_write_pre_group,
+            --     buffer = event.buf,
+            --     command = "LspEslintFixAll",
+            --   })
+            -- end
           end
         end,
       })
@@ -96,6 +123,11 @@ return {
       -- Diagnostic Config
       -- See :help vim.diagnostic.Opts
       vim.diagnostic.config({
+        -- for tiny-inline-diagnostic
+        virtual_text = false,
+
+        update_in_insert = false,
+
         severity_sort = true,
 
         float = { border = "rounded", source = "if_many" },
@@ -122,8 +154,18 @@ return {
       })
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      -- capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-      capabilities = vim.tbl_deep_extend("force", capabilities, require('blink.cmp').get_lsp_capabilities())
+
+      local cmp_nvim_lsp_status, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+
+      if cmp_nvim_lsp_status then
+        capabilities = vim.tbl_deep_extend("force", capabilities, cmp_nvim_lsp.default_capabilities())
+      end
+
+      local blink_cmp_status, blink_cmp = pcall(require, "blink.cmp")
+
+      if blink_cmp_status then
+        capabilities = vim.tbl_deep_extend("force", capabilities, blink_cmp.get_lsp_capabilities())
+      end
 
       local lspconfig_util = require("lspconfig.util")
 
@@ -142,9 +184,35 @@ return {
           },
         },
 
+        ts_ls = {
+          workspace_required = true,
+          on_attach = function(client, buffer_number)
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+
+            require("twoslash-queries").attach(client, buffer_number)
+          end,
+          init_options = {
+            maxTsServerMemory = 4096,
+            plugins = {},
+
+          },
+          settings = {
+            javascript = {
+              format = false,
+            },
+            typescript = {
+              format = false,
+            },
+          }
+        },
+
         vtsls = {
           workspace_required = true,
           on_attach = function(client, buffer_number)
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+
             require("twoslash-queries").attach(client, buffer_number)
           end,
           settings = {
@@ -165,11 +233,23 @@ return {
                 },
               },
             },
+
+            complete_function_calls = false,
+            javascript = {
+              format = {
+                enable = false,
+              },
+              suggest = { completeFunctionCalls = false }
+            },
             typescript = {
               tsserver = {
                 maxTsServerMemory = 20480,
                 pluginPaths = { "./node_modules" },
               },
+              format = {
+                enable = false,
+              },
+              suggest = { completeFunctionCalls = false }
             },
           },
         },
@@ -180,17 +260,23 @@ return {
         },
 
         oxlint = {
-          init_options = {
-            provideFormatter = true,
+          flags = {
+            allow_incremental_sync = true,
+            debounce_text_changes = 1000,
           },
           settings = {
-            typeAware = true
-          }
+            typeAware = false,
+          },
         },
 
         oxfmt = {},
 
-        eslint = {},
+        eslint = {
+          flags = {
+            allow_incremental_sync = false,
+            debounce_text_changes = 1000
+          }
+        },
 
         stylelint_lsp = {},
 
@@ -199,6 +285,7 @@ return {
         },
 
         dprint = {
+          workspace_required = true,
           root_dir = lspconfig_util.root_pattern("dprint.json"),
           filetypes = {
             "javascript",
@@ -329,24 +416,26 @@ return {
         },
 
         phpactor = {
-          filetypes = {
-            "php",
-            "phtml",
-            "blade",
-          },
-        },
+          workspace_required = true,
 
-        intelephense = {
           filetypes = {
             "php",
             "phtml",
             "blade",
           },
+
+          init_options = {}
         },
 
         gopls = {},
 
-        typos_lsp = {},
+        cspell_ls = {
+          workspace_required = true,
+        },
+
+        typos_lsp = {
+          workspace_required = true,
+        },
 
         astro = {},
 
@@ -372,7 +461,6 @@ return {
 
         -- ref: https://zenn.dev/vim_jp/articles/a6839f7204a611
         copilot = {
-          enabled = false,
           root_dir = function(bufnr, callback)
             -- 特定の名前を持つファイルでは起動しないようにする
             local fname = vim.fs.basename(vim.api.nvim_buf_get_name(bufnr))
@@ -401,6 +489,7 @@ return {
 
             -- キーマップの設定 アタッチされたバッファでのみ有効にする
             vim.api.nvim_create_autocmd('LspAttach', {
+              group = lsp_attach_group,
               callback = function(args)
                 local bufnr = args.buf
 
@@ -429,7 +518,6 @@ return {
           end,
 
           kakehashi = {}
-
         },
       }
 
@@ -449,5 +537,6 @@ return {
 
       -- require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
     end,
+
   },
 }
