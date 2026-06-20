@@ -1,23 +1,14 @@
+---@type LazySpec
 return {
-  -- NOTE: Yes, you can install new plugins here!
   "mfussenegger/nvim-dap",
-  -- NOTE: And you can specify dependencies as well
   dependencies = {
-    -- Creates a beautiful debugger UI
     "rcarriga/nvim-dap-ui",
-
-    -- Required dependency for nvim-dap-ui
     "nvim-neotest/nvim-nio",
-
-    -- Installs the debug adapters for you
     "williamboman/mason.nvim",
     "jay-babu/mason-nvim-dap.nvim",
-
-    -- Add your own debuggers here
     "leoluz/nvim-dap-go",
   },
   keys = {
-    -- Basic debugging keymaps, feel free to change to your liking!
     {
       "<leader>ds",
       function()
@@ -91,8 +82,8 @@ return {
     })
 
     -- Dap UI setup
-    -- For more information, see |:help nvim-dap-ui|
     dapui.setup({
+      wrap = true,
       mappings = {},
       element_mappings = {},
       expand_lines = true,
@@ -105,9 +96,6 @@ return {
       render = {
         indent = 1,
       },
-      -- Set icons to characters that are more likely to work in every terminal.
-      --    Feel free to remove or use ones that you like more! :)
-      --    Don't feel like these are good choices.
       icons = { expanded = "▾", collapsed = "▸", current_frame = "*" },
       controls = {
         enabled = true,
@@ -129,6 +117,7 @@ return {
     -- Change breakpoint icons
     vim.api.nvim_set_hl(0, "DapBreak", { fg = "#e51400" })
     vim.api.nvim_set_hl(0, "DapStop", { fg = "#ffcc00" })
+
     local breakpoint_icons = vim.g.have_nerd_font
         and {
           Breakpoint = "",
@@ -137,13 +126,14 @@ return {
           LogPoint = "",
           Stopped = "",
         }
-      or {
-        Breakpoint = "●",
-        BreakpointCondition = "⊜",
-        BreakpointRejected = "⊘",
-        LogPoint = "◆",
-        Stopped = "⭔",
-      }
+        or {
+          Breakpoint = "●",
+          BreakpointCondition = "⊜",
+          BreakpointRejected = "⊘",
+          LogPoint = "◆",
+          Stopped = "⭔",
+        }
+
     for type, icon in pairs(breakpoint_icons) do
       local tp = "Dap" .. type
       local hl = (type == "Stopped") and "DapStop" or "DapBreak"
@@ -162,5 +152,5 @@ return {
         detached = vim.fn.has("win32") == 0,
       },
     })
-  end,
+  end
 }

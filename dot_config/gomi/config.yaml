@@ -1,18 +1,64 @@
+# Controls the core functionality of gomi's trash operations.
+# Includes settings for trash directory strategy (XDG or legacy),
+# restoration behavior, and permanent deletion features.
+# These settings directly affect how files are handled.
 core:
+  trash:
+    strategy: auto      # or "xdg" or "legacy"
+                        # Strategy determines which trash specification to use.
+
+    gomi_dir: ~/.gomi   # Path to store trashed files. Can be changed to another location.
+                        # Supports environment variable expansion like $HOME or ~.
+                        # If empty, defaults to ~/.gomi.
+                        # This is a legacy storage setting. If set with strategy "auto",
+                        # gomi will automatically use legacy storage as the primary backend.
+
+    home_fallback: true # If true, fallbacks to home trash when external trash fails
+
+    forbidden_paths:    # List of paths that cannot be moved to trash for safety
+      - "$HOME/.local/share/Trash"
+      - "$HOME/.trash"
+      - "$XDG_DATA_HOME/Trash"
+      - "/tmp/Trash"
+      - "/var/tmp/Trash"
+      - "$HOME/.gomi"
+      - "/"
+      - "/etc"
+      - "/usr"
+      - "/var"
+      - "/bin"
+      - "/sbin"
+      - "/lib"
+      - "/lib64"
+
   restore:
-    verbose: true
-    confirm: true
-trash:
-  gomi_dir: ~/.gomi
+    confirm: false      # If true, prompts for confirmation before restoring (yes/no)
+    verbose: true       # If true, displays detailed restoration information
+
+  permanent_delete:
+    enable: false       # If true, enables permanent deletion of files from trash.
+                        # When enabled, files can be deleted permanently using the 'D' key.
+                        # This operation is irreversible and bypasses the trash.
+                        # Default is false for safety.
+
+# Customizes the interactive interface used during file restoration.
+# Provides detailed customization of colors, layouts, and preview features.
+# Controls how files and directories are displayed in both list and detail views.
 ui:
-  density: spacious
+  density: spacious # or compact
+  preview:
+    syntax_highlight: true
+    colorscheme: nord  # Available themes: https://xyproto.github.io/splash/docs/index.html
+    directory_command: ls -F -A --color=always
   style:
     list_view:
-      indent_on_select: true
-      cursor: "#AD58B4"
-      selected: "#5FB458"
+      cursor: "#AD58B4"         # purple - color of the cursor border and text
+      selected: "#5FB458"       # green - color of selected files
+      filter_match: "#F39C12"   # orange - color of matched text when searching
+      filter_prompt: "#7AA2F7"  # blue - color of the "Filter:" prompt text
+      indent_on_select: false
     detail_view:
-      border: "#EEEEDD"
+      border: "#FFFFFF"
       info_pane:
         deleted_from:
           fg: "#EEEEEE"
@@ -28,20 +74,36 @@ ui:
         scroll:
           fg: "#EEEEDD"
           bg: "#3C3C3C"
-  exit_message: bye!
-  preview:
-    syntax_highlight: true
-    colorscheme: nord
-    directory_command: ls -GF -1 -A --color=always
-  paginator_type: dots
+    deletion_dialog: "#FF007F" # pink
+  exit_message: bye!   # Customizable exit message
+  paginator_type: dots # or arabic
+
+# Configures which files appear in the restoration list.
+# Note: While all trash operations are recorded in history,
+# these settings only control file visibility when browsing the trash (`gomi -b`).
+# Provides filtering options by age, patterns, size, etc.,
+# to help manage large trash directories.
 history:
   include:
-    within_days: 365
+    within_days: 100 # Only show files deleted in the last 100 days
   exclude:
     files:
-      - .DS_Store
-    patterns: []
-    globs: []
+    - .DS_Store      # Exclude .DS_Store files
+    patterns:
+    - "^go\\..*"     # Exclude files starting with "go."
+    globs:
+    - "*.jpg"        # Exclude JPEG files
     size:
-      min: 0KB
-      max: 10GB
+      min: ""        # No minimum size filter (set e.g. "1KB" to exclude empty files)
+      max: 10GB      # Exclude files larger than 10GB
+
+# Enables debugging and operation logging for gomi.
+# When enabled, records all operations including file movements,
+# restorations, and encountered errors.
+# Includes rotation settings to manage log file sizes and retention.
+logging:
+  enabled: false     # Enable/disable logging
+  level: info        # Available levels: debug, info, warn, error
+  rotation:
+    max_size: 10MB   # Maximum size of each log file
+    max_files: 3     # Number of old log files to retain

@@ -4,8 +4,6 @@ return {
     dependencies = {
       "nvim-tree/nvim-web-devicons",
       "stevearc/overseer.nvim",
-      "milanglacier/minuet-ai.nvim",
-      -- "Davidyz/VectorCode",
       -- "leisurelicht/lualine-copilot.nvim",
     },
     config = function()
@@ -24,12 +22,7 @@ return {
             "filetype",
             "overseer",
             -- 'copilot',
-            require("minuet.lualine"),
           },
-          -- lualine_y = {
-          --   "progress",
-          --   require("vectorcode.integrations").lualine(),
-          -- },
         },
       })
     end,

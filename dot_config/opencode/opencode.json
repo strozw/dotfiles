@@ -5,7 +5,9 @@
     "messages_half_page_up": "shift+up",
     "messages_half_page_down": "shift+down"
   },
-  "plugin": ["@mohak34/opencode-notifier@0.1.15"],
+  "plugin": [
+    // "@mohak34/opencode-notifier@0.1.15"
+  ],
   "provider": {
     "ollama": {
       "npm": "@ai-sdk/openai-compatible",
@@ -16,14 +18,20 @@
       "models": {
         "gpt-oss:20b": {
           "name": "gpt-oss:20b"
+        },
+        "qwen3-coder:30b": {
+          "name": "qwen3-coder:30b"
+        },
+        "gemma4:26b": {
+          "name": "gemma4:26b"
         }
       }
-    },
-    "anthropic_proxy": {
-      "options": {
-        "baseURL": "http://127.0.0.1:3456",
-        "apiKey": "dummy"
-      }
     }
+  },
+  "permission": {
+    "*": "ask",
+    "*.env": "deny",
+    "*.env.*": "deny",
+    "*.env.example": "allow"
   }
 }

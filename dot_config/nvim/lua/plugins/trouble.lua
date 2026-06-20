@@ -3,7 +3,6 @@
 return {
   {
     "folke/trouble.nvim",
-    -- for default options, refer to the configuration section for custom setup.
     ---@type trouble.Config
     ---@diagnostic disable: missing-fields
     opts = {

@@ -20,6 +20,10 @@ return {
       { "<c-k>", "<C-\\><C-n><CMD>TmuxNavigateUp<CR>",    mode = { "t" }, silent = true },
       { "<c-l>", "<C-\\><C-n><CMD>TmuxNavigateRight<CR>", mode = { "t" }, silent = true },
     },
+    config = function()
+      -- vim-tmux-navigator の default keymap を無効化
+      vim.g.tmux_navigator_no_mappings = 1
+    end,
   },
   -- {
   --   "alexghergh/nvim-tmux-navigation",

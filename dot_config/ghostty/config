@@ -25,6 +25,9 @@ macos-window-buttons = hidden
 macos-option-as-alt = true
 
 link-url = true
+link-previews = true
+# see: https://github.com/ghostty-org/ghostty/discussions/4618#discussioncomment-11777946
+mouse-shift-capture = false
 
 keybind = shift+enter=text:\x1b\r
 
