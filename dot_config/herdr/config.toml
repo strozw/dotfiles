@@ -1,0 +1,70 @@
+onboarding = false
+
+[theme]
+name = "dracula"
+
+[keys]
+prefix = "ctrl+t"
+
+[[keys.command]]
+key = "prefix+%"
+type = "shell"
+command = "herdr pane split --direction right --focus"
+
+[[keys.command]]
+key = "pefix+\""
+type = "shell"
+command = "herdr pane split --direction down --focus"
+
+[[keys.command]]
+key = "ctrl+h"
+type = "shell"
+command = "herdr pane focus --direction left"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "shell"
+command = "herdr pane focus --direction down"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "shell"
+command = "herdr pane focus --direction up"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "shell"
+command = "herdr pane focus --direction right"
+
+[[keys.command]]
+key = "alt+h"
+type = "shell"
+command = "herdr pane resize --direction left --amount 0.01"
+
+[[keys.command]]
+key = "alt+j"
+type = "shell"
+command = "herdr pane resize --direction down --amount 0.01"
+
+[[keys.command]]
+key = "alt+k"
+type = "shell"
+command = "herdr pane resize --direction up --amount 0.01"
+
+[[keys.command]]
+key = "alt+l"
+type = "shell"
+command = "herdr pane resize --direction right --amount 0.01"
+
+[ui]
+
+[ui.toast]
+delivery = "system"
+
+[ui.sound]
+enabled = true
+
+[experimental]
+allow_nested = true
+kitty_graphics = true
+switch_ascii_input_source_in_prefix = true
