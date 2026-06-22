@@ -7,16 +7,6 @@ name = "dracula"
 prefix = "ctrl+t"
 
 [[keys.command]]
-key = "prefix+%"
-type = "shell"
-command = "herdr pane split --direction right --focus"
-
-[[keys.command]]
-key = "pefix+\""
-type = "shell"
-command = "herdr pane split --direction down --focus"
-
-[[keys.command]]
 key = "ctrl+h"
 type = "shell"
 command = "herdr pane focus --direction left"
@@ -55,6 +45,28 @@ command = "herdr pane resize --direction up --amount 0.01"
 key = "alt+l"
 type = "shell"
 command = "herdr pane resize --direction right --amount 0.01"
+
+[[keys.command]]
+key = "prefix+|"
+type = "shell"
+command = "herdr pane split --direction right --focus"
+
+[[keys.command]]
+key = "prefix+%"
+type = "shell"
+command = "herdr pane split --direction right --focus"
+
+# not working
+# [[keys.command]]
+# key = "pefix+\""
+# type = "shell"
+# command = "herdr pane split --direction down --focus"
+
+# not working
+# [[keys.command]]
+# key = "pefix+ctrl+l"
+# type = "shell"
+# command = "clear"
 
 [ui]
 

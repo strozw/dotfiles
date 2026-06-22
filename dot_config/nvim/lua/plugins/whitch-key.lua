@@ -7,6 +7,10 @@ return {
     event = "VimEnter",
     ---@type wk.Config
     opts = {
+      --- https://github.com/mvllow/modes.nvim#known-issues
+      triggers_blacklist = {
+        n = { "d", "y" }
+      },
       preset = "modern",
       delay = 300,
       icons = {
