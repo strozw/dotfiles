@@ -34,12 +34,12 @@ command = "herdr pane resize --direction left --amount 0.01"
 [[keys.command]]
 key = "alt+j"
 type = "shell"
-command = "herdr pane resize --direction down --amount 0.01"
+command = "herdr pane resize --direction down --amount 0.025"
 
 [[keys.command]]
 key = "alt+k"
 type = "shell"
-command = "herdr pane resize --direction up --amount 0.01"
+command = "herdr pane resize --direction up --amount 0.025"
 
 [[keys.command]]
 key = "alt+l"
@@ -69,6 +69,8 @@ command = "herdr pane split --direction right --focus"
 # command = "clear"
 
 [ui]
+pane_borders = true
+pane_gaps = false
 
 [ui.toast]
 delivery = "system"
