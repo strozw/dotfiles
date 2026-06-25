@@ -3,6 +3,10 @@ onboarding = false
 [theme]
 name = "dracula"
 
+[terminal]
+shell_mode = "auto"
+new_cwd = "current"
+
 [keys]
 prefix = "ctrl+t"
 
