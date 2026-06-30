@@ -12,23 +12,27 @@ prefix = "ctrl+t"
 
 [[keys.command]]
 key = "ctrl+h"
-type = "shell"
-command = "herdr pane focus --direction left"
+type = "plugin_action"
+command = "vim-herdr-navigation.left"
+description = "navigate left (vim/herdr)"
 
 [[keys.command]]
 key = "ctrl+j"
-type = "shell"
-command = "herdr pane focus --direction down"
+type = "plugin_action"
+command = "vim-herdr-navigation.down"
+description = "navigate down (vim/herdr)"
 
 [[keys.command]]
 key = "ctrl+k"
-type = "shell"
-command = "herdr pane focus --direction up"
+type = "plugin_action"
+command = "vim-herdr-navigation.up"
+description = "navigate up (vim/herdr)"
 
 [[keys.command]]
 key = "ctrl+l"
-type = "shell"
-command = "herdr pane focus --direction right"
+type = "plugin_action"
+command = "vim-herdr-navigation.right"
+description = "navigate right (vim/herdr)"
 
 [[keys.command]]
 key = "alt+h"
