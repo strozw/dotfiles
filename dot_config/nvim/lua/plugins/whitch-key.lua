@@ -7,10 +7,14 @@ return {
     event = "VimEnter",
     ---@type wk.Config
     opts = {
-      --- https://github.com/mvllow/modes.nvim#known-issues
-      triggers_blacklist = {
-        n = { "d", "y" }
-      },
+      ---@param ctx { mode: string, operator: string }
+      defer = function(ctx)
+        --- https://github.com/mvllow/modes.nvim#known-issues
+        if vim.list_contains({ "d", "y" }, ctx.operator) then
+          return true
+        end
+        return vim.list_contains({ "<C-V>", "V" }, ctx.mode)
+      end,
       preset = "modern",
       delay = 300,
       icons = {
