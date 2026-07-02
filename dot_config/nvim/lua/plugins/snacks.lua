@@ -45,6 +45,15 @@ return {
       },
       layout = { preset = "my_telescope_top" },
       sources = {
+        files = {
+          hidden = true,
+          cmd = "fd",
+        },
+        grep = {
+          hidden = true,
+          regex = true,
+          cmd = "rg",
+        },
         explorer = {
           hidden = true,
           ignored = true,
