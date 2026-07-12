@@ -87,6 +87,12 @@ export FZF_DEFAULT_OPTS='
 '
 
 #------------------------------------------------------
+# worktrunk
+#------------------------------------------------------
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+
+#------------------------------------------------------
 # orbstack
 #------------------------------------------------------
 
@@ -172,3 +178,4 @@ bindkey '^g' fzf-ghq
 if [ -f ~/.zshrc.local ]; then
   source ~/.zshrc.local
 fi
+

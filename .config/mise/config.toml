@@ -90,7 +90,7 @@ tap_to_click = true
 
 "~/.config/tig/" = { mode = "symlink" }
 
-"~/.config/tmux/" = { mode = "symlink" }
+"~/.config/tmux/tmux.conf" = { mode = "symlink" }
 
 "~/.config/wezterm/" = { mode = "symlink" }
 

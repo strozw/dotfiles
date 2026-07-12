@@ -79,6 +79,7 @@ command = "herdr pane split --direction right --focus"
 [ui]
 pane_borders = true
 pane_gaps = false
+sidebar_collapsed_mode = "hidden"
 
 [ui.toast]
 delivery = "system"
