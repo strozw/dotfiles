@@ -1,0 +1,12 @@
+[settings]
+dotfiles.root = "~/.dotfiles"
+
+[dotfiles]
+"~/.dotfiles" = "~/ghq/github.com/strozw/dotfiles"
+"~/.config/mise/config.toml" = "~/ghq/github.com/strozw/dotfiles/.config/mise/config.toml"
+
+[tools]
+"github:atusy/kakehashi" = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = ["node", "ruby", "php"]
