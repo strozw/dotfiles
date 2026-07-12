@@ -1,6 +1,0 @@
-# macOS system files
-.DS_Store
-
-# sensitive files
-.config/gh/hosts.yml
-

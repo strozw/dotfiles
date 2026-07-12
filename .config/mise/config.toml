@@ -1,10 +1,101 @@
 [settings]
-dotfiles.root = "~/.dotfiles"
+dotfiles.root = "~/ghq/github.com/strozw/dotfiles"
+dotfiles.default_mode = "symlink"
 idiomatic_version_file_enable_tools = ["node", "ruby", "php"]
 
+[bootstrap.packages]
+"brew:bat" = "latest"
+"brew:carapace" = "latest"
+"brew:delta" = "latest"
+"brew:direnv" = "latest"
+"brew:eza" = "latest"
+"brew:fd" = "latest"
+"brew:git" = "latest"
+"brew:gh" = "latest"
+"brew:ghq" = "latest"
+"brew:htop" = "latest"
+"brew:herdr" = "latest"
+"brew:m-cli" = "latest"
+"brew:mas" = "latest"
+"brew:mise" = "latest"
+"brew:neovim" = "latest"
+"brew:opencode" = "latest"
+"brew:pinentry-mac" = "latest"
+"brew:ripgrep" = "latest"
+"brew:rustup" = "latest"
+"brew:sheldon" = "latest"
+"brew:starship" = "latest"
+"brew:tig" = "latest"
+"brew:television" = "latest"
+"brew:tmux" = "latest"
+"brew:tpm" = "latest"
+"brew:zoxide" = "latest"
+"brew:zsh" = "latest"
+"brew:zsh-completions" = "latest"
+"brew:yazi" = "latest"
+
+[bootstrap.macos.dock]
+autohide = true
+
+[bootstrap.macos.finder]
+show_all_files = true
+show_pathbar = true
+preferred_view_style = "list"
+
+[bootstrap.macos.keyboard]
+press_and_hold = false
+
+[bootstrap.macos.trackpad]
+tap_to_click = true
+
+[bootstrap.macos.defaults]
+"com.apple.finder" = { AppleShowAllFiles = true }
+
+
 [dotfiles]
-"~/.dotfiles" = "~/ghq/github.com/strozw/dotfiles"
 "~/.config/mise/config.toml" = "~/ghq/github.com/strozw/dotfiles/.config/mise/config.toml"
 
-[tools]
-"github:atusy/kakehashi" = "latest"
+"~/.asdfrc" = { mode = "symlink" }
+
+"~/.editorconfig" = { mode = "symlink" }
+
+"~/.zshenv" = { mode = "symlink" }
+"~/.zshrc" = { mode = "symlink" }
+
+"~/.bash_profile" = { mode = "symlink" }
+
+"~/.gitconfig" = { mode = "symlink" }
+"~/.gitignore_global" = { mode = "symlink" }
+
+"~/.config/bat/" = { mode = "symlink" }
+
+"~/.config/delta/" = { mode = "symlink" }
+
+"~/.config/gh/config.yml" = { mode = "symlink" }
+
+"~/.config/ghostty/config" = { mode = "symlink" }
+
+"~/.config/gomi/config.yaml" = { mode = "symlink" }
+
+"~/.config/herdr/config.toml" = { mode = "symlink" }
+
+"~/.config/nvim/" = { mode = "symlink" }
+
+"~/.config/nvim-vscode/" = { mode = "symlink" }
+
+"~/.config/opencode/opencode.json" = { mode = "symlink" }
+
+"~/.config/sheldon/plugins.toml" = { mode = "symlink" }
+
+"~/.config/television/" = { mode = "symlink" }
+
+"~/.config/tig/" = { mode = "symlink" }
+
+"~/.config/tmux/" = { mode = "symlink" }
+
+"~/.config/wezterm/" = { mode = "symlink" }
+
+"~/.config/yazi/" = { mode = "symlink" }
+
+"~/.claude/settings.local.json" = { mode = "symlink" }
+

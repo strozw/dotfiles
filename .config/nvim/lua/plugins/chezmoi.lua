@@ -1,6 +1,7 @@
 ---@type LazySpec
 return {
   {
+    enabled = false,
     'alker0/chezmoi.vim',
     lazy = false,
     init = function()
@@ -9,6 +10,7 @@ return {
     end,
   },
   {
+    enabled = false,
     'xvzc/chezmoi.nvim',
     dependencies = { 'nvim-lua/plenary.nvim',
       "nvim-telescope/telescope.nvim",
