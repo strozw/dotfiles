@@ -16,7 +16,6 @@ idiomatic_version_file_enable_tools = ["node", "ruby", "php"]
 "brew:htop" = "latest"
 "brew:herdr" = "latest"
 "brew:m-cli" = "latest"
-"brew:mas" = "latest"
 "brew:mise" = "latest"
 "brew:neovim" = "latest"
 "brew:opencode" = "latest"
