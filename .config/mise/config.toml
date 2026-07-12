@@ -1,5 +1,6 @@
 [settings]
 dotfiles.root = "~/.dotfiles"
+idiomatic_version_file_enable_tools = ["node", "ruby", "php"]
 
 [dotfiles]
 "~/.dotfiles" = "~/ghq/github.com/strozw/dotfiles"
@@ -7,6 +8,3 @@ dotfiles.root = "~/.dotfiles"
 
 [tools]
 "github:atusy/kakehashi" = "latest"
-
-[settings]
-idiomatic_version_file_enable_tools = ["node", "ruby", "php"]
