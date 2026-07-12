@@ -28,10 +28,11 @@ idiomatic_version_file_enable_tools = ["node", "ruby", "php"]
 "brew:television" = "latest"
 "brew:tmux" = "latest"
 "brew:tpm" = "latest"
+"brew:worktrunk" = "latest"
+"brew:yazi" = "latest"
 "brew:zoxide" = "latest"
 "brew:zsh" = "latest"
 "brew:zsh-completions" = "latest"
-"brew:yazi" = "latest"
 
 [bootstrap.macos.dock]
 autohide = true
