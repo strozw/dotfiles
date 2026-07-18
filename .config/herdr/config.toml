@@ -64,22 +64,19 @@ key = "prefix+%"
 type = "shell"
 command = "herdr pane split --direction right --focus"
 
-# not working
-# [[keys.command]]
-# key = "pefix+\""
-# type = "shell"
-# command = "herdr pane split --direction down --focus"
+[[keys.command]]
+key = "prefix+\""
+type = "shell"
+command = "herdr pane split --direction down --focus"
 
-# not working
-# [[keys.command]]
-# key = "pefix+ctrl+l"
-# type = "shell"
-# command = "clear"
+[[keys.command]]
+key = ["prefix+ctrl+l"]
+type = "shell"
+command = "herdr pane run `herdr pane current | jq .result.pane.pane_id --raw-output` 'clear'"
 
 [ui]
 pane_borders = true
 pane_gaps = false
-sidebar_collapsed_mode = "hidden"
 
 [ui.toast]
 delivery = "system"
