@@ -5,7 +5,7 @@ name = "dracula"
 
 [terminal]
 shell_mode = "auto"
-new_cwd = "current"
+new_cwd = "follow"
 
 [keys]
 prefix = "ctrl+t"
