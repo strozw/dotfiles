@@ -4,9 +4,6 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      -- Automatically install LSPs and related tools to stdpath for Neovim
-      -- Mason must be loaded before its dependents so we need to set it up here.
-      -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
       {
         "williamboman/mason.nvim",
         opts = {
@@ -17,10 +14,8 @@ return {
       "williamboman/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
 
-      -- Useful status updates for LSP.
       { "j-hui/fidget.nvim", opts = {} },
 
-      -- Allows extra capabilities provided by nvim-cmp
       -- "hrsh7th/cmp-nvim-lsp",
       "b0o/schemastore.nvim",
       "yioneko/nvim-vtsls",
@@ -178,8 +173,6 @@ return {
               completion = {
                 callSnippet = "Replace",
               },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
             },
           },
         },
@@ -280,9 +273,7 @@ return {
 
         stylelint_lsp = {},
 
-        biome = {
-          -- root_dir = lspconfig_util.root_pattern("biome.json", "biome.jsonc"),
-        },
+        biome = {},
 
         dprint = {
           workspace_required = true,
@@ -382,10 +373,7 @@ return {
           settings = {
             yaml = {
               schemaStore = {
-                -- You must disable built-in schemaStore support if you want to use
-                -- this plugin and its advanced options like `ignore`.
                 enable = false,
-                -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
                 url = "",
               },
               schemas = require("schemastore").yaml.schemas(),
@@ -462,7 +450,6 @@ return {
         -- ref: https://zenn.dev/vim_jp/articles/a6839f7204a611
         copilot = {
           root_dir = function(bufnr, callback)
-            -- 特定の名前を持つファイルでは起動しないようにする
             local fname = vim.fs.basename(vim.api.nvim_buf_get_name(bufnr))
             local disable_patterns = { '.env', '.conf', '.local', '/private/' }
             local is_disabled = vim.iter(disable_patterns):any(function(pattern)
@@ -472,40 +459,33 @@ return {
               return
             end
 
-            -- git管理下でのみ起動する
-            -- lspconfigで定義されているroot_markersが`{ '.git' }`なのを踏襲
             local root_dir = vim.fs.root(bufnr, { '.git' })
             if root_dir then
               return callback(root_dir)
             end
           end,
           on_init = function()
-            -- サジェストのハイライト
-            -- CommentやMoreMsgのハイライトを拝借しつつアンダーラインをつける
             local hlc = vim.api.nvim_get_hl(0, { name = 'Comment' })
             vim.api.nvim_set_hl(0, 'ComplHint', vim.tbl_extend('force', hlc, { underline = true }))
+
             local hlm = vim.api.nvim_get_hl(0, { name = 'MoreMsg' })
             vim.api.nvim_set_hl(0, 'ComplHintMore', vim.tbl_extend('force', hlm, { underline = true }))
 
-            -- キーマップの設定 アタッチされたバッファでのみ有効にする
+            -- keymap for attached buffer
             vim.api.nvim_create_autocmd('LspAttach', {
               group = lsp_attach_group,
               callback = function(args)
                 local bufnr = args.buf
 
-                -- インライン補完を有効に
                 vim.lsp.inline_completion.enable(true, { bufnr = bufnr })
 
-                -- <C-CR>で確定
                 vim.keymap.set('i', '<M-CR>', function()
                   vim.lsp.inline_completion.get()
-                  -- 補完ウィンドウが開きっぱなしになるのを防止
                   if vim.fn.pumvisible() == 1 then
                     return '<M-CR>'
                   end
                 end, { silent = true, expr = true, buffer = bufnr })
 
-                -- <c-f>/<c-b>で補完候補を選択
                 vim.keymap.set('i', '<M-]>', function()
                   vim.lsp.inline_completion.select()
                 end, { silent = true, buffer = bufnr })
@@ -521,7 +501,6 @@ return {
         },
       }
 
-      -- vim.lsp.config でセットアップ
       for server_name, server in pairs(servers) do
         server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
         vim.lsp.config(server_name, server)
@@ -534,8 +513,6 @@ return {
       end, ensure_installed)
 
       vim.list_extend(ensure_installed, { "stylua" })
-
-      -- require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
     end,
 
   },
