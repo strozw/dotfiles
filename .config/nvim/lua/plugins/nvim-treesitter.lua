@@ -67,7 +67,6 @@ return {
       "sql",
       "svelte",
       "terraform",
-      "tmux",
       "toml",
       "tsv",
       "tsx",
