@@ -7,25 +7,25 @@ return {
   keys = {
     {
       "<C-n>",
-      ":BufferNext<CR>",
+      ":BufferLineCycleNext<CR>",
       desc = "Buffer Line Cycle [N]ext",
       silent = true,
     },
     {
       "<leader>bn",
-      ":BufferNext<CR>",
+      ":BufferLineCycleNext<CR>",
       desc = "[B]uffer Line Cycle [N]ext",
       silent = true,
     },
     {
       "<C-p>",
-      ":BufferPrevious<CR>",
+      ":BufferLineCyclePrev<CR>",
       desc = "Buffer Line Cycle [P]rev",
       silent = true,
     },
     {
       "<leader>bp",
-      ":BufferPrevious<CR>",
+      ":BufferLineCyclePrev<CR>",
       desc = "[B]uffer Line Cycle [P]rev",
       silent = true,
     },
