@@ -1,3 +1,10 @@
+[plugins]
+php = "https://github.com/verzly/mise-php#latest"
+
+[env]
+_.php = { pie_extensions = "opentelemetry-php/ext-opentelemetry" }
+
+
 [settings]
 dotfiles.root = "~/ghq/github.com/strozw/dotfiles"
 dotfiles.default_mode = "symlink"
@@ -6,7 +13,6 @@ idiomatic_version_file_enable_tools = ["node", "ruby", "php"]
 [bootstrap.packages]
 "brew:bat" = "latest"
 "brew:carapace" = "latest"
-"brew:delta" = "latest"
 "brew:direnv" = "latest"
 "brew:eza" = "latest"
 "brew:fd" = "latest"
@@ -20,7 +26,6 @@ idiomatic_version_file_enable_tools = ["node", "ruby", "php"]
 "brew:opencode" = "latest"
 "brew:pinentry-mac" = "latest"
 "brew:ripgrep" = "latest"
-"brew:rustup" = "latest"
 "brew:sheldon" = "latest"
 "brew:starship" = "latest"
 "brew:tig" = "latest"
@@ -79,6 +84,8 @@ tap_to_click = true
 "~/.config/herdr/config.toml" = { mode = "symlink" }
 
 "~/.config/nvim/" = { mode = "symlink" }
+
+"~/.config/nvim-use-pack/" = { mode = "symlink" }
 
 "~/.config/nvim-vscode/" = { mode = "symlink" }
 

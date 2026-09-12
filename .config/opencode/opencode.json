@@ -24,6 +24,21 @@
         },
         "gemma4:26b": {
           "name": "gemma4:26b"
+        },
+        "gemma4:12b-mlx": {
+          "name": "gemma4:12b-mlx"
+        },
+        "gemma4:e4b-mlx": {
+          "name": "gemma4:e4b-mlx"
+        },
+        "gemma4:e2b-mlx": {
+          "name": "gemma4:e2b-mlx"
+        },
+        "translategemma:12b": {
+          "name": "translategemma:12b"
+        },
+        "muse-glimmer:30b-mlx": {
+          "name": "muse-glimmer:30b-mlx"
         }
       }
     }
