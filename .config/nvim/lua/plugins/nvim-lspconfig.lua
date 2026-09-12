@@ -403,7 +403,19 @@ return {
           },
         },
 
-        phpactor = {
+        -- phpactor = {
+        --   workspace_required = true,
+        --
+        --   filetypes = {
+        --     "php",
+        --     "phtml",
+        --     "blade",
+        --   },
+        --
+        --   init_options = {}
+        -- },
+
+        phpantom_lsp = {
           workspace_required = true,
 
           filetypes = {
