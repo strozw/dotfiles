@@ -1,3 +1,12 @@
+-- enable ui2
+require('vim._core.ui2').enable()
+
+-- load plugins
+require('./plugins')
+
+-- lsp settigns
+require('./lsp')
+
 ----------------------------------------------------------------------------------------------------
 -- GLOBAL VARIABLES CONFIG
 -- See `:h vim.g` -------------------------------------------------------------------------------------------------
@@ -18,14 +27,6 @@ vim.o.number = true
 -- hide the ~ at the end of the buffer
 vim.opt.fillchars = { eob = " " }
 
--- Sync clipboard between OS and Neovim. Schedule the setting after `UIEnter` because it can
--- increase startup-time. Remove this option if you want your OS clipboard to remain independent.
--- See `:h 'clipboard'`
-vim.api.nvim_create_autocmd('UIEnter', {
-  callback = function()
-    vim.o.clipboard = 'unnamedplus'
-  end,
-})
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.o.ignorecase = false
@@ -74,6 +75,26 @@ vim.o.pumheight = 10
 vim.o.wildmode = "noselect:lastused,full"
 vim.o.wildoptions = "pum,fuzzy"
 
+-- UI2
+vim.o.cmdheight = 0
+vim.o.laststatus = 3
+vim.o.showtabline = 2
+vim.o.showcmdloc = 'statusline'
+
+
+----------------------------------------------------------------------------------------------------
+-- AUTOCOMMANDS (EVENT HANDLERS)
+-- See `:h lua-guide-autocommands`, `:h autocmd`, `:h nvim_create_autocmd()`
+----------------------------------------------------------------------------------------------------
+-- Sync clipboard between OS and Neovim. Schedule the setting after `UIEnter` because it can
+-- increase startup-time. Remove this option if you want your OS clipboard to remain independent.
+-- See `:h 'clipboard'`
+vim.api.nvim_create_autocmd('UIEnter', {
+  callback = function()
+    vim.o.clipboard = 'unnamedplus'
+  end,
+})
+
 -- complete preview popup window style
 vim.api.nvim_create_autocmd(
   "CompleteChanged",
@@ -103,11 +124,6 @@ vim.api.nvim_create_autocmd(
   }
 )
 
-----------------------------------------------------------------------------------------------------
--- AUTOCOMMANDS (EVENT HANDLERS)
--- See `:h lua-guide-autocommands`, `:h autocmd`, `:h nvim_create_autocmd()`
-----------------------------------------------------------------------------------------------------
-
 -- Notify on file write.
 vim.api.nvim_create_autocmd('BufWritePost', {
   callback = function()
@@ -125,43 +141,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
-
-----------------------------------------------------------------------------------------------------
--- USER COMMANDS: DEFINE CUSTOM COMMANDS
--- See `:h nvim_create_user_command()` and `:h user-commands`
-----------------------------------------------------------------------------------------------------
-
--- Create a command `:GitBlameLine` that print the git blame for the current line
-vim.api.nvim_create_user_command('GitBlameLine', function()
-  local line_number = vim.fn.line('.') -- Get the current line number. See `:h line()`
-  local filename = vim.api.nvim_buf_get_name(0)
-  print(vim.system({ 'git', 'blame', '-L', line_number .. ',+1', filename }):wait().stdout)
-end, { desc = 'Print the git blame for the current line' })
-
-
-----------------------------------------------------------------------------------------------------
--- UI2
-----------------------------------------------------------------------------------------------------
--- enable ui2
-require('vim._core.ui2').enable()
-
-vim.o.cmdheight = 0
-
-vim.o.laststatus = 3
-
-vim.o.showtabline = 2
-
-vim.o.showcmdloc = 'statusline'
-
-----------------------------------------------------------------------------------------------------
--- PLUGINS
-----------------------------------------------------------------------------------------------------
--- See `:h :packadd`, `:h vim.pack`
-
--- Add the "nohlsearch" package to automatically disable search highlighting after
--- 'updatetime' and when going to insert mode.
-vim.cmd('packadd! nvim.undotree')
-vim.cmd('packadd! nvim.difftool')
-
-require('./plugins')
-require('./lsp')
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+  pattern = '**/.vscode/*.json',
+  callback = function()
+    vim.bo.filetype = 'jsonc'
+  end,
+})

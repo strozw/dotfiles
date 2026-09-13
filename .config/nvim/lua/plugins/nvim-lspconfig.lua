@@ -95,22 +95,6 @@ return {
                 "keep"
               )
             end
-
-            -- if client.name == "oxlint" then
-            --   vim.api.nvim_create_autocmd("BufWritePre", {
-            --     group = oxlint_lsp_buf_write_pre_group,
-            --     buffer = event.buf,
-            --     command = "LspOxlintFixAll",
-            --   })
-            -- end
-            --
-            -- if client.name == "eslint" then
-            --   vim.api.nvim_create_autocmd("BufWritePre", {
-            --     group = eslint_lsp_buf_write_pre_group,
-            --     buffer = event.buf,
-            --     command = "LspEslintFixAll",
-            --   })
-            -- end
           end
         end,
       })
