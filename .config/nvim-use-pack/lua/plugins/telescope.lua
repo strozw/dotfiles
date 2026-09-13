@@ -36,14 +36,16 @@ telescope.setup({
   },
 })
 
+telescope.load_extension("ui-select")
+-- telescope.load_extension("fzf")
+
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'TelescopePrompt',
   callback = function()
     vim.o.autocomplete = false
   end,
 })
-
--- telescope.load_extension("fzf")
 
 vim.api.nvim_create_autocmd('PackChanged', {
   callback = function(ev)
