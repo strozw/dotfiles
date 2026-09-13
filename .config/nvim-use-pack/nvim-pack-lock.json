@@ -48,6 +48,10 @@
       "rev": "518789535a0cb146224a428edf93a70f98b795db",
       "src": "https://github.com/OXY2DEV/helpview.nvim"
     },
+    "kakehashi.nvim": {
+      "rev": "be82d84f49bcc1db9cb88e1e32679a776536d0e8",
+      "src": "https://github.com/atusy/kakehashi.nvim"
+    },
     "lazydev.nvim": {
       "rev": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d",
       "src": "https://github.com/folke/lazydev.nvim"
@@ -62,7 +66,7 @@
     },
     "mason.nvim": {
       "rev": "12ddd182d9efbdc848b540f16484a583d52da0fb",
-      "src": "https://github.com/mason-org/mason.nvim"
+      "src": "https://github.com/williamboman/mason.nvim"
     },
     "md-render.nvim": {
       "rev": "f24642dc2a466f4568dc2b919a343880e863320f",

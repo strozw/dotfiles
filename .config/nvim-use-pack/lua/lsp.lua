@@ -10,27 +10,88 @@ vim.diagnostic.config({ virtual_text = false })
 vim.lsp.inline_completion.enable();
 
 vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(ev)
-    local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
+  callback = function(event)
+    local client = assert(vim.lsp.get_client_by_id(event.data.client_id))
 
     vim.lsp.document_color.enable(true)
 
+    -- enable lsp completion
+    if client:supports_method('textDocument/completion') then
+      -- Optional: trigger autocompletion on EVERY keypress. May be slow!
+      local triggersChars = {}
+
+      for i = 32, 126 do table.insert(triggersChars, string.char(i)) end
+      client.server_capabilities.completionProvider.triggerCharacters = triggersChars
+
+      vim.lsp.completion.enable(
+        true,
+        client.id,
+        event.buf,
+        {
+          autotrigger = true,
+        }
+      )
+    end
+
+    -- keymap alias
+    local map = function(keys, func, desc, mode)
+      mode = mode or "n"
+      vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+    end
+
+    -- lsp keymaps
+    map("<leader>cr", vim.lsp.buf.rename, "[C]ode [R]ename")
+    map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
+    map("<leader>ch", vim.lsp.buf.signature_help, "[C]ode signature [H]elp", { "n", "x" })
+    map("D", function()
+      vim.diagnostic.open_float()
+    end, "show [D]iagnostic", { "n" })
+
+    -- auto highlight
+    if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
+      local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight",
+        { clear = false })
+
+      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+        buffer = event.buf,
+        group = highlight_augroup,
+        callback = vim.lsp.buf.document_highlight,
+      })
+
+      vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+        buffer = event.buf,
+        group = highlight_augroup,
+        callback = vim.lsp.buf.clear_references,
+      })
+
+      vim.api.nvim_create_autocmd("LspDetach", {
+        group = lsp_detach_group,
+        callback = function(event2)
+          vim.lsp.buf.clear_references()
+          vim.api.nvim_clear_autocmds({
+            group = "kickstart-lsp-highlight",
+            buffer = event2
+                .buf
+          })
+        end,
+      })
+    end
+
+    -- inlay hint
+    vim.lsp.inlay_hint.enable(false)
+
     if client then
-      -- enable lsp completion
-      if client:supports_method('textDocument/completion') then
-        -- Optional: trigger autocompletion on EVERY keypress. May be slow!
-        local triggersChars = {}
+      if client.supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
+        map("<leader>th", function()
+          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+        end, "[T]oggle Inlay [H]ints")
+      end
 
-        for i = 32, 126 do table.insert(triggersChars, string.char(i)) end
-        client.server_capabilities.completionProvider.triggerCharacters = triggersChars
-
-        vim.lsp.completion.enable(
-          true,
-          client.id,
-          ev.buf,
-          {
-            autotrigger = true,
-          }
+      if client.name == "kakehashi" then
+        require("kakehashi").inherit_nvim_lsp_config(
+          client,
+          servers,
+          "keep"
         )
       end
     end

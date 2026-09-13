@@ -15,8 +15,13 @@ bufferline.setup({
         highlight = "Directory",
         separator = false
       }
-    }
-  }
+    },
+    custom_filter = function(buf_number, _buf_numbers)
+      if vim.bo[buf_number].filetype ~= "neo-tree" then
+        return true
+      end
+    end,
+  },
 })
 
 local wk = require("which-key")

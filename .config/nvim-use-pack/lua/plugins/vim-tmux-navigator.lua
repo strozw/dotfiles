@@ -2,12 +2,8 @@ vim.pack.add({
   "http://github.com/christoomey/vim-tmux-navigator"
 })
 
-
 -- vim-tmux-navigator の default keymap を無効化
 vim.g.tmux_navigator_no_mappings = 1
-
--- for herder
-dofile(vim.fn.expand("~/ghq/github.com/paulbkim-dev/vim-herdr-navigation/editor/nvim.lua"))
 
 local wk = require("which-key")
 
@@ -24,3 +20,5 @@ wk.add({
   { "<c-l>", "<C-\\><C-n><CMD>TmuxNavigateRight<CR>", mode = { "t" }, silent = true },
 })
 
+-- for herder
+dofile(vim.fn.expand("~/ghq/github.com/paulbkim-dev/vim-herdr-navigation/editor/nvim.lua"))
