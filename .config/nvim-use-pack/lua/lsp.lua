@@ -41,8 +41,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- lsp keymaps
     map("<leader>cr", vim.lsp.buf.rename, "[C]ode [R]ename")
+
     map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
+
+    -- map("<leader>ca", function()
+    --   require("tiny-code-action").code_action()
+    -- end, "[C]ode [A]ction", { "n", "x" })
+
     map("<leader>ch", vim.lsp.buf.signature_help, "[C]ode signature [H]elp", { "n", "x" })
+
     map("D", function()
       vim.diagnostic.open_float()
     end, "show [D]iagnostic", { "n" })

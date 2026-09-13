@@ -181,6 +181,10 @@
       "rev": "ad58747b955d0743ccfd56e97da1a4c1fac89f58",
       "src": "https://github.com/rachartier/tiny-cmdline.nvim"
     },
+    "tiny-code-action.nvim": {
+      "rev": "0d040ed81f7953118b81cd12681fcdfcac069803",
+      "src": "https://github.com/rachartier/tiny-code-action.nvim"
+    },
     "tiny-inline-diagnostic.nvim": {
       "rev": "147af4e49f51dd48f41972de26552872b8ba7b25",
       "src": "https://github.com/rachartier/tiny-inline-diagnostic.nvim"
