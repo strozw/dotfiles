@@ -1,6 +1,6 @@
 vim.pack.add({
   'https://github.com/nvim-telescope/telescope.nvim',
-  -- 'https://github.com/nvim-telescope/telescope-fzf-native.nvim',
+  'https://github.com/nvim-telescope/telescope-fzy-native.nvim',
   'https://github.com/nvim-telescope/telescope-ui-select.nvim'
 })
 
@@ -33,11 +33,16 @@ telescope.setup({
     ["ui-select"] = {
       require("telescope.themes").get_dropdown(),
     },
+   fzy_native = {
+            override_generic_sorter = false,
+            override_file_sorter = true,
+        }
+
   },
 })
 
 telescope.load_extension("ui-select")
--- telescope.load_extension("fzf")
+telescope.load_extension("fzy_native")
 
 
 vim.api.nvim_create_autocmd('FileType', {
@@ -61,8 +66,6 @@ vim.api.nvim_create_autocmd('PackChanged', {
 })
 
 local wk = require("which-key")
-
-local telescope = require("telescope")
 
 wk.add({
   -- Top Pickers & Explorer

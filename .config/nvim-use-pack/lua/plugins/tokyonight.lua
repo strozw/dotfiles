@@ -1,4 +1,6 @@
 vim.pack.add({
+  'https://github.com/mvllow/modes.nvim',
+
   'https://github.com/folke/tokyonight.nvim'
 })
 
