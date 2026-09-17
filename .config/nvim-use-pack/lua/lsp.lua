@@ -4,6 +4,30 @@
 ----------------------------------------------------------------------------------------------------
 local lspconfig_util = require("lspconfig.util")
 
+local capabilities = vim.tbl_deep_extend(
+  "force",
+  vim.lsp.protocol.make_client_capabilities(),
+  require 'lsp-file-operations'.default_capabilities()
+)
+
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    "documentation",
+    "detail",
+    "additionalTextEdits",
+  },
+}
+
+-- capabilities = vim.tbl_deep_extend("force", capabilities, require('blink.cmp').get_lsp_capabilities())
+--
+-- lspconfig_util.default_config = vim.tbl_extend(
+--   'force',
+--   lspconfig_util.default_config,
+--   {
+--     capabilities = capabilities
+--   }
+-- )
+
 -- disable diagnostic virtual text for tiny-inline-diagnostic
 vim.diagnostic.config({ virtual_text = false })
 
@@ -94,34 +118,35 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end, "[T]oggle Inlay [H]ints")
       end
 
-      if client.name == "kakehashi" then
-        require("kakehashi").inherit_nvim_lsp_config(
-          client,
-          servers,
-          "keep"
-        )
-      end
+      -- if client.name == "kakehashi" then
+      --   require("kakehashi").inherit_nvim_lsp_config(
+      --     client,
+      --     servers,
+      --     "keep"
+      --   )
+      -- end
     end
   end
 })
 
-vim.api.nvim_create_autocmd("LspProgress", {
-  ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
-  callback = function(ev)
-    local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-    vim.notify(vim.lsp.status(), vim.log.levels.INFO, {
-      id = "lsp_progress",
-      title = "LSP Progress",
-      opts = function(notif)
-        notif.icon = ev.data.params.value.kind == "end" and " "
-            or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
-      end,
-    })
-  end,
-})
+-- vim.api.nvim_create_autocmd("LspProgress", {
+--   ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
+--   callback = function(ev)
+--     local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+--     vim.notify(vim.lsp.status(), vim.log.levels.INFO, {
+--       id = "lsp_progress",
+--       title = "LSP Progress",
+--       opts = function(notif)
+--         notif.icon = ev.data.params.value.kind == "end" and " "
+--             or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+--       end,
+--     })
+--   end,
+-- })
 
 -- lua_ls
 vim.lsp.config('lua_ls', {
+  capabilities = capabilities,
   settings = {
     Lua = {
       runtime = { version = 'LuaJIT' },
@@ -143,6 +168,7 @@ vim.lsp.enable('lua_ls')
 
 -- ts_ls
 vim.lsp.config('ts_ls', {
+  capabilities = capabilities,
   workspace_required = true,
   on_attach = function(client, buffer_number)
     client.server_capabilities.documentFormattingProvider = false
