@@ -105,3 +105,6 @@ tap_to_click = true
 
 "~/.claude/settings.local.json" = { mode = "symlink" }
 
+[tools]
+"go:github.com/rhysd/vim-startuptime" = "latest"
+
