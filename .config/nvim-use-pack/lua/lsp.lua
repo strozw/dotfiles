@@ -1,7 +1,3 @@
-----------------------------------------------------------------------------------------------------
--- LSP
--- See `:h lspconfig-all` or `https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md`
-----------------------------------------------------------------------------------------------------
 local lspconfig_util = require("lspconfig.util")
 
 local capabilities = vim.tbl_deep_extend(
@@ -18,19 +14,10 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   },
 }
 
--- capabilities = vim.tbl_deep_extend("force", capabilities, require('blink.cmp').get_lsp_capabilities())
---
--- lspconfig_util.default_config = vim.tbl_extend(
---   'force',
---   lspconfig_util.default_config,
---   {
---     capabilities = capabilities
---   }
--- )
-
 -- disable diagnostic virtual text for tiny-inline-diagnostic
 vim.diagnostic.config({ virtual_text = false })
 
+-- enable inline completion
 vim.lsp.inline_completion.enable();
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -41,7 +28,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- enable lsp completion
     if client:supports_method('textDocument/completion') then
-      -- Optional: trigger autocompletion on EVERY keypress. May be slow!
       local triggersChars = {}
 
       for i = 32, 126 do table.insert(triggersChars, string.char(i)) end
@@ -57,31 +43,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
       )
     end
 
-    -- keymap alias
-    local map = function(keys, func, desc, mode)
-      mode = mode or "n"
-      vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
-    end
-
-    -- lsp keymaps
-    map("<leader>cr", vim.lsp.buf.rename, "[C]ode [R]ename")
-
-    map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
-
-    -- map("<leader>ca", function()
-    --   require("tiny-code-action").code_action()
-    -- end, "[C]ode [A]ction", { "n", "x" })
-
-    map("<leader>ch", vim.lsp.buf.signature_help, "[C]ode signature [H]elp", { "n", "x" })
-
-    map("D", function()
-      vim.diagnostic.open_float()
-    end, "show [D]iagnostic", { "n" })
-
     -- auto highlight
     if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
-      local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight",
-        { clear = false })
+      local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
 
       vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
         buffer = event.buf,
@@ -96,13 +60,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
       })
 
       vim.api.nvim_create_autocmd("LspDetach", {
-        group = lsp_detach_group,
-        callback = function(event2)
+        group = vim.api.nvim_create_augroup("lsp-detach", { clear = false }),
+        callback = function(detach_event)
           vim.lsp.buf.clear_references()
           vim.api.nvim_clear_autocmds({
-            group = "kickstart-lsp-highlight",
-            buffer = event2
-                .buf
+            group = highlight_augroup,
+            buffer = detach_event.buf
           })
         end,
       })
@@ -111,21 +74,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- inlay hint
     vim.lsp.inlay_hint.enable(false)
 
-    if client then
-      if client.supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
-        map("<leader>th", function()
-          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-        end, "[T]oggle Inlay [H]ints")
-      end
-
-      -- if client.name == "kakehashi" then
-      --   require("kakehashi").inherit_nvim_lsp_config(
-      --     client,
-      --     servers,
-      --     "keep"
-      --   )
-      -- end
-    end
+    -- if client then
+    -- if client.name == "kakehashi" then
+    --   require("kakehashi").inherit_nvim_lsp_config(
+    --     client,
+    --     servers,
+    --     "keep"
+    --   )
+    -- end
+    -- end
   end
 })
 
@@ -242,7 +199,7 @@ vim.lsp.config('dprint', {
 })
 vim.lsp.enable('dpring', false)
 
-vim.lsp.enable("emmet_language_server", {
+vim.lsp.config("emmet_language_server", {
   filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact" },
   -- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
   -- **Note:** only the options listed in the table are supported.
@@ -312,7 +269,7 @@ vim.lsp.config("yamlls", {
   },
 })
 
-vim.lsp.enable("jsonls", {
+vim.lsp.config("jsonls", {
   settings = {
     json = {
       schemas = require("schemastore").json.schemas(),
@@ -375,27 +332,6 @@ vim.lsp.enable("typos_lsp", false)
 vim.lsp.config("astro", {})
 vim.lsp.enable("astro", false)
 
-vim.lsp.config("gh_actions_ls", {
-  filetypes = { "yaml.github" },
-  init_options = {
-    sessionToken = (function()
-      local Job = require("plenary.job")
-      local result, err = Job:new({
-        command = "gh",
-        args = { "auth", "token" },
-      }):sync()
-
-      if err ~= 0 then
-        vim.notify("Failed to get GitHub token: " .. err, vim.log.levels.ERROR)
-        return nil
-      end
-
-      return result[1]
-    end)(),
-  },
-})
-vim.lsp.enable("gh_actions_ls", false)
-
 -- copilot
 vim.lsp.config('copilot', {
   settings = {
@@ -405,3 +341,11 @@ vim.lsp.config('copilot', {
   }
 })
 vim.lsp.enable('copilot')
+
+vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
+  group = vim.api.nvim_create_augroup('lazy_actionsls', { clear = true }),
+  pattern = { '*/.github/*.yaml', '*/.github/*.yml' },
+  callback = function()
+    vim.lsp.enable('actionsls')
+  end,
+})

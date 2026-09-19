@@ -1,0 +1,8 @@
+{
+  "plugins": {
+    "nvim-herdr-navigation": {
+      "rev": "7798a2f027465698cb1a51695327e138319f61f3",
+      "src": "https://github.com/bojackduy/nvim-herdr-navigation"
+    }
+  }
+}

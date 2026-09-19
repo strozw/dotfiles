@@ -9,7 +9,7 @@ vim.pack.add({
 })
 
 require('neo-tree').setup({
-  hide_root_node = true,
+  -- hide_root_node = true,
   default_component_configs = {
     indent = {
       padding = 1,
@@ -19,10 +19,11 @@ require('neo-tree').setup({
       right_padding = 1,
     },
   },
-})
 
-local wk = require("which-key")
-
-wk.add({
-  { '<leader>e', ':Neotree toggle<CR>', desc = 'Toggle NeoTree', noremap = true, silent = true, mode = 'n' },
+  filesystem = {
+    follow_current_file = {
+      enabled = true,
+      leave_dirs_open = false,
+    },
+  },
 })
