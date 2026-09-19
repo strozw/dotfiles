@@ -1,15 +1,10 @@
 ----------------------------------------------------------------------------------------------------
 -- GLOBAL VARIABLES CONFIG
--- See `:h vim.g` -------------------------------------------------------------------------------------------------
--- See `:h mapleader`
-vim.g.mapleader = ' '
--- See `:h maplocalleader`
-vim.g.maplocalleader = '\\'
+----------------------------------------------------------------------------------------------------
 vim.g.have_nerd_font = true
 
 ---------------------------------------------------------------------------------------------------
 -- OPTIONS
--- See `:h vim.o`
 ----------------------------------------------------------------------------------------------------
 
 -- Enable .nvim.lua
@@ -76,13 +71,13 @@ vim.o.confirm = true
 
 -- window
 vim.o.winborder = 'solid'
-vim.o.winblend = 10
+vim.o.winblend = 0
 
 -- autocomplete
 vim.o.autocomplete = true
 vim.o.complete = "o,.,w,b,u"
 vim.o.completeopt = "menu,menuone,noselect,fuzzy,popup"
-vim.o.pumblend = 10
+vim.o.pumblend = 0
 vim.o.pumborder = 'solid'
 vim.o.pumheight = 10
 
@@ -90,8 +85,30 @@ vim.o.pumheight = 10
 vim.o.wildmode = "noselect:lastused,full"
 vim.o.wildoptions = "pum,fuzzy"
 
+-- autocmd CmdlineChanged [:\/\?] call wildtrigger()
+vim.api.nvim_create_autocmd(
+  "CmdlineChanged",
+  {
+    pattern = { ":", "/", "?" },
+    callback = function()
+      vim.fn.wildtrigger()
+    end
+  }
+)
+
 -- UI
 vim.o.cmdheight = 0
-vim.o.laststatus = 0
+vim.o.laststatus = 3
 vim.o.showtabline = 0
 vim.o.showcmdloc = 'statusline'
+
+-- clipboard
+--
+-- Sync clipboard between OS and Neovim. Schedule the setting after `UIEnter` because it can
+-- increase startup-time. Remove this option if you want your OS clipboard to remain independent.
+-- See `:h 'clipboard'`
+vim.api.nvim_create_autocmd('UIEnter', {
+  callback = function()
+    vim.o.clipboard = 'unnamedplus'
+  end,
+})

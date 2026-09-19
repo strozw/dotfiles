@@ -2,4 +2,7 @@ vim.pack.add({
   'https://github.com/onsails/lspkind.nvim',
 })
 
-require('lspkind').setup { mode = 'symbol_text', }
+require('lspkind').setup({
+  mode = 'symbol_text',
+  preset = 'codicons',
+})
