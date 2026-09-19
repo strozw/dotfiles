@@ -51,7 +51,7 @@ wk.add({
   { "<leader>gl",      function() vim.cmd("Telescope git_commits") end,           desc = "Find Git Files" },
   { "<leader>gL",      function() vim.cmd("Telescope git_bcommits") end,          desc = "Find Git Files" },
   { "<leader>gs",      function() vim.cmd("Telescope git_status") end,            desc = "Find Git Files" },
-  { "<leader>gs",      function() vim.cmd("Telescope git_stash") end,             desc = "Find Git Files" },
+  { "<leader>gy",      function() vim.cmd("Telescope git_stash") end,             desc = "Find Git Files" },
   { "<leader>gf",      function() vim.cmd("Telescope git_files") end,             desc = "Find Git Files" },
   -- -- gh
   -- { "<leader>gi",      function() Snacks.picker.gh_issue() end,                                desc = "GitHub Issues (open)" },
