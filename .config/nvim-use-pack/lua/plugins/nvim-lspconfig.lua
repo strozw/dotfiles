@@ -1,6 +1,5 @@
 vim.pack.add({
   -- deps
-  "https://github.com/antosha417/nvim-lsp-file-operations",
   "https://github.com/b0o/SchemaStore.nvim",
   "https://github.com/williamboman/mason.nvim",
   "https://github.com/marilari88/twoslash-queries.nvim",
