@@ -27,3 +27,16 @@ require('neo-tree').setup({
     },
   },
 })
+
+
+-- Keep NeoTree out of sessions (including `:restart`); it would be restored as an empty buffer.
+vim.api.nvim_create_autocmd('SessionWritePre', {
+  group = vim.api.nvim_create_augroup('NeoTreeCloseBeforeSession', { clear = true }),
+  callback = function()
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+      if vim.bo[vim.api.nvim_win_get_buf(win)].filetype == 'neo-tree' then
+        pcall(vim.api.nvim_win_close, win, true)
+      end
+    end
+  end,
+})

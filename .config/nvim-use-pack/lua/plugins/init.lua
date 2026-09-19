@@ -20,7 +20,7 @@ if vim.env.HERDR_PANE_ID ~= nil then
   require("plugins/nvim-herdr-navigation")
   require("plugins/herdr-context")
 else
-  -- require("plugins/vim-tmux-navigator")
+  require("plugins/vim-tmux-navigator")
 end
 
 vim.api.nvim_create_autocmd('UIEnter', {
@@ -31,7 +31,6 @@ vim.api.nvim_create_autocmd('UIEnter', {
     require("plugins/nvim-web-devicons")
     require("plugins/bufferline")
     require("plugins/neo-tree")
-    -- require("plugins/nvim-tree")
     require("plugins/telescope")
     require("plugins/nvim-pack-ui")
     require("plugins/gitsigns")
@@ -41,7 +40,6 @@ vim.api.nvim_create_autocmd('UIEnter', {
     require("plugins/tiny-cmdline")
     require("plugins/tiny-code-action")
     require("plugins/tiny-inline-diagnostic")
-    -- require("plugins/flash")
     require("plugins/tsc")
     require("plugins/translate")
     require("plugins/workspace-diagnostics")

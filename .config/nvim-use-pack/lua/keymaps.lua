@@ -1,3 +1,6 @@
+vim.g.mapleader = ' '
+vim.g.maplocalleader = '\\'
+
 local wk = require('which-key')
 
 wk.add({

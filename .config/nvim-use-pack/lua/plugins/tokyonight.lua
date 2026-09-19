@@ -35,32 +35,56 @@ require("tokyonight").setup({
     -- Incremental Hilight Color (on yank and search)
     hl.IncSearch = { fg = c.bg_dark, bg = c.magenta }
 
-    require("modes").setup({
-      colors = {
-        bg = "", -- Optional bg param, defaults to Normal hl group
-        copy = c.magenta,
-        delete = c.red,
-        insert = c.cyan,
-        visual = c.magenta,
-      },
+    -- カーソル行のハイライトを有効化
+    vim.opt.cursorline = true
 
-      -- Set opacity for cursorline and number background
-      line_opacity = 0.3,
+    -- require("modes").setup({
+    --   colors = {
+    --     bg = "", -- Optional bg param, defaults to Normal hl group
+    --     copy = c.magenta,
+    --     delete = c.red,
+    --     insert = c.cyan,
+    --     visual = c.magenta,
+    --   },
+    --
+    --   -- Set opacity for cursorline and number background
+    --   line_opacity = 0.3,
+    --
+    --   -- Enable cursor highlights
+    --   set_cursor = true,
+    --
+    --   -- Enable cursorline initially, and disable cursorline for inactive windows
+    --   -- or ignored filetypes
+    --   set_cursorline = true,
+    --
+    --   -- Enable line number highlights to match cursorline
+    --   set_number = true,
+    --
+    --   -- Disable modes highlights in specified filetypes
+    --   -- Please PR commonly ignored filetypes
+    --   ignore = { "NvimTree", "TelescopePrompt", "snacks_picker_list" },
+    -- })
 
-      -- Enable cursor highlights
-      set_cursor = true,
-
-      -- Enable cursorline initially, and disable cursorline for inactive windows
-      -- or ignored filetypes
-      set_cursorline = true,
-
-      -- Enable line number highlights to match cursorline
-      set_number = true,
-
-      -- Disable modes highlights in specified filetypes
-      -- Please PR commonly ignored filetypes
-      ignore = { "NvimTree", "TelescopePrompt", "snacks_picker_list" },
-    })
+    -- telescope's preview briefly enters Normal mode; modes.nvim's synchronous redraw there clamps the prompt cursor.
+    -- for _, au in ipairs(vim.api.nvim_get_autocmds({ event = "ModeChanged" })) do
+    --   local is_modes_reset = (au.pattern == "*:n" or au.pattern == "*:ni*")
+    --     and type(au.callback) == "function"
+    --     and debug.getinfo(au.callback, "S").source:find("modes.nvim/lua/modes.lua", 1, true)
+    --   if is_modes_reset then
+    --     local reset = au.callback
+    --     vim.api.nvim_del_autocmd(au.id)
+    --     vim.api.nvim_create_autocmd("ModeChanged", {
+    --       pattern = au.pattern,
+    --       callback = function(ev)
+    --         vim.schedule(function()
+    --           if vim.api.nvim_get_mode().mode:match("^n") then
+    --             reset(ev)
+    --           end
+    --         end)
+    --       end,
+    --     })
+    --   end
+    -- end
   end,
 })
 
