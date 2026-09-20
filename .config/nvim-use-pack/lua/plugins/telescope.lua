@@ -15,6 +15,17 @@ telescope.setup({
   -- },
   defaults = {
     sorting_strategy = "ascending",
+    -- show hidden (dotfiles) in live_grep / grep_string
+    vimgrep_arguments = {
+      "rg",
+      "--color=never",
+      "--no-heading",
+      "--with-filename",
+      "--line-number",
+      "--column",
+      "--smart-case",
+      "--hidden",
+    },
     layout_config = {
       prompt_position = "top",
       width = 0.9,
@@ -29,6 +40,10 @@ telescope.setup({
         ["<M-p>"] = actions_layout.toggle_preview,
       },
     },
+  },
+  pickers = {
+    -- show hidden (dotfiles) in file pickers
+    find_files = { hidden = true, no_ignore = false },
   },
   extensions = {
     ["ui-select"] = {
