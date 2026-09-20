@@ -170,8 +170,8 @@ vim.lsp.config("eslint", {
 })
 vim.lsp.enable('eslint', false)
 
-vim.lsp.config('stylelint_lsp ', {})
-vim.lsp.enable('stylelint_lsp ', false)
+vim.lsp.config('stylelint_lsp', {})
+vim.lsp.enable('stylelint_lsp', false)
 
 vim.lsp.config('biome', {})
 vim.lsp.enable('biome', false)
@@ -197,30 +197,19 @@ vim.lsp.config('dprint', {
     "sass",
   },
 })
-vim.lsp.enable('dpring', false)
+vim.lsp.enable('dprint', false)
 
 vim.lsp.config("emmet_language_server", {
   filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact" },
-  -- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
-  -- **Note:** only the options listed in the table are supported.
   init_options = {
-    ---@type table<string, string>
     includeLanguages = {},
-    --- @type string[]
     excludeLanguages = {},
-    --- @type string[]
     extensionsPath = {},
-    --- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/preferences/)
     preferences = {},
-    --- @type boolean Defaults to `true`
     showAbbreviationSuggestions = true,
-    --- @type "always" | "never" Defaults to `"always"`
     showExpandedAbbreviation = "always",
-    --- @type boolean Defaults to `false`
     showSuggestionsAsSnippets = false,
-    --- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/syntax-profiles/)
     syntaxProfiles = {},
-    --- @type table<string, string> [Emmet Docs](https://docs.emmet.io/customization/snippets/#variables)
     variables = {},
   },
 })
@@ -342,10 +331,5 @@ vim.lsp.config('copilot', {
 })
 vim.lsp.enable('copilot')
 
-vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
-  group = vim.api.nvim_create_augroup('lazy_actionsls', { clear = true }),
-  pattern = { '*/.github/*.yaml', '*/.github/*.yml' },
-  callback = function()
-    vim.lsp.enable('actionsls')
-  end,
-})
+vim.lsp.config('actionsls', { root_markers = { '.github' } })
+vim.lsp.enable('actionsls')

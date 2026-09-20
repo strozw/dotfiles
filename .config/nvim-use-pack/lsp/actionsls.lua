@@ -1,10 +1,16 @@
 ---@see https://github.com/actions/languageservices/tree/main/languageserver
 
+--- Run a command and return its trimmed stdout, or "" on failure.
+---@param cmd string[]
+---@param cwd string?
+---@return string
+local function sh(cmd, cwd)
+  local out = vim.system(cmd, { cwd = cwd, text = true }):wait()
+  return out.code == 0 and vim.trim(out.stdout or "") or ""
+end
+
 local function get_github_token()
-  local handle = io.popen("gh auth token 2>/dev/null")
-  if not handle then return nil end
-  local token = handle:read("*a"):gsub("%s+", "")
-  handle:close()
+  local token = sh({ "gh", "auth", "token" })
   return token ~= "" and token or nil
 end
 
@@ -26,41 +32,38 @@ local function parse_github_remote(url)
   return nil
 end
 
-local function get_repo_info(owner, repo)
-  local cmd = string.format(
-    "gh repo view %s/%s --json id,owner --template '{{.id}}\t{{.owner.type}}' 2>/dev/null",
-    owner,
-    repo
-  )
-  local handle = io.popen(cmd)
-  if not handle then return nil end
-  local result = handle:read("*a"):gsub("%s+$", "")
-  handle:close()
+-- `gh repo view` is a network round-trip (~1.3s), so remember the answer for
+-- the lifetime of the session. `false` records a lookup that already failed.
+local repo_info_cache = {}
 
-  local id, owner_type = result:match("^(%d+)\t(.+)$")
-  if id then
-    return {
+local function get_repo_info(owner, repo)
+  local key = owner .. "/" .. repo
+
+  if repo_info_cache[key] == nil then
+    -- `gh repo view --json id` returns the GraphQL node ID ("R_kgDO...") and
+    -- exposes no `owner.type`; the language server wants the numeric REST ID,
+    -- so query the REST endpoint directly.
+    local result = sh({
+      "gh", "api", "repos/" .. key,
+      "--jq", "[(.id|tostring), .owner.type] | @tsv",
+    })
+
+    local id, owner_type = result:match("^(%d+)\t(.+)$")
+    repo_info_cache[key] = id and {
       id = tonumber(id),
       organizationOwned = owner_type == "Organization",
-    }
+    } or false
   end
-  return nil
+
+  return repo_info_cache[key] or nil
 end
 
-local function get_repos_config()
-  local handle = io.popen("git rev-parse --show-toplevel 2>/dev/null")
-  if not handle then return nil end
-  local git_root = handle:read("*a"):gsub("%s+", "")
-  handle:close()
-
+---@param root_dir string?
+local function get_repos_config(root_dir)
+  local git_root = sh({ "git", "rev-parse", "--show-toplevel" }, root_dir)
   if git_root == "" then return nil end
 
-  handle = io.popen("git remote get-url origin 2>/dev/null")
-  if not handle then return nil end
-  local remote_url = handle:read("*a"):gsub("%s+", "")
-  handle:close()
-
-  local owner, name = parse_github_remote(remote_url)
+  local owner, name = parse_github_remote(sh({ "git", "remote", "get-url", "origin" }, root_dir))
   if not owner or not name then return nil end
 
   local info = get_repo_info(owner, name)
@@ -78,7 +81,7 @@ end
 
 return {
   cmd = { "actions-languageserver", "--stdio" },
-  filetypes = { "yaml.ghactions" },
+  filetypes = { "yaml.github-actions" },
 
   -- `root_dir` ensures that the LSP does not attach to all yaml files
   root_dir = function(bufnr, on_dir)
@@ -92,12 +95,18 @@ return {
     end
   end,
 
-  init_options = {
-    -- Optional: provide a GitHub token and repo context for added functionality
-    -- (e.g., repository-specific completions)
-    sessionToken = get_github_token(),
-    repos = get_repos_config(),
-  },
+  -- Resolved here rather than in `init_options`: `vim.lsp.enable()` eagerly
+  -- loads this file at startup, so shelling out to `gh`/`git` at the top level
+  -- would cost ~950ms on every launch. `before_init` runs only once the server
+  -- actually starts, and gets the resolved `root_dir` instead of nvim's cwd.
+  before_init = function(params, config)
+    params.initializationOptions = vim.tbl_extend("force", params.initializationOptions or {}, {
+      -- Optional: provide a GitHub token and repo context for added functionality
+      -- (e.g., repository-specific completions)
+      sessionToken = get_github_token(),
+      repos = get_repos_config(config.root_dir),
+    })
+  end,
 
   -- allow the lsp to register capabilities on demand
   capabilities = {

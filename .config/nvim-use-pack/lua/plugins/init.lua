@@ -5,6 +5,7 @@ require("plugins/tokyonight")
 
 require("plugins/which-key")
 require("plugins/nvim-notify")
+require("plugins/fidget")
 
 require("plugins/mini")
 require("plugins/nvim-autopairs")
