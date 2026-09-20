@@ -33,7 +33,7 @@ require("tokyonight").setup({
     hl.TinyCmdlineNormal = { bg = c.bg_dark }
 
     -- Incremental Hilight Color (on yank and search)
-    hl.IncSearch = { fg = c.bg_dark, bg = c.magenta }
+    hl.IncSearch = { fg = c.bg_dark, bg = c.bg_visual }
 
     -- カーソル行のハイライトを有効化
     vim.opt.cursorline = true

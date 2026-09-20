@@ -9,8 +9,8 @@ local bufferline = require('bufferline')
 bufferline.setup({
   options = {
     indicator = {
-      icon = '▎', -- this should be omitted if indicator style is not 'icon'
-      -- style = 'icon',
+      icon = '▎',
+      style = 'icon',
     },
     offsets = {
       {
@@ -20,10 +20,5 @@ bufferline.setup({
         separator = false
       }
     },
-    custom_filter = function(buf_number, _buf_numbers)
-      if vim.bo[buf_number].filetype ~= "neo-tree" then
-        return true
-      end
-    end,
   },
 })
