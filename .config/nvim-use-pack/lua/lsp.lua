@@ -22,14 +22,15 @@ vim.lsp.inline_completion.enable();
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(event)
-    vim.lsp.inlay_hint.enable(false)
-    vim.lsp.document_color.enable(true)
-
     local client = assert(vim.lsp.get_client_by_id(event.data.client_id))
 
     if client == nil then
       return
     end
+
+    vim.lsp.inlay_hint.enable(false)
+
+    vim.lsp.document_color.enable(true)
 
     -- enable lsp completion
     if client:supports_method(vim.lsp.protocol.Methods.textDocument_completion) then

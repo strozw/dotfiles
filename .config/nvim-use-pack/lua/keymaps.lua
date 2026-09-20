@@ -107,6 +107,15 @@ wk.add({
     mode = { 'i', 'c' }
   },
 
+  {
+    "<C-Space>",
+    function() vim.lsp.completion.get() end,
+    desc = "Trigger LSP completion",
+    expr = true,
+    noremap = true,
+    mode = { "i", "c" },
+  },
+
   -- LSP inline completion accept
   -- {
   --   '<Tab>',

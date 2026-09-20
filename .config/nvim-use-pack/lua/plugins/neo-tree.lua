@@ -19,6 +19,11 @@ require('neo-tree').setup({
   },
 
   filesystem = {
+    filtered_items = {
+      hide_dotfiles = false,
+      hide_hidden = false, -- only works on Windows
+      hide_gitignored = false,
+    },
     follow_current_file = {
       enabled = true,
       leave_dirs_open = false,
