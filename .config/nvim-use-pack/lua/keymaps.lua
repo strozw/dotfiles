@@ -116,6 +116,27 @@ wk.add({
     mode = { "i", "c" },
   },
 
+  -- <CR> only ends completion ("discard") by default, which skips the LSP accept path
+  -- and its additionalTextEdits, i.e. auto-import. Accept with <C-y> instead, and fall
+  -- back to autopairs for everything else so its bracket handling keeps working.
+  {
+    '<CR>',
+    function()
+      local autopairs = require('nvim-autopairs')
+
+      if vim.fn.pumvisible() == 1 and vim.fn.complete_info({ 'selected' }).selected ~= -1 then
+        return autopairs.esc('<C-y>')
+      end
+
+      return autopairs.autopairs_cr()
+    end,
+    desc = 'Accept completion item',
+    expr = true,
+    noremap = true,
+    replace_keycodes = false,
+    mode = { 'i' },
+  },
+
   -- LSP inline completion accept
   -- {
   --   '<Tab>',
