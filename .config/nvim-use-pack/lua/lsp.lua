@@ -22,12 +22,17 @@ vim.lsp.inline_completion.enable();
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(event)
-    local client = assert(vim.lsp.get_client_by_id(event.data.client_id))
-
+    vim.lsp.inlay_hint.enable(false)
     vim.lsp.document_color.enable(true)
 
+    local client = assert(vim.lsp.get_client_by_id(event.data.client_id))
+
+    if client == nil then
+      return
+    end
+
     -- enable lsp completion
-    if client:supports_method('textDocument/completion') then
+    if client:supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
       local triggersChars = {}
 
       for i = 32, 126 do table.insert(triggersChars, string.char(i)) end
@@ -44,7 +49,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 
     -- auto highlight
-    if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
+    if client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
       local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
 
       vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
@@ -71,8 +76,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
       })
     end
 
-    -- inlay hint
-    vim.lsp.inlay_hint.enable(false)
+    if client.name == "kakehashi" then
+      require("kakehashi").inherit_nvim_lsp_config(
+        client,
+        vim.tbl_keys(vim.lsp._enabled_configs),
+        "keep"
+      )
+    end
 
     -- if client then
     -- if client.name == "kakehashi" then

@@ -13,25 +13,18 @@ require("plugins/nvim-surround")
 
 require("plugins/nvim-lsp-file-operations")
 require("plugins/nvim-lspconfig")
-require("plugins/lazydev")
-require("plugins/conform")
 require("plugins/kakehashi")
-
-if vim.env.HERDR_PANE_ID ~= nil then
-  require("plugins/nvim-herdr-navigation")
-  require("plugins/herdr-context")
-else
-  require("plugins/vim-tmux-navigator")
-end
+require("plugins/conform")
+require("plugins/lazydev")
+require("plugins/react-compiler-maker")
 
 vim.api.nvim_create_autocmd('UIEnter', {
   once = true,
   callback = function()
     require("plugins/nvim-treesitter")
-
     require("plugins/nvim-web-devicons")
-    require("plugins/bufferline")
     require("plugins/neo-tree")
+    require("plugins/bufferline")
     require("plugins/telescope")
     require("plugins/nvim-pack-ui")
     require("plugins/gitsigns")
@@ -47,6 +40,12 @@ vim.api.nvim_create_autocmd('UIEnter', {
     require("plugins/ts-error-translator")
     require("plugins/smooth-resize")
     require("plugins/quicker")
-    require("plugins/react-compiler-maker")
+
+    if vim.env.HERDR_PANE_ID ~= nil then
+      require("plugins/nvim-herdr-navigation")
+      require("plugins/herdr-context")
+    else
+      require("plugins/vim-tmux-navigator")
+    end
   end
 })
