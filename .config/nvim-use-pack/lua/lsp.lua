@@ -20,6 +20,8 @@ vim.diagnostic.config({ virtual_text = false })
 -- enable inline completion
 vim.lsp.inline_completion.enable();
 
+local completion_trigger_group = vim.api.nvim_create_augroup('lsp-completion-trigger', { clear = true })
+
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(event)
     local client = assert(vim.lsp.get_client_by_id(event.data.client_id))
@@ -34,10 +36,35 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- enable lsp completion
     if client:supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
-      local triggersChars = {}
+      if client.name ~= "tsc" then
+        local triggersChars = {}
 
-      for i = 32, 126 do table.insert(triggersChars, string.char(i)) end
-      client.server_capabilities.completionProvider.triggerCharacters = triggersChars
+        for i = 32, 126 do table.insert(triggersChars, string.char(i)) end
+        client.server_capabilities.completionProvider.triggerCharacters = triggersChars
+      else
+        -- tsc validates `context.triggerCharacter` and panics on anything it did not
+        -- advertise, so the list above cannot be widened for it. Request completion on
+        -- the same character set from here instead: `get()` sends an `Invoked` request,
+        -- which carries no character.
+        vim.api.nvim_clear_autocmds({ group = completion_trigger_group, buffer = event.buf })
+        vim.api.nvim_create_autocmd('InsertCharPre', {
+          group = completion_trigger_group,
+          buffer = event.buf,
+          desc = 'Trigger LSP completion on any printable character',
+          callback = function()
+            local byte = vim.v.char:byte()
+
+            if not byte or byte < 32 or byte > 126 then
+              return
+            end
+
+            -- InsertCharPre fires before the character lands in the buffer.
+            vim.schedule(function()
+              vim.lsp.completion.get()
+            end)
+          end,
+        })
+      end
 
       vim.lsp.completion.enable(
         true,
@@ -134,21 +161,65 @@ vim.lsp.config('lua_ls', {
 })
 vim.lsp.enable('lua_ls')
 
--- ts_ls
-vim.lsp.config('ts_ls', {
+-- TypeScript: ts_ls wraps the project's own tsserver, which TypeScript 7 no longer
+-- ships. Pick one server per project by whether node_modules/.bin/tsserver exists.
+local function has_local_tsserver(root)
+  return vim.fn.executable(vim.fs.joinpath(root, 'node_modules/.bin/tsserver')) == 1
+end
+
+-- Wraps the upstream root_dir (keeping its deno / monorepo handling) so the server
+-- only attaches when the local tsserver's presence matches `want`.
+local function require_local_tsserver(root_dir, want)
+  return function(bufnr, on_dir)
+    root_dir(bufnr, function(root)
+      if has_local_tsserver(root) == want then
+        on_dir(root)
+      end
+    end)
+  end
+end
+
+-- Capture before overriding, otherwise the wrappers below recurse into themselves.
+local ts_ls_root_dir = vim.lsp.config.ts_ls.root_dir
+local tsc_root_dir = vim.lsp.config.tsc.root_dir
+
+-- ts_ls (TypeScript 6 and older)
+-- vim.lsp.config('ts_ls', {
+--   capabilities = capabilities,
+--   workspace_required = true,
+--   root_dir = require_local_tsserver(ts_ls_root_dir, true),
+--   on_attach = function(client, buffer_number)
+--     client.server_capabilities.documentFormattingProvider = false
+--     client.server_capabilities.documentRangeFormattingProvider = false
+--
+--     require("twoslash-queries").attach(client, buffer_number)
+--   end,
+--   init_options = {
+--     maxTsServerMemory = 4096,
+--     plugins = {},
+--   },
+--   settings = {
+--     javascript = {
+--       format = false,
+--     },
+--     typescript = {
+--       format = false,
+--     },
+--   }
+-- })
+-- vim.lsp.enable('ts_ls')
+
+-- tsc (native TypeScript 7+; its own root_dir already requires a `--lsp` capable binary)
+vim.lsp.config('tsc', {
   capabilities = capabilities,
   workspace_required = true,
+  -- root_dir = require_local_tsserver(tsc_root_dir, false),
   on_attach = function(client, buffer_number)
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
 
     require("twoslash-queries").attach(client, buffer_number)
   end,
-  init_options = {
-    maxTsServerMemory = 4096,
-    plugins = {},
-
-  },
   settings = {
     javascript = {
       format = false,
@@ -158,7 +229,7 @@ vim.lsp.config('ts_ls', {
     },
   }
 })
-vim.lsp.enable('ts_ls')
+vim.lsp.enable('tsc')
 
 vim.lsp.config('oxlint', {
   flags = {

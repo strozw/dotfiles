@@ -8,7 +8,7 @@ local bufferline = require('bufferline')
 
 bufferline.setup({
   options = {
-    always_show_bufferline = false,
+    -- always_show_bufferline = false,
     indicator = {
       icon = '▎',
       style = 'icon',
