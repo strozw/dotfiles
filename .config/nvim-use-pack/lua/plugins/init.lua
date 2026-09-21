@@ -42,6 +42,8 @@ vim.api.nvim_create_autocmd('VimEnter', {
       require("plugins/ts-error-translator")
       require("plugins/smooth-resize")
       require("plugins/quicker")
+      require("plugins/diffbandit")
+      require("plugins/diffview-plus")
 
       if vim.env.HERDR_PANE_ID ~= nil then
         require("plugins/nvim-herdr-navigation")

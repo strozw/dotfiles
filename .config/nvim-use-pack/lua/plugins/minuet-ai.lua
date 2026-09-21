@@ -17,7 +17,7 @@ require("minuet").setup({
       enable = false,
     },
     inline_completion = {
-      enable = true,
+      enable = false,
       -- filetypes that request a suggestion automatically while typing
       enabled_auto_trigger_ft = { '*' },
     }

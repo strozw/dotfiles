@@ -232,6 +232,16 @@ wk.add({
     mode = { "n" }
   },
   { "<leader>tD", function() require("gitsigns").toggle_deleted() end, desc = "[T]oggle git show [D]eleted", mode = { "n" } },
+  {
+    "<leader>tC",
+    function()
+      local enable = #vim.lsp.get_clients({ bufnr = 0, name = 'copilot' }) > 0
+
+      vim.lsp.enable("copilot", ! enable)
+    end,
+    desc = "[T]oggle Copilot Completion",
+    mode = { "n" }
+  },
 })
 
 

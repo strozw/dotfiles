@@ -101,6 +101,8 @@ export VISUAL=${VISUAL:=nvim}
 
 export EDITOR=${EDITOR:=nvim}
 
+export NVIM_APPNAME=nvim-use-pack
+
 #=====================================================
 # Other
 #=====================================================
