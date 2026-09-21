@@ -3,4 +3,4 @@ vim.pack.add({
 })
 
 -- vim-tmux-navigator の default keymap を無効化
--- vim.g.tmux_navigator_no_mappings = 1
+vim.g.tmux_navigator_no_mappings = 1

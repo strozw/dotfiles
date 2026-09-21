@@ -8,14 +8,15 @@ require("plugins/nvim-autopairs")
 require("plugins/nvim-surround")
 
 require("plugins/which-key")
-require("plugins/nvim-notify")
-require("plugins/fidget")
+-- require("plugins/nvim-notify")
+-- require("plugins/fidget")
 
 require("plugins/nvim-lsp-file-operations")
 require("plugins/nvim-lspconfig")
 require("plugins/kakehashi")
 require("plugins/conform")
 require("plugins/lazydev")
+require("plugins/minuet-ai")
 require("plugins/react-compiler-maker")
 
 vim.api.nvim_create_autocmd('VimEnter', {
