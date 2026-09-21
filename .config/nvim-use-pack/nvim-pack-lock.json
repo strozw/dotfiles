@@ -17,6 +17,14 @@
       "rev": "016802de402556da54c36bd7359b441266b01cdd",
       "src": "https://github.com/stevearc/conform.nvim"
     },
+    "diffbandit.nvim": {
+      "rev": "ebcac446eb1dc3573644eae95f0fec1aeb506945",
+      "src": "https://github.com/CoreyKaylor/diffbandit.nvim"
+    },
+    "diffview-plus.nvim": {
+      "rev": "5152bada7d81cd602373e77534aabc631419e8e0",
+      "src": "https://github.com/dlyongemallo/diffview-plus.nvim"
+    },
     "fidget.nvim": {
       "rev": "9e0201673e08e997e7cf52afca5565c70bd117f3",
       "src": "https://github.com/j-hui/fidget.nvim"
