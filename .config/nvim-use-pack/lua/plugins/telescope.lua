@@ -62,8 +62,8 @@ telescope.load_extension("fzy_native")
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'TelescopePrompt',
-  callback = function()
-    vim.o.autocomplete = false
+  callback = function(event)
+    vim.bo[event.buf].autocomplete = false
   end,
 })
 

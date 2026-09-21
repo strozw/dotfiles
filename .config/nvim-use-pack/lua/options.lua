@@ -44,8 +44,7 @@ vim.o.splitbelow = true
 -- auto refresh
 vim.o.autoread = true
 
--- If performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
--- instead raise a dialog asking if you wish to save the current file(s). See `:h 'confirm'`
+-- unsaved changes confirmation prompt
 vim.o.confirm = true
 
 -- Save undo history
@@ -92,25 +91,32 @@ vim.api.nvim_create_autocmd(
   "CmdlineChanged",
   {
     pattern = { ":", "/", "?" },
-    callback = function()
-      vim.fn.wildtrigger()
-    end
+    callback = function() vim.fn.wildtrigger() end
   }
 )
 
--- UI
-vim.o.cmdheight = 0
+-- statusline
 vim.o.laststatus = 3
-vim.o.showtabline = 0
+
+-- cmdline
+vim.o.cmdheight = 0
 vim.o.showcmdloc = 'statusline'
 
+-- tabline
+vim.o.showtabline = 0
+
 -- clipboard
---
--- Sync clipboard between OS and Neovim. Schedule the setting after `UIEnter` because it can
--- increase startup-time. Remove this option if you want your OS clipboard to remain independent.
--- See `:h 'clipboard'`
+-- Schedule the setting after `UIEnter` because it can increase startup-time.
 vim.api.nvim_create_autocmd('UIEnter', {
   callback = function()
     vim.o.clipboard = 'unnamedplus'
+  end,
+})
+
+-- Highlight when yanking (copying) text.
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Highlight when yanking (copying) text',
+  callback = function()
+    vim.hl.hl_op()
   end,
 })
