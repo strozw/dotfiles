@@ -53,6 +53,10 @@
       "rev": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d",
       "src": "https://github.com/folke/lazydev.nvim"
     },
+    "llm.nvim": {
+      "rev": "c7fdccf643758a19b472a034822eb204f8981155",
+      "src": "https://github.com/huggingface/llm.nvim"
+    },
     "lspkind.nvim": {
       "rev": "c7274c48137396526b59d86232eabcdc7fed8a32",
       "src": "https://github.com/onsails/lspkind.nvim"
@@ -153,6 +157,10 @@
     "telescope-fzy-native.nvim": {
       "rev": "282f069504515eec762ab6d6c89903377252bf5b",
       "src": "https://github.com/nvim-telescope/telescope-fzy-native.nvim"
+    },
+    "telescope-messages.nvim": {
+      "rev": "4f363b4ecd64f4e50fe33efdada7fcfbcc54dee2",
+      "src": "https://github.com/d4wns-l1ght/telescope-messages.nvim"
     },
     "telescope-ui-select.nvim": {
       "rev": "6e51d7da30bd139a6950adf2a47fda6df9fa06d2",

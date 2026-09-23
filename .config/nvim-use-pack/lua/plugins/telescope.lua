@@ -1,7 +1,8 @@
 vim.pack.add({
   'https://github.com/nvim-telescope/telescope.nvim',
   'https://github.com/nvim-telescope/telescope-fzy-native.nvim',
-  'https://github.com/nvim-telescope/telescope-ui-select.nvim'
+  'https://github.com/nvim-telescope/telescope-ui-select.nvim',
+  "https://github.com/d4wns-l1ght/telescope-messages.nvim",
 })
 
 local telescope = require("telescope")
@@ -59,6 +60,7 @@ telescope.setup({
 
 telescope.load_extension("ui-select")
 telescope.load_extension("fzy_native")
+telescope.load_extension("messages")
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'TelescopePrompt',

@@ -1,28 +1,26 @@
 local lspconfig_util = require("lspconfig.util")
 
 local capabilities = vim.tbl_deep_extend(
-  "force",
-  vim.lsp.protocol.make_client_capabilities(),
-  require('lsp-file-operations').default_capabilities()
+  "force", vim.lsp.protocol.make_client_capabilities(), require('lsp-file-operations').default_capabilities()
 )
 
 capabilities.textDocument.completion.completionItem.resolveSupport = {
   properties = {
     "documentation",
     "detail",
-    "additionalTextEdits",
-  },
+    "additionalTextEdits"
+  }
 }
 
 -- disable diagnostic virtual text for tiny-inline-diagnostic
 vim.diagnostic.config({ virtual_text = false })
 
 -- enable inline completion
-vim.lsp.inline_completion.enable();
+vim.lsp.inline_completion.enable()
 
 vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(event)
-    local client = assert(vim.lsp.get_client_by_id(event.data.client_id))
+  callback = function (event)
+    local client = vim.lsp.get_client_by_id(event.data.client_id)
 
     if client == nil then
       return
@@ -34,62 +32,50 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- enable lsp completion
     if client:supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
-      vim.lsp.completion.enable(
-        true,
-        client.id,
-        event.buf
-      )
+      vim.lsp.completion.enable(true, client.id, event.buf)
     end
 
     -- auto highlight
-    if client:supports_method(
-          vim.lsp.protocol.Methods.textDocument_documentHighlight,
-          event.buf
-        ) then
+    if client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
       local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
 
       vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
         buffer = event.buf,
         group = highlight_augroup,
-        callback = vim.lsp.buf.document_highlight,
+        callback = vim.lsp.buf.document_highlight
       })
 
       vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
         buffer = event.buf,
         group = highlight_augroup,
-        callback = vim.lsp.buf.clear_references,
+        callback = vim.lsp.buf.clear_references
       })
 
       vim.api.nvim_create_autocmd("LspDetach", {
         group = vim.api.nvim_create_augroup("lsp-detach", { clear = false }),
-        callback = function(detach_event)
+        callback = function (detach_event)
           vim.lsp.buf.clear_references()
           vim.api.nvim_clear_autocmds({
             group = highlight_augroup,
             buffer = detach_event.buf
           })
-        end,
+        end
       })
     end
 
     if client.name == "kakehashi" then
-      require("kakehashi").inherit_nvim_lsp_config(
-        client,
-        vim.tbl_keys(vim.lsp._enabled_configs),
-        "keep"
-      )
+      require("kakehashi").inherit_nvim_lsp_config(client, vim.tbl_keys(vim.lsp._enabled_configs), "keep")
     end
   end
 })
 
 vim.api.nvim_create_autocmd("LspProgress", {
-  ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
-  callback = function(ev)
+  ---@param ev { data: { client_id: integer, params: lsp.ProgressParams } }
+  callback = function (ev)
     local value = ev.data.params.value
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
     local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-    local icon = value.kind == "end" and " " or
-        spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+    local icon = value.kind == "end" and " " or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
     -- vim.notify(vim.lsp.status(), vim.log.levels.INFO, {
     --   id = "lsp_progress",
     --   title = "LSP Progress",
@@ -103,9 +89,9 @@ vim.api.nvim_create_autocmd("LspProgress", {
       source = 'vim.lsp',
       title = icon .. " " .. value.title .. " (" .. (client and client.name or "lsp") .. ")",
       status = value.kind ~= 'end' and 'running' or 'success',
-      percent = value.percentage,
+      percent = value.percentage
     })
-  end,
+  end
 })
 
 -- lua_ls
@@ -115,27 +101,61 @@ vim.lsp.config('lua_ls', {
     Lua = {
       runtime = { version = 'LuaJIT' },
       diagnostics = {
-        globals = { 'vim' },
+        globals = { 'vim' }
       },
       workspace = {
         checkThirdParty = false,
         library = {
           vim.env.VIMRUNTIME,
-          '${3rd}/luv/library',
-        },
+          '${3rd}/luv/library'
+        }
       },
-      telemetry = { enable = false },
-    },
-  },
+      telemetry = { enable = false }
+    }
+  }
 })
-vim.lsp.enable('lua_ls')
+vim.lsp.enable('lua_ls', false)
 
+-- emmylua_ls
+vim.lsp.config("emmylua_ls", {
+  capabilities = capabilities,
+  cmd = { "emmylua_ls" },
+  filetypes = { "lua" },
+  root_markers = { ".emmyrc.json", ".luarc.json", ".git" },
+  on_init = function (client)
+    if client.workspace_folders then
+      local path = client.workspace_folders[1].name
+      if path ~= vim.fn.stdpath('config')
+        and (vim.uv.fs_stat(path .. '/.emmyrc.json') or vim.uv.fs_stat(path .. '/.luarc.json')) then
+        client.config.settings = {}
+      end
+    end
+  end,
+  settings = {
+    emmylua = {
+      -- Tell the server which Lua you're using (usually LuaJIT, for Neovim).
+      runtime = { version = 'LuaJIT' },
+      diagnostics = { globals = { 'vim' } },
+      -- Make the server aware of Neovim runtime files.
+      workspace = {
+        library = {
+          vim.env.VIMRUNTIME,
+          vim.fn.stdpath('data') .. '/site/pack/core/opt',
+          vim.api.nvim_get_runtime_file('lua', false)[1],
+          vim.api.nvim_get_runtime_file('lua/lspconfig', false)[1]
+        }
+      }
+    }
+  }
+})
+
+vim.lsp.enable("emmylua_ls")
 
 -- Wraps the upstream root_dir (keeping its deno / monorepo handling) so the server
 -- only attaches when the local tsserver's presence matches `want`.
 local function require_local_tsserver(root_dir, want)
-  return function(bufnr, on_dir)
-    root_dir(bufnr, function(root)
+  return function (bufnr, on_dir)
+    root_dir(bufnr, function (root)
       local local_tsserver_path = vim.fs.joinpath(root, 'node_modules/.bin/tsserver')
       local has_local_tsserver = vim.fn.executable(local_tsserver_path) == 1
 
@@ -150,8 +170,9 @@ end
 vim.lsp.config('ts_ls', {
   capabilities = capabilities,
   workspace_required = true,
+  ---@diagnostic disable-next-line: need-check-nil
   root_dir = require_local_tsserver(vim.lsp.config.ts_ls.root_dir, true),
-  on_attach = function(client, buffer_number)
+  on_attach = function (client, buffer_number)
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
 
@@ -159,15 +180,15 @@ vim.lsp.config('ts_ls', {
   end,
   init_options = {
     maxTsServerMemory = 4096,
-    plugins = {},
+    plugins = {}
   },
   settings = {
     javascript = {
-      format = false,
+      format = false
     },
     typescript = {
-      format = false,
-    },
+      format = false
+    }
   }
 })
 vim.lsp.enable('ts_ls')
@@ -177,7 +198,7 @@ vim.lsp.config('tsc', {
   capabilities = capabilities,
   workspace_required = true,
   root_dir = require_local_tsserver(vim.lsp.config.tsc.root_dir, false),
-  on_attach = function(client, buffer_number)
+  on_attach = function (client, buffer_number)
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
 
@@ -185,11 +206,11 @@ vim.lsp.config('tsc', {
   end,
   settings = {
     javascript = {
-      format = false,
+      format = false
     },
     typescript = {
-      format = false,
-    },
+      format = false
+    }
   }
 })
 vim.lsp.enable('tsc')
@@ -197,11 +218,11 @@ vim.lsp.enable('tsc')
 vim.lsp.config('oxlint', {
   flags = {
     allow_incremental_sync = true,
-    debounce_text_changes = 1000,
+    debounce_text_changes = 1000
   },
   settings = {
-    typeAware = false,
-  },
+    typeAware = false
+  }
 })
 vim.lsp.enable('oxlint', true)
 
@@ -239,13 +260,24 @@ vim.lsp.config('dprint', {
     "css",
     "scss",
     "less",
-    "sass",
-  },
+    "sass"
+  }
 })
 vim.lsp.enable('dprint', false)
 
 vim.lsp.config("emmet_language_server", {
-  filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact" },
+  filetypes = {
+    "css",
+    "eruby",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "less",
+    "sass",
+    "scss",
+    "pug",
+    "typescriptreact"
+  },
   init_options = {
     includeLanguages = {},
     excludeLanguages = {},
@@ -255,8 +287,8 @@ vim.lsp.config("emmet_language_server", {
     showExpandedAbbreviation = "always",
     showSuggestionsAsSnippets = false,
     syntaxProfiles = {},
-    variables = {},
-  },
+    variables = {}
+  }
 })
 vim.lsp.enable("emmet_language_server")
 
@@ -273,7 +305,7 @@ vim.lsp.config("tailwindcss", {
     "svelte",
     "vue",
     "blade",
-    "phtml",
+    "phtml"
   },
 
   settings = {
@@ -282,12 +314,12 @@ vim.lsp.config("tailwindcss", {
         classRegex = {
           {
             "tv\\(([^)]*)\\)",
-            "{?\\s?[\\w].*:\\s*?[\"'`]([^\"'`]*).*?,?\\s?}?",
-          },
-        },
-      },
-    },
-  },
+            "{?\\s?[\\w].*:\\s*?[\"'`]([^\"'`]*).*?,?\\s?}?"
+          }
+        }
+      }
+    }
+  }
 })
 vim.lsp.enable("tailwindcss")
 
@@ -296,21 +328,21 @@ vim.lsp.config("yamlls", {
     yaml = {
       schemaStore = {
         enable = false,
-        url = "",
+        url = ""
       },
-      schemas = require("schemastore").yaml.schemas(),
-    },
-  },
+      schemas = require("schemastore").yaml.schemas()
+    }
+  }
 })
 
 vim.lsp.config("jsonls", {
   settings = {
     json = {
       schemas = require("schemastore").json.schemas(),
-      validate = { enable = false },
-    },
+      validate = { enable = false }
+    }
   },
-  filetypes = { "json", "jsonc", "json5" },
+  filetypes = { "json", "jsonc", "json5" }
 })
 vim.lsp.enable("jsonls")
 
@@ -319,8 +351,8 @@ vim.lsp.enable("css_variables", true)
 
 vim.lsp.config("html", {
   init_options = {
-    provideFormatter = false,
-  },
+    provideFormatter = false
+  }
 })
 vim.lsp.enable("html", true)
 
@@ -330,7 +362,7 @@ vim.lsp.config("phpactor", {
   filetypes = {
     "php",
     "phtml",
-    "blade",
+    "blade"
   },
 
   init_options = {}
@@ -343,7 +375,7 @@ vim.lsp.config("phpantom_lsp", {
   filetypes = {
     "php",
     "phtml",
-    "blade",
+    "blade"
   },
 
   init_options = {}
@@ -354,12 +386,12 @@ vim.lsp.config("gopls", {})
 vim.lsp.enable("gopls", false)
 
 vim.lsp.config("cspell_ls", {
-  workspace_required = true,
+  workspace_required = true
 })
 vim.lsp.enable("cspell_ls", false)
 
 vim.lsp.config("typos_lsp", {
-  workspace_required = true,
+  workspace_required = true
 })
 vim.lsp.enable("typos_lsp", false)
 
@@ -370,8 +402,8 @@ vim.lsp.enable("astro", false)
 vim.lsp.config('copilot', {
   settings = {
     telemetry = {
-      telemetryLevel = "off",
-    },
+      telemetryLevel = "off"
+    }
   }
 })
 vim.lsp.enable('copilot', false)

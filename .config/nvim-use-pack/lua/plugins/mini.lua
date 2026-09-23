@@ -1,16 +1,13 @@
 vim.pack.add({
-  { src = 'https://github.com/nvim-mini/mini.nvim', version = 'stable' },
+  { src = 'https://github.com/nvim-mini/mini.nvim', version = 'stable' }
 })
 
 require('mini.bufremove').setup()
 require('mini.indentscope').setup({
-  symbol = '│',
+  symbol = '│'
 })
 
-vim.api.nvim_create_user_command(
-  'Bufdelete',
-  function()
-    MiniBufremove.delete()
-  end,
-  { desc = 'Remove buffer' }
+vim.api.nvim_create_user_command('Bufdelete', function ()
+  require('mini.bufremove').delete()
+end, { desc = 'Remove buffer' }
 )
