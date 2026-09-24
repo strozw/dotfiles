@@ -170,7 +170,6 @@ end
 vim.lsp.config('ts_ls', {
   capabilities = capabilities,
   workspace_required = true,
-  ---@diagnostic disable-next-line: need-check-nil
   root_dir = require_local_tsserver(vim.lsp.config.ts_ls.root_dir, true),
   on_attach = function (client, buffer_number)
     client.server_capabilities.documentFormattingProvider = false

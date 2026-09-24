@@ -1,7 +1,7 @@
 {
   "plugins": {
     "SchemaStore.nvim": {
-      "rev": "b73cf982d16ff69e528d2ab269482f11c0825f64",
+      "rev": "76faabd8d091e4316ec8e1e90aa9371210b574b3",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "blink.cmp": {
@@ -30,7 +30,7 @@
       "src": "https://github.com/j-hui/fidget.nvim"
     },
     "gitsigns.nvim": {
-      "rev": "8d79f2410c76e62b92e51c28c82e28c1c5a3daeb",
+      "rev": "070a5d7b985546cc57e1fc61e5bc507fecac6045",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "helpview.nvim": {
@@ -54,7 +54,7 @@
       "src": "https://github.com/folke/lazydev.nvim"
     },
     "llm.nvim": {
-      "rev": "c7fdccf643758a19b472a034822eb204f8981155",
+      "rev": "fba54982924b701600f34dba0ce643de1514b698",
       "src": "https://github.com/huggingface/llm.nvim"
     },
     "lspkind.nvim": {
@@ -103,11 +103,11 @@
       "src": "https://github.com/bojackduy/nvim-herdr-navigation"
     },
     "nvim-lsp-file-operations": {
-      "rev": "276f096ef324c140d00bd0188a0e70382e156771",
+      "rev": "dbbbf0afed92307de836c42d369ef4f76839e4a9",
       "src": "https://github.com/antosha417/nvim-lsp-file-operations"
     },
     "nvim-lspconfig": {
-      "rev": "ffd261c09c3dabd0bf1a438f47a8ae3b22f3c3ff",
+      "rev": "046b1a797af1effe8e0474b9af9657a3761ec58a",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-notify": {
@@ -143,7 +143,7 @@
       "src": "https://github.com/stevearc/quicker.nvim"
     },
     "react-compiler-marker": {
-      "rev": "f21aa093ecc6271dbbda66bcaf2fcfbe5549c040",
+      "rev": "d95acaf2590fede68afe17a9b9c4fedd793fe9f9",
       "src": "https://github.com/blazejkustra/react-compiler-marker"
     },
     "smooth-resize.nvim": {
@@ -175,7 +175,7 @@
       "src": "https://github.com/rachartier/tiny-cmdline.nvim"
     },
     "tiny-code-action.nvim": {
-      "rev": "0d040ed81f7953118b81cd12681fcdfcac069803",
+      "rev": "91a9c32228e9a7761d241023d9ebb9d11d8fb10d",
       "src": "https://github.com/rachartier/tiny-code-action.nvim"
     },
     "tiny-inline-diagnostic.nvim": {
@@ -211,7 +211,7 @@
       "src": "https://github.com/folke/which-key.nvim"
     },
     "workspace-diagnostics.nvim": {
-      "rev": "a35321d8401878cc9558e357acfd0da58b582739",
+      "rev": "ea93521c0344fa2530c6f6da8b059d1b944ca550",
       "src": "https://github.com/artemave/workspace-diagnostics.nvim"
     }
   }
