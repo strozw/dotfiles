@@ -337,14 +337,29 @@ vim.api.nvim_create_autocmd('LspAttach', {
       }
     })
 
-    ---@diagnostic disable-next-line: deprecated
-    if client ~= nil and client.supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
+    if client ~= nil and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
       wk.add({
-        "<leader>th",
-        function ()
-          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-        end,
-        desc = "[T]oggle Inlay [H]ints"
+        {
+          "<leader>th",
+          function () vim.cmd.LspToggleInlayHint() end,
+          desc = "[T]oggle Inlay [H]ints",
+          mode = { "n" }
+        },
+        {
+          "<leader>tH",
+          function ()
+            -- same list the command completes with, so hidden clients stay selectable
+            local names = vim.fn.getcompletion("LspToggleInlayHint ", "cmdline")
+
+            vim.ui.select(names, { prompt = "Toggle inlay hints for:" }, function (name)
+              if name then
+                vim.cmd.LspToggleInlayHint(name)
+              end
+            end)
+          end,
+          desc = "[T]oggle Inlay [H]ints per client",
+          mode = { "n" }
+        }
       })
     end
   end

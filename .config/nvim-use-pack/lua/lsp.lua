@@ -26,8 +26,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
       return
     end
 
-    vim.lsp.inlay_hint.enable(false)
-
     vim.lsp.document_color.enable(true)
 
     -- enable lsp completion
@@ -66,6 +64,87 @@ vim.api.nvim_create_autocmd('LspAttach', {
     if client.name == "kakehashi" then
       require("kakehashi").inherit_nvim_lsp_config(client, vim.tbl_keys(vim.lsp._enabled_configs), "keep")
     end
+  end
+})
+
+-- `inlayHintProvider` of the clients whose hints are currently hidden, keyed by
+-- client id, so it can be handed back when they are turned on again.
+local hidden_inlay_hint_provider = {}
+
+-- Clients attached to `bufnr` that can serve inlay hints, hidden ones included.
+local function inlay_hint_clients(bufnr)
+  return vim.tbl_filter(function (client)
+    return client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, bufnr)
+      or hidden_inlay_hint_provider[client.id] ~= nil
+  end, vim.lsp.get_clients({ bufnr = bufnr }))
+end
+
+-- Toggles inlay hints for a single client, or for the whole buffer when `client` is nil.
+--
+-- Hints are gated by a client-level switch AND a buffer-level one, and enabling the
+-- buffer-level one re-attaches every client, including those that were switched off
+-- individually. react-compiler-marker does exactly that on each attach and on every
+-- InsertLeave, so hiding a single client's hints also means taking its
+-- `inlayHintProvider` away until it is asked for again.
+--
+---@param client string|vim.lsp.Client|nil Client name, the client itself, or nil for every client
+---@param enable boolean|nil Forces a state instead of toggling
+---@param bufnr integer|nil Defaults to the current buffer
+local function toggle_inlay_hint(client, enable, bufnr)
+  bufnr = bufnr or 0
+
+  if client == nil then
+    if enable == nil then
+      enable = not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+    end
+
+    vim.lsp.inlay_hint.enable(enable, { bufnr = bufnr })
+    return
+  end
+
+  if type(client) == "string" then
+    local name = client
+
+    client = vim.lsp.get_clients({ bufnr = bufnr, name = name })[1]
+
+    if client == nil then
+      vim.notify(("no LSP client named '%s' attached to this buffer"):format(name), vim.log.levels.WARN)
+      return
+    end
+  end
+
+  if enable == nil then
+    enable = hidden_inlay_hint_provider[client.id] ~= nil
+  end
+
+  if enable then
+    client.server_capabilities.inlayHintProvider =
+      client.server_capabilities.inlayHintProvider or hidden_inlay_hint_provider[client.id]
+    hidden_inlay_hint_provider[client.id] = nil
+
+    -- the client-level switch only has an effect while the buffer-level one is on
+    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+    vim.lsp.inlay_hint.enable(true, { client_id = client.id })
+  else
+    -- drop the hints that are already on screen before taking the capability away
+    vim.lsp.inlay_hint.enable(false, { client_id = client.id })
+
+    hidden_inlay_hint_provider[client.id] =
+      hidden_inlay_hint_provider[client.id] or client.server_capabilities.inlayHintProvider
+    client.server_capabilities.inlayHintProvider = nil
+  end
+end
+
+vim.api.nvim_create_user_command("LspToggleInlayHint", function (opts)
+  toggle_inlay_hint(opts.args ~= "" and opts.args or nil)
+end, {
+  nargs = "?",
+  desc = "Toggle inlay hints for one LSP client (whole buffer when no name is given)",
+  complete = function (arg_lead)
+    return vim.tbl_filter(
+      function (name) return name:find(arg_lead, 1, true) == 1 end,
+      vim.tbl_map(function (client) return client.name end, inlay_hint_clients(0))
+    )
   end
 })
 
@@ -201,9 +280,26 @@ vim.lsp.config('tsc', {
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
 
+    -- nvim-lspconfig turns every inlay hint on by default; hide them until
+    -- `:LspToggleInlayHint tsc` asks for them. `on_attach` runs before the inlay
+    -- hint capability is initialised, so the client-level switch is honoured.
+    toggle_inlay_hint(client, false, buffer_number)
+
     require("twoslash-queries").attach(client, buffer_number)
   end,
   settings = {
+    -- Kept for reference: disabling the hints server side instead of via
+    -- `toggle_inlay_hint()` would make them impossible to turn back on.
+    -- ['js/ts'] = {
+    --   inlayHints = {
+    --     parameterNames = { enabled = 'none' },
+    --     parameterTypes = { enabled = false },
+    --     variableTypes = { enabled = false },
+    --     propertyDeclarationTypes = { enabled = false },
+    --     functionLikeReturnTypes = { enabled = false },
+    --     enumMemberValues = { enabled = false }
+    --   }
+    -- },
     javascript = {
       format = false
     },
