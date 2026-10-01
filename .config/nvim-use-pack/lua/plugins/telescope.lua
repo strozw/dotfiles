@@ -1,9 +1,20 @@
+-- Build the native sorter on install/update (must be defined before vim.pack.add)
+vim.api.nvim_create_autocmd('PackChanged', {
+  callback = function(ev)
+    local name, kind = ev.data.spec.name, ev.data.kind
+
+    if name == 'telescope-fzf-native.nvim' and (kind == 'install' or kind == 'update') then
+      vim.system({ 'make' }, { cwd = ev.data.path }):wait()
+    end
+  end
+})
+
 vim.pack.add({
   'https://github.com/nvim-lua/plenary.nvim',
   'https://github.com/nvim-telescope/telescope.nvim',
-  'https://github.com/nvim-telescope/telescope-fzy-native.nvim',
+  'https://github.com/nvim-telescope/telescope-fzf-native.nvim',
   'https://github.com/nvim-telescope/telescope-ui-select.nvim',
-  "https://github.com/d4wns-l1ght/telescope-messages.nvim",
+  "https://github.com/d4wns-l1ght/telescope-messages.nvim"
 })
 
 local telescope = require("telescope")
@@ -26,59 +37,47 @@ telescope.setup({
       "--line-number",
       "--column",
       "--smart-case",
-      "--hidden",
+      "--hidden"
     },
     layout_config = {
       prompt_position = "top",
-      width = 0.9,
+      width = 0.9
     },
     -- borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
     borderchars = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
     mappings = {
       i = {
-        ["<M-p>"] = actions_layout.toggle_preview,
+        ["<M-p>"] = actions_layout.toggle_preview
       },
       n = {
-        ["<M-p>"] = actions_layout.toggle_preview,
-      },
-    },
+        ["<M-p>"] = actions_layout.toggle_preview
+      }
+    }
   },
   pickers = {
     -- show hidden (dotfiles) in file pickers
-    find_files = { hidden = true, no_ignore = false },
+    find_files = { hidden = true, no_ignore = false }
   },
   extensions = {
     ["ui-select"] = {
-      require("telescope.themes").get_dropdown(),
+      require("telescope.themes").get_dropdown()
     },
-    fzy_native = {
-      override_generic_sorter = false,
+    fzf = {
+      fuzzy = true,
+      override_generic_sorter = true,
       override_file_sorter = true,
+      case_mode = "smart_case"
     }
-
-  },
+  }
 })
 
 telescope.load_extension("ui-select")
-telescope.load_extension("fzy_native")
+telescope.load_extension("fzf")
 telescope.load_extension("messages")
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'TelescopePrompt',
-  callback = function(event)
+  callback = function (event)
     vim.bo[event.buf].autocomplete = false
-  end,
-})
-
-vim.api.nvim_create_autocmd('PackChanged', {
-  callback = function(ev)
-    local name, kind = ev.data.spec.name, ev.data.kind
-
-    if name == 'telescope-fzf-native' and kind == 'update' then
-      vim.sysytem({ 'make' }, { cwd = ev.data.path })
-
-      if not ev.data.active then vim.cmd.packadd('nvim-treesitter') end
-      vim.cmd('make')
-    end
   end
 })
