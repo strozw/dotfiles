@@ -3,30 +3,29 @@ vim.loader.enable()
 require('options')
 
 require("plugins/tokyonight")
-
-require("plugins/mini")
-require("plugins/nvim-autopairs")
-require("plugins/nvim-surround")
-
-require("plugins/nvim-treesitter")
-require("plugins/nvim-lsp-file-operations")
-require("plugins/nvim-lspconfig")
-require("plugins/mason")
-require("plugins/schemastore")
-require("plugins/lazydev")
-require("plugins/kakehashi")
-require("plugins/react-compiler-maker")
-require("plugins/minuet-ai")
--- require("plugins/llm")
-require("plugins/conform")
+require("plugins/which-key")
+require("plugins/telescope")
 
 vim.api.nvim_create_autocmd('VimEnter', {
   once = true,
   callback = function ()
     vim.schedule(function ()
-      require("plugins/which-key")
+      require("plugins/mini")
+      require("plugins/nvim-autopairs")
+      require("plugins/nvim-surround")
 
-      -- typescript lsp plugin
+      require("plugins/nvim-treesitter")
+      require("plugins/nvim-lsp-file-operations")
+      require("plugins/nvim-lspconfig")
+      require("plugins/mason")
+      require("plugins/schemastore")
+      require("plugins/lazydev")
+      require("plugins/kakehashi")
+      require("plugins/react-compiler-maker")
+      require("plugins/minuet-ai")
+      -- require("plugins/llm")
+      require("plugins/conform")
+
       require("plugins/twoslash-queries")
       require("plugins/ts-error-translator")
       require("plugins/tsc")
@@ -34,7 +33,6 @@ vim.api.nvim_create_autocmd('VimEnter', {
       require("plugins/nvim-web-devicons")
       require("plugins/neo-tree")
       require("plugins/bufferline")
-      require("plugins/telescope")
       require("plugins/nvim-pack-ui")
       require("plugins/helpview")
       require("plugins/lspkind")
@@ -59,8 +57,8 @@ vim.api.nvim_create_autocmd('VimEnter', {
       end
 
       require('lsp')
-
-      require('keymaps')
     end)
   end
 })
+
+require('keymaps')

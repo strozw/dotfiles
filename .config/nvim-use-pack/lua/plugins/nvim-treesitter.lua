@@ -3,91 +3,91 @@ vim.pack.add({
   "https://github.com/JoosepAlviste/nvim-ts-context-commentstring",
 
   -- Treesitter
-  'https://github.com/nvim-treesitter/nvim-treesitter',
+  'https://github.com/nvim-treesitter/nvim-treesitter'
 })
 
 -- Rebuild parsers when nvim-treesitter updates, otherwise its new queries may not match the old parsers.
 vim.api.nvim_create_autocmd('PackChanged', {
-  callback = function(ev)
+  callback = function (ev)
     if ev.data.spec.name == 'nvim-treesitter' and ev.data.kind == 'update' then
       if not ev.data.active then vim.cmd.packadd('nvim-treesitter') end
       vim.cmd('TSUpdate')
     end
-  end,
+  end
 })
-
 
 require('nvim-treesitter').setup {
   -- Directory to install parsers and queries to (prepended to `runtimepath` to have priority)
   install_dir = vim.fn.stdpath('data') .. '/site'
 }
 
-require('nvim-treesitter').install {
-  "angular",
-  "astro",
-  "bash",
-  "blade",
-  "diff",
-  "caddy",
-  "comment",
-  "css",
-  "csv",
-  "dockerfile",
-  "ecma",
-  "editorconfig",
-  "git_config",
-  "git_rebase",
-  "gitattributes",
-  "gitcommit",
-  "gitignore",
-  "go",
-  "gomod",
-  "gosum",
-  "gotmpl",
-  "gowork",
-  "gpg",
-  "hcl",
-  "html",
-  "html_tags",
-  "http",
-  "hurl",
-  "javascript",
-  "jq",
-  "jsdoc",
-  "json",
-  "json5",
-  "jsx",
-  "lua",
-  "luadoc",
-  "markdown",
-  "markdown_inline",
-  "mermaid",
-  "nginx",
-  "pem",
-  "php",
-  "po",
-  "prisma",
-  "phpdoc",
-  "python",
-  "regex",
-  "ruby",
-  "rust",
-  "scss",
-  "ssh_config",
-  "sql",
-  "svelte",
-  "terraform",
-  "toml",
-  "tsv",
-  "tsx",
-  "typescript",
-  "typst",
-  "yaml",
-  "vim",
-  "vimdoc",
-  "xml",
-  "zsh",
-}
+require('nvim-treesitter')
+  .install({
+    "angular",
+    "astro",
+    "bash",
+    "blade",
+    "diff",
+    "caddy",
+    "comment",
+    "css",
+    "csv",
+    "dockerfile",
+    "ecma",
+    "editorconfig",
+    "git_config",
+    "git_rebase",
+    "gitattributes",
+    "gitcommit",
+    "gitignore",
+    "go",
+    "gomod",
+    "gosum",
+    "gotmpl",
+    "gowork",
+    "gpg",
+    "hcl",
+    "html",
+    "html_tags",
+    "http",
+    "hurl",
+    "javascript",
+    "jq",
+    "jsdoc",
+    "json",
+    "json5",
+    "jsx",
+    "lua",
+    "luadoc",
+    "markdown",
+    "markdown_inline",
+    "mermaid",
+    "nginx",
+    "pem",
+    "php",
+    "po",
+    "prisma",
+    "phpdoc",
+    "python",
+    "regex",
+    "ruby",
+    "rust",
+    "scss",
+    "ssh_config",
+    "sql",
+    "svelte",
+    "terraform",
+    "toml",
+    "tsv",
+    "tsx",
+    "typescript",
+    "typst",
+    "yaml",
+    "vim",
+    "vimdoc",
+    "xml",
+    "zsh"
+  })
 
 -- fold に treesitter を使用
 vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
@@ -96,15 +96,13 @@ vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
 -- 自動ハイライトの有効化
-vim.api.nvim_create_autocmd(
-  "FileType",
-  {
-    group = vim.api.nvim_create_augroup("vim-treesitter-start", {}),
-    pattern = { '<filetype>' },
-    callback = function()
-      vim.treesitter.start()
-    end,
-  })
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("vim-treesitter-start", {}),
+  pattern = { '<filetype>' },
+  callback = function ()
+    vim.treesitter.start()
+  end
+})
 
 -- context_commentstring の設定
 require('ts_context_commentstring').setup({})

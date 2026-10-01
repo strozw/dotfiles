@@ -1,7 +1,7 @@
 {
   "plugins": {
     "SchemaStore.nvim": {
-      "rev": "76faabd8d091e4316ec8e1e90aa9371210b574b3",
+      "rev": "fae5c76c00dec18485f264396ce24368e9c4e9fb",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "blink.cmp": {
@@ -22,7 +22,7 @@
       "src": "https://github.com/CoreyKaylor/diffbandit.nvim"
     },
     "diffview-plus.nvim": {
-      "rev": "5152bada7d81cd602373e77534aabc631419e8e0",
+      "rev": "875d16dd8c8aa86f1a5c3b5cef49e1133980ae94",
       "src": "https://github.com/dlyongemallo/diffview-plus.nvim"
     },
     "fidget.nvim": {
@@ -42,7 +42,7 @@
       "src": "https://github.com/makyinmars/herdr-context.nvim"
     },
     "juu.nvim": {
-      "rev": "184ca126aa1583ee5af33333e5c32c64ee883caa",
+      "rev": "1b9a7539cc4f80f29f4b2218a7e8dac43420f980",
       "src": "https://github.com/mistweaverco/juu.nvim"
     },
     "kakehashi.nvim": {
@@ -83,7 +83,7 @@
       "src": "https://github.com/mvllow/modes.nvim"
     },
     "neo-tree.nvim": {
-      "rev": "162f9b953a692b559afe43e38d60afee81e8e79b",
+      "rev": "020e50ff7fdaa0d76de23cfe5c485504729483b0",
       "src": "https://github.com/nvim-neo-tree/neo-tree.nvim"
     },
     "notifier.nvim": {
@@ -103,11 +103,11 @@
       "src": "https://github.com/bojackduy/nvim-herdr-navigation"
     },
     "nvim-lsp-file-operations": {
-      "rev": "dbbbf0afed92307de836c42d369ef4f76839e4a9",
+      "rev": "2f1ca9249c9d1aaa09d339b3ff7478b48ebbfe01",
       "src": "https://github.com/antosha417/nvim-lsp-file-operations"
     },
     "nvim-lspconfig": {
-      "rev": "046b1a797af1effe8e0474b9af9657a3761ec58a",
+      "rev": "3e8d598d3b5f8338a41699c436e5fa11d2666cf0",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-notify": {
@@ -123,7 +123,7 @@
       "src": "https://github.com/kylechui/nvim-surround"
     },
     "nvim-treesitter": {
-      "rev": "f603a2f4da48728f80257fb5fbb90145fd1dc173",
+      "rev": "910fdf6f49e9dee7e7257c7d11a76b040fdfb9de",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-ts-context-commentstring": {
@@ -143,7 +143,7 @@
       "src": "https://github.com/stevearc/quicker.nvim"
     },
     "react-compiler-marker": {
-      "rev": "d95acaf2590fede68afe17a9b9c4fedd793fe9f9",
+      "rev": "896da66c3f6f68c2472974cca6e154104736a993",
       "src": "https://github.com/blazejkustra/react-compiler-marker"
     },
     "smooth-resize.nvim": {

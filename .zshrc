@@ -23,12 +23,13 @@ setopt list_types
 zstyle ':completion:*:*:*:default' menu yes select
 zstyle ':completion:*' special-dirs true
 
-if type brew &>/dev/null; then
-	export FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-  export FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-fi
-
-export FPATH=~/.config/zsh/completions:$FPATH
+typeset -U fpath
+fpath=(
+  /opt/homebrew/share/zsh-completions
+  /opt/homebrew/share/zsh/site-functions
+  ~/.config/zsh/completions
+  $fpath
+)
 
 autoload -Uz compinit; compinit
 

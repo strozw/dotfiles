@@ -4,10 +4,10 @@
 require('vim._core.ui2').enable({
   msg = {
     targets = {
-      default = "msg",
+      default = "msg"
     },
-    msg = { height = 100 },
-  },
+    msg = { height = 100 }
+  }
 })
 
 vim.cmd('packadd! nvim.undotree')
@@ -102,13 +102,10 @@ vim.o.wildmode = "noselect:lastused,full"
 vim.o.wildoptions = "pum,fuzzy"
 
 -- autocmd CmdlineChanged [:\/\?] call wildtrigger()
-vim.api.nvim_create_autocmd(
-  "CmdlineChanged",
-  {
-    pattern = { ":", "/", "?" },
-    callback = function() vim.fn.wildtrigger() end
-  }
-)
+vim.api.nvim_create_autocmd("CmdlineChanged", {
+  pattern = { ":", "/", "?" },
+  callback = function () vim.fn.wildtrigger() end
+})
 
 -- statusline
 vim.o.laststatus = 3
@@ -123,15 +120,15 @@ vim.o.showtabline = 0
 -- clipboard
 -- Schedule the setting after `UIEnter` because it can increase startup-time.
 vim.api.nvim_create_autocmd('UIEnter', {
-  callback = function()
+  callback = function ()
     vim.o.clipboard = 'unnamedplus'
-  end,
+  end
 })
 
 -- Highlight when yanking (copying) text.
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
-  callback = function()
+  callback = function ()
     vim.hl.hl_op()
-  end,
+  end
 })

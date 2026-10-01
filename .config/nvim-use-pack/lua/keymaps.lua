@@ -27,6 +27,16 @@ wk.add({
   },
   { "<leader>bd", function () require("mini.bufremove").delete() end, desc = "Delete Buffer" },
 
+  -- Quickfix & Location Keymaps
+  { ']q', function () vim.cmd("cnext") end, desc = "Next Quickfix", mode = { 'n' } },
+  { '[q', function () vim.cmd("cprev") end, desc = "Previous Quickfix", mode = { 'n' } },
+  { '<leader>qn', function () vim.cmd("cnext") end, desc = "Next Quickfix", mode = { 'n' } },
+  { '<leader>qp', function () vim.cmd("cprev") end, desc = "Previous Quickfix", mode = { 'n' } },
+  { ']l', function () vim.cmd("lnext") end, desc = "Next Location", mode = { 'n' } },
+  { '[l', function () vim.cmd("lprev") end, desc = "Previous Location", mode = { 'n' } },
+  { '<leader>ln', function () vim.cmd("lnext") end, desc = "Next Location", mode = { 'n' } },
+  { '<leader>lp', function () vim.cmd("lprev") end, desc = "Previous Location", mode = { 'n' } },
+
   -- Copy Reference Keymaps
   { "yr", function () vim.cmd("CopyReference file") end, mode = { "n", "v" }, desc = "Copy file path" },
   { "yrr", function () vim.cmd("CopyReference line") end, mode = { "n", "v" }, desc = "Copy file:line reference" },
