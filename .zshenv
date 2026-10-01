@@ -77,7 +77,7 @@ fi
 #======================================================
 # PHP
 #======================================================
-PHP_CONFIGURE_OPTIONS="--with-openssl=$(brew --prefix openssl) --with-iconv=$(brew --prefix libiconv)"
+export PHP_CONFIGURE_OPTIONS="--with-openssl=/opt/homebrew/opt/openssl@4 --with-iconv=/opt/homebrew/opt/libiconv"
 
 #------------------------------------------------------
 # pnpm
