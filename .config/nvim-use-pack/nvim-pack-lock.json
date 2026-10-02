@@ -1,7 +1,7 @@
 {
   "plugins": {
     "SchemaStore.nvim": {
-      "rev": "fae5c76c00dec18485f264396ce24368e9c4e9fb",
+      "rev": "ec1b50c7fb9638e0a7b35e0182a54343b45f8d0d",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "blink.cmp": {
@@ -103,7 +103,7 @@
       "src": "https://github.com/bojackduy/nvim-herdr-navigation"
     },
     "nvim-lsp-file-operations": {
-      "rev": "2f1ca9249c9d1aaa09d339b3ff7478b48ebbfe01",
+      "rev": "514b86922e4c9f2d91c73e844d34d62809f997ef",
       "src": "https://github.com/antosha417/nvim-lsp-file-operations"
     },
     "nvim-lspconfig": {
