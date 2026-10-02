@@ -82,7 +82,7 @@ export PHP_CONFIGURE_OPTIONS="--with-openssl=/opt/homebrew/opt/openssl@4 --with-
 #------------------------------------------------------
 # pnpm
 #------------------------------------------------------
-export PNPM_HOME="~/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
