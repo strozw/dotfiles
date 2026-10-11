@@ -87,9 +87,9 @@ end
 -- InsertLeave, so hiding a single client's hints also means taking its
 -- `inlayHintProvider` away until it is asked for again.
 --
----@param client string|vim.lsp.Client|nil Client name, the client itself, or nil for every client
----@param enable boolean|nil Forces a state instead of toggling
----@param bufnr integer|nil Defaults to the current buffer
+---@param client string | vim.lsp.Client | nil Client name, the client itself, or nil for every client
+---@param enable boolean | nil                 Forces a state instead of toggling
+---@param bufnr  integer | nil                 Defaults to the current buffer
 local function toggle_inlay_hint(client, enable, bufnr)
   bufnr = bufnr or 0
 
@@ -118,8 +118,8 @@ local function toggle_inlay_hint(client, enable, bufnr)
   end
 
   if enable then
-    client.server_capabilities.inlayHintProvider =
-      client.server_capabilities.inlayHintProvider or hidden_inlay_hint_provider[client.id]
+    client.server_capabilities.inlayHintProvider = client.server_capabilities.inlayHintProvider
+      or hidden_inlay_hint_provider[client.id]
     hidden_inlay_hint_provider[client.id] = nil
 
     -- the client-level switch only has an effect while the buffer-level one is on
@@ -129,24 +129,28 @@ local function toggle_inlay_hint(client, enable, bufnr)
     -- drop the hints that are already on screen before taking the capability away
     vim.lsp.inlay_hint.enable(false, { client_id = client.id })
 
-    hidden_inlay_hint_provider[client.id] =
-      hidden_inlay_hint_provider[client.id] or client.server_capabilities.inlayHintProvider
+    hidden_inlay_hint_provider[client.id] = hidden_inlay_hint_provider[client.id]
+      or client.server_capabilities.inlayHintProvider
     client.server_capabilities.inlayHintProvider = nil
   end
 end
 
-vim.api.nvim_create_user_command("LspToggleInlayHint", function (opts)
-  toggle_inlay_hint(opts.args ~= "" and opts.args or nil)
-end, {
-  nargs = "?",
-  desc = "Toggle inlay hints for one LSP client (whole buffer when no name is given)",
-  complete = function (arg_lead)
-    return vim.tbl_filter(
-      function (name) return name:find(arg_lead, 1, true) == 1 end,
-      vim.tbl_map(function (client) return client.name end, inlay_hint_clients(0))
-    )
-  end
-})
+vim.api.nvim_create_user_command(
+  "LspToggleInlayHint",
+  function (opts)
+    toggle_inlay_hint(opts.args ~= "" and opts.args or nil)
+  end,
+  {
+    nargs = "?",
+    desc = "Toggle inlay hints for one LSP client (whole buffer when no name is given)",
+    complete = function (arg_lead)
+      return vim.tbl_filter(
+        function (name) return name:find(arg_lead, 1, true) == 1 end,
+        vim.tbl_map(function (client) return client.name end, inlay_hint_clients(0))
+      )
+    end
+  }
+)
 
 vim.api.nvim_create_autocmd("LspProgress", {
   ---@param ev { data: { client_id: integer, params: lsp.ProgressParams } }
@@ -431,6 +435,9 @@ vim.lsp.config("yamlls", {
 })
 
 vim.lsp.config("jsonls", {
+  init_options = {
+    provideFormatter = false
+  },
   settings = {
     json = {
       schemas = require("schemastore").json.schemas(),
