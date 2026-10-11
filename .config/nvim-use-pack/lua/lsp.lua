@@ -221,6 +221,7 @@ vim.lsp.config("emmylua_ls", {
       diagnostics = { globals = { 'vim' } },
       -- Make the server aware of Neovim runtime files.
       workspace = {
+        workspaceRoots = { vim.uv.fs_realpath(vim.fn.stdpath('config')) },
         library = {
           vim.env.VIMRUNTIME,
           vim.fn.stdpath('data') .. '/site/pack/core/opt',
