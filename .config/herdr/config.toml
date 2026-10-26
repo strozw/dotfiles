@@ -75,9 +75,17 @@ key = ["prefix+ctrl+l"]
 type = "shell"
 command = "herdr pane run `herdr pane current | jq .result.pane.pane_id --raw-output` 'clear'"
 
+[[keys.command]]
+key = "prefix+a"
+type = "plugin_action"
+command = "numbered.ports.open"
+
 [ui]
 pane_borders = true
 pane_gaps = false
+
+[ui.sidebar.spaces]
+rows = [["state_icon", "workspace", "$ports"], ["branch", "git_status", "$portlist"]]
 
 [ui.toast]
 delivery = "system"
