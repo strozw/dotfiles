@@ -55,6 +55,9 @@ tap_to_click = true
 [bootstrap.macos.defaults]
 "com.apple.finder" = { AppleShowAllFiles = true }
 
+[bootstrap.hooks.post-tools]
+run = ["herdr plugin install Numbered-com/herdr-ports"]
+
 
 [dotfiles]
 "~/.config/mise/config.toml" = "~/ghq/github.com/strozw/dotfiles/.config/mise/config.toml"
